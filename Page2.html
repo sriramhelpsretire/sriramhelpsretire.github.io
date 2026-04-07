@@ -675,8 +675,21 @@
       const vRoth = fv(p.bRoth, p.g1, n, p.cRoth, p.cy);
       const vBrok = fv(p.bBrok, p.g2, n, p.cBrok, p.cy);
       const vHSA  = fv(p.bHSA,  p.g1, n, p.cHSA,  p.cy);
-      const tot   = v401 + vRoth + vBrok + vHSA;
-      const tax   = v401 * 0.04 * p.tax;
+      let withdrawal = 0;
+if (age > p.cur + p.cy) {
+  withdrawal = p.spend * Math.pow(1 + p.infl, n);
+}
+
+const tax = withdrawal * p.tax;
+const netWithdrawal = withdrawal + tax;
+
+// simple drawdown from 401k first
+let v401_adj = v401;
+if (netWithdrawal > 0) {
+  v401_adj = Math.max(0, v401 - netWithdrawal);
+}
+
+const tot = v401_adj + vRoth + vBrok + vHSA;
       ages.push(age); s401.push(v401); sRoth.push(vRoth);
       sBrok.push(vBrok); sHSA.push(vHSA); sTot.push(tot); sTax.push(tax);
     }
