@@ -822,7 +822,9 @@ const tot = v401_adj + vRoth + vBrok + vHSA;
     const bHSA = +$('balHSA').value  || 0;
     const cHSA = +$('cHSA').value    || 0;
 
-    const p = {cur,g1,g2,tax,cy,b401,p401,bRoth,cRoth,bBrok,cBrok,bHSA,cHSA};
+    const spend = +$('spending').value || 60000;
+    const infl  = (+$('inflation').value || 3) / 100;
+    const p = {cur,g1,g2,tax,cy,b401,p401,bRoth,cRoth,bBrok,cBrok,bHSA,cHSA, spend, infl};
     series = buildSeries(p);
 
     // Sync slider mins
