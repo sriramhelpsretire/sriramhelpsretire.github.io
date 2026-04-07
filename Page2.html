@@ -829,6 +829,16 @@ const tot = v401_adj + vRoth + vBrok + vHSA;
     const p = {cur,g1,g2,tax,cy,b401,p401,bRoth,cRoth,bBrok,cBrok,bHSA,cHSA, spend, infl};
     series = buildSeries(p);
 
+    function updateRetireAge() {
+  const cur = +$('currentAge').value || 0;
+  const yrs = +$('retireIn').value || 0;
+  $('retireAgeHint').textContent = `Retirement Age: ${cur + yrs}`;
+}
+
+$('currentAge').addEventListener('input', updateRetireAge);
+$('retireIn').addEventListener('input', updateRetireAge);
+updateRetireAge();
+
     // Sync slider mins
     $('slA').min = cur; $('slB').min = cur;
     if(+$('slA').value < cur) $('slA').value = Math.min(cur+10, 95);
