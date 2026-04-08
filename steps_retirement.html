@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Steps in Retirement</title>
+    <style>
+        :root {
+            --bg-dark: #0d1b1e;
+            --bg-light: #1b4d5c;
+            --accent-gold: #e7ca60;
+            --text-yellow: #f4d03f;
+            --red-accent: #a82222;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #080f11;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 600px;
+            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        header {
+            padding: 30px 30px 10px 30px;
+            position: relative;
+        }
+
+        /* The red decorative bar from the PPT */
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 30px;
+            width: 40px;
+            height: 100px;
+            background-color: var(--red-accent);
+            border-bottom: 2px solid #000;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 400;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .content {
+            padding: 10px 30px;
+            font-size: 15px; /* Slightly smaller as requested */
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .intro-p {
+            color: var(--text-yellow);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            color: var(--text-yellow);
+            font-weight: bold;
+            text-decoration: underline;
+            font-size: 17px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .step-item {
+            margin-bottom: 12px;
+        }
+
+        .step-label {
+            color: var(--text-yellow);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+
+        /* Navigation Area */
+        .nav-area {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 20px;
+            padding: 20px 30px 40px 30px;
+        }
+
+        .nav-btn {
+            background-color: var(--accent-gold);
+            color: black;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid #000;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            font-size: 14px;
+        }
+
+        .home-btn {
+            background-color: white;
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            text-decoration: none;
+        }
+
+        footer {
+            height: 20px;
+            width: 100%;
+            background-color: var(--red-accent);
+            border-top: 2px solid #000;
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper { border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <header>
+            <h1>5 steps in retirement</h1>
+        </header>
+
+        <div class="content">
+            <p class="intro-p">The process of retirement planning involves assessing current finances, setting a desired lifestyle goal, calculating the necessary target portfolio, and implementing an investment strategy to achieve it. Key steps include maximizing savings, managing debts, preparing for healthcare costs, and adjusting portfolios for inflation and market risks</p>
+
+            <div class="section-title">Define Retirement Goals and Timeline</div>
+            <p><span class="step-label">Identify desired lifestyle:</span> Consider where you will live, travel plans, and anticipated expenses.</p>
+            <p><span class="step-label">Estimate retirement age:</span> Determine when you can afford to stop working and when to claim Social Security (earliest age 62, full benefits at 66-67)</p>
+
+            <div class="section-title">Assess Financial Standing</div>
+            <p><span class="step-label">Calculate net worth:</span> List all assets and debts.</p>
+            <p><span class="step-label">Estimate costs:</span> Develop a budget that accounts for changes like lower commuting costs but higher healthcare costs</p>
+
+            <div class="section-title">Develop a Savings and Investment Strategy</div>
+            <p><span class="step-label">Maximize contributions:</span> Utilize tax-advantaged accounts like 401(k)s and IRAs, ensuring you get employer matches.</p>
+            <p><span class="step-label">Choose investments:</span> Align investments with your risk tolerance, focusing on growth earlier and preservation closer to retirement.</p>
+            <p><span class="step-label">Use an HSA:</span> Consider a Health Savings Account (HSA) to cover future medical expenses tax-free.</p>
+
+            <div class="section-title">Plan for Income and Risks</div>
+            <p><span class="step-label">Create a withdrawal plan:</span> Use strategies like the 4% rule (use what is appropriate by looking at the numbers from this sheet) to determine how much you can spend from your portfolio annually.</p>
+            <p><span class="step-label">Plan for healthcare:</span> Evaluate Medicare options (Parts A, B, C, D) and long-term care insurance.</p>
+            <p><span class="step-label">Build a buffer:</span> Factor in inflation, potential market downturns, and emergency expenses.</p>
+
+            <div class="section-title">Review and Refine</div>
+            <p><span class="step-label">Reassess periodically:</span> Review your investments at least annually to ensure you are on track with your goals.</p>
+            <p><span class="step-label">Adjust as needed:</span> As you approach retirement, shift toward more conservative investments to secure your capital.</p>
+
+            <p style="margin-top: 20px; font-style: italic;">As seen above, financial planning for retirement is a part of retirement and needs to be thought through for a proper execution and a happy "next phase" in life also known as retirement 🏆</p>
+        </div>
+
+        <div class="nav-area">
+            <a href="financial_plan.html" class="nav-btn">Financial Plan</a>
+            <a href="index.html" class="home-btn">
+                <span style="font-size: 28px; color: black;">🏠</span>
+            </a>
+        </div>
+
+        <footer></footer>
+    </div>
+
+</body>
+</html>
