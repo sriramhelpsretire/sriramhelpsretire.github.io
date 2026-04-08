@@ -14,43 +14,73 @@
   }
   
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; line-height: 1.6; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; overflow-x: hidden; }
 
   header { 
     background: linear-gradient(135deg, #0d1117, #1a2235); 
     border-bottom: 1px solid var(--border); 
-    padding: 24px 32px; 
-    text-align: center;
+    padding: 18px 32px; 
+    display: flex; 
+    align-items: baseline; 
+    gap: 14px; 
   }
-  header h1 { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--accent); margin-bottom: 8px; }
-  header p { color: var(--muted); font-family: 'DM Mono', monospace; font-size: 14px; letter-spacing: 1px; }
+  header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--accent); }
+  header span { color: var(--muted); font-size: 12px; font-family: 'DM Mono', monospace; }
 
-  .container { max-width: 1000px; margin: 40px auto; padding: 0 20px 120px 20px; }
+  .layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 69px); }
 
-  .intro-box { 
+  .sidebar { 
     background: var(--surface); 
-    border: 1px solid var(--border); 
-    padding: 24px; 
-    border-radius: 12px; 
-    margin-bottom: 32px; 
-    border-left: 4px solid var(--accent);
+    border-right: 1px solid var(--border); 
+    padding: 24px 20px; 
+    position: sticky; 
+    top: 0; 
+    height: calc(100vh - 69px); 
   }
-  .intro-box h2 { color: var(--accent); font-family: 'DM Serif Display', serif; margin-bottom: 12px; }
+  
+  .sxn h3 { 
+    font-family: 'DM Mono', monospace; 
+    font-size: 9px; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    color: var(--accent); 
+    margin-bottom: 15px; 
+    padding-bottom: 5px; 
+    border-bottom: 1px solid var(--border); 
+  }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .nav-link {
+    display: block;
+    color: var(--label);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 8px 0;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--accent); }
+
+  .main { padding: 32px; overflow-y: auto; }
+
+  .intro-text { 
+    max-width: 800px; 
+    margin-bottom: 40px; 
+    font-size: 16px; 
+    color: var(--label); 
+    line-height: 1.6;
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1100px; }
 
   .area-card { 
     background: var(--surface); 
     border: 1px solid var(--border); 
-    border-radius: 12px; 
+    border-radius: 9px; 
     padding: 24px; 
-    transition: transform 0.2s;
     position: relative;
     overflow: hidden;
   }
-  .area-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .area-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
   
-  /* Area Specific Colors */
   .area-1::before { background: var(--green); }
   .area-2::before { background: var(--blue); }
   .area-3::before { background: var(--purple); }
@@ -58,155 +88,158 @@
   .area-5::before { background: var(--accent); }
   .area-6::before { background: var(--orange); }
 
-  .area-card h3 { 
-    font-family: 'DM Serif Display', serif; 
-    font-size: 20px; 
-    margin-bottom: 12px; 
-    color: var(--text); 
+  .card-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .area-card h3 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 12px; color: var(--text); }
+  .area-card p { font-size: 13px; color: var(--label); margin-bottom: 20px; line-height: 1.5; }
+
+  .area-list { list-style: none; border-top: 1px solid var(--border); padding-top: 15px; }
+  .area-list li { 
+    font-family: 'DM Mono', monospace; 
+    font-size: 11px; 
+    color: var(--muted); 
+    padding: 5px 0; 
     display: flex;
     align-items: center;
     gap: 10px;
   }
-  .area-num { font-family: 'DM Mono', monospace; font-size: 14px; color: var(--muted); }
-
-  .area-card p { font-size: 14px; color: var(--label); margin-bottom: 16px; }
-
-  .area-list { list-style: none; }
-  .area-list li { 
-    font-family: 'DM Mono', monospace; 
-    font-size: 12px; 
-    color: var(--muted); 
-    padding: 4px 0; 
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
   .area-list li::before { content: '→'; color: var(--accent); }
 
-  /* Bottom Navigation */
+  /* Bottom Navigation - Fixed as requested */
   .footer-nav {
     position: fixed;
-    bottom: 0;
+    bottom: 25px;
     left: 0;
     right: 0;
-    background: rgba(13, 17, 23, 0.95);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid var(--border);
-    padding: 20px;
     display: flex;
     justify-content: center;
-    gap: 20px;
-    z-index: 100;
+    gap: 15px;
+    pointer-events: none;
+    z-index: 1000;
   }
 
-  .nav-btn {
-    background: var(--surface2);
+  .back-btn {
+    pointer-events: auto;
+    background: var(--surface);
     color: var(--text);
     border: 1px solid var(--border);
     padding: 10px 24px;
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
     font-weight: 600;
     text-decoration: none;
-    font-size: 13px;
-    transition: all 0.2s;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  .nav-btn.primary { border-color: var(--accent); color: var(--accent); }
-  .nav-btn:hover { transform: translateY(-2px); background: var(--border); }
-  .nav-btn.primary:hover { background: var(--accent); color: var(--bg); }
+  .back-btn.primary { border-color: var(--accent); color: var(--accent); }
+  .back-btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .back-btn.primary:hover { background: var(--accent); color: #0d1117; }
 
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Financial Planning</h1>
-  <p>// 6 Areas of Comprehensive Planning</p>
+  <span>// Holistic Portfolio Management</span>
 </header>
 
-<div class="container">
-  <div class="intro-box">
-    <h2>Holistic Strategy</h2>
-    <p>Comprehensive financial planning isn't just about investments. It integrates six critical areas to manage assets, mitigate risks, and secure long-term stability. Decisions in one area inevitably affect the others.</p>
-  </div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sxn">
+      <h3>Quick Links</h3>
+      <a href="index.html" class="nav-link">Dashboard Home</a>
+      <a href="medicare_aca.html" class="nav-link">Health Coverage</a>
+      <a href="#" class="nav-link">Tax Strategies</a>
+    </div>
+  </aside>
 
-  <div class="grid">
-    <div class="area-card area-1">
-      <h3><span class="area-num">01.</span> Financial Position</h3>
-      <p>Analyzing net worth and managing cash reserves to understand current financial health.</p>
-      <ul class="area-list">
-        <li>Cash flow / budgeting</li>
-        <li>Debt management</li>
-        <li>Emergency reserves</li>
-      </ul>
+  <main class="main">
+    <div class="intro-text">
+      Comprehensive financial planning integrates six critical areas to manage assets, mitigate risks, and secure long-term stability. Decisions in one domain inevitably affect the trajectory of others.
     </div>
 
-    <div class="area-card area-2">
-      <h3><span class="area-num">02.</span> Protection Planning</h3>
-      <p>Safeguarding against financial loss and managing personal liability risks.</p>
-      <ul class="area-list">
-        <li>Life & Disability Insurance</li>
-        <li>Long-term care insurance</li>
-        <li>Employee benefits</li>
-      </ul>
-    </div>
+    <div class="grid">
+      <div class="area-card area-1">
+        <span class="card-label">Area 01</span>
+        <h3>Financial Position</h3>
+        <p>Analyzing net worth and managing cash reserves to establish a baseline for your retirement trajectory.</p>
+        <ul class="area-list">
+          <li>Cash flow & budgeting</li>
+          <li>Debt management</li>
+          <li>Emergency reserves</li>
+        </ul>
+      </div>
 
-    <div class="area-card area-3">
-      <h3><span class="area-num">03.</span> Investment Planning</h3>
-      <p>Strategizing asset allocation and diversification based on risk tolerance.</p>
-      <ul class="area-list">
-        <li>Portfolio management</li>
-        <li>Personalized programs</li>
-        <li>Time horizon evaluation</li>
-      </ul>
-    </div>
+      <div class="area-card area-2">
+        <span class="card-label">Area 02</span>
+        <h3>Protection Planning</h3>
+        <p>Safeguarding assets against unforeseen losses and managing personal liability through strategic insurance.</p>
+        <ul class="area-list">
+          <li>Life & Disability analysis</li>
+          <li>Long-term care strategy</li>
+          <li>Employee benefit optimization</li>
+        </ul>
+      </div>
 
-    <div class="area-card area-4">
-      <h3><span class="area-num">04.</span> Tax Planning</h3>
-      <p>Implementing strategies to minimize tax liability through deferred investing.</p>
-      <ul class="area-list">
-        <li>Traditional & Roth IRA/401k</li>
-        <li>529 College savings</li>
-        <li>Stock option analysis</li>
-      </ul>
-    </div>
+      <div class="area-card area-3">
+        <span class="card-label">Area 03</span>
+        <h3>Investment Planning</h3>
+        <p>Asset allocation and diversification tailored to risk tolerance and long-term capital preservation.</p>
+        <ul class="area-list">
+          <li>Portfolio management</li>
+          <li>Risk tolerance modeling</li>
+          <li>Time horizon evaluation</li>
+        </ul>
+      </div>
 
-    <div class="area-card area-5">
-      <h3><span class="area-num">05.</span> Retirement Planning</h3>
-      <p>Setting income goals and developing distribution strategies like the 4% rule.</p>
-      <ul class="area-list">
-        <li>Distribution planning</li>
-        <li>Sequence-of-returns risk</li>
-        <li>Social Security timing</li>
-      </ul>
-    </div>
+      <div class="area-card area-4">
+        <span class="card-label">Area 04</span>
+        <h3>Tax Planning</h3>
+        <p>Minimizing lifetime tax liability through tax-deferred investing and strategic Roth conversions.</p>
+        <ul class="area-list">
+          <li>Roth vs Traditional IRAs</li>
+          <li>529 College savings</li>
+          <li>Stock option execution</li>
+        </ul>
+      </div>
 
-    <div class="area-card area-6">
-      <h3><span class="area-num">06.</span> Estate Planning</h3>
-      <p>Organizing the transfer of assets and establishing trusts to manage legacies.</p>
-      <ul class="area-list">
-        <li>Wealth transfer & Wills</li>
-        <li>Living Trusts</li>
-        <li>Charitable planning</li>
-      </ul>
+      <div class="area-card area-5">
+        <span class="card-label">Area 05</span>
+        <h3>Retirement Planning</h3>
+        <p>Developing distribution models and withdrawal sequences to ensure income longevity.</p>
+        <ul class="area-list">
+          <li>Withdrawal sequencing</li>
+          <li>Sequence-of-returns risk</li>
+          <li>Social Security timing</li>
+        </ul>
+      </div>
+
+      <div class="area-card area-6">
+        <span class="card-label">Area 06</span>
+        <h3>Estate Planning</h3>
+        <p>Organizing wealth transfer and establishing trusts to manage your legacy and digital assets.</p>
+        <ul class="area-list">
+          <li>Wills & Trusts</li>
+          <li>Wealth transfer strategy</li>
+          <li>Charitable gifting</li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </main>
 </div>
 
-<nav class="footer-nav">
-  <a href="index.html" class="nav-btn">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-    Home
-  </a>
-  <a href="medicare_aca.html" class="nav-btn primary">
-    Medicare & ACA
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-  </a>
-</nav>
+<div class="footer-nav">
+  <a href="index.html" class="back-btn">HOME</a>
+  <a href="medicare_aca.html" class="back-btn primary">MEDICARE & ACA</a>
+</div>
 
 </body>
 </html>
