@@ -1,227 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retirement Portfolio Calculator</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-  :root {
-    --bg:#0d1117; --surface:#161b22; --surface2:#1e2530; --border:#30363d;
-    --accent:#e8c84a; --green:#4ade80; --blue:#60a5fa; --purple:#a78bfa;
-    --orange:#fb923c; --pink:#fb7185; --slate:#94a3b8; --sky:#38bdf8; --rose:#f472b6;
-    --danger:#f87171; --text:#e6edf3; --muted:#7d8590; --label:#a8b3bf;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Calculator - Pocket Guide</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0d1b1e;
+            --bg-light: #1b4d5c;
+            --accent-gold: #e7ca60;
+            --text-yellow: #f4d03f;
+            --red-accent: #a82222;
+        }
 
-  header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px solid var(--border);padding:18px 32px;display:flex;align-items:baseline;gap:14px}
-  header h1{font-family:'DM Serif Display',serif;font-size:26px;color:var(--accent)}
-  header span{color:var(--muted);font-size:12px;font-family:'DM Mono',monospace}
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #080f11;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-  .layout{display:grid;grid-template-columns:296px 1fr;min-height:calc(100vh - 69px)}
+        .page-wrapper {
+            width: 100%;
+            max-width: 650px;
+            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: white;
+            padding-bottom: 40px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
 
-  .sidebar{background:var(--surface);border-right:1px solid var(--border);padding:18px 16px;overflow-y:auto;max-height:calc(100vh - 69px);position:sticky;top:0}
-  .sxn{margin-bottom:20px}
-  .sxn h3{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border)}
-  .field{margin-bottom:8px}
-  .field label{display:block;font-size:10px;color:var(--label);margin-bottom:3px;font-weight:500}
-  .field input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-family:'DM Mono',monospace;font-size:12px;outline:none;transition:border-color .15s}
-  .field input:focus{border-color:var(--accent)}
-  
-  .calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;margin-top:4px;transition:opacity .15s}
+        header { padding: 30px; position: relative; }
+        header::after {
+            content: ''; position: absolute; top: 0; right: 30px;
+            width: 40px; height: 80px; background-color: var(--red-accent);
+        }
 
-  .main{display:flex;flex-direction:column;overflow:hidden}
+        .container { padding: 0 30px; }
+        
+        /* Age Selector Styling */
+        .input-section {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid var(--accent-gold);
+        }
 
-  /* Slider Styling */
-  .inspection-area { padding: 14px 22px; border-bottom: 1px solid var(--border); background: var(--surface2); }
-  .slider-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 8px; display: block; }
-  .age-slider { width: 100%; accent-color: var(--accent); cursor: pointer; }
+        .age-slider {
+            width: 100%;
+            margin: 20px 0;
+            accent-color: var(--accent-gold);
+        }
 
-  /* Chart Styling */
-  .chart-area { padding: 14px 22px; background: #0d1117; height: 300px; border-bottom: 1px solid var(--border); }
+        .value-report {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
 
-  .cards{display:flex;gap:8px;padding:14px 22px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 14px;min-width:130px;flex:1;position:relative;overflow:hidden}
-  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-  .card.gold::before{background:var(--accent)} .card.green::before{background:var(--green)}
-  .card.blue::before{background:var(--blue)} .card.purple::before{background:var(--purple)}
-  .card.red::before{background:var(--danger)}
-  .card-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Mono',monospace;margin-bottom:5px}
-  .card-val{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text)}
+        .report-card {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
 
-  .tab-bar{display:flex;padding:0 22px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto}
-  .tab{padding:11px 16px;cursor:pointer;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px}
-  .tab.active{color:var(--text);border-bottom-color:var(--tc,var(--accent))}
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--tc,var(--accent))}
+        .report-card span { color: var(--text-yellow); font-weight: bold; font-size: 1.2rem; }
 
-  .table-area{flex:1;overflow:auto;padding:18px 22px 80px 22px;}
-  .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:9px;overflow:auto;max-height:400px}
-  table{border-collapse:collapse;width:100%;font-size:12px;font-family:'DM Mono',monospace}
-  thead th{position:sticky;top:0;background:#181f2b;padding:9px 12px;text-align:right;border-bottom:2px solid var(--border);z-index:2}
-  td{padding:8px 12px;text-align:right;color:var(--label);border-bottom:1px solid #1a2130}
-  
-  .footer-nav { position: fixed; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; z-index: 100; }
-  .back-btn { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); padding: 8px 24px; border-radius: 20px; text-decoration: none; font-family: 'DM Mono', monospace; font-size: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-</style>
+        /* Chart Area */
+        .chart-container {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            height: 350px;
+        }
+
+        .nav-area {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+        }
+
+        .home-btn {
+            background: white; width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 4px; text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <h1>Retirement Portfolio Calculator</h1>
-  <span>// Interactive Projection · California</span>
-</header>
+<div class="page-wrapper">
+    <header>
+        <h1>Portfolio Projection</h1>
+    </header>
 
-<div class="layout">
-<aside class="sidebar">
-  <div class="sxn"><h3>INPUT DETAILS</h3>
-    <div class="field"><label>Husband Age</label><input type="number" id="hAge" value="60"></div>
-    <div class="field"><label>Wife Age</label><input type="number" id="wAge0" value="56"></div>
-    <div class="field"><label>Retirement Age</label><input type="number" id="retireAge" value="65"></div>
-    <div class="field"><label>Project Through Age</label><input type="number" id="endAge" value="90"></div>
-  </div>
-  <div class="sxn"><h3>Starting Balances</h3>
-    <div class="field"><label>401k Balance</label><input type="number" id="b401k" value="500000"></div>
-    <div class="field"><label>Roth Balance</label><input type="number" id="bRoth" value="50000"></div>
-    <div class="field"><label>Brokerage Balance</label><input type="number" id="bBrok" value="50000"></div>
-    <div class="field"><label>HSA Balance</label><input type="number" id="bHSA" value="50000"></div>
-    <div class="field"><label>Bonds Balance</label><input type="number" id="bBonds" value="50000"></div>
-  </div>
-  <button class="calc-btn" onclick="calculate()">▶ Calculate & Update Chart</button>
-</aside>
+    <div class="container">
+        <div class="input-section">
+            <label>Select Age to Inspect: <strong id="ageDisplay" style="color: var(--accent-gold);">65</strong></label>
+            <input type="range" id="ageSlider" class="age-slider" min="60" max="90" value="65">
+            
+            <div class="value-report" id="itemizedList">
+                <div class="report-card">401k<br><span id="val-401k">$0</span></div>
+                <div class="report-card">Roth IRA<br><span id="val-roth">$0</span></div>
+                <div class="report-card">Brokerage<br><span id="val-broker">$0</span></div>
+                <div class="report-card">HSA<br><span id="val-hsa">$0</span></div>
+            </div>
+        </div>
 
-<div class="main">
-  <div class="inspection-area">
-    <span class="slider-label">INSPECT VALUES AT AGE: <span id="inspectAgeDisplay">65</span></span>
-    <input type="range" id="ageSlider" class="age-slider" min="60" max="90" value="65">
-  </div>
-
-  <div class="chart-area">
-    <canvas id="portfolioChart"></canvas>
-  </div>
-
-  <div class="cards">
-    <div class="card gold"><div class="card-lbl">401(k) Value</div><div class="card-val" id="card-401k">—</div></div>
-    <div class="card purple"><div class="card-lbl">Roth IRA Value</div><div class="card-val" id="card-roth">—</div></div>
-    <div class="card blue"><div class="card-lbl">Brokerage Value</div><div class="card-val" id="card-broker">—</div></div>
-    <div class="card green"><div class="card-lbl">HSA Value</div><div class="card-val" id="card-hsa">—</div></div>
-    <div class="card red"><div class="card-lbl">Total Portfolio</div><div class="card-val" id="card-total">—</div></div>
-  </div>
-
-  <div class="tab-bar">
-    <div class="tab active" data-tab="psum"><span class="dot"></span>Full Summary Table</div>
-  </div>
-
-  <div class="table-area">
-    <div class="tab-panel active" id="psum">
-      <div class="table-wrap"><table id="tsum"></table></div>
+        <div class="chart-container">
+            <canvas id="retirementChart"></canvas>
+        </div>
     </div>
-  </div>
-</div>
-</div>
 
-<div class="footer-nav"><a href="index.html" class="back-btn">BACK</a></div>
+    <div class="nav-area">
+        <a href="index.html" class="home-btn">🏠</a>
+    </div>
+</div>
 
 <script>
-let globalRows = [];
-let chartInstance = null;
-
-function $(id){return parseFloat(document.getElementById(id).value)||0}
-function fz(n){return '$'+Math.round(n).toLocaleString()}
-
-function calculate(){
-  const hAge0=$('hAge'), endAge=$('endAge'), r1=0.06, r2=0.04;
-  let prev={a:$('b401k'),b:$('bRoth'),c:$('bBrok'),d:$('bHSA'),e:$('bBonds')};
-  globalRows = [];
-
-  for(let age=hAge0; age<=endAge; age++){
-    const e4 = prev.a * (1+r1);
-    const eR = prev.b * (1+r1);
-    const eB = prev.c * (1+r1);
-    const eH = prev.d * (1+r1);
-    const eBn = prev.e * (1+r2);
-    const total = e4+eR+eB+eH+eBn;
+    const ages = Array.from({length: 31}, (_, i) => 60 + i);
     
-    globalRows.push({age, e4, eR, eB, eH, eBn, total});
-    prev={a:e4, b:eR, c:eB, d:eH, e:eBn};
-  }
+    // Placeholder logic for account growth (Replace with your specific math)
+    const generateData = (start, rate) => ages.map((age, i) => Math.round(start * Math.pow(1 + rate, i)));
 
-  updateChart();
-  updateCards(document.getElementById('ageSlider').value);
-  fillTable();
-}
+    const accountData = {
+        '401k': generateData(500000, 0.04),
+        'Roth IRA': generateData(150000, 0.06),
+        'Brokerage': generateData(200000, 0.05),
+        'HSA': generateData(30000, 0.03)
+    };
 
-function updateChart() {
-  const ctx = document.getElementById('portfolioChart').getContext('2d');
-  const labels = globalRows.map(r => r.age);
-  
-  if(chartInstance) chartInstance.destroy();
+    const ctx = document.getElementById('retirementChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ages,
+            datasets: [
+                { label: '401k', data: accountData['401k'], borderColor: '#3498db', tension: 0.3 },
+                { label: 'Roth IRA', data: accountData['Roth IRA'], borderColor: '#f1c40f', tension: 0.3 },
+                { label: 'Brokerage', data: accountData['Brokerage'], borderColor: '#2ecc71', tension: 0.3 },
+                { label: 'HSA', data: accountData['HSA'], borderColor: '#e74c3c', tension: 0.3 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: { enabled: true }
+            },
+            scales: {
+                x: { title: { display: true, text: 'Age' } },
+                y: { title: { display: true, text: 'Value ($)' } }
+            }
+        },
+        plugins: [{
+            id: 'verticalLine',
+            afterDraw: chart => {
+                if (chart.tooltip?._active?.length) {
+                    let x = chart.tooltip._active[0].element.x;
+                    let yAxis = chart.scales.y;
+                    let ctx = chart.ctx;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 5]);
+                    ctx.moveTo(x, yAxis.top);
+                    ctx.lineTo(x, yAxis.bottom);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#a82222';
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+        }]
+    });
 
-  chartInstance = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [
-        { label: '401k', data: globalRows.map(r => r.e4), borderColor: '#e8c84a', tension: 0.2 },
-        { label: 'Roth', data: globalRows.map(r => r.eR), borderColor: '#a78bfa', tension: 0.2 },
-        { label: 'Brokerage', data: globalRows.map(r => r.eB), borderColor: '#60a5fa', tension: 0.2 },
-        { label: 'HSA', data: globalRows.map(r => r.eH), borderColor: '#4ade80', tension: 0.2 },
-        { label: 'Total', data: globalRows.map(r => r.total), borderColor: '#f87171', borderDash: [5,5], tension: 0.2 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: '#7d8590', font: { family: 'DM Mono', size: 10 } } } },
-      scales: {
-        x: { ticks: { color: '#7d8590' }, grid: { color: '#30363d' } },
-        y: { ticks: { color: '#7d8590' }, grid: { color: '#30363d' } }
-      }
-    },
-    plugins: [{
-      id: 'verticalLine',
-      afterDraw: chart => {
-        const sliderAge = document.getElementById('ageSlider').value;
-        const xTick = chart.scales.x.getPixelForValue(sliderAge);
-        if (xTick) {
-          const ctx = chart.ctx;
-          ctx.save();
-          ctx.beginPath();
-          ctx.moveTo(xTick, chart.chartArea.top);
-          ctx.lineTo(xTick, chart.chartArea.bottom);
-          ctx.lineWidth = 2;
-          ctx.setLineDash([6, 6]);
-          ctx.strokeStyle = 'rgba(232, 200, 74, 0.5)';
-          ctx.stroke();
-          ctx.restore();
-        }
-      }
-    }]
-  });
-}
+    const slider = document.getElementById('ageSlider');
+    const ageDisplay = document.getElementById('ageDisplay');
 
-function updateCards(age) {
-  const row = globalRows.find(r => r.age == age);
-  if(!row) return;
-  document.getElementById('inspectAgeDisplay').innerText = age;
-  document.getElementById('card-401k').innerText = fz(row.e4);
-  document.getElementById('card-roth').innerText = fz(row.eR);
-  document.getElementById('card-broker').innerText = fz(row.eB);
-  document.getElementById('card-hsa').innerText = fz(row.eH);
-  document.getElementById('card-total').innerText = fz(row.total);
-  if(chartInstance) chartInstance.draw();
-}
+    function updateReporting(age) {
+        const index = age - 60;
+        document.getElementById('val-401k').innerText = '$' + accountData['401k'][index].toLocaleString();
+        document.getElementById('val-roth').innerText = '$' + accountData['Roth IRA'][index].toLocaleString();
+        document.getElementById('val-broker').innerText = '$' + accountData['Brokerage'][index].toLocaleString();
+        document.getElementById('val-hsa').innerText = '$' + accountData['HSA'][index].toLocaleString();
+        
+        // Sync vertical line on chart
+        const meta = chart.getDatasetMeta(0);
+        const point = meta.data[index];
+        chart.setActiveElements([{ datasetIndex: 0, index: index }]);
+        chart.tooltip.setActiveElements([{ datasetIndex: 0, index: index }], { x: point.x, y: point.y });
+        chart.update();
+    }
 
-function fillTable() {
-  const html = `<thead><tr><th>Age</th><th>401k</th><th>Roth</th><th>Brokerage</th><th>HSA</th><th>Total</th></tr></thead>
-    <tbody>${globalRows.map(r => `<tr><td>${r.age}</td><td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td>${fz(r.eH)}</td><td>${fz(r.total)}</td></tr>`).join('')}</tbody>`;
-  document.getElementById('tsum').innerHTML = html;
-}
+    slider.oninput = function() {
+        ageDisplay.innerText = this.value;
+        updateReporting(parseInt(this.value));
+    };
 
-document.getElementById('ageSlider').addEventListener('input', (e) => updateCards(e.target.value));
-
-// Initial Load
-calculate();
+    // Initial Load
+    updateReporting(65);
 </script>
+
 </body>
 </html>
