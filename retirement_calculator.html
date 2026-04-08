@@ -12,6 +12,154 @@
     --orange:#fb923c; --pink:#fb7185; --slate:#94a3b8; --sky:#38bdf8; --rose:#f472b6;
     --danger:#f87171; --text:#e6edf3; --muted:#7d8590; --label:#a8b3bf;
   }
+
+  <style>
+  /* New styles for the Snapshot Form */
+  .snapshot-form {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    margin: 14px 22px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .snap-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .snap-input-group label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .snap-input-group input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px;
+    border-radius: 4px;
+    width: 100px;
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+  }
+  .snap-metrics {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    justify-content: space-around;
+  }
+  .snap-metric-item {
+    text-align: center;
+  }
+  .snap-label { font-size: 9px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+  .snap-value { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--text); }
+  
+  /* Layout for the visual breakdown */
+  .snap-visuals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 22px 14px 22px;
+  }
+  .visual-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 15px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<div class="snapshot-form">
+  <div class="snap-input-group">
+    <label>Target Age Analysis</label>
+    <input type="number" id="targetAge" value="70" oninput="updateSnapshot()">
+  </div>
+  
+  <div class="snap-metrics">
+    <div class="snap-metric-item">
+      <div class="snap-label">Est. Portfolio</div>
+      <div class="snap-value" id="s-total">$0</div>
+    </div>
+    <div class="snap-metric-item">
+      <div class="snap-label">Annual Tax Bill</div>
+      <div class="snap-value" id="s-tax" style="color:var(--danger)">$0</div>
+    </div>
+    <div class="snap-metric-item">
+      <div class="snap-label">RMD Amount</div>
+      <div class="snap-value" id="s-rmd" style="color:var(--sky)">$0</div>
+    </div>
+  </div>
+</div>
+
+<div class="snap-visuals">
+  <div class="visual-box">
+    <div class="card-lbl">Portfolio Mix at Target Age</div>
+    <div id="composition-bar" style="display:flex; height:30px; border-radius:4px; overflow:hidden; margin-top:20px; border: 1px solid var(--border)">
+       <div id="bar-401k" style="background:var(--accent); width:0%"></div>
+       <div id="bar-roth" style="background:var(--purple); width:0%"></div>
+       <div id="bar-brok" style="background:var(--blue); width:0%"></div>
+       <div id="bar-hsa" style="background:var(--green); width:0%"></div>
+       <div id="bar-bonds" style="background:var(--orange); width:0%"></div>
+    </div>
+    <div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap">
+       <span style="font-size:10px; color:var(--accent)">● 401k</span>
+       <span style="font-size:10px; color:var(--purple)">● Roth</span>
+       <span style="font-size:10px; color:var(--blue)">● Brokerage</span>
+       <span style="font-size:10px; color:var(--green)">● HSA</span>
+       <span style="font-size:10px; color:var(--orange)">● Bonds</span>
+    </div>
+  </div>
+  
+  <div class="visual-box">
+    <div class="card-lbl">Cash Flow Source</div>
+    <div id="cashflow-info" style="margin-top:10px; font-family:'DM Mono', monospace; font-size:12px;">
+       <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>Soc. Security:</span> <span id="s-ss-val" style="color:var(--pink)">$0</span></div>
+       <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>RMD/Withdrawals:</span> <span id="s-wd-val" style="color:var(--sky)">$0</span></div>
+       <div style="display:flex; justify-content:space-between; border-top:1px solid var(--border); padding-top:4px;"><span>Gross Income:</span> <span id="s-gross-val">$0</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Global variable to store current projection rows
+let currentProjection = [];
+
+// Modify your existing calculate() function to store the rows
+// Add this line at the very end of your calculate() function:
+// currentProjection = rows; updateSnapshot();
+
+function updateSnapshot() {
+  const target = parseInt(document.getElementById('targetAge').value);
+  const row = currentProjection.find(r => r.age === target);
+  
+  if (!row) return;
+
+  // Update Text Values
+  document.getElementById('s-total').textContent = fz(row.total);
+  document.getElementById('s-tax').textContent = fz(row.totalTax_yr);
+  document.getElementById('s-rmd').textContent = fz(row.rmd);
+  document.getElementById('s-ss-val').textContent = fz(row.totalSS_yr);
+  document.getElementById('s-wd-val').textContent = fz(row.rmd + row.w4 + row.conv);
+  document.getElementById('s-gross-val').textContent = fz(row.grossInc);
+
+  // Update Composition Bar
+  const p = row.total;
+  document.getElementById('bar-401k').style.width = (row.e4 / p * 100) + "%";
+  document.getElementById('bar-roth').style.width = (row.eR / p * 100) + "%";
+  document.getElementById('bar-brok').style.width = (row.eB / p * 100) + "%";
+  document.getElementById('bar-hsa').style.width = (row.eH / p * 100) + "%";
+  document.getElementById('bar-bonds').style.width = (row.eBn / p * 100) + "%";
+}
+</script>
+
+  
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
 
