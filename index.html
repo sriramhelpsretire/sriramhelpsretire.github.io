@@ -132,6 +132,17 @@
         footer strong {
             text-decoration: underline;
         }
+        intro-text {
+    max-width: 800px;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 17px;
+    line-height: 1.6;
+    flex: 1; /* This is the "magic" line that pushes the buttons down */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Keeps the text vertically centered in that space */
+}
 
         /* Mobile Adjustments */
         @media (max-width: 600px) {
