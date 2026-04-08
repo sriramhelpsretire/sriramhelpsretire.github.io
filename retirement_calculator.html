@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Portfolio Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d1117; --surface:#161b22; --surface2:#1e2530; --border:#30363d;
+    --accent:#e8c84a; --green:#4ade80; --blue:#60a5fa; --purple:#a78bfa;
+    --orange:#fb923c; --pink:#fb7185; --slate:#94a3b8; --sky:#38bdf8; --rose:#f472b6;
+    --danger:#f87171; --text:#e6edf3; --muted:#7d8590; --label:#a8b3bf;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
+
+  header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px solid var(--border);padding:18px 32px;display:flex;align-items:baseline;gap:14px}
+  header h1{font-family:'DM Serif Display',serif;font-size:26px;color:var(--accent)}
+  header span{color:var(--muted);font-size:12px;font-family:'DM Mono',monospace}
+
+  .layout{display:grid;grid-template-columns:296px 1fr;min-height:calc(100vh - 69px)}
+
+  .sidebar{background:var(--surface);border-right:1px solid var(--border);padding:18px 16px;overflow-y:auto;max-height:calc(100vh - 69px);position:sticky;top:0}
+  .sxn{margin-bottom:20px}
+  .sxn h3{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+  .field{margin-bottom:8px}
+  .field label{display:block;font-size:10px;color:var(--label);margin-bottom:3px;font-weight:500}
+  .field input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-family:'DM Mono',monospace;font-size:12px;outline:none;transition:border-color .15s}
+  .field input:focus{border-color:var(--accent)}
+  .field input[type=number]::-webkit-inner-spin-button{opacity:.3}
+  .calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:10px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;margin-top:4px;transition:opacity .15s,transform .1s}
+  .calc-btn:hover{opacity:.88}
+  .calc-btn:active{transform:scale(.98)}
+
+  .main{display:flex;flex-direction:column;overflow:hidden}
+
+  .cards{display:flex;gap:8px;padding:14px 22px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 14px;min-width:130px;flex:1;position:relative;overflow:hidden}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .card.gold::before{background:var(--accent)} .card.green::before{background:var(--green)}
+  .card.blue::before{background:var(--blue)}   .card.purple::before{background:var(--purple)}
+  .card.red::before{background:var(--danger)}
+  .card-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Mono',monospace;margin-bottom:5px}
+  .card-val{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text)}
+  .card-sub{font-size:9px;color:var(--muted);margin-top:2px}
+
+  .tab-bar{display:flex;padding:0 22px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}
+  .tab-bar::-webkit-scrollbar{height:3px}
+  .tab-bar::-webkit-scrollbar-thumb{background:var(--border)}
+  .tab{padding:11px 16px;cursor:pointer;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s,border-color .15s}
+  .tab:hover{color:var(--label)}
+  .tab.active{color:var(--text);border-bottom-color:var(--tc,var(--accent))}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--tc,var(--accent))}
+
+  .table-area{flex:1;overflow:auto;padding:18px 22px}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+
+  .panel-title{font-family:'DM Serif Display',serif;font-size:15px;color:var(--label);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .pdot{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+  .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:9px;overflow:auto;max-height:calc(100vh - 310px)}
+  table{border-collapse:collapse;width:100%;font-size:12px;font-family:'DM Mono',monospace}
+  thead th{position:sticky;top:0;background:#181f2b;font-size:10px;letter-spacing:.5px;text-transform:uppercase;padding:9px 12px;text-align:right;white-space:nowrap;border-bottom:2px solid var(--border);z-index:2}
+  th.c{text-align:center} th.l{text-align:left}
+  tbody tr{border-bottom:1px solid #1a2130;transition:background .1s}
+  tbody tr:hover{background:#181f2b}
+  tbody tr.r-row{background:rgba(232,200,74,.05)}
+  tbody tr.m-row{background:rgba(74,222,128,.04)}
+  td{padding:6px 12px;text-align:right;color:var(--label);white-space:nowrap}
+  td.c{text-align:center} td.l{text-align:left}
+  td.hl{color:var(--text);font-weight:500} td.pos{color:var(--green)} td.neg{color:var(--danger)} td.dim{color:var(--muted)}
+  .tag{display:inline-block;font-size:8px;padding:1px 5px;border-radius:3px;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.5px;vertical-align:middle;margin-left:3px}
+  .tag-r{background:rgba(232,200,74,.2);color:var(--accent)} .tag-m{background:rgba(74,222,128,.15);color:var(--green)}
+
+  ::-webkit-scrollbar{width:5px;height:5px}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Retirement Portfolio Calculator</h1>
+  <span>// Couples Financial Projection · California</span>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <div class="sxn"><h3>General</h3>
+    <div class="field"><label>Start Year</label><input type="number" id="startYear" value="2026"></div>
+    <div class="field"><label>Husband Current Age</label><input type="number" id="hAge" value="60"></div>
+    <div class="field"><label>Wife Current Age</label><input type="number" id="wAge0" value="56"></div>
+    <div class="field"><label>Retirement Age</label><input type="number" id="retireAge" value="65"></div>
+    <div class="field"><label>RMD Start Age</label><input type="number" id="rmdAge" value="75"></div>
+    <div class="field"><label>Project Through Age</label><input type="number" id="endAge" value="90"></div>
+  </div>
+  <div class="sxn"><h3>Growth &amp; Rates</h3>
+    <div class="field"><label>Growth Rate 1 — 401k / Roth / Brokerage / HSA (%)</label><input type="number" id="gr1" value="6.00" step="0.01"></div>
+    <div class="field"><label>Growth Rate 2 — Bonds (%)</label><input type="number" id="gr2" value="4.00" step="0.01"></div>
+    <div class="field"><label>Inflation Rate (%)</label><input type="number" id="inflation" value="2.58" step="0.01"></div>
+    <div class="field"><label>SS COLA (%)</label><input type="number" id="ssCola" value="2.00" step="0.01"></div>
+  </div>
+  <div class="sxn"><h3>Contributions &amp; Spending</h3>
+    <div class="field"><label>Annual Spending</label><input type="number" id="spend" value="60000"></div>
+    <div class="field"><label>401k Employee Contribution</label><input type="number" id="c401k" value="16000"></div>
+    <div class="field"><label>401k Employer Match</label><input type="number" id="m401k" value="0"></div>
+    <div class="field"><label>HSA Contribution (pre-retire)</label><input type="number" id="cHSA" value="8000"></div>
+    <div class="field"><label>Roth Conversion (age 65–74)</label><input type="number" id="rothConv" value="100000"></div>
+    <div class="field"><label>401k Withdrawal (post-retire)</label><input type="number" id="w401k" value="0"></div>
+  </div>
+  <div class="sxn"><h3>Starting Balances</h3>
+    <div class="field"><label>401k Balance</label><input type="number" id="b401k" value="1000000"></div>
+    <div class="field"><label>Roth IRA Balance</label><input type="number" id="bRoth" value="75000"></div>
+    <div class="field"><label>Brokerage Balance</label><input type="number" id="bBrok" value="50000"></div>
+    <div class="field"><label>HSA Balance</label><input type="number" id="bHSA" value="50000"></div>
+    <div class="field"><label>Bonds Balance</label><input type="number" id="bBonds" value="50000"></div>
+  </div>
+  <div class="sxn"><h3>Social Security</h3>
+    <div class="field"><label>SS Start Age — Husband</label><input type="number" id="ssStartH" value="67"></div>
+    <div class="field"><label>SS Start Age — Wife</label><input type="number" id="ssStartW" value="67"></div>
+    <div class="field"><label>SS Annual — Husband</label><input type="number" id="ssH" value="48000"></div>
+    <div class="field"><label>SS Annual — Wife</label><input type="number" id="ssW" value="24000"></div>
+  </div>
+  <div class="sxn"><h3>Tax Parameters</h3>
+    <div class="field"><label>Federal Std Deduction (MFJ)</label><input type="number" id="fedDed" value="32200"></div>
+    <div class="field"><label>CA Itemized Deduction</label><input type="number" id="caDed" value="20000"></div>
+    <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306"></div>
+  </div>
+  <button class="calc-btn" onclick="calculate()">▶ Calculate Projection</button>
+</aside>
+
+<div class="main">
+  <div class="cards">
+    <div class="card gold"><div class="card-lbl">Portfolio at Retire</div><div class="card-val" id="c-retire">—</div><div class="card-sub" id="c-retire-s">age 65</div></div>
+    <div class="card green"><div class="card-lbl">Peak Portfolio</div><div class="card-val" id="c-peak">—</div><div class="card-sub" id="c-peak-s">—</div></div>
+    <div class="card blue"><div class="card-lbl">Final Portfolio</div><div class="card-val" id="c-final">—</div><div class="card-sub" id="c-final-s">age 90</div></div>
+    <div class="card purple"><div class="card-lbl">Lifetime SS</div><div class="card-val" id="c-ss">—</div><div class="card-sub">projected</div></div>
+    <div class="card red"><div class="card-lbl">Lifetime Tax</div><div class="card-val" id="c-tax">—</div><div class="card-sub">Fed + CA</div></div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab active" style="--tc:#e8c84a" data-tab="p401k"><span class="dot" style="--tc:#e8c84a"></span>401(k)</div>
+    <div class="tab" style="--tc:#a78bfa" data-tab="proth"><span class="dot" style="--tc:#a78bfa"></span>Roth IRA</div>
+    <div class="tab" style="--tc:#60a5fa" data-tab="pbrok"><span class="dot" style="--tc:#60a5fa"></span>Brokerage</div>
+    <div class="tab" style="--tc:#4ade80" data-tab="phsa"><span class="dot" style="--tc:#4ade80"></span>HSA</div>
+    <div class="tab" style="--tc:#fb923c" data-tab="pbonds"><span class="dot" style="--tc:#fb923c"></span>Bonds</div>
+    <div class="tab" style="--tc:#fb7185" data-tab="pss"><span class="dot" style="--tc:#fb7185"></span>Social Security</div>
+    <div class="tab" style="--tc:#38bdf8" data-tab="prmd"><span class="dot" style="--tc:#38bdf8"></span>RMD</div>
+    <div class="tab" style="--tc:#f472b6" data-tab="pfed"><span class="dot" style="--tc:#f472b6"></span>Federal Tax</div>
+    <div class="tab" style="--tc:#94a3b8" data-tab="pca"><span class="dot" style="--tc:#94a3b8"></span>CA Tax</div>
+    <div class="tab" style="--tc:#fbbf24" data-tab="psum"><span class="dot" style="--tc:#fbbf24"></span>Summary</div>
+  </div>
+
+  <div class="table-area">
+    <div class="tab-panel active" id="p401k">
+      <div class="panel-title"><span class="pdot" style="background:#e8c84a"></span>401(k) Account</div>
+      <div class="table-wrap"><table id="t401k"></table></div>
+    </div>
+    <div class="tab-panel" id="proth">
+      <div class="panel-title"><span class="pdot" style="background:#a78bfa"></span>Roth IRA Account</div>
+      <div class="table-wrap"><table id="troth"></table></div>
+    </div>
+    <div class="tab-panel" id="pbrok">
+      <div class="panel-title"><span class="pdot" style="background:#60a5fa"></span>Brokerage Accounts</div>
+      <div class="table-wrap"><table id="tbrok"></table></div>
+    </div>
+    <div class="tab-panel" id="phsa">
+      <div class="panel-title"><span class="pdot" style="background:#4ade80"></span>HSA Account</div>
+      <div class="table-wrap"><table id="thsa"></table></div>
+    </div>
+    <div class="tab-panel" id="pbonds">
+      <div class="panel-title"><span class="pdot" style="background:#fb923c"></span>Bonds</div>
+      <div class="table-wrap"><table id="tbonds"></table></div>
+    </div>
+    <div class="tab-panel" id="pss">
+      <div class="panel-title"><span class="pdot" style="background:#fb7185"></span>Social Security Income</div>
+      <div class="table-wrap"><table id="tss"></table></div>
+    </div>
+    <div class="tab-panel" id="prmd">
+      <div class="panel-title"><span class="pdot" style="background:#38bdf8"></span>Required Minimum Distribution (RMD)</div>
+      <div class="table-wrap"><table id="trmd"></table></div>
+    </div>
+    <div class="tab-panel" id="pfed">
+      <div class="panel-title"><span class="pdot" style="background:#f472b6"></span>Federal Income Tax</div>
+      <div class="table-wrap"><table id="tfed"></table></div>
+    </div>
+    <div class="tab-panel" id="pca">
+      <div class="panel-title"><span class="pdot" style="background:#94a3b8"></span>California State Tax</div>
+      <div class="table-wrap"><table id="tca"></table></div>
+    </div>
+    <div class="tab-panel" id="psum">
+      <div class="panel-title"><span class="pdot" style="background:#fbbf24"></span>Full Summary — All Accounts</div>
+      <div class="table-wrap"><table id="tsum"></table></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const FED = [{lo:0,hi:24800,r:.10},{lo:24800,hi:100800,r:.12},{lo:100800,hi:211400,r:.22},{lo:211400,hi:403550,r:.24},{lo:403550,hi:512450,r:.32},{lo:512450,hi:768700,r:.35},{lo:768700,hi:1e18,r:.37}];
+const CA  = [{lo:0,hi:22158,r:.01},{lo:22158,hi:52528,r:.02},{lo:52528,hi:82904,r:.04},{lo:82904,hi:115084,r:.06},{lo:115084,hi:145448,r:.08},{lo:145448,hi:742958,r:.093},{lo:742958,hi:891542,r:.103},{lo:891542,hi:1485906,r:.113},{lo:1485906,hi:1e18,r:.123}];
+const RMD_F = {75:24.6,76:23.7,77:22.9,78:22,79:21.1,80:20.2,81:19.4,82:18.5,83:17.7,84:16.8,85:16,86:15.2,87:14.4,88:13.7,89:12.9,90:12.2};
+
+function tax(inc, brackets) {
+  if(inc<=0) return 0;
+  let t=0; for(const b of brackets){if(inc<=b.lo)break; t+=(Math.min(inc,b.hi)-b.lo)*b.r;} return t;
+}
+function $(id){return parseFloat(document.getElementById(id).value)||0}
+function $i(id){return parseInt(document.getElementById(id).value)||0}
+function f(n){return n?'$'+Math.round(n).toLocaleString():'—'}
+function fz(n){return '$'+Math.round(n).toLocaleString()}
+
+// Tabs
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.tab).classList.add('active');
+  });
+});
+
+function rowCls(r,ra,ma){return r.age===ra?'r-row':r.age>=ma?'m-row':''}
+function yc(r,ra,ma){
+  let tag=r.age===ra?'<span class="tag tag-r">RETIRE</span>':r.age===ma?'<span class="tag tag-m">RMD</span>':'';
+  return `<td class="c hl">${r.year}${tag}</td><td class="c">${r.age}</td><td class="c">${r.wAge}</td>`;
+}
+const YH=`<th class="c" style="color:var(--accent)">Year</th><th class="c" style="color:var(--accent)">H.Age</th><th class="c" style="color:var(--accent)">W.Age</th>`;
+
+function fill(id, head, rowFn, rows){
+  document.getElementById(id).innerHTML=`<thead><tr>${head}</tr></thead><tbody>${rows.map(rowFn).join('')}</tbody>`;
+}
+
+function calculate(){
+  const startYear=$i('startYear'), hAge0=$('hAge'), wAge00=$('wAge0');
+  const retireAge=$('retireAge'), rmdAge=$('rmdAge'), endAge=$('endAge');
+  const r1=$('gr1')/100, r2=$('gr2')/100, ssCola=$('ssCola')/100;
+  const rothConv=$('rothConv'), w401=$('w401k'), c401=$('c401k')+$('m401k'), cHSA=$('cHSA');
+  const fedDed=$('fedDed'), caDed=$('caDed'), caEx=$('caExempt');
+  const ssStartH=$('ssStartH'), ssStartW=$('ssStartW');
+  const ssH0=$('ssH'), ssW0=$('ssW');
+
+  let prev={a:$('b401k'),b:$('bRoth'),c:$('bBrok'),d:$('bHSA'),e:$('bBonds')};
+  let ssHB=ssH0, ssWB=ssW0, ssHS=false, ssWS=false;
+  let totalSS=0,totalTax=0,peak=0,peakAge=hAge0,retPort=0,finPort=0;
+  let rows=[];
+
+  for(let age=hAge0;age<=endAge;age++){
+    const year=startYear+(age-hAge0), wAge=wAge00+(age-hAge0);
+    const ret=age>=retireAge, rmdOn=age>=rmdAge;
+
+    // 401k
+    const s4=prev.a, g4=s4*r1, c4=ret?0:c401, w4=ret?w401:0;
+    const conv=(ret&&age<75)?rothConv:0;
+    const e4=s4+g4+c4-w4-conv;
+
+    // Roth
+    const sR=prev.b, gR=sR*r1, eR=sR+gR+conv;
+
+    // Brokerage
+    const sB=prev.c, gB=sB*r1, eB=sB+gB;
+
+    // HSA
+    const sH=prev.d, gH=sH*r1, cH=ret?0:cHSA, eH=sH+gH+cH;
+
+    // Bonds
+    const sBn=prev.e, gBn=sBn*r2, eBn=sBn+gBn;
+
+    const total=e4+eR+eB+eH+eBn;
+
+    // SS
+    let ssH=0,ssW=0;
+    if(age>=ssStartH){if(!ssHS){ssHS=true;ssHB=ssH0;}else ssHB*=(1+ssCola);ssH=ssHB;}
+    if(wAge>=ssStartW){if(!ssWS){ssWS=true;ssWB=ssW0;}else ssWB*=(1+ssCola);ssW=ssWB;}
+    const totalSS_yr=ssH+ssW;
+
+    // RMD
+    const rmd=rmdOn&&RMD_F[age]?Math.round(e4/RMD_F[age]):0;
+    const rmdFactor=RMD_F[age]||null;
+
+    // Gross income
+    const grossInc=ret?(conv+w4+totalSS_yr+rmd):0;
+
+    // Fed tax
+    const taxSS=totalSS_yr*.85;
+    const fedTaxable=Math.max(0,conv+w4+rmd+taxSS-fedDed);
+    const fedTax=ret?tax(fedTaxable,FED):0;
+    const fedEff=fedTaxable>0?((fedTax/fedTaxable)*100).toFixed(1)+'%':'—';
+
+    // CA tax
+    const caAdj=Math.max(0,conv+w4+rmd+totalSS_yr-caDed);
+    const caTaxRaw=ret?tax(caAdj,CA):0;
+    const caTax=Math.max(0,caTaxRaw-caEx);
+    const caEff=caAdj>0?((caTax/caAdj)*100).toFixed(1)+'%':'—';
+
+    const totalTax_yr=fedTax+caTax;
+    totalSS+=totalSS_yr; totalTax+=totalTax_yr;
+    if(total>peak){peak=total;peakAge=age;}
+    if(age===retireAge)retPort=total;
+    if(age===endAge)finPort=total;
+
+    rows.push({year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,
+      ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc,taxSS,fedTaxable,fedTax,fedEff,caAdj,caTaxRaw,caTax,caEff,totalTax_yr,ret,rmdOn});
+    prev={a:e4,b:eR,c:eB,d:eH,e:eBn};
+  }
+
+  // Cards
+  document.getElementById('c-retire').textContent=fz(retPort);
+  document.getElementById('c-retire-s').textContent=`at age ${retireAge}`;
+  document.getElementById('c-peak').textContent=fz(peak);
+  document.getElementById('c-peak-s').textContent=`at age ${peakAge}`;
+  document.getElementById('c-final').textContent=fz(finPort);
+  document.getElementById('c-final-s').textContent=`at age ${endAge}`;
+  document.getElementById('c-ss').textContent=fz(totalSS);
+  document.getElementById('c-tax').textContent=fz(totalTax);
+
+  const ra=retireAge, ma=rmdAge;
+  const rc=r=>rowCls(r,ra,ma), ycr=r=>yc(r,ra,ma);
+  const gr1v=$('gr1'), gr2v=$('gr2');
+
+  // ── 401k
+  fill('t401k',
+    `${YH}<th style="color:#e8c84a">Start Balance</th><th style="color:#e8c84a">Growth (${gr1v}%)</th><th style="color:#e8c84a">Contribution</th><th style="color:#e8c84a">Withdrawal</th><th style="color:#e8c84a">Roth Conv Out</th><th style="color:#e8c84a">End Balance</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.s4)}</td><td class="pos">${fz(r.g4)}</td><td class="pos">${r.c4?fz(r.c4):'—'}</td><td class="neg">${r.w4?fz(r.w4):'—'}</td><td class="neg">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.e4)}</td></tr>`, rows);
+
+  // ── Roth
+  fill('troth',
+    `${YH}<th style="color:#a78bfa">Start Balance</th><th style="color:#a78bfa">Growth (${gr1v}%)</th><th style="color:#a78bfa">Roth Conv In (from 401k)</th><th style="color:#a78bfa">End Balance</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sR)}</td><td class="pos">${fz(r.gR)}</td><td class="pos">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.eR)}</td></tr>`, rows);
+
+  // ── Brokerage
+  fill('tbrok',
+    `${YH}<th style="color:#60a5fa">Start Balance</th><th style="color:#60a5fa">Growth (${gr1v}%)</th><th style="color:#60a5fa">End Balance</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sB)}</td><td class="pos">${fz(r.gB)}</td><td class="hl">${fz(r.eB)}</td></tr>`, rows);
+
+  // ── HSA
+  fill('thsa',
+    `${YH}<th style="color:#4ade80">Start Balance</th><th style="color:#4ade80">Growth (${gr1v}%)</th><th style="color:#4ade80">Contribution</th><th style="color:#4ade80">End Balance</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sH)}</td><td class="pos">${fz(r.gH)}</td><td class="pos">${r.cH?fz(r.cH):'—'}</td><td class="hl">${fz(r.eH)}</td></tr>`, rows);
+
+  // ── Bonds
+  fill('tbonds',
+    `${YH}<th style="color:#fb923c">Start Balance</th><th style="color:#fb923c">Growth (${gr2v}%)</th><th style="color:#fb923c">End Balance</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sBn)}</td><td class="pos">${fz(r.gBn)}</td><td class="hl">${fz(r.eBn)}</td></tr>`, rows);
+
+  // ── Social Security
+  let cumSS=0;
+  fill('tss',
+    `${YH}<th style="color:#fb7185">Husband SS</th><th style="color:#fb7185">Wife SS</th><th style="color:#fb7185">Total SS</th><th style="color:#fb7185">Cumulative SS</th>`,
+    r=>{cumSS+=r.totalSS_yr; return `<tr class="${rc(r)}">${ycr(r)}<td>${r.ssH?fz(r.ssH):'—'}</td><td>${r.ssW?fz(r.ssW):'—'}</td><td class="hl">${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td class="dim">${cumSS?fz(cumSS):'—'}</td></tr>`;}, rows);
+
+  // ── RMD
+  let cumRMD=0;
+  fill('trmd',
+    `${YH}<th style="color:#38bdf8">401k End Balance</th><th style="color:#38bdf8" class="c">RMD Factor</th><th style="color:#38bdf8">RMD Amount</th><th style="color:#38bdf8">Gross Income</th><th style="color:#38bdf8">Cumulative RMD</th>`,
+    r=>{cumRMD+=r.rmd; return `<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td class="c">${r.rmdFactor||'—'}</td><td class="${r.rmd?'hl':''}">${r.rmd?fz(r.rmd):'—'}</td><td>${r.grossInc?fz(r.grossInc):'—'}</td><td class="dim">${cumRMD?fz(cumRMD):'—'}</td></tr>`;}, rows);
+
+  // ── Federal Tax
+  fill('tfed',
+    `${YH}<th style="color:#f472b6">Roth Conv</th><th style="color:#f472b6">401k Withdraw</th><th style="color:#f472b6">RMD</th><th style="color:#f472b6">Total SS</th><th style="color:#f472b6">Taxable SS (85%)</th><th style="color:#f472b6">Std Deduction</th><th style="color:#f472b6">Fed Taxable Inc</th><th style="color:#f472b6">Federal Tax</th><th style="color:#f472b6" class="c">Eff Rate</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.taxSS?fz(r.taxSS):'—'}</td><td class="dim">${r.ret?fz(fedDed):'—'}</td><td>${r.fedTaxable?fz(r.fedTaxable):'—'}</td><td class="neg hl">${r.fedTax?fz(r.fedTax):'—'}</td><td class="c dim">${r.fedEff}</td></tr>`, rows);
+
+  // ── CA Tax
+  fill('tca',
+    `${YH}<th style="color:#94a3b8">Roth Conv</th><th style="color:#94a3b8">401k Withdraw</th><th style="color:#94a3b8">RMD</th><th style="color:#94a3b8">Total SS</th><th style="color:#94a3b8">Itemized Ded</th><th style="color:#94a3b8">CA Adj Income</th><th style="color:#94a3b8">CA Tax (raw)</th><th style="color:#94a3b8">Exempt Credit</th><th style="color:#94a3b8">CA Tax (net)</th><th style="color:#94a3b8" class="c">Eff Rate</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td class="dim">${r.ret?fz(caDed):'—'}</td><td>${r.caAdj?fz(r.caAdj):'—'}</td><td class="neg">${r.caTaxRaw?fz(r.caTaxRaw):'—'}</td><td class="dim">${r.ret?fz(caEx):'—'}</td><td class="neg hl">${r.caTax?fz(r.caTax):'—'}</td><td class="c dim">${r.caEff}</td></tr>`, rows);
+
+  // ── Summary
+  fill('tsum',
+    `${YH}<th style="color:#e8c84a">401k</th><th style="color:#a78bfa">Roth IRA</th><th style="color:#60a5fa">Brokerage</th><th style="color:#4ade80">HSA</th><th style="color:#fb923c">Bonds</th><th style="color:var(--text)">Total Portfolio</th><th style="color:#fb7185">Total SS</th><th style="color:#38bdf8">RMD</th><th style="color:#f472b6">Fed Tax</th><th style="color:#94a3b8">CA Tax</th><th style="color:var(--danger)">Total Tax</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td>${fz(r.eH)}</td><td>${fz(r.eBn)}</td><td class="hl" style="color:var(--accent)">${fz(r.total)}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td class="neg">${r.fedTax?fz(r.fedTax):'—'}</td><td class="neg">${r.caTax?fz(r.caTax):'—'}</td><td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td></tr>`, rows);
+}
+
+calculate();
+</script>
+</body>
+</html>
