@@ -53,7 +53,7 @@
   .tab.active{color:var(--text);border-bottom-color:var(--tc,var(--accent))}
   .dot{width:7px;height:7px;border-radius:50%;background:var(--tc,var(--accent))}
 
-  .table-area{flex:1;overflow:auto;padding:18px 22px}
+  .table-area{flex:1;overflow:auto;padding:18px 22px 80px 22px;}
   .tab-panel{display:none}
   .tab-panel.active{display:block}
 
@@ -76,8 +76,44 @@
 
   ::-webkit-scrollbar{width:5px;height:5px}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+  .footer-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none; /* Allows scrolling through the container */
+    z-index: 100;
+  }
+
+  .back-btn {
+    pointer-events: auto; /* Re-enables clicking for the button itself */
+    background: var(--surface);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+
+  .back-btn:hover {
+    background: var(--accent);
+    color: #0d1117;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(232,200,74,0.3);
+  }
 </style>
 </head>
+ <div class="footer-nav">
+  <a href="index.html" class="back-btn">BACK</a>
+</div> 
 <body>
 
 <header>
