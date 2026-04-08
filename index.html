@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retire Wise</title>
     <style>
-        /* This creates the dark beach atmosphere */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            /* Gradient: Deep ocean navy to a tropical teal */
             background: linear-gradient(180deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             background-attachment: fixed;
             color: #e0e0e0;
@@ -28,7 +26,6 @@
 
         h1 {
             font-size: 3rem;
-            /* A soft sandy gold color for the heading */
             color: #f1c40f; 
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
@@ -43,11 +40,38 @@
 
         main {
             flex-grow: 1;
-            background: rgba(255, 255, 255, 0.05); /* Subtle glass effect */
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
             border-radius: 15px;
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center; /* Center-aligning content for a cleaner look */
+        }
+
+        .description {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26, 188, 156, 0.4);
+            background: linear-gradient(135deg, #1ed7b1 0%, #1abc9c 100%);
         }
 
         footer {
@@ -75,16 +99,22 @@
     <header>
         <h1>Retire Wise</h1>
         <p class="subtitle">
-            <strong>Retirement Planner - A pocket guide</strong>
+            Retirement Planner - A pocket guide
         </p>
     </header>
 
     <main>
-        <p>
-            A compendium of information and calculations related to financial planning which should help retirement planning. 
-            It also contains details about Medicare, Sample tax calculations, important web sites etc.
-        </p>
-        </main>
+        <div class="description">
+            <p>
+                <strong>A compendium of information and calculations</strong> related to financial planning designed to streamline your retirement journey. 
+            </p>
+            <p>
+                This guide includes essential details regarding <strong>Medicare</strong>, sample <strong>tax calculations</strong>, and curated <strong>web resources</strong> to assist in comprehensive wealth management.
+            </p>
+        </div>
+
+        <a href="proj_calc.html" class="btn">Retirement Projection Calculator</a>
+    </main>
 
     <footer>
         <p>Copyright: &copy; 2026 Sriram Gopalaratnam. All Rights Reserved. 📝</p>
