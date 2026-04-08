@@ -20,14 +20,16 @@
             text-align: center;
             color: #f1c40f;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
         }
 
         .form-container {
             background: rgba(255, 255, 255, 0.05);
             padding: 30px;
             border-radius: 15px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .grid-section {
@@ -49,39 +51,43 @@
         }
 
         input {
-            padding: 10px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             color: #fff;
             font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
             border-color: #1abc9c;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 8px rgba(26, 188, 156, 0.4);
         }
 
-        section-header {
+        .section-header {
             grid-column: span 2;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 10px;
-            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
             color: #1abc9c;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         .btn-container {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .btn {
             display: inline-block;
-            padding: 15px 40px;
+            padding: 18px 50px;
             font-size: 1.2rem;
             font-weight: bold;
             color: #fff;
@@ -96,8 +102,18 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(26, 188, 156, 0.4);
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.5);
             background: linear-gradient(135deg, #1ed7b1 0%, #1abc9c 100%);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .grid-section {
+                grid-template-columns: 1fr;
+            }
+            .section-header {
+                grid-column: span 1;
+            }
         }
     </style>
 </head>
@@ -108,10 +124,11 @@
     <div class="form-container">
         <form action="proj_account_values.html">
             <div class="grid-section">
+                
                 <div class="section-header">Personal & Retirement Timing</div>
                 <div class="input-group">
                     <label>Annual spending (today's $)</label>
-                    <input type="number" placeholder="e.g. 100000">
+                    <input type="number" step="1000" placeholder="e.g. 100000">
                 </div>
                 <div class="input-group">
                     <label>Planned retirement age (Spouse 1)</label>
@@ -126,10 +143,28 @@
                     <input type="number">
                 </div>
 
+                <div class="section-header">Economic Assumptions</div>
+                <div class="input-group">
+                    <label>Growth rate of market investment (%)</label>
+                    <input type="number" step="0.1" placeholder="e.g. 7.0">
+                </div>
+                <div class="input-group">
+                    <label>Growth rate of bonds (%)</label>
+                    <input type="number" step="0.1" placeholder="e.g. 3.5">
+                </div>
+                <div class="input-group">
+                    <label>Inflation rate (%)</label>
+                    <input type="number" step="0.1" placeholder="e.g. 2.5">
+                </div>
+                <div class="input-group">
+                    <label>SS COLA (%)</label>
+                    <input type="number" step="0.1" placeholder="e.g. 2.0">
+                </div>
+
                 <div class="section-header">Social Security & RMD</div>
                 <div class="input-group">
                     <label>Age of Spouse 1 for SS</label>
-                    <input type="number" placeholder="e.g. 70">
+                    <input type="number">
                 </div>
                 <div class="input-group">
                     <label>Age of Spouse 2 for SS</label>
@@ -139,7 +174,7 @@
                     <label>Annual SS for Spouse 1</label>
                     <input type="number">
                 </div>
-                <div class="input-group">
+                <div class="input-group)
                     <label>Annual SS for Spouse 2</label>
                     <input type="number">
                 </div>
@@ -166,34 +201,4 @@
                     <input type="number">
                 </div>
                 <div class="input-group">
-                    <label>State Itemized Deduction</label>
-                    <input type="number">
-                </div>
-
-                <div class="section-header">Assets at Age 60</div>
-                <div class="input-group">
-                    <label>401(k) value at age 60</label>
-                    <input type="number">
-                </div>
-                               <div class="input-group">
-                    <label>Roth IRA value at age 60</label>
-                    <input type="number">
-                </div>
-                <div class="input-group">
-                    <label>Total of Brokerage accounts at age 60</label>
-                    <input type="number">
-                </div>
-                <div class="input-group">
-                    <label>HSA total at age 60</label>
-                    <input type="number">
-                </div>
-            </div>
-
-            <div class="btn-container">
-                <button type="submit" class="btn">Calculate Projections</button>
-            </div>
-        </form>
-    </div>
-
-</body>
-</html>
+                    <label>State
