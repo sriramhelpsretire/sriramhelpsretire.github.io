@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Important Websites</title>
+    <style>
+        :root {
+            --bg-dark: #0d1b1e;
+            --bg-light: #1b4d5c;
+            --accent-gold: #e7ca60;
+            --text-yellow: #f4d03f;
+            --link-cyan: #00ffff;
+            --red-accent: #a82222;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #080f11;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 600px;
+            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        header {
+            padding: 30px 30px 10px 30px;
+            position: relative;
+        }
+
+        /* The red decorative bar from your PowerPoint theme */
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 30px;
+            width: 40px;
+            height: 100px;
+            background-color: var(--red-accent);
+            border-bottom: 2px solid #000;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 400;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .content {
+            padding: 10px 30px;
+            flex: 1;
+        }
+
+        .website-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .site-item {
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .site-title {
+            color: var(--text-yellow);
+            font-weight: bold;
+            font-size: 19px; /* Increased font size */
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .site-link {
+            color: var(--link-cyan);
+            word-break: break-all;
+            font-size: 15px;
+            text-decoration: underline;
+        }
+
+        .site-desc {
+            display: block;
+            font-size: 16px; /* Increased font size */
+            color: #e0e0e0;
+            margin-top: 5px;
+        }
+
+        /* Navigation Area */
+        .nav-area {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 30px 40px 30px;
+        }
+
+        .home-btn {
+            background-color: white;
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            text-decoration: none;
+        }
+
+        footer {
+            height: 20px;
+            width: 100%;
+            background-color: var(--red-accent);
+            border-top: 2px solid #000;
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper { border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <header>
+            <h1>Some important websites</h1>
+        </header>
+
+        <div class="content">
+            <ul class="website-list">
+                <li class="site-item">
+                    <span class="site-title">1. Social Security</span>
+                    <a href="https://secure.ssa.gov/RII/SiView.action" class="site-link">https://secure.ssa.gov/RII/SiView.action</a>
+                    <span class="site-desc">Create an account with Login.gov and set up 2FA to understand how much you are eligible to be paid.</span>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">2. Medicare Signup date</span>
+                    <a href="https://www.ssa.gov/medicare/plan/when-to-sign-up" class="site-link">https://www.ssa.gov/medicare/plan/when-to-sign-up</a>
+                    <span class="site-desc">Find details about Medicare and your early enrollment window (3 months prior).</span>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">3. Medicare Information and Services</span>
+                    <a href="https://www.medicare.gov/" class="site-link">https://www.medicare.gov/</a>
+                    <span class="site-desc">Main portal for Medicare services using your Login.gov information.</span>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">4. Required Minimum Distribution Calculator</span>
+                    <a href="https://www.investor.gov/financial-tools-calculators/calculators/required-minimum-distribution-calculator" class="site-link">https://www.investor.gov/.../rmd-calculator</a>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">5. Treasury Direct</span>
+                    <a href="https://www.treasurydirect.gov/" class="site-link">https://www.treasurydirect.gov/</a>
+                    <span class="site-desc">Official site to purchase Treasury Bills, Bonds, and Notes like TIPS.</span>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">6. What is an HSA?</span>
+                    <a href="https://www.fidelity.com/learning-center/smart-money/what-is-an-hsa" class="site-link">https://www.fidelity.com/.../what-is-an-hsa</a>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">7. IRS Publication 969 (Health Savings Accounts)</span>
+                    <a href="https://www.irs.gov/forms-pubs/about-publication-969" class="site-link">https://www.irs.gov/.../about-publication-969</a>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">8. AARP: HSA "Secret Tax Weapon"</span>
+                    <a href="https://www.aarp.org/money/retirement/hsa-secret-tax-weapon/" class="site-link">https://www.aarp.org/.../hsa-secret-tax-weapon/</a>
+                    <span class="site-desc">Explains why financial advisers recommend leaving HSA money untouched as long as possible.</span>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">9. Fidelity Market Sense (YouTube)</span>
+                    <a href="https://www.youtube.com/playlist?list=PLGKKmEmJDSiJ3I3qkKcpK1SKch1kS11lh" class="site-link">YouTube Playlist Link</a>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">10. The Wisemoney Show</span>
+                    <a href="https://www.youtube.com/@WiseMoneyShow" class="site-link">https://www.youtube.com/@WiseMoneyShow</a>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">11. County of Santa Clara (Property Tax)</span>
+                    <a href="https://santaclaracounty.telleronline.net/search/1/PropertyAddress" class="site-link">https://santaclaracounty.telleronline.net/...</a>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">12. Paul Merriman Financial</span>
+                    <a href="https://www.paulmerriman.com/#gsc.tab=0" class="site-link">https://www.paulmerriman.com/</a>
+                    <span class="site-desc">Tables and charts for asset allocations and different fund strategies.</span>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">13. Allworth Financial - Money Matters</span>
+                    <a href="https://allworthfinancial.com/podcast/money-matters" class="site-link">https://allworthfinancial.com/podcast/money-matters</a>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">14. Backdoor Roth IRA</span>
+                    <a href="https://www.fidelity.com/learning-center/personal-finance/backdoor-roth-ira" class="site-link">https://www.fidelity.com/.../backdoor-roth-ira</a>
+                </li>
+
+                <li class="site-item">
+                    <span class="site-title">15. Fidelity Learning Portal</span>
+                    <a href="https://www.fidelity.com/learning-center/overview" class="site-link">https://www.fidelity.com/learning-center/overview</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-area">
+            <a href="index.html" class="home-btn">
+                <span style="font-size: 28px; color: black;">🏠</span>
+            </a>
+        </div>
+
+        <footer></footer>
+    </div>
+
+</body>
+</html>
