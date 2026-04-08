@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Retirement?</title>
+    <style>
+        :root {
+            --bg-dark: #0d1b1e;
+            --bg-light: #1b4d5c;
+            --accent-gold: #e7ca60;
+            --text-yellow: #f4d03f;
+            --red-accent: #a82222;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #080f11;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 600px;
+            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        header {
+            padding: 30px 30px 10px 30px;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 400;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .content {
+            padding: 10px 30px;
+            font-size: 16px;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        /* Styling for the section titles in Yellow */
+        .section-title {
+            color: var(--text-yellow);
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        /* Underlined sub-headers */
+        .sub-header {
+            text-decoration: underline;
+            color: var(--text-yellow);
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-style: italic; /* Matches the slightly slanted look in the image */
+            color: #e0e0e0;
+        }
+
+        /* Navigation Area */
+        .nav-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px 40px 30px;
+        }
+
+        /* Steps Button */
+        .steps-btn {
+            background-color: var(--accent-gold);
+            color: black;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid #000;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .steps-btn:hover {
+            background-color: #f2d87e;
+        }
+
+        /* Home Icon Button */
+        .home-btn {
+            background-color: white;
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            text-decoration: none;
+        }
+
+        footer {
+            height: 20px;
+            width: 100%;
+            background-color: var(--red-accent);
+            border-top: 2px solid #000;
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper { border: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <header>
+            <h1>What is retirement?</h1>
+        </header>
+
+        <div class="content">
+            <p>Retirement is the phase of life when an individual stops working full-time, typically due to age or health, transitioning to a lifestyle supported by savings, investments, or pensions rather than a salary. It often involves financial planning for the long term and, while historically starting around age 65, is now more flexible, with early options at 62 or later.</p>
+
+            <div class="section-title">Key Aspects of Retirement:</div>
+            
+            <p><span class="sub-header">Financial Shift:</span> Retirement involves relying on accumulated assets—such as 401(k) plans, pensions, or Social Security—rather than a steady paycheck.</p>
+            
+            <p><span class="sub-header">Life Stage Transition:</span> It is a major life change, often evolving through phases from a "honeymoon" period of freedom to a settled, new routine.</p>
+            
+            <p><span class="sub-header">Work Flexibility:</span> Retirement no longer strictly means stopping all work; many retirees pursue part-time work, consulting, or new, passion-driven careers.</p>
+            
+            <p>Timing: While age 67 is currently considered the full retirement age for maximum Social Security benefits for those born in 1960 or later, individuals can choose to retire earlier or later based on their financial readiness.</p>
+
+            <div class="section-title">Phases of Retirement:</div>
+            
+            <p><span class="sub-header">Planning & Decision Making:</span> Preparing financially and mentally before leaving the workforce.</p>
+            
+            <p><span class="sub-header">Transition & Adjustment:</span> The initial phase of leaving a career, which can bring feelings of freedom or, occasionally, anxiety about losing workplace structure.</p>
+            
+            <p><span class="sub-header">Active Retirement:</span> Settling into a new lifestyle, which may include leisure, travel, or part-time work.</p>
+        </div>
+
+        <div class="nav-area">
+            <a href="steps_retirement.html" class="steps-btn">Steps in retirement planning</a>
+            <a href="index.html" class="home-btn">
+                <span style="font-size: 28px; color: black;">🏠</span>
+            </a>
+        </div>
+
+        <footer></footer>
+    </div>
+
+</body>
+</html>
