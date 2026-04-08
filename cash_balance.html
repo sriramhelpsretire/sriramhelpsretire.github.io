@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cash Balance Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d1117; --surface:#161b22; --surface2:#1e2530; --border:#30363d;
+    --accent:#e8c84a; --green:#4ade80; --blue:#60a5fa; --purple:#a78bfa;
+    --orange:#fb923c; --danger:#f87171; --text:#e6edf3; --muted:#7d8590; --label:#a8b3bf;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
+
+  header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px solid var(--border);padding:18px 32px;display:flex;align-items:baseline;gap:14px}
+  header h1{font-family:'DM Serif Display',serif;font-size:26px;color:var(--accent)}
+  header span{color:var(--muted);font-size:12px;font-family:'DM Mono',monospace}
+
+  .layout{display:grid;grid-template-columns:296px 1fr;min-height:calc(100vh - 69px)}
+
+  .sidebar{background:var(--surface);border-right:1px solid var(--border);padding:18px 16px;overflow-y:auto}
+  .sxn{margin-bottom:20px}
+  .sxn h3{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+  
+  .field{margin-bottom:8px}
+  .field label{display:block;font-size:10px;color:var(--label);margin-bottom:3px;font-weight:500}
+  .field input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:6px 8px;color:var(--text);font-family:'DM Mono',monospace;font-size:12px;outline:none}
+  .field input:focus{border-color:var(--accent)}
+
+  .calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:10px;font-weight:700;font-size:13px;cursor:pointer;margin-top:10px;transition:opacity .15s}
+  .calc-btn:hover{opacity:.88}
+
+  .main{display:flex;flex-direction:column;overflow:hidden}
+  .cards{display:flex;gap:12px;padding:20px 22px;border-bottom:1px solid var(--border)}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:15px;flex:1;position:relative}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)}
+  .card.blue::before{background:var(--blue)}
+  .card-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Mono',monospace;margin-bottom:5px}
+  .card-val{font-family:'DM Serif Display',serif;font-size:24px;color:var(--text)}
+
+  .table-area{flex:1;overflow:auto;padding:22px;}
+  .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:9px;overflow:hidden}
+  table{border-collapse:collapse;width:100%;font-size:13px;font-family:'DM Mono',monospace}
+  thead th{background:#181f2b;font-size:11px;color:var(--accent);padding:12px;text-align:right;border-bottom:2px solid var(--border)}
+  tbody tr{border-bottom:1px solid #1a2130}
+  tbody tr:hover{background:#181f2b}
+  td{padding:10px 12px;text-align:right;color:var(--label)}
+  td.hl{color:var(--text);font-weight:500}
+  
+  .icon-disclaimer { width: 14px; height: 14px; color: var(--accent); vertical-align: middle; margin-right: 6px; }
+
+  .footer-nav { position: fixed; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; gap: 15px; pointer-events: none; z-index: 100; }
+  .back-btn { pointer-events: auto; background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 24px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 11px; text-decoration: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+  .back-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Cash Balance Calculator</h1>
+  <span>// Liquidity & Depletion Analysis</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sxn">
+      <h3>CASH INPUTS</h3>
+      <div class="field"><label>Beginning Balance</label><input type="number" id="startBal" value="500000"></div>
+      <div class="field"><label>Annual Withdrawal</label><input type="number" id="draw" value="60000"></div>
+      <div class="field"><label>Withdrawal Increase (%)</label><input type="number" id="drawInc" value="2.80" step="0.01"></div>
+      <div class="field"><label>Expected Growth (%)</label><input type="number" id="growth" value="6.00" step="0.01"></div>
+      <div class="field"><label>Start Year</label><input type="number" id="startYear" value="2026"></div>
+    </div>
+    <button class="calc-btn" onclick="runCashCalc()">▶ Run Analysis</button>
+  </aside>
+
+  <main class="main">
+    <div class="cards">
+      <div class="card"><div class="card-lbl">Money Lasts For</div><div class="card-val" id="res-years">—</div></div>
+      <div class="card blue"><div class="card-lbl">Depletion Year</div><div class="card-val" id="res-end-year">—</div></div>
+    </div>
+
+    <div class="table-area">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align:left">Year</th>
+              <th>Beginning Balance</th>
+              <th>Withdrawal</th>
+              <th>Growth (Interest)</th>
+              <th>Ending Balance</th>
+            </tr>
+          </thead>
+          <tbody id="cash-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="footer-nav">
+  <a href="index.html" class="back-btn">HOME</a>
+  <a href="financial_plan.html" class="back-btn">FINANCIAL PLAN</a>
+</div>
+
+<script>
+function fz(n){ return '$' + Math.round(n).toLocaleString(); }
+
+function runCashCalc() {
+  let bal = parseFloat(document.getElementById('startBal').value);
+  let draw = parseFloat(document.getElementById('draw').value);
+  const drawInc = parseFloat(document.getElementById('drawInc').value) / 100;
+  const growth = parseFloat(document.getElementById('growth').value) / 100;
+  let year = parseInt(document.getElementById('startYear').value);
+  
+  const tbody = document.getElementById('cash-body');
+  tbody.innerHTML = '';
+  
+  let yearsCount = 0;
+  let lastFullYear = 0;
+
+  while (bal > 0 && yearsCount < 50) {
+    let startBal = bal;
+    let growthAmt = startBal * growth;
+    
+    // Check if balance can cover the full withdrawal
+    let actualDraw = draw;
+    if (bal + growthAmt < draw) {
+      actualDraw = bal + growthAmt;
+      bal = 0;
+    } else {
+      bal = startBal + growthAmt - draw;
+    }
+
+    let row = `<tr>
+      <td style="text-align:left; color:var(--accent)">${year}</td>
+      <td>${fz(startBal)}</td>
+      <td style="color:var(--danger)">${fz(actualDraw)}</td>
+      <td style="color:var(--green)">${fz(growthAmt)}</td>
+      <td class="hl">${fz(bal)}</td>
+    </tr>`;
+    
+    tbody.innerHTML += row;
+    
+    if (bal > 0) {
+      yearsCount++;
+      lastFullYear = year;
+    } else {
+      // Calculate fractional last year
+      let fraction = (startBal + growthAmt) / draw;
+      yearsCount += fraction;
+    }
+
+    draw *= (1 + drawInc);
+    year++;
+    if (bal <= 0) break;
+  }
+
+  document.getElementById('res-years').textContent = yearsCount.toFixed(2) + ' Years';
+  document.getElementById('res-end-year').textContent = year - 1;
+}
+
+// Initialize on load
+runCashCalc();
+</script>
+
+</body>
+</html>
