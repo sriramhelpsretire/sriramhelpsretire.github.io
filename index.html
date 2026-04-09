@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retire Wise and Live Happy</title>
+    <style>
+        :root {
+            --bg-top: #0b1a1f;
+            --bg-bottom: #1c4d5c;
+            --accent-gold: #e8c44a;
+            --text-white: #FFFFFF;
+            --text-gold: #c29d40;
+            --footer-bg: #D1FFBD;
+            --footer-text: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
+            background-attachment: fixed;
+            color: var(--text-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* ── Top Nav ── */
+        .top-nav {
+            width: 100%;
+            background-color: #2c2c2c;
+            padding: 14px 20px;
+            border-bottom: 4px solid #a82222;
+        }
+
+        .top-nav h1 {
+            font-size: clamp(18px, 3.5vw, 28px);
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        /* ── Layout wrapper ── */
+        .page-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            width: 100%;
+            max-width: 1100px;
+            padding: 0 20px;
+            gap: 0;
+        }
+
+        /* ── Desktop: side-by-side hero ── */
+        @media (min-width: 768px) {
+            .hero-section {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 40px;
+                width: 100%;
+                padding: 40px 0 30px;
+            }
+
+            .hero-image {
+                flex: 0 0 44%;
+                max-width: 44%;
+            }
+
+            .content-container {
+                flex: 1;
+                text-align: left;
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        /* ── Mobile: stacked hero ── */
+        @media (max-width: 767px) {
+            .hero-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                padding: 20px 0 10px;
+                gap: 20px;
+            }
+
+            .hero-image {
+                width: 100%;
+            }
+
+            .content-container {
+                width: 100%;
+                text-align: center;
+                padding: 0;
+            }
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            display: block;
+        }
+
+        .content-container p {
+            font-size: clamp(15px, 2vw, 18px);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .highlight-text {
+            color: var(--text-gold);
+            font-weight: bold;
+        }
+
+        /* ── Button Grid ── */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            width: 100%;
+            padding: 30px 0 50px;
+        }
+
+        .btn {
+            background-color: var(--accent-gold);
+            color: #000000;
+            text-decoration: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: clamp(14px, 1.8vw, 17px);
+            text-transform: uppercase;
+            border: 2px solid #000;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            display: block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: #f7d976;
+        }
+
+        /* ── Footer ── */
+        footer {
+            width: 100%;
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 20px 0;
+            margin-top: auto;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            font-size: 14px;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        footer strong {
+            text-decoration: underline;
+        }
+
+        footer p + p {
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <h1>Retire Wise and Live Happy</h1>
+    </div>
+
+    <div class="page-body">
+
+        <div class="hero-section">
+            <div class="hero-image">
+                <img src="index_pic.jpg" alt="Retirement Planner Illustration">
+            </div>
+
+            <div class="content-container">
+                <p>Welcome to a peaceful place where we discuss various aspects of retirement, and the hope is to make you feel at peace financially and retire comfortably.</p>
+                <p>The philosophy that you don't retire <em>out of</em> something, but <em>into</em> something, emphasizes that retirement is a transition to a new phase in life with a bigger purpose.</p>
+                <p class="highlight-text">
+                    Retirement Planner – A Pocket Guide is a compendium of information and calculations that will help plan your retirement. Retirement is not all about finance, however, once you secure your finance you can plan all the good things you want to get into.
+                </p>
+            </div>
+        </div>
+
+        <div class="button-grid">
+            <a href="topics.html" class="btn">Topics</a>
+            <a href="retirement_calculator.html" class="btn">Retirement Calculator</a>
+            <a href="401k_compounding.html" class="btn">401k Compounding Calculator</a>
+            <a href="cash_balance.html" class="btn">Cash Balance Calculator</a>
+            <a href="website.html" class="btn">Web Sites</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <p><strong>Copyright</strong>: © 2026 Sriram Gopalaratnam. All Rights Reserved. 📝</p>
+            <p><strong>Disclaimer</strong>: This tool is for educational purposes only and does not constitute financial or legal advice.</p>
+            <p><strong>Important Info</strong>: This website has been optimized for both mobile and desktop use (calculators work best on desktop).</p>
+        </div>
+    </footer>
+
+</body>
+</html>
