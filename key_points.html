@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Some Key Points</title>
+    <style>
+        :root {
+            --bg-dark: #0d1b1e;
+            --bg-light: #1b4d5c;
+            --accent-gold: #e7ca60;
+            --text-yellow: #f4d03f;
+            --red-accent: #a82222;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #080f11;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 600px;
+            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        /* ── HEADER ── */
+        header {
+            padding: 28px 30px 16px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 32px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            font-family: 'Segoe UI', Georgia, serif;
+        }
+
+        .red-corner {
+            position: absolute;
+            top: 0; right: 0;
+            width: 22px;
+            height: 80px;
+            background-color: var(--red-accent);
+        }
+
+        /* ── CONTENT ── */
+        .content {
+            padding: 8px 26px 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        /* Each bullet point row */
+        .point {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            align-items: flex-start;
+        }
+
+        .point-icon {
+            font-size: 15px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .point-text {
+            font-style: italic;
+            color: #e0e0e0;
+            font-size: 13.5px;
+            line-height: 1.65;
+        }
+
+        /* Inline underlined links within text */
+        .point-text a {
+            color: #e0e0e0;
+            text-decoration: underline;
+        }
+
+        .point-text a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* ── NAV AREA ── */
+        .nav-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 28px 36px;
+            gap: 8px;
+        }
+
+        .gold-btn {
+            background-color: var(--accent-gold);
+            color: black;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid #000;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: opacity .15s;
+        }
+
+        .gold-btn:hover { opacity: .88; }
+
+        .home-btn {
+            background-color: white;
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            text-decoration: none;
+        }
+
+        .home-btn:hover { background: #f0f0f0; }
+
+        /* ── FOOTER ── */
+        footer {
+            height: 20px;
+            width: 100%;
+            background-color: var(--red-accent);
+            border-top: 2px solid #000;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper { border: none; }
+            header h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <header>
+        <div class="red-corner"></div>
+        <h1>Some key points</h1>
+    </header>
+
+    <div class="content">
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">First and foremost consideration: spend time working with your spouse on what and how the next phase of life would you want to be. After all life is a piece of art and you get to draw it and not others. Joy and peace comes from what you believe and work towards, not defined by others. Similarly you retire into a phase of life and not retire out of a professional life. There are several factors to be considered by including location, health, community, activities, giving back and so on and also finance. Finance is a key element to be factored in, to decide certain milestones and develop confidence, but it alone is not retirement planning. Now that you are clear about retirement, take a look at your finances to see where you are placed and run the "what if" simulations. Taxes and Medicare are also part of the multi dimensional problem to optimize your savings such that the tax paid is the lowest.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Retirement Calculations for a couple (husband is currently 60 and wife is 56, planning to retire when husband turns 65, wife does not work). Individual situation should be handled appropriately by understanding their tax situations if MFJ and both work <u>etc</u>.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Sample compounding calculator is included to show how powerful it is. Some important points to note here – save from early days, save consistently, invest wisely. Rest is taken care of by compounding.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Retirement Portfolio Calculator gives you an idea of how your invested money grows in various assets. It is vital to understand and plan such buckets so you can keep your cash flow clear. Each year in retirement could be different, so you need to run the numbers to plan where it will come from.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Social security is started when husband turns 67 as an example. You can choose what is appropriate and enter in the blue cell in the correct tab. Some taxable accounts like stocks required to pay taxes.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">CA itemized deduction (used in CA tax calculation) assumes Mortgage interest and Property Tax. Both values need to be changed to one's situation. CA standard deduction is $11,720 MFJ. SALT cap is at $40,000. It is likely that the property tax for most houses are higher than standard deduction and hence CA itemized deduction would apply. Use your state's deductions accordingly.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Some amount of investment in Bonds is also <u>taken into account</u> to show stability and this is to be carefully analyzed and incorporated by the couple as appropriate.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Brokerage account has been <u>taken into account</u> to provide cash required to pay taxes in the initial years of retirement. One can balance income in such a way that Long Term Capital Gains taxes can be kept at ZERO or pay the 15% on min amount. Proceeds do not get counted towards income.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Average inflation rate of 2.58% is assumed to figure out how much money is required each year for expenses. It starts with a value of $60,000 which is arbitrary. Do your calculations to <u>come up with</u> the correct number and enter it in the blue cell in the appropriate tab.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Social Security COLA (Cost Of Living Adjustment) is taken at 2% for adjustment towards inflation and how much the social security would grow year over year.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Medicare Part B and Part D premiums based on income ranges are provided in Tab "Medicare &amp; ACA details". One can keep an eye of AGI and see if it goes above $218,000 and adjust entries in the "what if" simulation to keep it in the desired level.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">The AGI tends to go up when both spouses start collecting social security and <u>more</u> so when RMD starts. RMD tends to be higher when more money is left in 401k (or any other tax deferred account).</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Estimated tax payments are to be done pro-actively and quarterly payments (Apr 15, Jun 15, Sep 15 and Jan 15) are done to avoid penalties. If Roth conversion is done or 401k money is withdrawn, total income is to be <u>calculated</u> and safe harbor rule applied to estimate taxes. You can pay 100% of your previous year's tax liability (110% if your AGI was over $150,000). Form 1040-ES (estimated tax for individuals), is used to calculate and pay federal taxes 4 times a year on income not subject to withholding, such as retirement account withdrawals, interest and dividends. It includes a worksheet to estimate your annual <u>income</u> and payment is done through online portals including IRS Direct Pay or your IRS Online Account. When you file your annual Form 1040, you report all quarterly estimated payments made during the year on line 26 to reconcile them against your tax.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Roth Conversion is assumed to be done during Golden years for conversion which is during <u>low income</u> period (typically from when you retire or stop regular income and when you start RMD). In this case we have assumed 10 years of Roth Conversion. One can argue about doing Roth Conversion or not and it is a personal choice. When you see the numbers at the end (401k, Roth IRA, RMD, Tax <u>etc</u>) you can make informed decision that will help "minimize the taxes" and make your money work for you.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Some guidelines on 401k and Roth IRA distributions: ––> 401k inherited by heirs is taxable based on withdrawal and their income tax situations when they do so. When one spouse lives (after the other passes away), the 401k is theirs till it is passed on to heirs after they pass, based on what is written in Will, Living Trust <u>etc</u> and covered by Estate Plan. By SECURE act, the children who inherit 401(k) after both parents pass away, need to withdraw within 10 years––> Roth IRA inherited by non-spouse beneficiaries (such as children) must withdraw the entire Roth IRA within 10 years of the owner's death. All withdrawals are tax free. Only requirement is that the Roth IRA account <u>mst</u> have been opened at <u>lears</u> 5 years before the owner died. It also applied during the <u>owners</u> life, that the Roth IRA account should have been open for 5 years before tax free withdrawals are done.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Some guidelines on HSA <u>account</u>: When an HSA holder dies, the account passes to the designated beneficiary. If the spouse is the beneficiary, they take over the HSA with all tax advantages <u>refined</u>. When the HSA holder dies and the spouse who is the beneficiary also passes, the children who are non-spouse beneficiaries will have a 12-month rule. They have one year to take the distribution and pay taxes on that year.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">RMD starts at age 75 if you are born in 1960 or later. Lookup table is provided to show the denominator value used in calculations. For a higher value of 401k (or tax deferred account) RMD ends up higher and shows us as income in tax calculations. RMD can be used to pay taxes and balance (if any) could be re-invested for growth.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">Medicare has a 2 year look back, so if you start it when you turn 65, you need to be aware of your MAGI when you are 63 and 64 when it could be at the max, before you retire when you turn 65.</span>
+        </div>
+
+        <div class="point">
+            <span class="point-icon">📝</span>
+            <span class="point-text">When you have your financial and retirement plans firmed up, share it with your children and let them be aware of various aspects of retirement. Most important is the financial aspects and what they can expect to inherit, how much money would be available at what time frame etc. It should not become a burden on their financial lives and should help them plan for distributions (when both parents pass). <u>Also</u> if they need money sooner, some arrangements could be made accordingly during the lives of both parents or one surviving parent. Please make sure you get your Revocable Living Trust created and recorded in the county office, also create an Estate Plan to hold all the documents including trust.</span>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-area">
+        <a href="topics.html" class="gold-btn">
+            <span>📋</span> Topics
+        </a>
+        <a href="index.html" class="home-btn">
+            <span style="font-size:28px;color:black;">🏠</span>
+        </a>
+    </div>
+
+    <footer></footer>
+</div>
+
+</body>
+</html>
