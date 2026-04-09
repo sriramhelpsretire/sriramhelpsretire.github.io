@@ -5,132 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Important Websites</title>
     <style>
-        :root {
-            --bg-dark: #0d1b1e;
-            --bg-light: #1b4d5c;
-            --accent-gold: #e7ca60;
-            --text-yellow: #f4d03f;
-            --link-cyan: #00ffff;
-            --red-accent: #a82222;
-        }
+       :root {
+    --bg-dark: #0d1b1e;
+    --bg-light: #1b4d5c;
+    --accent-gold: #e7ca60;
+    --text-yellow: #f4d03f;
+    --link-cyan: #00ffff;
+    --red-accent: #a82222;
+}
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #080f11;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #080f11;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
 
-        .page-wrapper {
-            width: 100%;
-            max-width: 600px;
-            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
-            background-attachment: fixed;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            border-left: 1px solid rgba(255,255,255,0.1);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            position: relative;
-        }
+/* Container */
+.page-wrapper {
+    width: 100%;
+    max-width: 800px; /* wider for desktop */
+    background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+    background-attachment: fixed;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
 
-        header {
-            padding: 30px 30px 10px 30px;
-            position: relative;
-        }
+/* Header */
+header {
+    padding: 25px 20px 10px 20px;
+    position: relative;
+}
 
-        /* The red decorative bar from your PowerPoint theme */
-        header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 30px;
-            width: 40px;
-            height: 100px;
-            background-color: var(--red-accent);
-            border-bottom: 2px solid #000;
-        }
+header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 35px;
+    height: 90px;
+    background-color: var(--red-accent);
+}
 
-        header h1 {
-            font-size: 32px;
-            font-weight: 400;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
+header h1 {
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 400;
+    margin: 0;
+}
 
-        .content {
-            padding: 10px 30px;
-            flex: 1;
-        }
+/* Content */
+.content {
+    padding: 10px 20px;
+    flex: 1;
+}
 
-        .website-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
+/* List */
+.website-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-        .site-item {
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
+.site-item {
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
 
-        .site-title {
-            color: var(--text-yellow);
-            font-weight: bold;
-            font-size: 19px; /* Increased font size */
-            display: block;
-            margin-bottom: 5px;
-        }
+/* Title */
+.site-title {
+    color: var(--text-yellow);
+    font-weight: bold;
+    font-size: clamp(16px, 2.5vw, 20px);
+    display: block;
+    margin-bottom: 6px;
+}
 
-        .site-link {
-            color: var(--link-cyan);
-            word-break: break-all;
-            font-size: 15px;
-            text-decoration: underline;
-        }
+/* Link */
+.site-link {
+    color: var(--link-cyan);
+    word-break: break-word;
+    font-size: clamp(13px, 2.3vw, 15px);
+    text-decoration: underline;
+    display: block;
+}
 
-        .site-desc {
-            display: block;
-            font-size: 16px; /* Increased font size */
-            color: #e0e0e0;
-            margin-top: 5px;
-        }
+/* Description */
+.site-desc {
+    display: block;
+    font-size: clamp(14px, 2.4vw, 16px);
+    color: #e0e0e0;
+    margin-top: 6px;
+}
 
-        /* Navigation Area */
-        .nav-area {
-            display: flex;
-            justify-content: flex-end;
-            padding: 20px 30px 40px 30px;
-        }
+/* Navigation */
+.nav-area {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
 
-        .home-btn {
-            background-color: white;
-            border: 2px solid black;
-            padding: 5px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            text-decoration: none;
-        }
+/* Button */
+.home-btn {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 6px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
 
-        footer {
-            height: 20px;
-            width: 100%;
-            background-color: var(--red-accent);
-            border-top: 2px solid #000;
-        }
+.home-btn:hover {
+    transform: scale(1.1);
+}
 
-        @media (max-width: 600px) {
-            .page-wrapper { border: none; }
-        }
+/* Footer */
+footer {
+    height: 20px;
+    width: 100%;
+    background-color: var(--red-accent);
+}
+
+/* Desktop Enhancements */
+@media (min-width: 768px) {
+    .content {
+        padding: 20px 40px;
+    }
+
+    header {
+        padding: 30px 40px 10px 40px;
+    }
+
+    header::after {
+        right: 40px;
+    }
+
+    .nav-area {
+        padding: 20px 40px 40px 40px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .home-btn {
+        width: 55px;
+        height: 55px;
+    }
+}
     </style>
 </head>
 <body>
