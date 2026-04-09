@@ -12,7 +12,7 @@
     --accent:#e8c84a; --green:#4ade80; --blue:#60a5fa; --text:#e6edf3; --muted:#7d8590; --label:#a8b3bf;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px; min-height: 100vh; }
 
   header { 
     background: linear-gradient(135deg, #0d1117, #1a2235); 
@@ -23,11 +23,11 @@
     gap: 14px; 
   }
   header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--accent); }
-  header span { color: var(--muted); font-size: 12px; font-family: 'DM Mono', monospace; }
+  header span { color: var(--muted); font-size: 11px; font-family: 'DM Mono', monospace; }
 
-  .layout { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 69px); }
+  .layout { display: grid; grid-template-columns: 320px 1fr; min-height: calc(100vh - 69px); }
 
-  /* Sidebar Styling */
+  /* Sidebar Controls */
   .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px 20px; overflow-y: auto; }
   .sxn h3 { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
   
@@ -36,40 +36,19 @@
   .field input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; color: var(--text); font-family: 'DM Mono', monospace; outline: none; }
   .field input:focus { border-color: var(--accent); }
 
-  /* Button System */
   .btn-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-  
-  .action-btn { 
-    width: 100%; 
-    border-radius: 8px; 
-    padding: 12px; 
-    font-weight: 700; 
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    cursor: pointer; 
-    text-align: center;
-    text-decoration: none;
-    transition: 0.2s; 
-    border: none;
-  }
-
+  .action-btn { width: 100%; border-radius: 8px; padding: 12px; font-weight: 700; font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; text-align: center; text-decoration: none; transition: 0.2s; border: none; }
   .calc-btn { background: var(--accent); color: #0d1117; }
-  .calc-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-
-  .home-btn { 
-    background: var(--surface2); 
-    color: var(--accent); 
-    border: 1px solid var(--accent); 
-  }
+  .home-btn { background: var(--surface2); color: var(--accent); border: 1px solid var(--accent); }
   .home-btn:hover { background: var(--accent); color: #0d1117; }
 
   /* Main Area */
   .main { padding: 32px; overflow-y: auto; }
-  .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 32px; border-top: 4px solid var(--green); display: inline-block; min-width: 300px; }
+  .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; border-top: 4px solid var(--green); display: inline-block; min-width: 320px; }
   .summary-card .label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
   .summary-card .value { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--text); }
 
-  .chart-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 32px; height: 350px; }
+  .chart-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; height: 320px; }
 
   .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   table { border-collapse: collapse; width: 100%; font-family: 'DM Mono', monospace; font-size: 12px; }
@@ -77,6 +56,9 @@
   tbody td { padding: 10px 12px; text-align: right; color: var(--label); border-bottom: 1px solid var(--border); }
   tbody tr:hover { background: #1c232d; }
   td.hl { color: var(--text); font-weight: 500; }
+  .tag { font-size: 9px; padding: 2px 6px; border-radius: 4px; margin-left: 5px; }
+  .tag-max { background: rgba(232, 200, 74, 0.1); color: var(--accent); border: 1px solid var(--accent); }
+  .tag-ret { background: rgba(148, 163, 184, 0.1); color: var(--muted); border: 1px solid var(--muted); }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -86,30 +68,35 @@
 
 <header>
   <h1>401k Compounding</h1>
-  <span>// Wealth Projection & Growth Analysis</span>
+  <span>// Max Contribution & Retirement Stop Logic</span>
 </header>
 
 <div class="layout">
   <aside class="sidebar">
     <div class="sxn">
-      <h3>Strategy Inputs</h3>
-      <div class="field"><label>Current Age</label><input type="number" id="startAge" value="25"></div>
-      <div class="field"><label>Annual Contribution ($)</label><input type="number" id="annualCont" value="23000"></div>
-      <div class="field"><label>Employer Match ($)</label><input type="number" id="employerMatch" value="7500"></div>
-      <div class="field"><label>Expected Growth (%)</label><input type="number" id="growthRate" value="7" step="0.1"></div>
-      <div class="field"><label>Contribution Increase ($/yr)</label><input type="number" id="contInc" value="500"></div>
+      <h3>Working Profile</h3>
+      <div class="field"><label>Current Age</label><input type="number" id="startAge" value="45"></div>
       <div class="field"><label>Retirement Age</label><input type="number" id="endAge" value="65"></div>
+      
+      <h3>Contribution Setup</h3>
+      <div class="field"><label>Personal Contribution ($)</label><input type="number" id="annualCont" value="23000"></div>
+      <div class="field"><label>Employer Match ($)</label><input type="number" id="employerMatch" value="7500"></div>
+      <div class="field"><label>Contribution Increase ($/yr)</label><input type="number" id="contInc" value="0"></div>
+      
+      <h3>Market & Limits</h3>
+      <div class="field"><label>Annual Growth (%)</label><input type="number" id="growthRate" value="7" step="0.1"></div>
+      <div class="field"><label>IRS Limit (2025)</label><input type="number" id="irsLimit" value="23500"></div>
     </div>
     
     <div class="btn-group">
-      <button class="action-btn calc-btn" onclick="calculateCompounding()">CALCULATE GROWTH</button>
+      <button class="action-btn calc-btn" onclick="runSimulation()">CALCULATE GROWTH</button>
       <a href="index.html" class="action-btn home-btn">HOME</a>
     </div>
   </aside>
 
   <main class="main">
     <div class="summary-card">
-      <div class="label">Projected Balance at Age <span id="displayRetirementAge">65</span></div>
+      <div class="label">Balance at Retirement (Age <span id="retAgeLabel">65</span>)</div>
       <div class="value" id="finalBalance">$0</div>
     </div>
 
@@ -122,93 +109,11 @@
         <thead>
           <tr>
             <th style="text-align:left">Age</th>
-            <th>Yearly Contribution</th>
-            <th>Employer Match</th>
-            <th>Growth Interest</th>
+            <th>Work Status</th>
+            <th>Contribution</th>
+            <th>Match</th>
+            <th>Interest</th>
             <th>Ending Balance</th>
           </tr>
         </thead>
-        <tbody id="resultsBody"></tbody>
-      </table>
-    </div>
-  </main>
-</div>
-
-<script>
-let chartInstance = null;
-
-function calculateCompounding() {
-    let age = parseInt(document.getElementById('startAge').value);
-    let contribution = parseFloat(document.getElementById('annualCont').value);
-    let match = parseFloat(document.getElementById('employerMatch').value);
-    let growth = parseFloat(document.getElementById('growthRate').value) / 100;
-    let increment = parseFloat(document.getElementById('contInc').value);
-    let retirementAge = parseInt(document.getElementById('endAge').value);
-    
-    let balance = 0;
-    let dataLabels = [];
-    let dataPoints = [];
-    let html = "";
-
-    document.getElementById('displayRetirementAge').innerText = retirementAge;
-
-    for (let i = age; i <= retirementAge; i++) {
-        let startBal = balance;
-        let totalAnnualCont = contribution + match;
-        let growthAmt = (startBal + totalAnnualCont) * growth;
-        balance = startBal + totalAnnualCont + growthAmt;
-
-        dataLabels.push("Age " + i);
-        dataPoints.push(balance.toFixed(0));
-
-        html += `<tr>
-            <td style="text-align:left; color:var(--accent)">${i}</td>
-            <td>$${contribution.toLocaleString()}</td>
-            <td>$${match.toLocaleString()}</td>
-            <td style="color:var(--green)">$${Math.round(growthAmt).toLocaleString()}</td>
-            <td class="hl">$${Math.round(balance).toLocaleString()}</td>
-        </tr>`;
-
-        contribution += increment;
-    }
-
-    document.getElementById('resultsBody').innerHTML = html;
-    document.getElementById('finalBalance').innerText = '$' + Math.round(balance).toLocaleString();
-    updateChart(dataLabels, dataPoints);
-}
-
-function updateChart(labels, data) {
-    const ctx = document.getElementById('growthChart').getContext('2d');
-    if (chartInstance) chartInstance.destroy();
-
-    chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: '401k Balance',
-                data: data,
-                borderColor: '#e8c84a',
-                backgroundColor: 'rgba(232, 200, 74, 0.1)',
-                fill: true,
-                tension: 0.3,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-                x: { grid: { color: '#30363d' }, ticks: { color: '#7d8590', font: { family: 'DM Mono' } } },
-                y: { grid: { color: '#30363d' }, ticks: { color: '#7d8590', font: { family: 'DM Mono' }, callback: v => '$' + v.toLocaleString() } }
-            }
-        }
-    });
-}
-
-calculateCompounding();
-</script>
-
-</body>
-</html>
+        <tbody
