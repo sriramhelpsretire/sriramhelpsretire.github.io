@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worried about Cash? - Retirement Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d1117; --surface:#161b22; --surface2:#1e2530; --border:#30363d;
+    --accent:#e8c84a; --text:#e6edf3; --muted:#7d8590; --label:#a8b3bf;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; overflow-x: hidden; }
+
+  header { 
+    background: linear-gradient(135deg, #0d1117, #1a2235); 
+    border-bottom: 1px solid var(--border); 
+    padding: 18px 32px; 
+    display: flex; 
+    align-items: baseline; 
+    gap: 14px; 
+  }
+  header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--accent); }
+  header span { color: var(--muted); font-size: 12px; font-family: 'DM Mono', monospace; }
+
+  .layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 69px); }
+
+  .sidebar { 
+    background: var(--surface); 
+    border-right: 1px solid var(--border); 
+    padding: 24px 20px; 
+    position: sticky; 
+    top: 0; 
+    height: calc(100vh - 69px); 
+  }
+  .sxn h3 { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
+  .nav-link { display: block; color: var(--label); text-decoration: none; font-size: 13px; padding: 8px 0; transition: color 0.2s; }
+  .nav-link:hover { color: var(--accent); }
+
+  .main { padding: 40px; overflow-y: auto; max-width: 900px; }
+
+  .content-text { font-size: 16px; color: var(--label); line-height: 1.8; margin-bottom: 30px; }
+  .content-text strong { color: var(--text); }
+  .content-text p { margin-bottom: 25px; }
+
+  /* Bottom Navigation */
+  .footer-nav {
+    position: fixed;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .nav-btn {
+    pointer-events: auto;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-btn.primary { border-color: var(--accent); color: var(--accent); }
+  .nav-btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .nav-btn.primary:hover { background: var(--accent); color: #0d1117; }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Worried about Cash?</h1>
+  <span>// Longevity & Depletion Analysis</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sxn">
+      <h3>Tools</h3>
+      <a href="cash_balance.html" class="nav-link">Cash Balance Calc</a>
+      <a href="index.html" class="nav-link">Retirement Dashboard</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="content-text">
+      <p>This is a very important area where we are discussing how long your money is expected to last. The core focus is on your <strong>liquid cash balance</strong> and ensuring you have sufficient immediate capital.</p>
+      
+      <p>As we discussed earlier, it is essential to save money, invest, take care of asset allocation, and plan for cash flow. We must accurately figure out how cash is made available for various expenses. This includes necessary tax payments, monthly recurring expenses, and discretionary spending (travel, etc.). Once Social Security income begins, balancing and re-allocation must be adjusted to account for all various sources of retirement income.</p>
+      
+      <p style="border-left: 2px solid var(--accent); padding-left: 15px; color:var(--muted); font-style:italic">The primary purpose of this specific calculation is to let the user input their desired beginning cash value and projected annual withdrawal (required based on other financial planning calculations) and forecast precisely how long it would last.</p>
+    </div>
+  </main>
+</div>
+
+<div class="footer-nav">
+  <a href="cash_balance.html" class="nav-btn primary">CASH BALANCE CALC</a>
+  <a href="topics.html" class="nav-btn">TOPICS</a>
+  <a href="index.html" class="nav-btn">HOME</a>
+</div>
+
+</body>
+</html>
