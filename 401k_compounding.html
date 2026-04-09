@@ -27,7 +27,7 @@
 
   .layout { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 69px); }
 
-  /* Sidebar Inputs */
+  /* Sidebar Styling */
   .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px 20px; overflow-y: auto; }
   .sxn h3 { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
   
@@ -36,10 +36,34 @@
   .field input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; color: var(--text); font-family: 'DM Mono', monospace; outline: none; }
   .field input:focus { border-color: var(--accent); }
 
-  .calc-btn { width: 100%; background: var(--accent); color: #0d1117; border: none; border-radius: 8px; padding: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+  /* Button System */
+  .btn-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+  
+  .action-btn { 
+    width: 100%; 
+    border-radius: 8px; 
+    padding: 12px; 
+    font-weight: 700; 
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer; 
+    text-align: center;
+    text-decoration: none;
+    transition: 0.2s; 
+    border: none;
+  }
+
+  .calc-btn { background: var(--accent); color: #0d1117; }
   .calc-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
-  /* Main Content */
+  .home-btn { 
+    background: var(--surface2); 
+    color: var(--accent); 
+    border: 1px solid var(--accent); 
+  }
+  .home-btn:hover { background: var(--accent); color: #0d1117; }
+
+  /* Main Area */
   .main { padding: 32px; overflow-y: auto; }
   .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 32px; border-top: 4px solid var(--green); display: inline-block; min-width: 300px; }
   .summary-card .label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
@@ -53,11 +77,6 @@
   tbody td { padding: 10px 12px; text-align: right; color: var(--label); border-bottom: 1px solid var(--border); }
   tbody tr:hover { background: #1c232d; }
   td.hl { color: var(--text); font-weight: 500; }
-
-  /* Navigation Footer */
-  .footer-nav { position: fixed; bottom: 25px; right: 40px; z-index: 100; }
-  .home-btn { background: var(--surface2); color: var(--text); border: 1px solid var(--border); padding: 10px 24px; border-radius: 30px; font-family: 'DM Mono', monospace; font-size: 11px; text-decoration: none; transition: 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: block; }
-  .home-btn:hover { border-color: var(--accent); color: var(--accent); }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -81,7 +100,11 @@
       <div class="field"><label>Contribution Increase ($/yr)</label><input type="number" id="contInc" value="500"></div>
       <div class="field"><label>Retirement Age</label><input type="number" id="endAge" value="65"></div>
     </div>
-    <button class="calc-btn" onclick="calculateCompounding()">Calculate Growth</button>
+    
+    <div class="btn-group">
+      <button class="action-btn calc-btn" onclick="calculateCompounding()">CALCULATE GROWTH</button>
+      <a href="index.html" class="action-btn home-btn">HOME</a>
+    </div>
   </aside>
 
   <main class="main">
@@ -109,10 +132,6 @@
       </table>
     </div>
   </main>
-</div>
-
-<div class="footer-nav">
-  <a href="index.html" class="home-btn">HOME</a>
 </div>
 
 <script>
@@ -150,9 +169,7 @@ function calculateCompounding() {
             <td class="hl">$${Math.round(balance).toLocaleString()}</td>
         </tr>`;
 
-        // Apply yearly increases
         contribution += increment;
-        // Optional: Match might also grow, but following your text logic of fixed increments
     }
 
     document.getElementById('resultsBody').innerHTML = html;
@@ -190,7 +207,6 @@ function updateChart(labels, data) {
     });
 }
 
-// Initial Run
 calculateCompounding();
 </script>
 
