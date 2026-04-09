@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>401k Compounding Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --bg:#0d1117; --surface:#161b22; --surface2:#1e2530; --border:#30363d;
+    --accent:#e8c84a; --green:#4ade80; --blue:#60a5fa; --text:#e6edf3; --muted:#7d8590; --label:#a8b3bf;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; }
+
+  header { 
+    background: linear-gradient(135deg, #0d1117, #1a2235); 
+    border-bottom: 1px solid var(--border); 
+    padding: 18px 32px; 
+    display: flex; 
+    align-items: baseline; 
+    gap: 14px; 
+  }
+  header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--accent); }
+  header span { color: var(--muted); font-size: 12px; font-family: 'DM Mono', monospace; }
+
+  .layout { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 69px); }
+
+  /* Sidebar Inputs */
+  .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px 20px; overflow-y: auto; }
+  .sxn h3 { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
+  
+  .field { margin-bottom: 12px; }
+  .field label { display: block; font-size: 10px; color: var(--label); margin-bottom: 4px; text-transform: uppercase; }
+  .field input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; color: var(--text); font-family: 'DM Mono', monospace; outline: none; }
+  .field input:focus { border-color: var(--accent); }
+
+  .calc-btn { width: 100%; background: var(--accent); color: #0d1117; border: none; border-radius: 8px; padding: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+  .calc-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* Main Content */
+  .main { padding: 32px; overflow-y: auto; }
+  .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 32px; border-top: 4px solid var(--green); display: inline-block; min-width: 300px; }
+  .summary-card .label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .summary-card .value { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--text); }
+
+  .chart-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 32px; height: 350px; }
+
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  table { border-collapse: collapse; width: 100%; font-family: 'DM Mono', monospace; font-size: 12px; }
+  thead th { background: #181f2b; color: var(--accent); padding: 12px; text-align: right; border-bottom: 2px solid var(--border); font-size: 11px; }
+  tbody td { padding: 10px 12px; text-align: right; color: var(--label); border-bottom: 1px solid var(--border); }
+  tbody tr:hover { background: #1c232d; }
+  td.hl { color: var(--text); font-weight: 500; }
+
+  /* Navigation Footer */
+  .footer-nav { position: fixed; bottom: 25px; right: 40px; z-index: 100; }
+  .home-btn { background: var(--surface2); color: var(--text); border: 1px solid var(--border); padding: 10px 24px; border-radius: 30px; font-family: 'DM Mono', monospace; font-size: 11px; text-decoration: none; transition: 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: block; }
+  .home-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>401k Compounding</h1>
+  <span>// Wealth Projection & Growth Analysis</span>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sxn">
+      <h3>Strategy Inputs</h3>
+      <div class="field"><label>Current Age</label><input type="number" id="startAge" value="30"></div>
+      <div class="field"><label>Annual Contribution ($)</label><input type="number" id="annualCont" value="23000"></div>
+      <div class="field"><label>Employer Match ($)</label><input type="number" id="employerMatch" value="7500"></div>
+      <div class="field"><label>Expected Growth (%)</label><input type="number" id="growthRate" value="7" step="0.1"></div>
+      <div class="field"><label>Contribution Increase ($/yr)</label><input type="number" id="contInc" value="500"></div>
+      <div class="field"><label>Retirement Age</label><input type="number" id="endAge" value="65"></div>
+    </div>
+    <button class="calc-btn" onclick="calculateCompounding()">Calculate Growth</button>
+  </aside>
+
+  <main class="main">
+    <div class="summary-card">
+      <div class="label">Projected Balance at Age <span id="displayRetirementAge">65</span></div>
+      <div class="value" id="finalBalance">$0</div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="growthChart"></canvas>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left">Age</th>
+            <th>Yearly Contribution</th>
+            <th>Employer Match</th>
+            <th>Growth Interest</th>
+            <th>Ending Balance</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<div class="footer-nav">
+  <a href="index.html" class="home-btn">HOME</a>
+</div>
+
+<script>
+let chartInstance = null;
+
+function calculateCompounding() {
+    let age = parseInt(document.getElementById('startAge').value);
+    let contribution = parseFloat(document.getElementById('annualCont').value);
+    let match = parseFloat(document.getElementById('employerMatch').value);
+    let growth = parseFloat(document.getElementById('growthRate').value) / 100;
+    let increment = parseFloat(document.getElementById('contInc').value);
+    let retirementAge = parseInt(document.getElementById('endAge').value);
+    
+    let balance = 0;
+    let dataLabels = [];
+    let dataPoints = [];
+    let html = "";
+
+    document.getElementById('displayRetirementAge').innerText = retirementAge;
+
+    for (let i = age; i <= retirementAge; i++) {
+        let startBal = balance;
+        let totalAnnualCont = contribution + match;
+        let growthAmt = (startBal + totalAnnualCont) * growth;
+        balance = startBal + totalAnnualCont + growthAmt;
+
+        dataLabels.push("Age " + i);
+        dataPoints.push(balance.toFixed(0));
+
+        html += `<tr>
+            <td style="text-align:left; color:var(--accent)">${i}</td>
+            <td>$${contribution.toLocaleString()}</td>
+            <td>$${match.toLocaleString()}</td>
+            <td style="color:var(--green)">$${Math.round(growthAmt).toLocaleString()}</td>
+            <td class="hl">$${Math.round(balance).toLocaleString()}</td>
+        </tr>`;
+
+        // Apply yearly increases
+        contribution += increment;
+        // Optional: Match might also grow, but following your text logic of fixed increments
+    }
+
+    document.getElementById('resultsBody').innerHTML = html;
+    document.getElementById('finalBalance').innerText = '$' + Math.round(balance).toLocaleString();
+    updateChart(dataLabels, dataPoints);
+}
+
+function updateChart(labels, data) {
+    const ctx = document.getElementById('growthChart').getContext('2d');
+    if (chartInstance) chartInstance.destroy();
+
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '401k Balance',
+                data: data,
+                borderColor: '#e8c84a',
+                backgroundColor: 'rgba(232, 200, 74, 0.1)',
+                fill: true,
+                tension: 0.3,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { grid: { color: '#30363d' }, ticks: { color: '#7d8590', font: { family: 'DM Mono' } } },
+                y: { grid: { color: '#30363d' }, ticks: { color: '#7d8590', font: { family: 'DM Mono' }, callback: v => '$' + v.toLocaleString() } }
+            }
+        }
+    });
+}
+
+// Initial Run
+calculateCompounding();
+</script>
+
+</body>
+</html>
