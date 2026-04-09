@@ -1,200 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retirement Topics</title>
-    <style>
-        :root {
-            --bg-dark: #0d1b1e;
-            --bg-light: #1b4d5c;
-            --accent-gold: #e7ca60;
-            --play-blue: #60a5fa;
-            --red-accent: #a82222;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Topics</title>
 
-        /* The outer body now handles the "Desktop" background */
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #080f11; /* Darker outer background for desktop contrast */
-            display: flex;
-            justify-content: center; /* Centers the "Phone/Tablet" view on desktop */
-            min-height: 100vh;
-        }
+<style>
+:root {
+    --bg-dark: #0d1b1e;
+    --bg-light: #1b4d5c;
+    --accent-gold: #e7ca60;
+    --play-blue: #60a5fa;
+    --red-accent: #a82222;
+}
 
-        /* 1. THE MAIN BORDERED CONTAINER */
-        .page-wrapper {
-            width: 100%;
-            max-width: 600px; /* Limits width on desktop to look like a guide/app */
-            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
-            background-attachment: fixed;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            /* Border and Shadow for Desktop */
-            border-left: 1px solid rgba(255,255,255,0.1);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-        }
+/* Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-        header {
-            padding: 40px 30px 20px 40px;
-        }
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #080f11;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
 
-        header h1 {
-            font-size: 28px;
-            font-weight: 400;
-            margin: 0;
-            line-height: 1.2;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
+/* Container */
+.page-wrapper {
+    width: 100%;
+    max-width: 700px; /* slightly wider for desktop */
+    background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
 
-        .topics-container {
-            padding: 20px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            flex: 1;
-        }
+/* Header */
+header {
+    padding: 30px 25px 15px 25px;
+}
 
-        .topic-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            width: fit-content;
-        }
+header h1 {
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 400;
+    line-height: 1.3;
+}
 
-        .play-icon {
-            background-color: var(--play-blue);
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+/* Topics */
+.topics-container {
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
 
-        .play-icon::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-top: 6px solid transparent;
-            border-bottom: 6px solid transparent;
-            border-left: 9px solid white;
-            margin-left: 2px;
-        }
+/* Row */
+.topic-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+}
 
-        .btn {
-            background-color: var(--accent-gold);
-            color: black;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 17px;
-            border: 2px solid #000;
-            min-width: 260px;
-            text-align: left;
-            box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            transition: all 0.2s ease;
-        }
+/* Play icon */
+.play-icon {
+    background-color: var(--play-blue);
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
-        .topic-row:hover .btn {
-            background-color: #f2d87e;
-            transform: scale(1.02);
-        }
+.play-icon::after {
+    content: '';
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 9px solid white;
+    margin-left: 2px;
+}
 
-        /* 2. HOME BUTTON STYLING */
-        .home-nav {
-            margin: 20px 40px 40px auto; /* Anchors to bottom right of container */
-        }
+/* Button */
+.btn {
+    background-color: var(--accent-gold);
+    color: black;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: clamp(15px, 2.5vw, 17px);
+    border: 2px solid #000;
+    width: 100%; /* responsive instead of fixed */
+    max-width: 420px;
+    line-height: 1.3;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+}
 
-        .home-btn {
-            background-color: white;
-            border: 2px solid black;
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            text-decoration: none;
-            width: 50px;
-            height: 50px;
-        }
+/* Hover */
+.topic-row:hover .btn {
+    background-color: #f2d87e;
+    transform: scale(1.02);
+}
 
-        /* 3. RED FOOTER BAR */
-        footer {
-            height: 20px;
-            width: 100%;
-            background-color: var(--red-accent);
-            border-top: 2px solid #000;
-        }
+/* Home button */
+.home-nav {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
 
-        @media (max-width: 600px) {
-            .page-wrapper {
-                border: none;
-                box-shadow: none;
-            }
-        }
-    </style>
+.home-btn {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.home-btn span {
+    font-size: 26px;
+    color: black;
+}
+
+/* Footer */
+footer {
+    height: 20px;
+    width: 100%;
+    background-color: var(--red-accent);
+    border-top: 2px solid #000;
+}
+
+/* Tablet/Desktop spacing */
+@media (min-width: 768px) {
+    header {
+        padding: 40px 40px 20px 40px;
+    }
+
+    .topics-container {
+        padding: 20px 40px;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .btn {
+        padding: 16px;
+    }
+
+    .home-btn {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* Remove borders on small screens */
+@media (max-width: 600px) {
+    .page-wrapper {
+        border: none;
+        box-shadow: none;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="page-wrapper">
-        <header>
-            <h1>We have some very interesting<br>topics for you below</h1>
-        </header>
+<div class="page-wrapper">
 
-        <div class="topics-container">
-            <a href="retirement_plan.html" class="topic-row">
-                <div class="play-icon"></div>
-                <div class="btn">Retirement Plan</div>
-            </a>
+<header>
+    <h1>We have some very interesting<br>topics for you below</h1>
+</header>
 
-            <a href="financial_plan.html" class="topic-row">
-                <div class="play-icon"></div>
-                <div class="btn">Financial Plan</div>
-            </a>
+<div class="topics-container">
 
-            <a href="medicare_aca.html" class="topic-row">
-                <div class="play-icon"></div>
-                <div class="btn">Medicare & ACA</div>
-            </a>
+    <a href="retirement_plan.html" class="topic-row">
+        <div class="play-icon"></div>
+        <div class="btn">Retirement Plan</div>
+    </a>
 
-            <a href="key_points.html" class="topic-row">
-                <div class="play-icon"></div>
-                <div class="btn">Some key points</div>
-            </a>
+    <a href="financial_plan.html" class="topic-row">
+        <div class="play-icon"></div>
+        <div class="btn">Financial Plan</div>
+    </a>
 
-            <a href="401k_compounding.html" class="topic-row">
-                <div class="play-icon"></div>
-                <div class="btn" style="line-height:1.1;">Power of compounding<br>through 401k growth</div>
-            </a>
+    <a href="medicare_aca.html" class="topic-row">
+        <div class="play-icon"></div>
+        <div class="btn">Medicare & ACA</div>
+    </a>
 
-            <a href="worried_cash.html" class="topic-row">
-                <div class="play-icon"></div>
-                <div class="btn">Worrying about cash<br>running out?</div>
-            </a>
+    <a href="key_points.html" class="topic-row">
+        <div class="play-icon"></div>
+        <div class="btn">Some key points</div>
+    </a>
 
-            <a href="coming_soon.html" class="topic-row">
-                <div class="play-icon"></div>
-                <div class="btn">COMING SOON ...</div>
-            </a>
-            
-            <div class="home-nav">
-                <a href="index.html" class="home-btn">
-                    <span style="font-size: 30px; color: black;">🏠</span>
-                </a>
-            </div>
-        </div>
+    <a href="401k_compounding.html" class="topic-row">
+        <div class="play-icon"></div>
+        <div class="btn">Power of compounding<br>through 401k growth</div>
+    </a>
 
-        <footer></footer>
+    <a href="worried_cash.html" class="topic-row">
+        <div class="play-icon"></div>
+        <div class="btn">Worrying about cash<br>running out?</div>
+    </a>
+
+    <a href="coming_soon.html" class="topic-row">
+        <div class="play-icon"></div>
+        <div class="btn">COMING SOON ...</div>
+    </a>
+
+    <div class="home-nav">
+        <a href="index.html" class="home-btn">
+            <span>🏠</span>
+        </a>
     </div>
+
+</div>
+
+<footer></footer>
+
+</div>
 
 </body>
 </html>
