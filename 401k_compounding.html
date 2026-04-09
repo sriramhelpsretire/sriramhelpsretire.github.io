@@ -153,32 +153,7 @@ function calculateCompounding() {
     document.getElementById('displayRetirementAge').innerText = retirementAge;
 
     for (let i = age; i <= retirementAge; i++) {
-    let startBal = balance;
-    
-    // Check employee contribution against IRS limit
-    const IRS_LIMIT = 23000; 
-    let effectiveContribution = (contribution > IRS_LIMIT) ? IRS_LIMIT : contribution;
-    
-    let totalAnnualCont = effectiveContribution + match;
-    let growthAmt = (startBal + totalAnnualCont) * growth;
-    balance = startBal + totalAnnualCont + growthAmt;
-
-    dataLabels.push("Age " + i);
-    dataPoints.push(balance.toFixed(0));
-
-    html += `<tr>
-        <td style="text-align:left; color:var(--accent)">${i}</td>
-        <td>$${effectiveContribution.toLocaleString()} ${effectiveContribution === IRS_LIMIT ? '(Maxed)' : ''}</td>
-        <td>$${match.toLocaleString()}</td>
-        <td style="color:var(--green)">$${Math.round(growthAmt).toLocaleString()}</td>
-        <td class="hl">$${Math.round(balance).toLocaleString()}</td>
-    </tr>`;
-
-    contribution += increment;
-}
-// -----------------------
-
-let totalAnnualCont = actualContribution + match;
+        let startBal = balance;
         let totalAnnualCont = contribution + match;
         let growthAmt = (startBal + totalAnnualCont) * growth;
         balance = startBal + totalAnnualCont + growthAmt;
