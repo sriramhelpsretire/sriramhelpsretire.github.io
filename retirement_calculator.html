@@ -32,7 +32,7 @@ header span{color:var(--muted);font-size:11px;font-family:'DM Mono',monospace}
 .sxn h3{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 .field{margin-bottom:7px}
 .field label{display:block;font-size:10px;color:var(--label);margin-bottom:2px;font-weight:500}
-.field input{width:100%;background:#494949;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:var(--text);font-family:'DM Mono',monospace;color: #39FF14;font-size:14px;outline:none;transition:border-color .15s}
+.field input{width:100%;background:#494949;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:#39FF14;font-family:'DM Mono',monospace;font-size:14px;outline:none;transition:border-color .15s}
 .field input:focus{border-color:var(--accent)}
 .field input[type=number]::-webkit-inner-spin-button{opacity:.3}
 .calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:9px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;margin-top:4px;transition:opacity .15s,transform .1s}
@@ -71,7 +71,7 @@ header span{color:var(--muted);font-size:11px;font-family:'DM Mono',monospace}
 
 .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:auto;max-height:calc(100vh - 320px)}
 table{border-collapse:collapse;width:100%;font-size:14px;font-family:'DM Mono',monospace}
-thead th{position:sticky;top:0;background:#181f2b;font-size:10px;letter-spacing:.5px;text-transform:uppercase;padding:8px 11px;text-align:right;white-space:nowrap;border-bottom:2px solid var(--border);z-index:2}
+thead th{position:sticky;top:0;background:#181f2b;font-size:12px;letter-spacing:.5px;text-transform:uppercase;padding:10px 11px;text-align:right;white-space:nowrap;border-bottom:2px solid var(--border);z-index:2}
 th.c{text-align:center}th.l{text-align:left}
 tbody tr{border-bottom:1px solid #1a2130;transition:background .1s}
 tbody tr:hover{background:#181f2b}
@@ -196,16 +196,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </aside>
 
 <div class="main">
-  <!-- Summary Cards -->
   <div class="cards">
-    <div class="card gold"><div class="card-lbl">Portfolio at Retire</div><div class="card-val" id="c-retire">—</div><div class="card-sub" id="c-retire-s">age 65</div></div>
+    <div class="card gold"><div class="card-lbl">Portfolio at Retirement Age</div><div class="card-val" id="c-retire">—</div><div class="card-sub" id="c-retire-s">age 65</div></div>
     <div class="card green"><div class="card-lbl">Peak Portfolio</div><div class="card-val" id="c-peak">—</div><div class="card-sub" id="c-peak-s">—</div></div>
-   <div class="card blue"><div class="card-lbl">Final Portfolio</div><div class="card-val" id="c-final">—</div><div class="card-sub" id="c-final-s">age 90</div></div>
     <div class="card purple"><div class="card-lbl">Lifetime SS</div><div class="card-val" id="c-ss">—</div><div class="card-sub">projected</div></div>
     <div class="card red"><div class="card-lbl">Lifetime Tax</div><div class="card-val" id="c-tax">—</div><div class="card-sub">Fed + CA</div></div>
   </div>
 
-  <!-- Tabs -->
   <div class="tab-bar">
     <div class="tab active" style="--tc:#e8c84a" data-tab="p401k"><span class="dot" style="--tc:#e8c84a"></span>401(k)</div>
     <div class="tab" style="--tc:#a78bfa" data-tab="proth"><span class="dot" style="--tc:#a78bfa"></span>Roth IRA</div>
@@ -219,7 +216,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="tab" style="--tc:#fbbf24" data-tab="psum"><span class="dot" style="--tc:#fbbf24"></span>Summary</div>
   </div>
 
-  <!-- Table Panels -->
   <div class="table-area">
     <div class="tab-panel active" id="p401k">
       <div class="panel-title"><span class="pdot" style="background:#e8c84a"></span>401(k) Account</div>
@@ -263,14 +259,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       CHART SECTION
-  ═══════════════════════════════════════ -->
   <div class="chart-section">
     <div class="chart-section-title">Growth Chart &amp; Age Comparison</div>
     <div class="chart-section-sub">// Visualize portfolio growth across all accounts by age</div>
 
-    <!-- Chart view toggle -->
     <div class="chart-toggle">
       <button class="ctbtn active" data-view="portfolio" onclick="switchView('portfolio',this)">Total Portfolio</button>
       <button class="ctbtn" data-view="accounts" onclick="switchView('accounts',this)">By Account</button>
@@ -278,7 +270,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <button class="ctbtn" data-view="income" onclick="switchView('income',this)">SS &amp; RMD Income</button>
     </div>
 
-    <!-- Main chart (full width) -->
     <div class="chart-grid">
       <div class="chart-box full" id="mainChartBox">
         <div class="chart-box-title" id="mainChartTitle" style="color:var(--accent)">Total Portfolio Growth by Age</div>
@@ -286,7 +277,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
     </div>
 
-    <!-- Age A/B Sliders -->
     <div class="sliders-row">
       <div class="slider-box">
         <div class="slider-label">
@@ -304,7 +294,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </div>
     </div>
 
-    <!-- Comparison table -->
     <div class="compare-box">
       <div class="compare-title">Portfolio Comparison at Selected Ages</div>
       <table class="compare-table">
@@ -319,7 +308,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </table>
     </div>
 
-    <!-- Account breakdown charts (2x2 grid) -->
     <div class="chart-grid">
       <div class="chart-box">
         <div class="chart-box-title" style="color:#e8c84a">401(k) Balance</div>
@@ -346,20 +334,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="chart-canvas-wrap"><canvas id="chartTax"></canvas></div>
       </div>
     </div>
-  </div><!-- /chart-section -->
-
-  <!-- Home button at bottom -->
-  <div class="bottom-home">
+  </div><div class="bottom-home">
     <a href="index.html" class="bottom-home-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Back to Home
     </a>
   </div>
 
-</div><!-- /main -->
-</div><!-- /layout -->
-
-<script>
+</div></div><script>
 // ── Tax brackets
 const FED=[{lo:0,hi:24800,r:.10},{lo:24800,hi:100800,r:.12},{lo:100800,hi:211400,r:.22},{lo:211400,hi:403550,r:.24},{lo:403550,hi:512450,r:.32},{lo:512450,hi:768700,r:.35},{lo:768700,hi:1e18,r:.37}];
 const CA=[{lo:0,hi:22158,r:.01},{lo:22158,hi:52528,r:.02},{lo:52528,hi:82904,r:.04},{lo:82904,hi:115084,r:.06},{lo:115084,hi:145448,r:.08},{lo:145448,hi:742958,r:.093},{lo:742958,hi:891542,r:.103},{lo:891542,hi:1485906,r:.113},{lo:1485906,hi:1e18,r:.123}];
@@ -393,7 +375,7 @@ function fill(id,head,rowFn,rows){document.getElementById(id).innerHTML=`<thead>
 Chart.defaults.color='#7d8590';
 Chart.defaults.borderColor='#30363d';
 Chart.defaults.font.family="'DM Mono', monospace";
-Chart.defaults.font.size=11;
+Chart.defaults.font.size=14;
 
 // Global chart instances
 let charts={};
@@ -493,6 +475,7 @@ function updateSliders(){
     ['Brokerage', r=>r.eB],
     ['HSA', r=>r.eH],
     ['Bonds', r=>r.eBn],
+    ['Adjusted Gross Income (AGI)', r=>r.agi],
     ['Annual SS Income', r=>r.totalSS_yr],
     ['Annual RMD', r=>r.rmd],
     ['Federal Tax', r=>r.fedTax],
@@ -511,17 +494,13 @@ function updateSliders(){
     </tr>`;
   }).join('');
 
-  // Update vertical lines on main chart
   if(charts['mainChart']){
     renderMainChart(globalRows);
-    // Add age marker annotations via afterDraw plugin
     const chart=charts['mainChart'];
-    const ages=globalRows.map(r=>r.age);
     chart._ageMarkers=[sA,sB];
   }
 }
 
-// Custom plugin to draw age markers
 const ageMarkerPlugin={
   id:'ageMarker',
   afterDraw(chart){
@@ -583,6 +562,7 @@ function calculate(){
     const rmdFactor=RMD_F[age]||null;
     const grossInc=ret?(conv+w4+totalSS_yr+rmd):0;
     const taxSS=totalSS_yr*.85;
+    const agi = ret ? (conv + w4 + taxSS + (sB * r1) + (sBn * r2)) : 0;
     const fedTaxable=Math.max(0,conv+w4+rmd+taxSS-fedDed);
     const fedTax=ret?taxCalc(fedTaxable,FED):0;
     const fedEff=fedTaxable>0?((fedTax/fedTaxable)*100).toFixed(1)+'%':'—';
@@ -595,19 +575,16 @@ function calculate(){
     if(total>peak){peak=total;peakAge=age;}
     if(age===retireAge)retPort=total;
     if(age===endAge)finPort=total;
-    rows.push({year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,
+    rows.push({year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,agi,
       ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc,taxSS,fedTaxable,fedTax,fedEff,caAdj,caTaxRaw,caTax,caEff,totalTax_yr,ret,rmdOn});
     prev={a:e4,b:eR,c:eB,d:eH,e:eBn};
   }
   globalRows=rows;
 
-  // Cards
   document.getElementById('c-retire').textContent=fz(retPort);
   document.getElementById('c-retire-s').textContent=`at age ${retireAge}`;
   document.getElementById('c-peak').textContent=fz(peak);
   document.getElementById('c-peak-s').textContent=`at age ${peakAge}`;
-  document.getElementById('c-final').textContent = fz(finPort);
-  document.getElementById('c-final-s').textContent=`at age ${endAge}`;
   document.getElementById('c-ss').textContent=fz(totalSS);
   document.getElementById('c-tax').textContent=fz(totalTax);
 
@@ -635,10 +612,9 @@ function calculate(){
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.taxSS?fz(r.taxSS):'—'}</td><td class="dim">${r.ret?fz(fedDed):'—'}</td><td>${r.fedTaxable?fz(r.fedTaxable):'—'}</td><td class="neg hl">${r.fedTax?fz(r.fedTax):'—'}</td><td class="c dim">${r.fedEff}</td></tr>`,rows);
   fill('tca',`${YH}<th style="color:#94a3b8">Roth Conv</th><th style="color:#94a3b8">401k Wdraw</th><th style="color:#94a3b8">RMD</th><th style="color:#94a3b8">Total SS</th><th style="color:#94a3b8">Itemized Ded</th><th style="color:#94a3b8">CA Adj Income</th><th style="color:#94a3b8">CA Tax (raw)</th><th style="color:#94a3b8">Exempt Credit</th><th style="color:#94a3b8">CA Tax (net)</th><th class="c" style="color:#94a3b8">Eff Rate</th>`,
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td class="dim">${r.ret?fz(caDed):'—'}</td><td>${r.caAdj?fz(r.caAdj):'—'}</td><td class="neg">${r.caTaxRaw?fz(r.caTaxRaw):'—'}</td><td class="dim">${r.ret?fz(caEx):'—'}</td><td class="neg hl">${r.caTax?fz(r.caTax):'—'}</td><td class="c dim">${r.caEff}</td></tr>`,rows);
-  fill('tsum',`${YH}<th style="color:#e8c84a">401k</th><th style="color:#a78bfa">Roth IRA</th><th style="color:#60a5fa">Brokerage</th><th style="color:#4ade80">HSA</th><th style="color:#fb923c">Bonds</th><th style="color:var(--text)">Total Portfolio</th><th style="color:#fb7185">Total SS</th><th style="color:#38bdf8">RMD</th><th style="color:#f472b6">Fed Tax</th><th style="color:#94a3b8">CA Tax</th><th style="color:var(--danger)">Total Tax</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td>${fz(r.eH)}</td><td>${fz(r.eBn)}</td><td class="hl" style="color:var(--accent)">${fz(r.total)}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td class="neg">${r.fedTax?fz(r.fedTax):'—'}</td><td class="neg">${r.caTax?fz(r.caTax):'—'}</td><td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td></tr>`,rows);
+  fill('tsum',`${YH}<th style="color:#e8c84a">401k</th><th style="color:#a78bfa">Roth IRA</th><th style="color:#60a5fa">Brokerage</th><th style="color:#4ade80">HSA</th><th style="color:#fb923c">Bonds</th><th style="color:var(--accent)">AGI</th><th style="color:var(--text)">Total Portfolio</th><th style="color:#fb7185">Total SS</th><th style="color:#38bdf8">RMD</th><th style="color:#f472b6">Fed Tax</th><th style="color:#94a3b8">CA Tax</th><th style="color:var(--danger)">Total Tax</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td>${fz(r.eH)}</td><td>${fz(r.eBn)}</td><td class="hl" style="color:var(--accent)">${r.agi?fz(r.agi):'—'}</td><td class="hl">${fz(r.total)}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td class="neg">${r.fedTax?fz(r.fedTax):'—'}</td><td class="neg">${r.caTax?fz(r.caTax):'—'}</td><td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td></tr>`,rows);
 
-  // Update slider ranges and render charts
   const sA=document.getElementById('sliderA');
   const sB=document.getElementById('sliderB');
   sA.min=hAge0; sA.max=endAge;
