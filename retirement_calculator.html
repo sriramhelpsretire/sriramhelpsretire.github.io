@@ -1,643 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retirement Portfolio Calculator</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<style>
-:root{
-  --bg:#0d1117;--surface:#161b22;--surface2:#1e2530;--border:#30363d;
-  --accent:#e8c84a;--green:#4ade80;--blue:#60a5fa;--purple:#a78bfa;
-  --orange:#fb923c;--pink:#fb7185;--slate:#94a3b8;--sky:#38bdf8;--rose:#f472b6;
-  --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#a8b3bf;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Terms - Deciphered</title>
+    <style>
+        body {
+            background: radial-gradient(circle at center, #1a3c40 0%, #0d2024 100%);
+            color: #d1e1e4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px 40px 100px 40px; /* Extra bottom padding for the button */
+            line-height: 1.6;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
-.header-left{display:flex;align-items:baseline;gap:12px}
-header h1{font-family:'DM Serif Display',serif;font-size:24px;color:var(--accent)}
-header span{color:var(--muted);font-size:11px;font-family:'DM Mono',monospace}
-.home-btn{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);color:var(--label);padding:7px 14px;border-radius:7px;text-decoration:none;font-size:12px;font-weight:600;transition:all .15s}
-.home-btn:hover{border-color:var(--accent);color:var(--accent)}
-.home-btn svg{width:14px;height:14px}
+        .accent-bar {
+            position: absolute;
+            top: 0;
+            right: 10%;
+            width: 40px;
+            height: 70px;
+            background-color: #b33a3a;
+        }
 
-.layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 65px)}
+        h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: normal;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+        }
 
-/* SIDEBAR */
-.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 65px);position:sticky;top:0}
-.sxn{margin-bottom:18px}
-.sxn h3{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--border)}
-.field{margin-bottom:7px}
-.field label{display:block;font-size:10px;color:var(--label);margin-bottom:2px;font-weight:500}
-.field input{width:100%;background:#494949;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:#39FF14;font-family:'DM Mono',monospace;font-size:14px;outline:none;transition:border-color .15s}
-.field input:focus{border-color:var(--accent)}
-.field input[type=number]::-webkit-inner-spin-button{opacity:.3}
-.calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:9px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;margin-top:4px;transition:opacity .15s,transform .1s}
-.calc-btn:hover{opacity:.88}
-.calc-btn:active{transform:scale(.98)}
+        .icon-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
 
-/* MAIN */
-.main{display:flex;flex-direction:column;overflow:hidden}
+        .icon-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
 
-/* Summary Cards */
-.cards{display:flex;gap:8px;padding:12px 20px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 13px;min-width:120px;flex:1;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.card.gold::before{background:var(--accent)}.card.green::before{background:var(--green)}
-.card.blue::before{background:var(--blue)}.card.purple::before{background:var(--purple)}
-.card.red::before{background:var(--danger)}
-.card-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Mono',monospace;margin-bottom:4px}
-.card-val{font-family:'DM Serif Display',serif;font-size:17px;color:var(--text)}
-.card-sub{font-size:9px;color:var(--muted);margin-top:2px}
+        .icon-bullet {
+            color: #4ecdc4;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
 
-/* Tab bar */
-.tab-bar{display:flex;padding:0 20px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}
-.tab-bar::-webkit-scrollbar{height:3px}
-.tab-bar::-webkit-scrollbar-thumb{background:var(--border)}
-.tab{padding:10px 14px;cursor:pointer;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s,border-color .15s}
-.tab:hover{color:var(--label)}
-.tab.active{color:var(--text);border-bottom-color:var(--tc,var(--accent))}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--tc,var(--accent))}
+        .term-abbr {
+            color: #f1c40f;
+            font-weight: bold;
+            margin-right: 10px;
+        }
 
-/* Table area */
-.table-area{flex:1;overflow:auto;padding:16px 20px}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.panel-title{font-family:'DM Serif Display',serif;font-size:15px;color:var(--label);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.pdot{width:8px;height:8px;border-radius:50%;display:inline-block}
+        .term-full {
+            color: #ffffff;
+        }
 
-.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:auto;max-height:calc(100vh - 320px)}
-table{border-collapse:collapse;width:100%;font-size:14px;font-family:'DM Mono',monospace}
-thead th{position:sticky;top:0;background:#181f2b;font-size:12px;letter-spacing:.5px;text-transform:uppercase;padding:10px 11px;text-align:right;white-space:nowrap;border-bottom:2px solid var(--border);z-index:2}
-th.c{text-align:center}th.l{text-align:left}
-tbody tr{border-bottom:1px solid #1a2130;transition:background .1s}
-tbody tr:hover{background:#181f2b}
-tbody tr.r-row{background:rgba(232,200,74,.05)}
-tbody tr.m-row{background:rgba(74,222,128,.04)}
-td{padding:8px 11px;text-align:right;color:var(--label);white-space:nowrap}
-td.c{text-align:center}td.l{text-align:left}
-td.hl{color:var(--text);font-weight:500}td.pos{color:var(--green)}td.neg{color:var(--danger)}td.dim{color:var(--muted)}
-.tag{display:inline-block;font-size:7px;padding:1px 4px;border-radius:3px;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.5px;vertical-align:middle;margin-left:3px}
-.tag-r{background:rgba(232,200,74,.2);color:var(--accent)}.tag-m{background:rgba(74,222,128,.15);color:var(--green)}
+        .link-section {
+            padding-left: 0;
+            list-style-type: none;
+            flex-grow: 1; /* Pushes content so button stays below */
+        }
 
-/* ── CHART SECTION ── */
-.chart-section{padding:24px 20px 32px;border-top:1px solid var(--border);background:var(--bg)}
-.chart-section-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--accent);margin-bottom:6px;letter-spacing:-.3px}
-.chart-section-sub{font-size:12px;color:var(--muted);margin-bottom:20px;font-family:'DM Mono',monospace}
+        .link-item {
+            counter-increment: term-counter;
+            margin-bottom: 35px;
+        }
 
-/* Chart toggle buttons */
-.chart-toggle{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.ctbtn{padding:7px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
-.ctbtn.active{background:var(--surface2);color:var(--text);border-color:var(--accent)}
-.ctbtn:hover{color:var(--label)}
+        .link-item::before {
+            content: counter(term-counter) ". ";
+            color: #f1c40f;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
 
-/* Chart grid */
-.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
-.chart-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
-.chart-box.full{grid-column:1/-1}
-.chart-box-title{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:14px}
-.chart-canvas-wrap{position:relative;height:220px}
-.chart-canvas-wrap.tall{height:280px}
+        .link-title {
+            color: #f1c40f;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
 
-/* Age Sliders */
-.sliders-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
-.slider-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
-.slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.slider-label span:first-child{font-size:12px;color:var(--label);font-weight:500}
-.slider-val{font-family:'DM Serif Display',serif;font-size:22px}
-.slider-a-val{color:var(--accent)}
-.slider-b-val{color:var(--sky)}
-input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--border);outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid var(--bg)}
-#sliderA::-webkit-slider-thumb{background:var(--accent)}
-#sliderB::-webkit-slider-thumb{background:var(--sky)}
+        .link-url {
+            color: #4ecdc4;
+            text-decoration: underline;
+            display: block;
+            margin-bottom: 5px;
+        }
 
-/* Comparison table */
-.compare-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
-.compare-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:14px}
-.compare-table{width:100%;border-collapse:collapse}
-.compare-table th{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'DM Mono',monospace;padding:6px 12px;text-align:right;border-bottom:1px solid var(--border)}
-.compare-table th:first-child{text-align:left}
-.compare-table td{padding:10px 12px;text-align:right;font-family:'DM Mono',monospace;font-size:13px;border-bottom:1px solid #1a2130;color:var(--label)}
-.compare-table td:first-child{text-align:left;color:var(--label);font-family:'DM Sans',sans-serif;font-size:13px}
-.compare-table tr:last-child td{border-bottom:none;font-weight:700;color:var(--text);font-size:14px}
-.compare-table tr:last-child td:first-child{color:var(--text)}
-.col-a{color:var(--accent)!important}
-.col-b{color:var(--sky)!important}
+        .description {
+            color: #cbd5e0;
+        }
 
-/* Home button at bottom */
-.bottom-home{display:flex;justify-content:center;padding:28px 20px 36px;border-top:1px solid var(--border)}
-.bottom-home-btn{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--label);padding:11px 28px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:600;transition:all .2s;letter-spacing:.3px}
-.bottom-home-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(232,200,74,.05)}
+        /* Centered HOME Button */
+        .home-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            width: 100%;
+        }
 
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-</style>
+        .home-btn {
+            color: #ffffff;
+            text-decoration: none;
+            border: 1px solid #4ecdc4;
+            padding: 10px 30px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .home-btn:hover {
+            background-color: rgba(78, 205, 196, 0.1);
+            border-color: #f1c40f;
+            color: #f1c40f;
+        }
+    </style>
 </head>
 <body>
+    <div class="accent-bar"></div>
+    
+    <h1>So many terms? Here is a place to decipher them</h1>
 
-<header>
-  <div class="header-left">
-    <h1>Retirement Portfolio Calculator</h1>
-    <span>// Couples Financial Projection · California</span>
-  </div>
-  <a href="index.html" class="home-btn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Home
-  </a>
-</header>
+    <ul class="icon-list">
+        <li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">RMD:</span>
+            <span class="term-full">Required Minimum Distribution</span>
+        </li>
+        <li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">HSA:</span>
+            <span class="term-full">Health Savings Account</span>
+        </li>
+        <li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">ACA:</span>
+            <span class="term-full">Affordable Care Act</span>
+        </li>
+        <li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">IRA:</span>
+            <span class="term-full">Individual Retirement Account</span>
+        </li>
+    </ul>
 
-<div class="layout">
-<aside class="sidebar">
-  <div class="sxn"><h3>General</h3>
-    <div class="field"><label>Start Year</label><input type="number" id="startYear" value="2026"></div>
-    <div class="field"><label>Husband Current Age</label><input type="number" id="hAge" value="60"></div>
-    <div class="field"><label>Wife Current Age</label><input type="number" id="wAge0" value="56"></div>
-    <div class="field"><label>Retirement Age</label><input type="number" id="retireAge" value="65"></div>
-    <div class="field"><label>RMD Start Age</label><input type="number" id="rmdAge" value="75"></div>
-    <div class="field"><label>Project Through Age</label><input type="number" id="endAge" value="90"></div>
-  </div>
-  <div class="sxn"><h3>Growth &amp; Rates</h3>
-    <div class="field"><label>Growth Rate 1 — 401k / Roth / Brokerage / HSA (%)</label><input type="number" id="gr1" value="6.00" step="0.01"></div>
-    <div class="field"><label>Growth Rate 2 — Bonds (%)</label><input type="number" id="gr2" value="4.00" step="0.01"></div>
-    <div class="field"><label>Inflation Rate (%)</label><input type="number" id="inflation" value="2.58" step="0.01"></div>
-    <div class="field"><label>SS COLA (%)</label><input type="number" id="ssCola" value="2.00" step="0.01"></div>
-  </div>
-  <div class="sxn"><h3>Contributions &amp; Spending</h3>
-    <div class="field"><label>Annual Spending</label><input type="number" id="spend" value="60000"></div>
-    <div class="field"><label>401k Employee Contribution</label><input type="number" id="c401k" value="16000"></div>
-    <div class="field"><label>401k Employer Match</label><input type="number" id="m401k" value="0"></div>
-    <div class="field"><label>HSA Contribution (pre-retire)</label><input type="number" id="cHSA" value="8000"></div>
-    <div class="field"><label>Roth Conversion (age 65–74)</label><input type="number" id="rothConv" value="100000"></div>
-    <div class="field"><label>401k Withdrawal (post-retire)</label><input type="number" id="w401k" value="0"></div>
-  </div>
-  <div class="sxn"><h3>Starting Balances</h3>
-    <div class="field"><label>401k Balance</label><input type="number" id="b401k" value="500000"></div>
-    <div class="field"><label>Roth IRA Balance</label><input type="number" id="bRoth" value="50000"></div>
-    <div class="field"><label>Brokerage Balance</label><input type="number" id="bBrok" value="50000"></div>
-    <div class="field"><label>HSA Balance</label><input type="number" id="bHSA" value="50000"></div>
-    <div class="field"><label>Bonds Balance</label><input type="number" id="bBonds" value="50000"></div>
-  </div>
-  <div class="sxn"><h3>Social Security</h3>
-    <div class="field"><label>SS Start Age — Husband</label><input type="number" id="ssStartH" value="67"></div>
-    <div class="field"><label>SS Start Age — Wife</label><input type="number" id="ssStartW" value="67"></div>
-    <div class="field"><label>SS Annual — Husband</label><input type="number" id="ssH" value="48000"></div>
-    <div class="field"><label>SS Annual — Wife</label><input type="number" id="ssW" value="24000"></div>
-  </div>
-  <div class="sxn"><h3>Tax Parameters</h3>
-    <div class="field"><label>Federal Std Deduction (MFJ)</label><input type="number" id="fedDed" value="32200"></div>
-    <div class="field"><label>CA Itemized Deduction</label><input type="number" id="caDed" value="20000"></div>
-    <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306"></div>
-  </div>
-  <button class="calc-btn" onclick="calculate()">▶ Calculate Projection</button>
-</aside>
+    <ol class="link-section">
+        <li class="link-item">
+            <span class="link-title">AIME (Average Indexed Monthly Earnings)</span>
+            <a href="https://www.ssa.gov/oact/cola/aime.html" class="link-url">https://www.ssa.gov/oact/cola/aime.html</a>
+            <div class="description">Used by Social Security to index your top 35 years of earnings to current wage levels.</div>
+        </li>
 
-<div class="main">
-  <div class="cards">
-    <div class="card gold"><div class="card-lbl">Portfolio at Retirement Age</div><div class="card-val" id="c-retire">—</div><div class="card-sub" id="c-retire-s">age 65</div></div>
-    <div class="card green"><div class="card-lbl">Peak Portfolio</div><div class="card-val" id="c-peak">—</div><div class="card-sub" id="c-peak-s">—</div></div>
-    <div class="card purple"><div class="card-lbl">Lifetime SS</div><div class="card-val" id="c-ss">—</div><div class="card-sub">projected</div></div>
-    <div class="card red"><div class="card-lbl">Lifetime Tax</div><div class="card-val" id="c-tax">—</div><div class="card-sub">Fed + CA</div></div>
-  </div>
-
-  <div class="tab-bar">
-    <div class="tab active" style="--tc:#e8c84a" data-tab="p401k"><span class="dot" style="--tc:#e8c84a"></span>401(k)</div>
-    <div class="tab" style="--tc:#a78bfa" data-tab="proth"><span class="dot" style="--tc:#a78bfa"></span>Roth IRA</div>
-    <div class="tab" style="--tc:#60a5fa" data-tab="pbrok"><span class="dot" style="--tc:#60a5fa"></span>Brokerage</div>
-    <div class="tab" style="--tc:#4ade80" data-tab="phsa"><span class="dot" style="--tc:#4ade80"></span>HSA</div>
-    <div class="tab" style="--tc:#fb923c" data-tab="pbonds"><span class="dot" style="--tc:#fb923c"></span>Bonds</div>
-    <div class="tab" style="--tc:#fb7185" data-tab="pss"><span class="dot" style="--tc:#fb7185"></span>Social Security</div>
-    <div class="tab" style="--tc:#38bdf8" data-tab="prmd"><span class="dot" style="--tc:#38bdf8"></span>RMD</div>
-    <div class="tab" style="--tc:#f472b6" data-tab="pfed"><span class="dot" style="--tc:#f472b6"></span>Federal Tax</div>
-    <div class="tab" style="--tc:#94a3b8" data-tab="pca"><span class="dot" style="--tc:#94a3b8"></span>CA Tax</div>
-    <div class="tab" style="--tc:#fbbf24" data-tab="psum"><span class="dot" style="--tc:#fbbf24"></span>Summary</div>
-  </div>
-
-  <div class="table-area">
-    <div class="tab-panel active" id="p401k">
-      <div class="panel-title"><span class="pdot" style="background:#e8c84a"></span>401(k) Account</div>
-      <div class="table-wrap"><table id="t401k"></table></div>
-    </div>
-    <div class="tab-panel" id="proth">
-      <div class="panel-title"><span class="pdot" style="background:#a78bfa"></span>Roth IRA Account</div>
-      <div class="table-wrap"><table id="troth"></table></div>
-    </div>
-    <div class="tab-panel" id="pbrok">
-      <div class="panel-title"><span class="pdot" style="background:#60a5fa"></span>Brokerage Accounts</div>
-      <div class="table-wrap"><table id="tbrok"></table></div>
-    </div>
-    <div class="tab-panel" id="phsa">
-      <div class="panel-title"><span class="pdot" style="background:#4ade80"></span>HSA Account</div>
-      <div class="table-wrap"><table id="thsa"></table></div>
-    </div>
-    <div class="tab-panel" id="pbonds">
-      <div class="panel-title"><span class="pdot" style="background:#fb923c"></span>Bonds</div>
-      <div class="table-wrap"><table id="tbonds"></table></div>
-    </div>
-    <div class="tab-panel" id="pss">
-      <div class="panel-title"><span class="pdot" style="background:#fb7185"></span>Social Security Income</div>
-      <div class="table-wrap"><table id="tss"></table></div>
-    </div>
-    <div class="tab-panel" id="prmd">
-      <div class="panel-title"><span class="pdot" style="background:#38bdf8"></span>Required Minimum Distribution (RMD)</div>
-      <div class="table-wrap"><table id="trmd"></table></div>
-    </div>
-    <div class="tab-panel" id="pfed">
-      <div class="panel-title"><span class="pdot" style="background:#f472b6"></span>Federal Income Tax</div>
-      <div class="table-wrap"><table id="tfed"></table></div>
-    </div>
-    <div class="tab-panel" id="pca">
-      <div class="panel-title"><span class="pdot" style="background:#94a3b8"></span>California State Tax</div>
-      <div class="table-wrap"><table id="tca"></table></div>
-    </div>
-    <div class="tab-panel" id="psum">
-      <div class="panel-title"><span class="pdot" style="background:#fbbf24"></span>Full Summary — All Accounts</div>
-      <div class="table-wrap"><table id="tsum"></table></div>
-    </div>
-  </div>
-
-  <div class="chart-section">
-    <div class="chart-section-title">Growth Chart &amp; Age Comparison</div>
-    <div class="chart-section-sub">// Visualize portfolio growth across all accounts by age</div>
-
-    <div class="chart-toggle">
-      <button class="ctbtn active" data-view="portfolio" onclick="switchView('portfolio',this)">Total Portfolio</button>
-      <button class="ctbtn" data-view="accounts" onclick="switchView('accounts',this)">By Account</button>
-      <button class="ctbtn" data-view="tax" onclick="switchView('tax',this)">Tax Bill</button>
-      <button class="ctbtn" data-view="income" onclick="switchView('income',this)">SS &amp; RMD Income</button>
-    </div>
-
-    <div class="chart-grid">
-      <div class="chart-box full" id="mainChartBox">
-        <div class="chart-box-title" id="mainChartTitle" style="color:var(--accent)">Total Portfolio Growth by Age</div>
-        <div class="chart-canvas-wrap tall"><canvas id="mainChart"></canvas></div>
-      </div>
-    </div>
-
-    <div class="sliders-row">
-      <div class="slider-box">
-        <div class="slider-label">
-          <span>Age A</span>
-          <span class="slider-val slider-a-val" id="sliderAVal">70</span>
-        </div>
-        <input type="range" id="sliderA" min="60" max="95" value="70" oninput="updateSliders()">
-      </div>
-      <div class="slider-box">
-        <div class="slider-label">
-          <span>Age B</span>
-          <span class="slider-val slider-b-val" id="sliderBVal">80</span>
-        </div>
-        <input type="range" id="sliderB" min="60" max="95" value="80" oninput="updateSliders()">
-      </div>
-    </div>
-
-    <div class="compare-box">
-      <div class="compare-title">Portfolio Comparison at Selected Ages</div>
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th class="col-a" id="col-a-head">Age 70</th>
-            <th class="col-b" id="col-b-head">Age 80</th>
-          </tr>
-        </thead>
-        <tbody id="compareBody"></tbody>
-      </table>
-    </div>
-
-    <div class="chart-grid">
-      <div class="chart-box">
-        <div class="chart-box-title" style="color:#e8c84a">401(k) Balance</div>
-        <div class="chart-canvas-wrap"><canvas id="chart401k"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-box-title" style="color:#a78bfa">Roth IRA Balance</div>
-        <div class="chart-canvas-wrap"><canvas id="chartRoth"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-box-title" style="color:#4ade80">HSA Balance</div>
-        <div class="chart-canvas-wrap"><canvas id="chartHSA"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-box-title" style="color:#fb923c">Bonds Balance</div>
-        <div class="chart-canvas-wrap"><canvas id="chartBonds"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-box-title" style="color:#60a5fa">Brokerage Balance</div>
-        <div class="chart-canvas-wrap"><canvas id="chartBrok"></canvas></div>
-      </div>
-      <div class="chart-box">
-        <div class="chart-box-title" style="color:#f472b6">Annual Tax Bill (Fed + CA)</div>
-        <div class="chart-canvas-wrap"><canvas id="chartTax"></canvas></div>
-      </div>
-    </div>
-  </div><div class="bottom-home">
-    <a href="index.html" class="bottom-home-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Home
-    </a>
-  </div>
-
-</div></div><script>
-// ── Tax brackets
-const FED=[{lo:0,hi:24800,r:.10},{lo:24800,hi:100800,r:.12},{lo:100800,hi:211400,r:.22},{lo:211400,hi:403550,r:.24},{lo:403550,hi:512450,r:.32},{lo:512450,hi:768700,r:.35},{lo:768700,hi:1e18,r:.37}];
-const CA=[{lo:0,hi:22158,r:.01},{lo:22158,hi:52528,r:.02},{lo:52528,hi:82904,r:.04},{lo:82904,hi:115084,r:.06},{lo:115084,hi:145448,r:.08},{lo:145448,hi:742958,r:.093},{lo:742958,hi:891542,r:.103},{lo:891542,hi:1485906,r:.113},{lo:1485906,hi:1e18,r:.123}];
-const RMD_F={75:24.6,76:23.7,77:22.9,78:22,79:21.1,80:20.2,81:19.4,82:18.5,83:17.7,84:16.8,85:16,86:15.2,87:14.4,88:13.7,89:12.9,90:12.2};
-
-function taxCalc(inc,br){if(inc<=0)return 0;let t=0;for(const b of br){if(inc<=b.lo)break;t+=(Math.min(inc,b.hi)-b.lo)*b.r;}return t;}
-function gi(id){return parseFloat(document.getElementById(id).value)||0}
-function f(n){return n?'$'+Math.round(n).toLocaleString():'—'}
-function fz(n){return '$'+Math.round(n).toLocaleString()}
-function fm(n){if(n>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(0)+'K';return '$'+Math.round(n);}
-
-// Tabs
-document.querySelectorAll('.tab').forEach(t=>{
-  t.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById(t.dataset.tab).classList.add('active');
-  });
-});
-
-function rowCls(r,ra,ma){return r.age===ra?'r-row':r.age>=ma?'m-row':'';}
-function yc(r,ra,ma){
-  let tag=r.age===ra?'<span class="tag tag-r">RETIRE</span>':r.age===ma?'<span class="tag tag-m">RMD</span>':'';
-  return `<td class="c hl">${r.year}${tag}</td><td class="c">${r.age}</td><td class="c">${r.wAge}</td>`;
-}
-const YH=`<th class="c" style="color:var(--accent)">Year</th><th class="c" style="color:var(--accent)">H.Age</th><th class="c" style="color:var(--accent)">W.Age</th>`;
-function fill(id,head,rowFn,rows){document.getElementById(id).innerHTML=`<thead><tr>${head}</tr></thead><tbody>${rows.map(rowFn).join('')}</tbody>`;}
-
-// Chart.js default config
-Chart.defaults.color='#7d8590';
-Chart.defaults.borderColor='#30363d';
-Chart.defaults.font.family="'DM Mono', monospace";
-Chart.defaults.font.size=14;
-
-// Global chart instances
-let charts={};
-let globalRows=[];
-let currentView='portfolio';
-
-function mkChart(id,type,labels,datasets,opts={}){
-  const el=document.getElementById(id);
-  if(!el)return null;
-  if(charts[id])charts[id].destroy();
-  charts[id]=new Chart(el,{type,data:{labels,datasets},options:{
-    responsive:true,maintainAspectRatio:false,
-	onClick: (event, elements, chart) => {
-        if (elements.length > 0) {
-          const i = elements[0].index; // Get the index of the point clicked
-          const label = chart.data.labels[i]; // Get the Age/Year
-          const value = chart.data.datasets[elements[0].datasetIndex].data[i]; // Get the $ value
-          const dataName = chart.data.datasets[elements[0].datasetIndex].label; // Get account name
-          
-          alert(`${dataName} at Age ${label}: ${fz(value)}`);
-        }
-      },
-    plugins:{legend:{display:opts.legend!==false,labels:{boxWidth:10,padding:12,color:'#a8b3bf'}},tooltip:{callbacks:{label:ctx=>{const v=ctx.raw;return ' '+fm(v);}}}},
-    scales:{
-      x:{grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:12}},
-      y:{grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}
-    },
-    ...opts
-  }});
-  return charts[id];
-}
-
-function lineDS(label,data,color,fill=false){
-  return{label,data,borderColor:color,backgroundColor:fill?color.replace(')',',0.15)').replace('rgb','rgba'):color+'22',borderWidth:2,pointRadius:0,pointHoverRadius:4,tension:.4,fill};
-}
-
-function switchView(view,btn){
-  currentView=view;
-  document.querySelectorAll('.ctbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderMainChart(globalRows);
-}
-
-function renderMainChart(rows){
-  if(!rows.length)return;
-  const ages=rows.map(r=>r.age);
-  const titles={portfolio:'Total Portfolio Growth by Age',accounts:'Portfolio by Account',tax:'Annual Tax Bill (Federal + CA)',income:'Social Security & RMD Income'};
-  document.getElementById('mainChartTitle').textContent=titles[currentView]||'';
-
-  if(currentView==='portfolio'){
-    mkChart('mainChart','line',ages,[lineDS('Total Portfolio',rows.map(r=>r.total),'rgb(232,200,74)',true)],{legend:false});
-  } else if(currentView==='accounts'){
-    mkChart('mainChart','line',ages,[
-      lineDS('401(k)',rows.map(r=>r.e4),'#e8c84a'),
-      lineDS('Roth IRA',rows.map(r=>r.eR),'#a78bfa'),
-      lineDS('Brokerage',rows.map(r=>r.eB),'#60a5fa'),
-      lineDS('HSA',rows.map(r=>r.eH),'#4ade80'),
-      lineDS('Bonds',rows.map(r=>r.eBn),'#fb923c'),
-    ]);
-  } else if(currentView==='tax'){
-    mkChart('mainChart','bar',ages,[
-      {label:'Federal Tax',data:rows.map(r=>r.fedTax),backgroundColor:'rgba(244,114,182,0.7)',borderWidth:0},
-      {label:'CA Tax',data:rows.map(r=>r.caTax),backgroundColor:'rgba(148,163,184,0.7)',borderWidth:0},
-    ],{scales:{x:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:12}},y:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}}});
-  } else if(currentView==='income'){
-    mkChart('mainChart','line',ages,[
-      lineDS('SS Income',rows.map(r=>r.totalSS_yr),'#fb7185'),
-      lineDS('RMD',rows.map(r=>r.rmd),'#38bdf8'),
-    ]);
-  }
-}
-
-function renderSubCharts(rows){
-  const ages=rows.map(r=>r.age);
-  const mini=(id,data,color)=>mkChart(id,'line',ages,[lineDS('',data,color,true)],{legend:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fm(ctx.raw)}}}});
-  mini('chart401k',rows.map(r=>r.e4),'#e8c84a');
-  mini('chartRoth',rows.map(r=>r.eR),'#a78bfa');
-  mini('chartHSA',rows.map(r=>r.eH),'#4ade80');
-  mini('chartBonds',rows.map(r=>r.eBn),'#fb923c');
-  mini('chartBrok',rows.map(r=>r.eB),'#60a5fa');
-  // Tax bar chart
-  if(charts['chartTax'])charts['chartTax'].destroy();
-  charts['chartTax']=new Chart(document.getElementById('chartTax'),{type:'bar',data:{labels:ages,datasets:[
-    {label:'Federal',data:rows.map(r=>r.fedTax),backgroundColor:'rgba(244,114,182,0.7)',borderWidth:0},
-    {label:'CA',data:rows.map(r=>r.caTax),backgroundColor:'rgba(148,163,184,0.7)',borderWidth:0},
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:8,padding:10,color:'#a8b3bf'}}},scales:{x:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:10}},y:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}}}});
-}
-
-function updateSliders(){
-  const hAge0=gi('hAge'), endAge=gi('endAge');
-  const sA=parseInt(document.getElementById('sliderA').value);
-  const sB=parseInt(document.getElementById('sliderB').value);
-  document.getElementById('sliderAVal').textContent=sA;
-  document.getElementById('sliderBVal').textContent=sB;
-  document.getElementById('col-a-head').textContent='Age '+sA;
-  document.getElementById('col-b-head').textContent='Age '+sB;
-  document.getElementById('sliderA').min=hAge0; document.getElementById('sliderA').max=endAge;
-  document.getElementById('sliderB').min=hAge0; document.getElementById('sliderB').max=endAge;
-
-  const rA=globalRows.find(r=>r.age===sA)||globalRows[0];
-  const rB=globalRows.find(r=>r.age===sB)||globalRows[globalRows.length-1];
-  if(!rA||!rB)return;
-
-  const metrics=[
-    ['401(k)', r=>r.e4],
-    ['Roth IRA', r=>r.eR],
-    ['Brokerage', r=>r.eB],
-    ['HSA', r=>r.eH],
-    ['Bonds', r=>r.eBn],
-    ['Adjusted Gross Income (AGI)', r=>r.agi],
-    ['Annual SS Income', r=>r.totalSS_yr],
-    ['Annual RMD', r=>r.rmd],
-    ['Federal Tax', r=>r.fedTax],
-    ['CA Tax', r=>r.caTax],
-    ['Total Tax', r=>r.totalTax_yr],
-    ['Total Portfolio', r=>r.total],
-  ];
-
-  const isLast=(i)=>i===metrics.length-1;
-  document.getElementById('compareBody').innerHTML=metrics.map(([label,fn],i)=>{
-    const vA=fn(rA), vB=fn(rB);
-    return `<tr>
-      <td${isLast(i)?' style="font-weight:700"':''}>${label}</td>
-      <td class="col-a"${isLast(i)?' style="font-weight:700"':''}>${vA?fz(vA):'—'}</td>
-      <td class="col-b"${isLast(i)?' style="font-weight:700"':''}>${vB?fz(vB):'—'}</td>
-    </tr>`;
-  }).join('');
-
-  if(charts['mainChart']){
-    renderMainChart(globalRows);
-    const chart=charts['mainChart'];
-    chart._ageMarkers=[sA,sB];
-  }
-}
-
-const ageMarkerPlugin={
-  id:'ageMarker',
-  afterDraw(chart){
-    const markers=chart._ageMarkers;
-    if(!markers||!markers.length)return;
-    const{ctx,scales:{x,y}}=chart;
-    const colors=['#e8c84a','#38bdf8'];
-    markers.forEach((age,i)=>{
-      const xPos=x.getPixelForValue(age);
-      if(!xPos)return;
-      ctx.save();
-      ctx.setLineDash([5,4]);
-      ctx.strokeStyle=colors[i];
-      ctx.lineWidth=1.5;
-      ctx.globalAlpha=.7;
-      ctx.beginPath();
-      ctx.moveTo(xPos,y.top);
-      ctx.lineTo(xPos,y.bottom);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle=colors[i];
-      ctx.font='bold 11px DM Sans, sans-serif';
-      ctx.fillText('Age '+age,xPos+4,y.top+14);
-      ctx.restore();
-    });
-  }
-};
-Chart.register(ageMarkerPlugin);
-
-function calculate(){
-  const startYear=parseInt(document.getElementById('startYear').value);
-  const hAge0=gi('hAge'),wAge00=gi('wAge0'),retireAge=gi('retireAge'),rmdAge=gi('rmdAge'),endAge=gi('endAge');
-  const r1=gi('gr1')/100,r2=gi('gr2')/100,ssCola=gi('ssCola')/100;
-  const rothConv=gi('rothConv'),w401=gi('w401k'),c401=gi('c401k')+gi('m401k'),cHSA=gi('cHSA');
-  const fedDed=gi('fedDed'),caDed=gi('caDed'),caEx=gi('caExempt');
-  const ssStartH=gi('ssStartH'),ssStartW=gi('ssStartW'),ssH0=gi('ssH'),ssW0=gi('ssW');
-
-  let prev={a:gi('b401k'),b:gi('bRoth'),c:gi('bBrok'),d:gi('bHSA'),e:gi('bBonds')};
-  let ssHB=ssH0,ssWB=ssW0,ssHS=false,ssWS=false;
-  let totalSS=0,totalTax=0,peak=0,peakAge=hAge0,retPort=0,finPort=0;
-  let rows=[];
-
-  for(let age=hAge0;age<=endAge;age++){
-    const year=startYear+(age-hAge0),wAge=wAge00+(age-hAge0);
-    const ret=age>=retireAge,rmdOn=age>=rmdAge;
-    const s4=prev.a,g4=s4*r1,c4=ret?0:c401,w4=ret?w401:0;
-    const conv=(ret&&age<75)?rothConv:0;
-    const e4=s4+g4+c4-w4-conv;
-    const sR=prev.b,gR=sR*r1,eR=sR+gR+conv;
-    const sB=prev.c,gB=sB*r1,eB=sB+gB;
-    const sH=prev.d,gH=sH*r1,cH=ret?0:cHSA,eH=sH+gH+cH;
-    const sBn=prev.e,gBn=sBn*r2,eBn=sBn+gBn;
-    const total=e4+eR+eB+eH+eBn;
-    let ssH=0,ssW=0;
-    if(age>=ssStartH){if(!ssHS){ssHS=true;ssHB=ssH0;}else ssHB*=(1+ssCola);ssH=ssHB;}
-    if(wAge>=ssStartW){if(!ssWS){ssWS=true;ssWB=ssW0;}else ssWB*=(1+ssCola);ssW=ssWB;}
-    const totalSS_yr=ssH+ssW;
-    const rmd=rmdOn&&RMD_F[age]?Math.round(e4/RMD_F[age]):0;
-    const rmdFactor=RMD_F[age]||null;
-    const grossInc=ret?(conv+w4+totalSS_yr+rmd):0;
-    const taxSS=totalSS_yr*.85;
-    const agi = ret ? (conv + w4 + taxSS + (sB * r1) + (sBn * r2)) : 0;
-    const fedTaxable=Math.max(0,conv+w4+rmd+taxSS-fedDed);
-    const fedTax=ret?taxCalc(fedTaxable,FED):0;
-    const fedEff=fedTaxable>0?((fedTax/fedTaxable)*100).toFixed(1)+'%':'—';
-    const caAdj=Math.max(0,conv+w4+rmd+totalSS_yr-caDed);
-    const caTaxRaw=ret?taxCalc(caAdj,CA):0;
-    const caTax=Math.max(0,caTaxRaw-caEx);
-    const caEff=caAdj>0?((caTax/caAdj)*100).toFixed(1)+'%':'—';
-    const totalTax_yr=fedTax+caTax;
-    totalSS+=totalSS_yr;totalTax+=totalTax_yr;
-    if(total>peak){peak=total;peakAge=age;}
-    if(age===retireAge)retPort=total;
-    if(age===endAge)finPort=total;
-    rows.push({year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,agi,
-      ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc,taxSS,fedTaxable,fedTax,fedEff,caAdj,caTaxRaw,caTax,caEff,totalTax_yr,ret,rmdOn});
-    prev={a:e4,b:eR,c:eB,d:eH,e:eBn};
-  }
-  globalRows=rows;
-
-  document.getElementById('c-retire').textContent=fz(retPort);
-  document.getElementById('c-retire-s').textContent=`at age ${retireAge}`;
-  document.getElementById('c-peak').textContent=fz(peak);
-  document.getElementById('c-peak-s').textContent=`at age ${peakAge}`;
-  document.getElementById('c-ss').textContent=fz(totalSS);
-  document.getElementById('c-tax').textContent=fz(totalTax);
-
-  const ra=retireAge,ma=rmdAge;
-  const rc=r=>rowCls(r,ra,ma),ycr=r=>yc(r,ra,ma);
-  const gr1v=gi('gr1'),gr2v=gi('gr2');
-
-  fill('t401k',`${YH}<th style="color:#e8c84a">Start</th><th style="color:#e8c84a">Growth (${gr1v}%)</th><th style="color:#e8c84a">Contribution</th><th style="color:#e8c84a">Withdrawal</th><th style="color:#e8c84a">Roth Conv Out</th><th style="color:#e8c84a">End Balance</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.s4)}</td><td class="pos">${fz(r.g4)}</td><td class="pos">${r.c4?fz(r.c4):'—'}</td><td class="neg">${r.w4?fz(r.w4):'—'}</td><td class="neg">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.e4)}</td></tr>`,rows);
-  fill('troth',`${YH}<th style="color:#a78bfa">Start</th><th style="color:#a78bfa">Growth (${gr1v}%)</th><th style="color:#a78bfa">Roth Conv In</th><th style="color:#a78bfa">End Balance</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sR)}</td><td class="pos">${fz(r.gR)}</td><td class="pos">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.eR)}</td></tr>`,rows);
-  fill('tbrok',`${YH}<th style="color:#60a5fa">Start</th><th style="color:#60a5fa">Growth (${gr1v}%)</th><th style="color:#60a5fa">End Balance</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sB)}</td><td class="pos">${fz(r.gB)}</td><td class="hl">${fz(r.eB)}</td></tr>`,rows);
-  fill('thsa',`${YH}<th style="color:#4ade80">Start</th><th style="color:#4ade80">Growth (${gr1v}%)</th><th style="color:#4ade80">Contribution</th><th style="color:#4ade80">End Balance</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sH)}</td><td class="pos">${fz(r.gH)}</td><td class="pos">${r.cH?fz(r.cH):'—'}</td><td class="hl">${fz(r.eH)}</td></tr>`,rows);
-  fill('tbonds',`${YH}<th style="color:#fb923c">Start</th><th style="color:#fb923c">Growth (${gr2v}%)</th><th style="color:#fb923c">End Balance</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sBn)}</td><td class="pos">${fz(r.gBn)}</td><td class="hl">${fz(r.eBn)}</td></tr>`,rows);
-  let cumSS=0;
-  fill('tss',`${YH}<th style="color:#fb7185">Husband SS</th><th style="color:#fb7185">Wife SS</th><th style="color:#fb7185">Total SS</th><th style="color:#fb7185">Cumulative SS</th>`,
-    r=>{cumSS+=r.totalSS_yr;return `<tr class="${rc(r)}">${ycr(r)}<td>${r.ssH?fz(r.ssH):'—'}</td><td>${r.ssW?fz(r.ssW):'—'}</td><td class="hl">${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td class="dim">${cumSS?fz(cumSS):'—'}</td></tr>`;},rows);
-  let cumRMD=0;
-  fill('trmd',`${YH}<th style="color:#38bdf8">401k End Bal</th><th style="color:#38bdf8" class="c">RMD Factor</th><th style="color:#38bdf8">RMD Amount</th><th style="color:#38bdf8">Gross Income</th><th style="color:#38bdf8">Cumulative RMD</th>`,
-    r=>{cumRMD+=r.rmd;return `<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td class="c">${r.rmdFactor||'—'}</td><td class="${r.rmd?'hl':''}">${r.rmd?fz(r.rmd):'—'}</td><td>${r.grossInc?fz(r.grossInc):'—'}</td><td class="dim">${cumRMD?fz(cumRMD):'—'}</td></tr>`;},rows);
-  fill('tfed',`${YH}<th style="color:#f472b6">Roth Conv</th><th style="color:#f472b6">401k Wdraw</th><th style="color:#f472b6">RMD</th><th style="color:#f472b6">Total SS</th><th style="color:#f472b6">Taxable SS (85%)</th><th style="color:#f472b6">Std Deduction</th><th style="color:#f472b6">Fed Taxable Inc</th><th style="color:#f472b6">Federal Tax</th><th class="c" style="color:#f472b6">Eff Rate</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.taxSS?fz(r.taxSS):'—'}</td><td class="dim">${r.ret?fz(fedDed):'—'}</td><td>${r.fedTaxable?fz(r.fedTaxable):'—'}</td><td class="neg hl">${r.fedTax?fz(r.fedTax):'—'}</td><td class="c dim">${r.fedEff}</td></tr>`,rows);
-  fill('tca',`${YH}<th style="color:#94a3b8">Roth Conv</th><th style="color:#94a3b8">401k Wdraw</th><th style="color:#94a3b8">RMD</th><th style="color:#94a3b8">Total SS</th><th style="color:#94a3b8">Itemized Ded</th><th style="color:#94a3b8">CA Adj Income</th><th style="color:#94a3b8">CA Tax (raw)</th><th style="color:#94a3b8">Exempt Credit</th><th style="color:#94a3b8">CA Tax (net)</th><th class="c" style="color:#94a3b8">Eff Rate</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td class="dim">${r.ret?fz(caDed):'—'}</td><td>${r.caAdj?fz(r.caAdj):'—'}</td><td class="neg">${r.caTaxRaw?fz(r.caTaxRaw):'—'}</td><td class="dim">${r.ret?fz(caEx):'—'}</td><td class="neg hl">${r.caTax?fz(r.caTax):'—'}</td><td class="c dim">${r.caEff}</td></tr>`,rows);
-  fill('tsum',`${YH}<th style="color:#e8c84a">401k</th><th style="color:#a78bfa">Roth IRA</th><th style="color:#60a5fa">Brokerage</th><th style="color:#4ade80">HSA</th><th style="color:#fb923c">Bonds</th><th style="color:var(--accent)">AGI</th><th style="color:var(--text)">Total Portfolio</th><th style="color:#fb7185">Total SS</th><th style="color:#38bdf8">RMD</th><th style="color:#f472b6">Fed Tax</th><th style="color:#94a3b8">CA Tax</th><th style="color:var(--danger)">Total Tax</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td>${fz(r.eH)}</td><td>${fz(r.eBn)}</td><td class="hl" style="color:var(--accent)">${r.agi?fz(r.agi):'—'}</td><td class="hl">${fz(r.total)}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td class="neg">${r.fedTax?fz(r.fedTax):'—'}</td><td class="neg">${r.caTax?fz(r.caTax):'—'}</td><td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td></tr>`,rows);
-
-  const sA=document.getElementById('sliderA');
-  const sB=document.getElementById('sliderB');
-  sA.min=hAge0; sA.max=endAge;
-  sB.min=hAge0; sB.max=endAge;
-  if(parseInt(sA.value)<hAge0)sA.value=Math.min(70,endAge);
-  if(parseInt(sB.value)<hAge0)sB.value=Math.min(80,endAge);
-
-  renderMainChart(rows);
-  renderSubCharts(rows);
-  updateSliders();
-}
-
-calculate();
-</script>
-</body>
-</html>
+        <li class="link-item">
+            <span class="link-title">
