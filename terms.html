@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Terms - Deciphered</title>
+    <style>
+        body {
+            background: radial-gradient(circle at center, #1a3c40 0%, #0d2024 100%);
+            color: #d1e1e4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            line-height: 1.6;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .accent-bar {
+            position: absolute;
+            top: 0;
+            right: 10%;
+            width: 40px;
+            height: 70px;
+            background-color: #b33a3a;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: normal;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+        }
+
+        .icon-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .icon-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .icon-bullet {
+            color: #4ecdc4;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .term-abbr {
+            color: #f1c40f;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .term-full {
+            color: #ffffff;
+        }
+
+        .link-section {
+            padding-left: 0;
+            list-style-type: none;
+            flex-grow: 1;
+        }
+
+        .link-item {
+            counter-increment: term-counter;
+            margin-bottom: 35px;
+        }
+
+        .link-item::before {
+            content: counter(term-counter) ". ";
+            color: #f1c40f;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .link-title {
+            color: #f1c40f;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .link-url {
+            color: #4ecdc4;
+            text-decoration: underline;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            color: #cbd5e0;
+        }
+
+        /* Home Button Style matched to Tax Calculator */
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            padding-bottom: 20px;
+        }
+
+        .btn-home {
+            background-color: transparent;
+            color: #f1c40f; /* Gold color from tax calculator theme */
+            border: 2px solid #f1c40f;
+            padding: 12px 40px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .btn-home:hover {
+            background-color: #f1c40f;
+            color: #0d2024;
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="accent-bar"></div>
+    
+    <h1>So many terms? Here is a place to decipher them</h1>
+
+    <ul class="icon-list">
+        <li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">RMD:</span>
+            <span class="term-full">Required Minimum Distribution   </span>
+			
+        </li>
+        <li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">HSA:</span>
+            <span class="term-full">Health Savings Account</span>
+        </li>
+        <li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">ACA:</span>
+            <span class="term-full">Affordable Care Act</span>
+        </li>
+        <li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">IRA:</span>
+            <span class="term-full">Individual Retirement Account</span>
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">COLA:</span>
+            <span class="term-full">Cost of Living Adjustment</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">AGI:</span>
+            <span class="term-full">Adjusted Gross Income</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">MFJ:</span>
+            <span class="term-full">Married Filing Jointly</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">COBRA:</span>
+            <span class="term-full">Consolidated Omnibus Budget Reconciliation Act</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">ETF:</span>
+            <span class="term-full">Exchange Traded Fund</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">(P/E) ratio:</span>
+            <span class="term-full">Price to Earnings Ratio</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">AUM:</span>
+            <span class="term-full">Assets Under Management</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">NAV:</span>
+            <span class="term-full">Net Asset Value</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">REIT:</span>
+            <span class="term-full">Real Estate Investment Trust</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">APY:</span>
+            <span class="term-full">Annual Percentage Yield</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">EPS:</span>
+            <span class="term-full">Earnings per Share</span>
+			
+        </li>
+		<li class="icon-item">
+            <span class="icon-bullet">✦</span>
+            <span class="term-abbr">IPO:</span>
+            <span class="term-full">Initial Public Offering</span>
+			
+        </li>
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+    </ul>
+
+    
+
+    <div class="footer-nav">
+        <a href="index.html" class="btn-home">Home</a>
+    </div>
+
+</body>
+</html>
