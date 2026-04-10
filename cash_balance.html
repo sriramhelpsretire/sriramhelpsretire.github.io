@@ -29,7 +29,23 @@
   .field input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:6px 8px;color:var(--text);font-family:'DM Mono',monospace;font-size:12px;outline:none}
   .field input:focus{border-color:var(--accent)}
 
-  .calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:10px;font-weight:700;font-size:13px;cursor:pointer;margin-top:10px;transition:opacity .15s}
+  /* Updated Button & Link Styling */
+  .calc-btn{
+    display: block;
+    width:100%;
+    background:var(--accent);
+    color:#0d1117;
+    border:none;
+    border-radius:7px;
+    padding:10px;
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+    margin-top:10px;
+    transition:opacity .15s;
+    text-align: center;
+    text-decoration: none;
+  }
   .calc-btn:hover{opacity:.88}
 
   .main{display:flex;flex-direction:column;overflow:hidden}
@@ -48,12 +64,6 @@
   tbody tr:hover{background:#181f2b}
   td{padding:10px 12px;text-align:right;color:var(--label)}
   td.hl{color:var(--text);font-weight:500}
-  
-  .icon-disclaimer { width: 14px; height: 14px; color: var(--accent); vertical-align: middle; margin-right: 6px; }
-
-  .footer-nav { position: fixed; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; gap: 15px; pointer-events: none; z-index: 100; }
-  .back-btn { pointer-events: auto; background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 10px 26px; border-radius: 20px; font-family: 'DM Mono', monospace; font-size: 14px; text-decoration: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-  .back-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 </style>
 </head>
 <body>
@@ -74,6 +84,7 @@
       <div class="field"><label>Start Year</label><input type="number" id="startYear" value="2026"></div>
     </div>
     <button class="calc-btn" onclick="runCashCalc()">▶ Run Analysis</button>
+    <a href="index.html" class="calc-btn">HOME</a>
   </aside>
 
   <main class="main">
@@ -101,11 +112,6 @@
   </main>
 </div>
 
-<div class="footer-nav">
-  <a href="index.html" class="back-btn">HOME</a>
-
-</div>
-
 <script>
 function fz(n){ return '$' + Math.round(n).toLocaleString(); }
 
@@ -120,13 +126,9 @@ function runCashCalc() {
   tbody.innerHTML = '';
   
   let yearsCount = 0;
-  let lastFullYear = 0;
-
   while (bal > 0 && yearsCount < 50) {
     let startBal = bal;
     let growthAmt = startBal * growth;
-    
-    // Check if balance can cover the full withdrawal
     let actualDraw = draw;
     if (bal + growthAmt < draw) {
       actualDraw = bal + growthAmt;
@@ -135,7 +137,7 @@ function runCashCalc() {
       bal = startBal + growthAmt - draw;
     }
 
-    let row = `<tr>
+    tbody.innerHTML += `<tr>
       <td style="text-align:left; color:var(--accent)">${year}</td>
       <td>${fz(startBal)}</td>
       <td style="color:var(--danger)">${fz(actualDraw)}</td>
@@ -143,16 +145,8 @@ function runCashCalc() {
       <td class="hl">${fz(bal)}</td>
     </tr>`;
     
-    tbody.innerHTML += row;
-    
-    if (bal > 0) {
-      yearsCount++;
-      lastFullYear = year;
-    } else {
-      // Calculate fractional last year
-      let fraction = (startBal + growthAmt) / draw;
-      yearsCount += fraction;
-    }
+    if (bal > 0) yearsCount++;
+    else yearsCount += (startBal + growthAmt) / draw;
 
     draw *= (1 + drawInc);
     year++;
@@ -163,7 +157,6 @@ function runCashCalc() {
   document.getElementById('res-end-year').textContent = year - 1;
 }
 
-// Initialize on load
 runCashCalc();
 </script>
 
