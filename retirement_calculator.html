@@ -18,8 +18,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
 header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
 .header-left{display:flex;align-items:baseline;gap:12px}
-header h1{font-family:'DM Serif Display',serif;font-size:24px;color:var(--accent)}
-header span{color:var(--muted);font-size:11px;font-family:'DM Mono',monospace}
+header h1{font-family:'DM Serif Display',serif;font-size:26px;color:var(--accent)}
+header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
 .home-btn{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);color:var(--label);padding:7px 14px;border-radius:7px;text-decoration:none;font-size:12px;font-weight:600;transition:all .15s}
 .home-btn:hover{border-color:var(--accent);color:var(--accent)}
 .home-btn svg{width:14px;height:14px}
@@ -130,8 +130,28 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 /* Home button at bottom */
 .bottom-home{display:flex;justify-content:center;padding:28px 20px 36px;border-top:1px solid var(--border)}
-.bottom-home-btn{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--label);padding:11px 28px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:600;transition:all .2s;letter-spacing:.3px}
+.bottom-home-btn{display:flex;align-items:center;gap:8px;background:var(--surface);border:2px solid var(--border);color:var(--accent);padding:11px 28px;border-radius:9px;text-decoration:none;font-size:16px;font-weight:600;transition:all .2s;letter-spacing:.3px}
 .bottom-home-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(232,200,74,.05)}
+
+.save-btn { 
+    width: 100%; 
+    background: var(--accent); /* Darker gray background */
+    color: #000000;        /* Black text */
+    border: 2px solid var(--border); 
+    border-radius: 7px; 
+    padding: 9px; 
+    font-family: 'DM Sans', sans-serif; 
+    font-weight: 700; 
+    font-size: 14px; 
+    cursor: pointer; 
+    margin-top: 10px; 
+    transition: all .15s; 
+}
+
+.save-btn:hover { 
+    border-color: var(--accent); /* Glows gold on hover */
+    background: #252d38;
+}
 
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -142,7 +162,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <header>
   <div class="header-left">
     <h1>Retirement Portfolio Calculator</h1>
-    <span>// Couples Financial Projection · California</span>
+    <span><p><u> Couples Financial Projection(CA) || Enter Data, Calculate Projection, Save summary to CSV  </u></p></span>
   </div>
   <a href="index.html" class="home-btn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -193,6 +213,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306"></div>
   </div>
   <button class="calc-btn" onclick="calculate()">▶ Calculate Projection</button>
+  <button class="save-btn" onclick="exportToCSV()">💾 Save Summary to CSV</button>
 </aside>
 
 <div class="main">
@@ -638,6 +659,65 @@ function calculate(){
 }
 
 calculate();
+/**
+ * Exports the calculated retirement projection data to a CSV file.
+ * This function pulls from the globalRows array to ensure clean numerical data.
+ */
+function exportToCSV() {
+    // 1. Check if data exists
+    if (!globalRows || globalRows.length === 0) {
+        alert("Please run the 'Calculate Projection' analysis first.");
+        return;
+    }
+
+    // 2. Define the CSV Headers
+    const headers = [
+        "Year", 
+        "Husband Age", 
+        "Wife Age", 
+        "401k Balance", 
+        "Roth Balance", 
+        "Total Portfolio", 
+        "Fed Tax", 
+        "CA Tax"
+    ];
+
+    // 3. Initialize the CSV content with headers
+    let csvRows = [];
+    csvRows.push(headers.join(","));
+
+    // 4. Map the data from globalRows into CSV rows
+    globalRows.forEach(row => {
+        const values = [
+            row.year,
+            row.age,
+            row.wAge,
+            Math.round(row.e4),      // 401k Ending Balance
+            Math.round(row.eR),      // Roth Ending Balance
+            Math.round(row.total),   // Combined Portfolio
+            Math.round(row.fedTax),  // Annual Federal Tax
+            Math.round(row.caTax)    // Annual California Tax
+        ];
+        csvRows.push(values.join(","));
+    });
+
+    // 5. Create a Blob from the CSV string
+    const csvString = csvRows.join("\n");
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    
+    // 6. Create a temporary download link
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Retirement_Projection_${new Date().getFullYear()}.csv`);
+    link.style.visibility = 'hidden';
+    
+    // 7. Trigger the download and clean up
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 </script>
 </body>
 </html>
