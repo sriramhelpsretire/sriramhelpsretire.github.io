@@ -337,7 +337,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div><div class="bottom-home">
     <a href="index.html" class="bottom-home-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Back to Home
+      Home
     </a>
   </div>
 
@@ -388,6 +388,16 @@ function mkChart(id,type,labels,datasets,opts={}){
   if(charts[id])charts[id].destroy();
   charts[id]=new Chart(el,{type,data:{labels,datasets},options:{
     responsive:true,maintainAspectRatio:false,
+	onClick: (event, elements, chart) => {
+        if (elements.length > 0) {
+          const i = elements[0].index; // Get the index of the point clicked
+          const label = chart.data.labels[i]; // Get the Age/Year
+          const value = chart.data.datasets[elements[0].datasetIndex].data[i]; // Get the $ value
+          const dataName = chart.data.datasets[elements[0].datasetIndex].label; // Get account name
+          
+          alert(`${dataName} at Age ${label}: ${fz(value)}`);
+        }
+      },
     plugins:{legend:{display:opts.legend!==false,labels:{boxWidth:10,padding:12,color:'#a8b3bf'}},tooltip:{callbacks:{label:ctx=>{const v=ctx.raw;return ' '+fm(v);}}}},
     scales:{
       x:{grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:12}},
