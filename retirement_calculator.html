@@ -11,7 +11,7 @@
   --bg:#0d1117;--surface:#161b22;--surface2:#1e2530;--border:#30363d;
   --accent:#e8c84a;--green:#4ade80;--blue:#60a5fa;--purple:#a78bfa;
   --orange:#fb923c;--pink:#fb7185;--slate:#94a3b8;--sky:#38bdf8;--rose:#f472b6;
-  --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#a8b3bf;
+  --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#f;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
@@ -81,20 +81,17 @@ td{padding:8px 11px;text-align:right;color:var(--label);white-space:nowrap}
 td.c{text-align:center}td.l{text-align:left}
 td.hl{color:var(--text);font-weight:500}td.pos{color:var(--green)}td.neg{color:var(--danger)}td.dim{color:var(--muted)}
 .tag{display:inline-block;font-size:7px;padding:1px 4px;border-radius:3px;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.5px;vertical-align:middle;margin-left:3px}
-.tag-r{background:rgba(232,200,74,.2);color:var(--accent)}.tag-m{background:rgba(74,222,128,.15);color:var(--green)}
+.tag-r{background:rgba(232,200,74,.2);color:#FFFF00}.tag-m{background:rgba(74,222,128,.15);color:var(--green)}
 
-/* ── CHART SECTION ── */
 .chart-section{padding:24px 20px 32px;border-top:1px solid var(--border);background:var(--bg)}
 .chart-section-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--accent);margin-bottom:6px;letter-spacing:-.3px}
 .chart-section-sub{font-size:12px;color:var(--muted);margin-bottom:20px;font-family:'DM Mono',monospace}
 
-/* Chart toggle buttons */
 .chart-toggle{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .ctbtn{padding:7px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
 .ctbtn.active{background:var(--surface2);color:var(--text);border-color:var(--accent)}
 .ctbtn:hover{color:var(--label)}
 
-/* Chart grid */
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
 .chart-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
 .chart-box.full{grid-column:1/-1}
@@ -102,7 +99,6 @@ td.hl{color:var(--text);font-weight:500}td.pos{color:var(--green)}td.neg{color:v
 .chart-canvas-wrap{position:relative;height:220px}
 .chart-canvas-wrap.tall{height:280px}
 
-/* Age Sliders */
 .sliders-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
 .slider-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
 .slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -115,7 +111,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 #sliderA::-webkit-slider-thumb{background:var(--accent)}
 #sliderB::-webkit-slider-thumb{background:var(--sky)}
 
-/* Comparison table */
 .compare-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
 .compare-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:14px}
 .compare-table{width:100%;border-collapse:collapse}
@@ -128,15 +123,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .col-a{color:var(--accent)!important}
 .col-b{color:var(--sky)!important}
 
-/* Home button at bottom */
 .bottom-home{display:flex;justify-content:center;padding:28px 20px 36px;border-top:1px solid var(--border)}
 .bottom-home-btn{display:flex;align-items:center;gap:8px;background:var(--surface);border:2px solid var(--border);color:var(--accent);padding:11px 28px;border-radius:9px;text-decoration:none;font-size:16px;font-weight:600;transition:all .2s;letter-spacing:.3px}
 .bottom-home-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(232,200,74,.05)}
 
 .save-btn { 
     width: 100%; 
-    background: var(--accent); /* Darker gray background */
-    color: #000000;        /* Black text */
+    background: var(--accent);
+    color: #000000;
     border: 2px solid var(--border); 
     border-radius: 7px; 
     padding: 9px; 
@@ -149,7 +143,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 }
 
 .save-btn:hover { 
-    border-color: var(--accent); /* Glows gold on hover */
+    border-color: var(--accent);
     background: #252d38;
 }
 
@@ -235,7 +229,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="tab" style="--tc:#38bdf8" data-tab="prmd"><span class="dot" style="--tc:#38bdf8"></span>RMD</div>
     <div class="tab" style="--tc:#f472b6" data-tab="pfed"><span class="dot" style="--tc:#f472b6"></span>Federal Tax</div>
     <div class="tab" style="--tc:#94a3b8" data-tab="pca"><span class="dot" style="--tc:#94a3b8"></span>CA Tax</div>
-    <div class="tab" style="--tc:#fbbf24" data-tab="psum"><span class="dot" style="--tc:#fbbf24"></span>Summary</div>
+    <div class="tab" style="--tc:#fbbf24" data-tab="psum"><span class="dot" style="--tc:#fbbf24"></span>Full Summary</div>
   </div>
 
   <div class="table-area">
@@ -356,10 +350,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <div class="chart-canvas-wrap"><canvas id="chartTax"></canvas></div>
       </div>
     </div>
-  
+</div>
+</div>
 
-</div></div><script>
-// ── Tax brackets
+<script>
 const FED=[{lo:0,hi:24800,r:.10},{lo:24800,hi:100800,r:.12},{lo:100800,hi:211400,r:.22},{lo:211400,hi:403550,r:.24},{lo:403550,hi:512450,r:.32},{lo:512450,hi:768700,r:.35},{lo:768700,hi:1e18,r:.37}];
 const CA=[{lo:0,hi:22158,r:.01},{lo:22158,hi:52528,r:.02},{lo:52528,hi:82904,r:.04},{lo:82904,hi:115084,r:.06},{lo:115084,hi:145448,r:.08},{lo:145448,hi:742958,r:.093},{lo:742958,hi:891542,r:.103},{lo:891542,hi:1485906,r:.113},{lo:1485906,hi:1e18,r:.123}];
 const RMD_F={75:24.6,76:23.7,77:22.9,78:22,79:21.1,80:20.2,81:19.4,82:18.5,83:17.7,84:16.8,85:16,86:15.2,87:14.4,88:13.7,89:12.9,90:12.2};
@@ -370,7 +364,6 @@ function f(n){return n?'$'+Math.round(n).toLocaleString():'—'}
 function fz(n){return '$'+Math.round(n).toLocaleString()}
 function fm(n){if(n>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(0)+'K';return '$'+Math.round(n);}
 
-// Tabs
 document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
@@ -388,13 +381,11 @@ function yc(r,ra,ma){
 const YH=`<th class="c" style="color:var(--accent)">Year</th><th class="c" style="color:var(--accent)">H.Age</th><th class="c" style="color:var(--accent)">W.Age</th>`;
 function fill(id,head,rowFn,rows){document.getElementById(id).innerHTML=`<thead><tr>${head}</tr></thead><tbody>${rows.map(rowFn).join('')}</tbody>`;}
 
-// Chart.js default config
 Chart.defaults.color='#7d8590';
 Chart.defaults.borderColor='#30363d';
 Chart.defaults.font.family="'DM Mono', monospace";
 Chart.defaults.font.size=14;
 
-// Global chart instances
 let charts={};
 let globalRows=[];
 let currentView='portfolio';
@@ -405,13 +396,12 @@ function mkChart(id,type,labels,datasets,opts={}){
   if(charts[id])charts[id].destroy();
   charts[id]=new Chart(el,{type,data:{labels,datasets},options:{
     responsive:true,maintainAspectRatio:false,
-	onClick: (event, elements, chart) => {
+    onClick: (event, elements, chart) => {
         if (elements.length > 0) {
-          const i = elements[0].index; // Get the index of the point clicked
-          const label = chart.data.labels[i]; // Get the Age/Year
-          const value = chart.data.datasets[elements[0].datasetIndex].data[i]; // Get the $ value
-          const dataName = chart.data.datasets[elements[0].datasetIndex].label; // Get account name
-          
+          const i = elements[0].index;
+          const label = chart.data.labels[i];
+          const value = chart.data.datasets[elements[0].datasetIndex].data[i];
+          const dataName = chart.data.datasets[elements[0].datasetIndex].label;
           alert(`${dataName} at Age ${label}: ${fz(value)}`);
         }
       },
@@ -473,7 +463,6 @@ function renderSubCharts(rows){
   mini('chartHSA',rows.map(r=>r.eH),'#4ade80');
   mini('chartBonds',rows.map(r=>r.eBn),'#fb923c');
   mini('chartBrok',rows.map(r=>r.eB),'#60a5fa');
-  // Tax bar chart
   if(charts['chartTax'])charts['chartTax'].destroy();
   charts['chartTax']=new Chart(document.getElementById('chartTax'),{type:'bar',data:{labels:ages,datasets:[
     {label:'Federal',data:rows.map(r=>r.fedTax),backgroundColor:'rgba(244,114,182,0.7)',borderWidth:0},
@@ -502,12 +491,13 @@ function updateSliders(){
     ['Brokerage', r=>r.eB],
     ['HSA', r=>r.eH],
     ['Bonds', r=>r.eBn],
-    ['Adjusted Gross Income (AGI)', r=>r.agi],
+    ['AGI', r=>r.agi],
     ['Annual SS Income', r=>r.totalSS_yr],
     ['Annual RMD', r=>r.rmd],
     ['Federal Tax', r=>r.fedTax],
     ['CA Tax', r=>r.caTax],
     ['Total Tax', r=>r.totalTax_yr],
+    ['Reinvested (RMD+SS)', r=>r.reinvested],
     ['Total Portfolio', r=>r.total],
   ];
 
@@ -560,8 +550,8 @@ Chart.register(ageMarkerPlugin);
 function calculate(){
   const startYear=parseInt(document.getElementById('startYear').value);
   const hAge0=gi('hAge'),wAge00=gi('wAge0'),retireAge=gi('retireAge'),rmdAge=gi('rmdAge'),endAge=gi('endAge');
-  const r1=gi('gr1')/100,r2=gi('gr2')/100,ssCola=gi('ssCola')/100;
-  const rothConv=gi('rothConv'),w401=gi('w401k'),c401=gi('c401k')+gi('m401k'),cHSA=gi('cHSA');
+  const r1=gi('gr1')/100,r2=gi('gr2')/100,ssCola=gi('ssCola')/100, infl=gi('inflation')/100;
+  const rothConv=gi('rothConv'),w401=gi('w401k'),c401=gi('c401k')+gi('m401k'),cHSA=gi('cHSA'), spend0=gi('spend');
   const fedDed=gi('fedDed'),caDed=gi('caDed'),caEx=gi('caExempt');
   const ssStartH=gi('ssStartH'),ssStartW=gi('ssStartW'),ssH0=gi('ssH'),ssW0=gi('ssW');
 
@@ -573,18 +563,27 @@ function calculate(){
   for(let age=hAge0;age<=endAge;age++){
     const year=startYear+(age-hAge0),wAge=wAge00+(age-hAge0);
     const ret=age>=retireAge,rmdOn=age>=rmdAge;
+    
+    // Inflate spending
+    const spendTotal = spend0 * Math.pow(1 + infl, age - hAge0);
+
     const s4=prev.a,g4=s4*r1,c4=ret?0:c401,w4=ret?w401:0;
     const conv=(ret&&age<75)?rothConv:0;
     const e4=s4+g4+c4-w4-conv;
+    
     const sR=prev.b,gR=sR*r1,eR=sR+gR+conv;
-    const sB=prev.c,gB=sB*r1,eB=sB+gB;
+    
+    const sB=prev.c,gB=sB*r1; 
+    // Brokerage is handled below after reinvestment calculation
+
     const sH=prev.d,gH=sH*r1,cH=ret?0:cHSA,eH=sH+gH+cH;
     const sBn=prev.e,gBn=sBn*r2,eBn=sBn+gBn;
-    const total=e4+eR+eB+eH+eBn;
+
     let ssH=0,ssW=0;
     if(age>=ssStartH){if(!ssHS){ssHS=true;ssHB=ssH0;}else ssHB*=(1+ssCola);ssH=ssHB;}
     if(wAge>=ssStartW){if(!ssWS){ssWS=true;ssWB=ssW0;}else ssWB*=(1+ssCola);ssW=ssWB;}
     const totalSS_yr=ssH+ssW;
+
     const rmd=rmdOn&&RMD_F[age]?Math.round(e4/RMD_F[age]):0;
     const rmdFactor=RMD_F[age]||null;
     const grossInc=ret?(conv+w4+totalSS_yr+rmd):0;
@@ -598,12 +597,20 @@ function calculate(){
     const caTax=Math.max(0,caTaxRaw-caEx);
     const caEff=caAdj>0?((caTax/caAdj)*100).toFixed(1)+'%':'—';
     const totalTax_yr=fedTax+caTax;
+
+    // --- RMD+SS Reinvested Logic ---
+    let reinvested = (rmd + totalSS_yr) - (spendTotal + totalTax_yr);
+    reinvested = Math.max(0, reinvested);
+    const eB = sB + gB + reinvested; // Surplus flows into Brokerage
+
+    const total=e4+eR+eB+eH+eBn;
     totalSS+=totalSS_yr;totalTax+=totalTax_yr;
     if(total>peak){peak=total;peakAge=age;}
     if(age===retireAge)retPort=total;
     if(age===endAge)finPort=total;
+
     rows.push({year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,agi,
-      ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc,taxSS,fedTaxable,fedTax,fedEff,caAdj,caTaxRaw,caTax,caEff,totalTax_yr,ret,rmdOn});
+      ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc,taxSS,fedTaxable,fedTax,fedEff,caAdj,caTaxRaw,caTax,caEff,totalTax_yr,ret,rmdOn, reinvested});
     prev={a:e4,b:eR,c:eB,d:eH,e:eBn};
   }
   globalRows=rows;
@@ -623,8 +630,8 @@ function calculate(){
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.s4)}</td><td class="pos">${fz(r.g4)}</td><td class="pos">${r.c4?fz(r.c4):'—'}</td><td class="neg">${r.w4?fz(r.w4):'—'}</td><td class="neg">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.e4)}</td></tr>`,rows);
   fill('troth',`${YH}<th style="color:#a78bfa">Start</th><th style="color:#a78bfa">Growth (${gr1v}%)</th><th style="color:#a78bfa">Roth Conv In</th><th style="color:#a78bfa">End Balance</th>`,
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sR)}</td><td class="pos">${fz(r.gR)}</td><td class="pos">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.eR)}</td></tr>`,rows);
-  fill('tbrok',`${YH}<th style="color:#60a5fa">Start</th><th style="color:#60a5fa">Growth (${gr1v}%)</th><th style="color:#60a5fa">End Balance</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sB)}</td><td class="pos">${fz(r.gB)}</td><td class="hl">${fz(r.eB)}</td></tr>`,rows);
+  fill('tbrok',`${YH}<th style="color:#60a5fa">Start</th><th style="color:#60a5fa">Growth (${gr1v}%)</th><th style="color:#60a5fa">Reinvested</th><th style="color:#60a5fa">End Balance</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sB)}</td><td class="pos">${fz(r.gB)}</td><td class="pos">${r.reinvested?fz(r.reinvested):'—'}</td><td class="hl">${fz(r.eB)}</td></tr>`,rows);
   fill('thsa',`${YH}<th style="color:#4ade80">Start</th><th style="color:#4ade80">Growth (${gr1v}%)</th><th style="color:#4ade80">Contribution</th><th style="color:#4ade80">End Balance</th>`,
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sH)}</td><td class="pos">${fz(r.gH)}</td><td class="pos">${r.cH?fz(r.cH):'—'}</td><td class="hl">${fz(r.eH)}</td></tr>`,rows);
   fill('tbonds',`${YH}<th style="color:#fb923c">Start</th><th style="color:#fb923c">Growth (${gr2v}%)</th><th style="color:#fb923c">End Balance</th>`,
@@ -639,8 +646,8 @@ function calculate(){
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.taxSS?fz(r.taxSS):'—'}</td><td class="dim">${r.ret?fz(fedDed):'—'}</td><td>${r.fedTaxable?fz(r.fedTaxable):'—'}</td><td class="neg hl">${r.fedTax?fz(r.fedTax):'—'}</td><td class="c dim">${r.fedEff}</td></tr>`,rows);
   fill('tca',`${YH}<th style="color:#94a3b8">Roth Conv</th><th style="color:#94a3b8">401k Wdraw</th><th style="color:#94a3b8">RMD</th><th style="color:#94a3b8">Total SS</th><th style="color:#94a3b8">Itemized Ded</th><th style="color:#94a3b8">CA Adj Income</th><th style="color:#94a3b8">CA Tax (raw)</th><th style="color:#94a3b8">Exempt Credit</th><th style="color:#94a3b8">CA Tax (net)</th><th class="c" style="color:#94a3b8">Eff Rate</th>`,
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td class="dim">${r.ret?fz(caDed):'—'}</td><td>${r.caAdj?fz(r.caAdj):'—'}</td><td class="neg">${r.caTaxRaw?fz(r.caTaxRaw):'—'}</td><td class="dim">${r.ret?fz(caEx):'—'}</td><td class="neg hl">${r.caTax?fz(r.caTax):'—'}</td><td class="c dim">${r.caEff}</td></tr>`,rows);
-  fill('tsum',`${YH}<th style="color:#e8c84a">401k</th><th style="color:#a78bfa">Roth IRA</th><th style="color:#60a5fa">Brokerage</th><th style="color:#4ade80">HSA</th><th style="color:#fb923c">Bonds</th><th style="color:var(--accent)">AGI</th><th style="color:var(--text)">Total Portfolio</th><th style="color:#fb7185">Total SS</th><th style="color:#38bdf8">RMD</th><th style="color:#f472b6">Fed Tax</th><th style="color:#94a3b8">CA Tax</th><th style="color:var(--danger)">Total Tax</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td>${fz(r.eH)}</td><td>${fz(r.eBn)}</td><td class="hl" style="color:var(--accent)">${r.agi?fz(r.agi):'—'}</td><td class="hl">${fz(r.total)}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td class="neg">${r.fedTax?fz(r.fedTax):'—'}</td><td class="neg">${r.caTax?fz(r.caTax):'—'}</td><td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td></tr>`,rows);
+  fill('tsum',`${YH}<th style="color:#e8c84a">401k</th><th style="color:#a78bfa">Roth IRA</th><th style="color:#60a5fa">Brokerage</th><th style="color:#fbbf24">Reinvested</th><th style="color:#fb923c">Bonds</th><th style="color:var(--text)">Total Portfolio</th><th style="color:#fb7185">Total SS</th><th style="color:#38bdf8">RMD</th><th style="color:var(--danger)">Total Tax</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td class="pos">${r.reinvested?fz(r.reinvested):'—'}</td><td>${fz(r.eBn)}</td><td class="hl">${fz(r.total)}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td></tr>`,rows);
 
   const sA=document.getElementById('sliderA');
   const sB=document.getElementById('sliderB');
@@ -655,61 +662,23 @@ function calculate(){
 }
 
 calculate();
-/**
- * Exports the calculated retirement projection data to a CSV file.
- * This function pulls from the globalRows array to ensure clean numerical data.
- */
+
 function exportToCSV() {
-    // 1. Check if data exists
     if (!globalRows || globalRows.length === 0) {
         alert("Please run the 'Calculate Projection' analysis first.");
         return;
     }
-
-    // 2. Define the CSV Headers
-    const headers = [
-        "Year", 
-        "Husband Age", 
-        "Wife Age", 
-        "401k Balance", 
-        "Roth Balance", 
-        "Total Portfolio", 
-        "Fed Tax", 
-        "CA Tax"
-    ];
-
-    // 3. Initialize the CSV content with headers
-    let csvRows = [];
-    csvRows.push(headers.join(","));
-
-    // 4. Map the data from globalRows into CSV rows
+    const headers = ["Year", "Husband Age", "Wife Age", "401k Balance", "Roth Balance", "Brokerage Balance", "SD+RMD Reinvested", "Total Portfolio", "Fed Tax", "CA Tax"];
+    let csvRows = [headers.join(",")];
     globalRows.forEach(row => {
-        const values = [
-            row.year,
-            row.age,
-            row.wAge,
-            Math.round(row.e4),      // 401k Ending Balance
-            Math.round(row.eR),      // Roth Ending Balance
-            Math.round(row.total),   // Combined Portfolio
-            Math.round(row.fedTax),  // Annual Federal Tax
-            Math.round(row.caTax)    // Annual California Tax
-        ];
-        csvRows.push(values.join(","));
+        csvRows.push([
+            row.year, row.age, row.wAge, Math.round(row.e4), Math.round(row.eR), Math.round(row.eB), Math.round(row.reinvested), Math.round(row.total), Math.round(row.fedTax), Math.round(row.caTax)
+        ].join(","));
     });
-
-    // 5. Create a Blob from the CSV string
-    const csvString = csvRows.join("\n");
-    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
-    
-    // 6. Create a temporary download link
+    const blob = new Blob([csvRows.join("\n")], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-    
-    link.setAttribute("href", url);
+    link.setAttribute("href", URL.createObjectURL(blob));
     link.setAttribute("download", `Retirement_Projection_${new Date().getFullYear()}.csv`);
-    link.style.visibility = 'hidden';
-    
-    // 7. Trigger the download and clean up
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
