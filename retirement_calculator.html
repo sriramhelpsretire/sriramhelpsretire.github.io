@@ -11,7 +11,7 @@
   --bg:#0d1117;--surface:#161b22;--surface2:#1e2530;--border:#30363d;
   --accent:#e8c84a;--green:#4ade80;--blue:#60a5fa;--purple:#a78bfa;
   --orange:#fb923c;--pink:#fb7185;--slate:#94a3b8;--sky:#38bdf8;--rose:#f472b6;
-  --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#f;
+  --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#f0f6fc;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
@@ -26,40 +26,6 @@ header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
 
 .layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 65px)}
 
-/* Container to hold the $ and the input */
-.input-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-/* The virtual $ sign */
-.input-wrapper::before {
-    content: "$";
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #39FF14; /* Matches your green text */
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    pointer-events: none; /* Allows you to click "through" it */
-}
-
-/* Adjust the actual input to make room for the $ */
-#t401k input[type=number] {
-    width: 110px;
-    background: #2c2c2c;
-    border: 1px solid var(--border);
-    color: #39FF14;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    border-radius: 3px;
-    padding: 2px 5px 2px 18px; /* Added 18px left padding for the $ */
-    text-align: right;
-    outline: none;
-}
-
-
 /* SIDEBAR */
 .sidebar{background:var(--surface);border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 65px);position:sticky;top:0}
 .sxn{margin-bottom:18px}
@@ -69,7 +35,7 @@ header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
 .field input{width:100%;background:#494949;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:#39FF14;font-family:'DM Mono',monospace;font-size:14px;outline:none;transition:border-color .15s}
 .field input:focus{border-color:var(--accent)}
 .field input[type=number]::-webkit-inner-spin-button{opacity:.3}
-.calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:9px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;cursor:pointer;margin-top:4px;transition:opacity .15s,transform .1s}
+.calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:9px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;margin-top:4px;transition:opacity .15s,transform .1s}
 .calc-btn:hover{opacity:.88}
 .calc-btn:active{transform:scale(.98)}
 
@@ -114,28 +80,6 @@ tbody tr.m-row{background:rgba(74,222,128,.04)}
 td{padding:8px 11px;text-align:right;color:var(--label);white-space:nowrap}
 td.c{text-align:center}td.l{text-align:left}
 td.hl{color:var(--text);font-weight:500}td.pos{color:var(--green)}td.neg{color:var(--danger)}td.dim{color:var(--muted)}
-
-/* New Styles for Actual Balance Inputs */
-#t401k input[type=number] {
-    width: 110px;
-    background: #2c2c2c;
-    border: 1px solid var(--border);
-    color: #39FF14;
-    font-family: 'DM Mono', monospace;
-    font-size: 14px;
-    border-radius: 3px;
-    padding: 2px 5px;
-    text-align: right;
-    outline: none;
-    transition: border-color 0.15s;
-}
-#t401k input[type=number]:focus {
-    border-color: var(--accent);
-}
-#t401k input::-webkit-inner-spin-button {
-    display: none;
-}
-
 .tag{display:inline-block;font-size:7px;padding:1px 4px;border-radius:3px;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.5px;vertical-align:middle;margin-left:3px}
 .tag-r{background:rgba(232,200,74,.2);color:#FFFF00}.tag-m{background:rgba(74,222,128,.15);color:var(--green)}
 
@@ -179,8 +123,29 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .col-a{color:var(--accent)!important}
 .col-b{color:var(--sky)!important}
 
-.save-btn { width: 100%; background: var(--accent); color: #000000; border: 2px solid var(--border); border-radius: 7px; padding: 9px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: 10px; transition: all .15s; }
-.save-btn:hover { border-color: var(--accent); background: #252d38; }
+.bottom-home{display:flex;justify-content:center;padding:28px 20px 36px;border-top:1px solid var(--border)}
+.bottom-home-btn{display:flex;align-items:center;gap:8px;background:var(--surface);border:2px solid var(--border);color:var(--accent);padding:11px 28px;border-radius:9px;text-decoration:none;font-size:16px;font-weight:600;transition:all .2s;letter-spacing:.3px}
+.bottom-home-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(232,200,74,.05)}
+
+.save-btn { 
+    width: 100%; 
+    background: var(--accent);
+    color: #000000;
+    border: 2px solid var(--border); 
+    border-radius: 7px; 
+    padding: 9px; 
+    font-family: 'DM Sans', sans-serif; 
+    font-weight: 700; 
+    font-size: 14px; 
+    cursor: pointer; 
+    margin-top: 10px; 
+    transition: all .15s; 
+}
+
+.save-btn:hover { 
+    border-color: var(--accent);
+    background: #252d38;
+}
 
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -532,7 +497,7 @@ function updateSliders(){
     ['Federal Tax', r=>r.fedTax],
     ['CA Tax', r=>r.caTax],
     ['Total Tax', r=>r.totalTax_yr],
-    ['Reinvested (RMD+SS)', r=>r.reinvested],
+    ['SD+RMD Reinvested', r=>r.reinvested],
     ['Total Portfolio', r=>r.total],
   ];
 
@@ -586,7 +551,7 @@ function calculate(){
   const startYear=parseInt(document.getElementById('startYear').value);
   const hAge0=gi('hAge'),wAge00=gi('wAge0'),retireAge=gi('retireAge'),rmdAge=gi('rmdAge'),endAge=gi('endAge');
   const r1=gi('gr1')/100,r2=gi('gr2')/100,ssCola=gi('ssCola')/100, infl=gi('inflation')/100;
-  const rothConv=gi('rothConv'),w401=gi('w401k'),c401=gi('c401k')+gi('m401k'),cHSA=gi('cHSA'), spend0=gi('spend');
+  const rothConv=gi('rothConv'),w401=gi('w401k'),c401=gi('c401k')+gi('m401k'),cHSA=gi('cHSA'), spend_inp=gi('spend');
   const fedDed=gi('fedDed'),caDed=gi('caDed'),caEx=gi('caExempt');
   const ssStartH=gi('ssStartH'),ssStartW=gi('ssStartW'),ssH0=gi('ssH'),ssW0=gi('ssW');
 
@@ -600,7 +565,7 @@ function calculate(){
     const ret=age>=retireAge,rmdOn=age>=rmdAge;
     
     // Inflate spending
-    const spendTotal = spend0 * Math.pow(1 + infl, age - hAge0);
+    const spendTotal = spend_inp * Math.pow(1 + infl, age - hAge0);
 
     const s4=prev.a,g4=s4*r1,c4=ret?0:c401,w4=ret?w401:0;
     const conv=(ret&&age<75)?rothConv:0;
@@ -609,6 +574,7 @@ function calculate(){
     const sR=prev.b,gR=sR*r1,eR=sR+gR+conv;
     
     const sB=prev.c,gB=sB*r1; 
+    // Brokerage is handled below after reinvestment calculation
 
     const sH=prev.d,gH=sH*r1,cH=ret?0:cHSA,eH=sH+gH+cH;
     const sBn=prev.e,gBn=sBn*r2,eBn=sBn+gBn;
@@ -620,22 +586,29 @@ function calculate(){
 
     const rmd=rmdOn&&RMD_F[age]?Math.round(e4/RMD_F[age]):0;
     const rmdFactor=RMD_F[age]||null;
-    const grossInc=ret?(conv+w4+totalSS_yr+rmd):0;
-    const taxSS=totalSS_yr*.85;
-    const agi = ret ? (conv + w4 + taxSS + (sB * r1) + (sBn * r2)) : 0;
-    const fedTaxable=Math.max(0,conv+w4+rmd+taxSS-fedDed);
-    const fedTax=ret?taxCalc(fedTaxable,FED):0;
-    const fedEff=fedTaxable>0?((fedTax/fedTaxable)*100).toFixed(1)+'%':'—';
-    const caAdj=Math.max(0,conv+w4+rmd+totalSS_yr-caDed);
-    const caTaxRaw=ret?taxCalc(caAdj,CA):0;
-    const caTax=Math.max(0,caTaxRaw-caEx);
-    const caEff=caAdj>0?((caTax/caAdj)*100).toFixed(1)+'%':'—';
+    const totalInc = (ret?(conv+w4):0) + totalSS_yr + rmd;
+    
+    const provInc = (totalInc - totalSS_yr) + (totalSS_yr * 0.5);
+    let taxSsFed=0;
+    if(provInc>44000){ taxSsFed = Math.min(totalSS_yr*0.85, (provInc-44000)*0.85+6000); }
+    else if(provInc>32000){ taxSsFed = Math.min(totalSS_yr*0.5, (provInc-32000)*0.5); }
+    taxSsFed = Math.round(taxSsFed);
+
+    const fedAgi= (ret?(conv+w4):0) + taxSsFed + rmd;
+    const fedTaxableInc = Math.max(0, fedAgi - fedDed);
+    const fedTax = ret ? taxCalc(fedTaxableInc,FED) : 0;
+
+    const caAdjInc = (ret?(conv+w4):0) + totalSS_yr + rmd; // Simplified
+    const caAgi = caAdjInc - 0; // CA does not tax SS
+    const caTaxableInc = Math.max(0, caAgi - caDed);
+    const caTaxRaw = ret ? taxCalc(caTaxableInc,CA) : 0;
+    const caTax = Math.max(0, caTaxRaw - caEx);
     const totalTax_yr=fedTax+caTax;
 
-    // SD+RMD reinvested logic
+    // --- RMD+SS Reinvested Logic ---
     let reinvested = (rmd + totalSS_yr) - (spendTotal + totalTax_yr);
     reinvested = Math.max(0, reinvested);
-    const eB = sB + gB + reinvested;
+    const eB = sB + gB + reinvested; // Surplus flows into Brokerage
 
     const total=e4+eR+eB+eH+eBn;
     totalSS+=totalSS_yr;totalTax+=totalTax_yr;
@@ -643,8 +616,8 @@ function calculate(){
     if(age===retireAge)retPort=total;
     if(age===endAge)finPort=total;
 
-    rows.push({year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,agi,
-      ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc,taxSS,fedTaxable,fedTax,fedEff,caAdj,caTaxRaw,caTax,caEff,totalTax_yr,ret,rmdOn, reinvested});
+    rows.push({year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,agi:fedAgi,
+      ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc:totalInc,taxSS:taxSsFed,fedTaxable:fedTaxableInc,fedTax,fedEff:'',caAdj:caAdjInc,caTaxRaw,caTax,caEff:'',totalTax_yr,ret,rmdOn, reinvested});
     prev={a:e4,b:eR,c:eB,d:eH,e:eBn};
   }
   globalRows=rows;
@@ -660,10 +633,8 @@ function calculate(){
   const rc=r=>rowCls(r,ra,ma),ycr=r=>yc(r,ra,ma);
   const gr1v=gi('gr1'),gr2v=gi('gr2');
 
-  // Modified 401(k) fill to include "Actual Balance" input
-  fill('t401k',`${YH}<th style="color:#e8c84a">Start</th><th style="color:#e8c84a">Growth (${gr1v}%)</th><th style="color:#e8c84a">Contribution</th><th style="color:#e8c84a">Withdrawal</th><th style="color:#e8c84a">Roth Conv Out</th><th style="color:#e8c84a">Projected Balance</th><th style="color:var(--accent)">Actual Balance</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.s4)}</td><td class="pos">${fz(r.g4)}</td><td class="pos">${r.c4?fz(r.c4):'—'}</td><td class="neg">${r.w4?fz(r.w4):'—'}</td><td class="neg">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.e4)}</td><td><div class="input-wrapper"><input type="number" placeholder="0"></div></td>></tr>`,rows);
-
+  fill('t401k',`${YH}<th style="color:#e8c84a">Start</th><th style="color:#e8c84a">Growth (${gr1v}%)</th><th style="color:#e8c84a">Contribution</th><th style="color:#e8c84a">Withdrawal</th><th style="color:#e8c84a">Roth Conv Out</th><th style="color:#e8c84a">End Balance</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.s4)}</td><td class="pos">${fz(r.g4)}</td><td class="pos">${r.c4?fz(r.c4):'—'}</td><td class="neg">${r.w4?fz(r.w4):'—'}</td><td class="neg">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.e4)}</td></tr>`,rows);
   fill('troth',`${YH}<th style="color:#a78bfa">Start</th><th style="color:#a78bfa">Growth (${gr1v}%)</th><th style="color:#a78bfa">Roth Conv In</th><th style="color:#a78bfa">End Balance</th>`,
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sR)}</td><td class="pos">${fz(r.gR)}</td><td class="pos">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.eR)}</td></tr>`,rows);
   fill('tbrok',`${YH}<th style="color:#60a5fa">Start</th><th style="color:#60a5fa">Growth (${gr1v}%)</th><th style="color:#60a5fa">Reinvested</th><th style="color:#60a5fa">End Balance</th>`,
@@ -678,13 +649,12 @@ function calculate(){
   let cumRMD=0;
   fill('trmd',`${YH}<th style="color:#38bdf8">401k End Bal</th><th style="color:#38bdf8" class="c">RMD Factor</th><th style="color:#38bdf8">RMD Amount</th><th style="color:#38bdf8">Gross Income</th><th style="color:#38bdf8">Cumulative RMD</th>`,
     r=>{cumRMD+=r.rmd;return `<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td class="c">${r.rmdFactor||'—'}</td><td class="${r.rmd?'hl':''}">${r.rmd?fz(r.rmd):'—'}</td><td>${r.grossInc?fz(r.grossInc):'—'}</td><td class="dim">${cumRMD?fz(cumRMD):'—'}</td></tr>`;},rows);
-  fill('tfed',`${YH}<th style="color:#f472b6">Roth Conv</th><th style="color:#f472b6">401k Wdraw</th><th style="color:#f472b6">RMD</th><th style="color:#f472b6">Total SS</th><th style="color:#f472b6">Taxable SS (85%)</th><th style="color:#f472b6">Std Deduction</th><th style="color:#f472b6">Fed Taxable Inc</th><th style="color:#f472b6">Federal Tax</th><th class="c" style="color:#f472b6">Eff Rate</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.taxSS?fz(r.taxSS):'—'}</td><td class="dim">${r.ret?fz(fedDed):'—'}</td><td>${r.fedTaxable?fz(r.fedTaxable):'—'}</td><td class="neg hl">${r.fedTax?fz(r.fedTax):'—'}</td><td class="c dim">${r.fedEff}</td></tr>`,rows);
-  fill('tca',`${YH}<th style="color:#94a3b8">Roth Conv</th><th style="color:#94a3b8">401k Wdraw</th><th style="color:#94a3b8">RMD</th><th style="color:#94a3b8">Total SS</th><th style="color:#94a3b8">Itemized Ded</th><th style="color:#94a3b8">CA Adj Income</th><th style="color:#94a3b8">CA Tax (raw)</th><th style="color:#94a3b8">Exempt Credit</th><th style="color:#94a3b8">CA Tax (net)</th><th class="c" style="color:#94a3b8">Eff Rate</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td class="dim">${r.ret?fz(caDed):'—'}</td><td>${r.caAdj?fz(r.caAdj):'—'}</td><td class="neg">${r.caTaxRaw?fz(r.caTaxRaw):'—'}</td><td class="dim">${r.ret?fz(caEx):'—'}</td><td class="neg hl">${r.caTax?fz(r.caTax):'—'}</td><td class="c dim">${r.caEff}</td></tr>`,rows);
-  
-  fill('tsum',`${YH}<th style="color:#e8c84a">401k</th><th style="color:#a78bfa">Roth IRA</th><th style="color:#60a5fa">Brokerage</th><th style="color:#fbbf24">Reinvested</th><th style="color:#fb923c">Bonds</th><th style="color:var(--accent)">AGI</th><th style="color:var(--text)">Total Portfolio</th><th style="color:#fb7185">Total SS</th><th style="color:#38bdf8">RMD</th><th style="color:#f472b6">Fed Tax</th><th style="color:#94a3b8">CA Tax</th><th style="color:var(--danger)">Total Tax</th><th style="color:var(--green)">Spend</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td class="pos">${r.reinvested?fz(r.reinvested):'—'}</td><td>${fz(r.eBn)}</td><td class="hl" style="color:var(--accent)">${r.agi?fz(r.agi):'—'}</td><td class="hl">${fz(r.total)}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td class="neg">${r.fedTax?fz(r.fedTax):'—'}</td><td class="neg">${r.caTax?fz(r.caTax):'—'}</td><td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td><td class="pos">${r.ret ? fz(gi('spend') * Math.pow(1 + gi('inflation')/100, r.age - gi('hAge'))) : '—'}</td></tr>`,rows);
+  fill('tfed',`${YH}<th style="color:#f472b6">Roth Conv</th><th style="color:#f472b6">401k Wdraw</th><th style="color:#f472b6">RMD</th><th style="color:#f472b6">Total SS</th><th style="color:#f472b6">Taxable SS (85%)</th><th style="color:#f472b6">Std Deduction</th><th style="color:#f472b6">Fed Taxable Inc</th><th style="color:#f472b6">Federal Tax</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.taxSS?fz(r.taxSS):'—'}</td><td class="dim">${r.ret?fz(fedDed):'—'}</td><td>${r.fedTaxable?fz(r.fedTaxable):'—'}</td><td class="neg hl">${r.fedTax?fz(r.fedTax):'—'}</td></tr>`,rows);
+  fill('tca',`${YH}<th style="color:#94a3b8">Roth Conv</th><th style="color:#94a3b8">401k Wdraw</th><th style="color:#94a3b8">RMD</th><th style="color:#94a3b8">Total SS</th><th style="color:#94a3b8">Itemized Ded</th><th style="color:#94a3b8">CA Adj Income</th><th style="color:#94a3b8">CA Tax (raw)</th><th style="color:#94a3b8">Exempt Credit</th><th style="color:#94a3b8">CA Tax (net)</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${r.conv?fz(r.conv):'—'}</td><td>${r.w4?fz(r.w4):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td class="dim">${r.ret?fz(caDed):'—'}</td><td>${r.caAdj?fz(r.caAdj):'—'}</td><td class="neg">${r.caTaxRaw?fz(r.caTaxRaw):'—'}</td><td class="dim">${r.ret?fz(caEx):'—'}</td><td class="neg hl">${r.caTax?fz(r.caTax):'—'}</td></tr>`,rows);
+  fill('tsum',`${YH}<th style="color:#e8c84a">401k</th><th style="color:#a78bfa">Roth IRA</th><th style="color:#60a5fa">Brokerage</th><th style="color:#4ade80">HSA</th><th style="color:#fb923c">Bonds</th><th style="color:var(--accent)">Fed AGI</th><th style="color:var(--text)">Total Portfolio</th><th style="color:#fb7185">Total SS</th><th style="color:#38bdf8">RMD</th><th style="color:#f472b6">Fed Tax</th><th style="color:#94a3b8">CA Tax</th><th style="color:var(--danger)">Total Tax</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${fz(r.e4)}</td><td>${fz(r.eR)}</td><td>${fz(r.eB)}</td><td>${fz(r.eH)}</td><td>${fz(r.eBn)}</td><td class="hl" style="color:var(--accent)">${fz(r.agi)}</td><td class="hl">${fz(r.total)}</td><td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td><td>${r.rmd?fz(r.rmd):'—'}</td><td class="neg">${r.fedTax?fz(r.fedTax):'—'}</td><td class="neg">${r.caTax?fz(r.caTax):'—'}</td><td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td></tr>`,rows);
 
   const sA=document.getElementById('sliderA');
   const sB=document.getElementById('sliderB');
