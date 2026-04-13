@@ -207,8 +207,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306"></div>
   </div>
   <button class="calc-btn" onclick="calculate()">▶ Calculate Projection</button>
+  <a href="montecarlo_retirement_v6.html" class="save-btn" style="text-decoration: none; display: block; text-align: center;">🎲RETIREMENT CONFIDENCE </a>
   <button class="save-btn" onclick="exportToCSV()">💾 Save Summary to CSV</button>
   <a href="index.html" class="save-btn" style="text-decoration: none; display: block; text-align: center;">🏠 HOME</a>
+  
+  
 </aside>
 
 <div class="main">
@@ -353,15 +356,20 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </div>
 </div>
 
+<script src="js/tax_engine.js"></script>
 <script>
-const FED=[{lo:0,hi:24800,r:.10},{lo:24800,hi:100800,r:.12},{lo:100800,hi:211400,r:.22},{lo:211400,hi:403550,r:.24},{lo:403550,hi:512450,r:.32},{lo:512450,hi:768700,r:.35},{lo:768700,hi:1e18,r:.37}];
-const CA=[{lo:0,hi:22158,r:.01},{lo:22158,hi:52528,r:.02},{lo:52528,hi:82904,r:.04},{lo:82904,hi:115084,r:.06},{lo:115084,hi:145448,r:.08},{lo:145448,hi:742958,r:.093},{lo:742958,hi:891542,r:.103},{lo:891542,hi:1485906,r:.113},{lo:1485906,hi:1e18,r:.123}];
-const RMD_F={75:24.6,76:23.7,77:22.9,78:22,79:21.1,80:20.2,81:19.4,82:18.5,83:17.7,84:16.8,85:16,86:15.2,87:14.4,88:13.7,89:12.9,90:12.2};
+// FED, CA, FED_BRACKETS, CA_BRACKETS, taxCalc, computeTax — all from js/tax_engine.js
 
-function taxCalc(inc,br){if(inc<=0)return 0;let t=0;for(const b of br){if(inc<=b.lo)break;t+=(Math.min(inc,b.hi)-b.lo)*b.r;}return t;}
+const RMD_F={75:24.6,76:23.7,77:22.9,78:22,79:21.1,80:20.2,81:19.4,82:18.5,83:17.7,84:16.8,85:16,86:15.2,87:14.4,88:13.7,89:12.9,90:12.2};
 function gi(id){return parseFloat(document.getElementById(id).value)||0}
-function f(n){return n?'$'+Math.round(n).toLocaleString():'—'}
-function fz(n){return '$'+Math.round(n).toLocaleString()}
+function f(n) {
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    return '$' + Math.round(n).toLocaleString();
+}
+function fz(n) {
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    return '$' + Math.round(n).toLocaleString();
+}
 function fm(n){if(n>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(0)+'K';return '$'+Math.round(n);}
 
 document.querySelectorAll('.tab').forEach(t=>{
@@ -588,22 +596,22 @@ function calculate(){
     const rmdFactor=RMD_F[age]||null;
     const totalInc = (ret?(conv+w4):0) + totalSS_yr + rmd;
     
-    const provInc = (totalInc - totalSS_yr) + (totalSS_yr * 0.5);
-    let taxSsFed=0;
-    if(provInc>44000){ taxSsFed = Math.min(totalSS_yr*0.85, (provInc-44000)*0.85+6000); }
-    else if(provInc>32000){ taxSsFed = Math.min(totalSS_yr*0.5, (provInc-32000)*0.5); }
-    taxSsFed = Math.round(taxSsFed);
-
-    const fedAgi= (ret?(conv+w4):0) + taxSsFed + rmd;
-    const fedTaxableInc = Math.max(0, fedAgi - fedDed);
-    const fedTax = ret ? taxCalc(fedTaxableInc,FED) : 0;
-
-    const caAdjInc = (ret?(conv+w4):0) + totalSS_yr + rmd; // Simplified
-    const caAgi = caAdjInc - 0; // CA does not tax SS
-    const caTaxableInc = Math.max(0, caAgi - caDed);
-    const caTaxRaw = ret ? taxCalc(caTaxableInc,CA) : 0;
-    const caTax = Math.max(0, caTaxRaw - caEx);
-    const totalTax_yr=fedTax+caTax;
+    // ── Tax calculation via shared tax_engine.js ──────────────────
+    const tx = computeTax({
+      conv, w401: w4, rmd,
+      totalSS_yr,
+      fedDed, caDed, caEx,
+      isRetired: ret
+    });
+    const taxSsFed      = tx.taxSsFed;
+    const fedAgi        = tx.fedAgi;
+    const fedTaxableInc = tx.fedTaxableInc;
+    const fedTax        = tx.fedTax;
+    const caAdjInc      = tx.caAdjInc;
+    const caTaxableInc  = tx.caTaxableInc;
+    const caTaxRaw      = tx.caTaxRaw;
+    const caTax         = tx.caTax;
+    const totalTax_yr   = tx.totalTax_yr;
 
     // --- RMD+SS Reinvested Logic ---
     let reinvested = (rmd + totalSS_yr) - (spendTotal + totalTax_yr);
@@ -721,13 +729,45 @@ function exportToCSV() {
         alert("Please run the 'Calculate Projection' analysis first.");
         return;
     }
-    const headers = ["Year", "Husband Age", "Wife Age", "401k Balance", "Roth Balance", "Brokerage Balance", "SD+RMD Reinvested", "Total Portfolio", "Fed Tax", "CA Tax"];
+
+    const headers = [
+        "Year","H Age","W Age",
+        "401k","Roth IRA","Brokerage","HSA","Bonds",
+        "Fed AGI","Total Portfolio",
+        "Total SS","RMD",
+        "Fed Tax","CA Tax","Total Tax",
+        "Spending","Total Amt"
+    ];
+
     let csvRows = [headers.join(",")];
+
     globalRows.forEach(row => {
         csvRows.push([
-            row.year, row.age, row.wAge, Math.round(row.e4), Math.round(row.eR), Math.round(row.eB), Math.round(row.reinvested), Math.round(row.total), Math.round(row.fedTax), Math.round(row.caTax)
+            row.year,
+            row.age,
+            row.wAge,
+
+            Math.round(row.e4),
+            Math.round(row.eR),
+            Math.round(row.eB),
+            Math.round(row.eH),
+            Math.round(row.eBn),
+
+            Math.round(row.agi),
+            Math.round(row.total),
+
+            Math.round(row.totalSS_yr || 0),
+            Math.round(row.rmd || 0),
+
+            Math.round(row.fedTax || 0),
+            Math.round(row.caTax || 0),
+            Math.round(row.totalTax_yr || 0),
+
+            Math.round(row.spendTotal || 0),
+            Math.round((row.totalTax_yr || 0) + (row.spendTotal || 0))
         ].join(","));
     });
+
     const blob = new Blob([csvRows.join("\n")], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement("a");
     link.setAttribute("href", URL.createObjectURL(blob));

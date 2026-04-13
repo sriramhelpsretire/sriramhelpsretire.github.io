@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monte Carlo Retirement Simulator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --bg:        #1b3a35;
+  --bg-dark:   #122b27;
+  --surface:   #1f4039;
+  --gold:      #c9933a;
+  --gold-lt:   #e8b96a;
+  --gold-dim:  rgba(201,147,58,0.15);
+  --gold-bdr:  rgba(201,147,58,0.35);
+  --white:     #f0ece0;
+  --white-dim: #c8c4b4;
+  --neon:      #39FF14;
+  --red:       #c0392b;
+  --green:     #27ae60;
+  --danger:    #e74c3c;
+  --blue:      #2980b9;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body {
+  font-family:'Lora',Georgia,serif;
+  background:var(--bg);
+  color:var(--white);
+  min-height:100vh;
+  padding-right:14px; /* space for red strip */
+}
+
+/* Red accent strip */
+body::after {
+  content:'';position:fixed;top:0;right:0;
+  width:8px;height:100%;background:var(--red);z-index:100;
+}
+
+/* Home icon */
+.home-icon {
+  position:fixed;top:12px;right:22px;
+  width:40px;height:40px;background:var(--gold);
+  border-radius:8px;display:flex;align-items:center;
+  justify-content:center;text-decoration:none;
+  z-index:200;font-size:20px;transition:background .2s;
+}
+.home-icon:hover{background:var(--gold-lt);}
+
+/* ── LAYOUT: sidebar + main ── */
+.page-wrap {
+  display:grid;
+  grid-template-columns:300px 1fr;
+  min-height:100vh;
+  max-width:1280px;
+  margin:0 auto;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  background:var(--bg-dark);
+  border-right:1px solid var(--gold-bdr);
+  padding:28px 18px 40px;
+  overflow-y:auto;
+  position:sticky;
+  top:0;
+  max-height:100vh;
+}
+
+.sidebar-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(18px,2.5vw,22px);
+  font-weight:900;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--white);
+  text-align:center;
+  margin-bottom:6px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--gold-bdr);
+  padding-right:44px; /* avoid home icon */
+}
+
+.sidebar-sub {
+  font-size:11px;
+  font-style:italic;
+  color:var(--white-dim);
+  text-align:center;
+  margin-bottom:20px;
+}
+
+/* Section headings — gold underlined */
+.sxn-title {
+  font-family:'Lora',serif;
+  font-size:13px;
+  font-weight:600;
+  color:var(--gold);
+  text-decoration:underline;
+  text-decoration-color:var(--gold);
+  margin:22px 0 10px;
+  letter-spacing:0.3px;
+}
+
+/* Field */
+.field{margin-bottom:10px;}
+.field label {
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  color:var(--neon);
+  margin-bottom:3px;
+  font-family:'Lora',serif;
+}
+.field input {
+  width:100%;
+  background:#494949;
+  border:1px solid var(--gold-bdr);
+  border-radius:5px;
+  padding:7px 10px;
+  color:var(--neon);
+  font-family:'Lora',monospace;
+  font-size:13px;
+  outline:none;
+  transition:border-color .15s;
+}
+.field input:focus{border-color:var(--gold);}
+.field input[type=number]::-webkit-inner-spin-button{opacity:.3;}
+
+/* Total box */
+.total-box {
+  background:rgba(201,147,58,0.12);
+  border:1px solid var(--gold);
+  border-radius:6px;
+  padding:10px 14px;
+  text-align:center;
+  font-family:'Playfair Display',serif;
+  font-size:15px;
+  font-weight:700;
+  color:var(--gold-lt);
+  margin:14px 0 4px;
+}
+
+/* Note text */
+.note {
+  font-size:10px;
+  font-style:italic;
+  color:var(--white-dim);
+  line-height:1.5;
+  padding:6px 0 0;
+}
+
+/* Run button */
+.run-btn {
+  width:100%;
+  background:var(--gold);
+  color:#1b3a35;
+  border:none;
+  border-radius:7px;
+  padding:12px;
+  font-family:'Lora',serif;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:18px;
+  letter-spacing:0.3px;
+  transition:background .2s,transform .1s;
+}
+.run-btn:hover{background:var(--gold-lt);}
+.run-btn:active{transform:scale(.98);}
+
+/* ── MAIN CONTENT ── */
+.main {
+  padding:28px 28px 60px;
+  overflow-x:hidden;
+}
+
+.main-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,3vw,28px);
+  font-weight:900;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--white);
+  margin-bottom:6px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--gold-bdr);
+}
+
+/* ── CONFIDENCE BANNER ── */
+.confidence-banner {
+  background:var(--bg-dark);
+  border:2px solid var(--gold);
+  border-radius:10px;
+  padding:20px 24px;
+  margin:20px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:14px;
+}
+.conf-score {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,6vw,56px);
+  font-weight:900;
+  line-height:1;
+  transition:color .4s;
+}
+.conf-score.high  {color:#27ae60;}
+.conf-score.mid   {color:var(--gold);}
+.conf-score.low   {color:#e74c3c;}
+.conf-label {
+  font-size:12px;
+  font-style:italic;
+  color:var(--white-dim);
+  margin-top:4px;
+}
+.conf-meter {
+  flex:1;
+  min-width:160px;
+  max-width:340px;
+}
+.conf-meter-track {
+  height:10px;
+  background:rgba(255,255,255,0.1);
+  border-radius:5px;
+  overflow:hidden;
+  margin-top:8px;
+}
+.conf-meter-fill {
+  height:100%;
+  border-radius:5px;
+  width:0%;
+  transition:width .6s ease, background .4s;
+}
+
+/* ── SUMMARY CARDS ── */
+.summary-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:12px;
+  margin:16px 0 24px;
+}
+.scard {
+  background:var(--bg-dark);
+  border:1px solid var(--gold-bdr);
+  border-radius:8px;
+  padding:14px 16px;
+  border-top:3px solid var(--gold);
+}
+.scard-lbl {
+  font-size:10px;
+  font-family:'Lora',serif;
+  color:var(--white-dim);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:6px;
+}
+.scard-val {
+  font-family:'Playfair Display',serif;
+  font-size:20px;
+  color:var(--white);
+}
+.scard-val.green {color:var(--green);}
+.scard-val.red   {color:var(--danger);}
+.scard-val.gold  {color:var(--gold-lt);}
+
+/* ── CHART ── */
+.chart-section-title {
+  font-family:'Lora',serif;
+  font-size:14px;
+  font-weight:600;
+  color:var(--gold);
+  text-decoration:underline;
+  text-decoration-color:var(--gold);
+  margin-bottom:12px;
+}
+.chart-wrap {
+  background:var(--bg-dark);
+  border:1px solid var(--gold-bdr);
+  border-radius:8px;
+  padding:18px;
+  height:380px;
+  margin-bottom:28px;
+}
+
+/* ── REVERSE CALCULATOR ── */
+.reverse-box {
+  background:var(--bg-dark);
+  border:1px solid var(--gold-bdr);
+  border-radius:10px;
+  padding:22px 24px;
+  margin-top:28px;
+}
+.reverse-title {
+  font-family:'Playfair Display',serif;
+  font-size:17px;
+  font-weight:700;
+  color:var(--gold-lt);
+  margin-bottom:4px;
+}
+.reverse-sub {
+  font-size:12px;
+  font-style:italic;
+  color:var(--white-dim);
+  margin-bottom:18px;
+  line-height:1.6;
+}
+.reverse-row {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.reverse-row label {
+  font-size:12px;
+  font-weight:600;
+  color:var(--neon);
+  white-space:nowrap;
+  font-family:'Lora',serif;
+}
+.reverse-row input {
+  width:100px;
+  background:#494949;
+  border:1px solid var(--gold-bdr);
+  border-radius:5px;
+  padding:7px 10px;
+  color:var(--neon);
+  font-family:'Lora',monospace;
+  font-size:13px;
+  outline:none;
+}
+.reverse-row input:focus{border-color:var(--gold);}
+.rev-btn {
+  background:var(--gold);
+  color:#1b3a35;
+  border:none;
+  border-radius:6px;
+  padding:9px 20px;
+  font-family:'Lora',serif;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .2s;
+  white-space:nowrap;
+}
+.rev-btn:hover{background:var(--gold-lt);}
+.reverse-result {
+  background:rgba(201,147,58,0.1);
+  border:1px solid var(--gold);
+  border-radius:8px;
+  padding:16px 20px;
+  display:none;
+}
+.reverse-result.show{display:block;}
+.rev-res-label {
+  font-size:11px;
+  font-style:italic;
+  color:var(--white-dim);
+  margin-bottom:4px;
+}
+.rev-res-val {
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  font-weight:700;
+  color:var(--gold-lt);
+}
+.rev-res-note {
+  font-size:11px;
+  font-style:italic;
+  color:var(--white-dim);
+  margin-top:6px;
+  line-height:1.6;
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin-top:44px;
+  padding-top:24px;
+  border-top:1px solid var(--gold-bdr);
+  flex-wrap:wrap;
+}
+.nav-btn {
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:#1b3a35;
+  font-family:'Lora',serif;font-size:15px;font-weight:600;
+  padding:12px 32px;border-radius:8px;text-decoration:none;
+  border:2px solid var(--gold);min-width:140px;justify-content:center;
+  transition:background .18s,transform .1s;
+}
+.nav-btn:hover{background:var(--gold-lt);border-color:var(--gold-lt);}
+.nav-btn:active{transform:scale(.98);}
+
+/* ── RUNNING SPINNER ── */
+.spinner {
+  display:none;
+  text-align:center;
+  font-size:12px;
+  font-style:italic;
+  color:var(--white-dim);
+  padding:8px 0;
+}
+.spinner.show{display:block;}
+
+/* ── RESPONSIVE: stack sidebar on mobile ── */
+@media(max-width:760px){
+  .page-wrap{grid-template-columns:1fr;}
+  .sidebar{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--gold-bdr);}
+  .main{padding:20px 14px 50px;}
+  .conf-score{font-size:40px;}
+  .summary-grid{grid-template-columns:repeat(2,1fr);}
+  .bottom-nav{flex-direction:column;align-items:center;}
+  .nav-btn{width:100%;max-width:320px;}
+}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-icon" title="Home">🏠</a>
+
+<div class="page-wrap">
+
+<!-- ══════════════════════ SIDEBAR ══════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-title">Monte Carlo<br>Simulator</div>
+  <p class="sidebar-sub">Adjust inputs, then run simulations</p>
+
+  <!-- Current Balances -->
+  <div class="sxn-title">Current Balances</div>
+  <div class="field"><label>401(k) / Traditional IRA</label><input type="number" id="k401" value="500000" oninput="computeTotal()"></div>
+  <div class="field"><label>Roth IRA Balance</label><input type="number" id="rothIRA" value="50000" oninput="computeTotal()"></div>
+  <div class="field"><label>Stocks / Brokerage</label><input type="number" id="stocks" value="50000" oninput="computeTotal()"></div>
+  <div class="field"><label>Bonds</label><input type="number" id="bonds" value="50000" oninput="computeTotal()"></div>
+  <div class="field"><label>Cash</label><input type="number" id="cash" value="20000" oninput="computeTotal()"></div>
+  <div class="field"><label>CDs</label><input type="number" id="cds" value="20000" oninput="computeTotal()"></div>
+  <div class="field"><label>HSA Balance (Current)</label><input type="number" id="hsaBal" value="10000" oninput="computeTotal()"></div>
+  <div class="total-box" id="totalPortfolio">Total: $700,000</div>
+
+  <!-- Ages & Contributions -->
+  <div class="sxn-title">Ages & Contributions</div>
+  <div class="field"><label>Husband Current Age</label><input type="number" id="s1Age" value="60"></div>
+  <div class="field"><label>Wife Current Age</label><input type="number" id="s2Age" value="56"></div>
+  <div class="field"><label>Retirement Age (Husband)</label><input type="number" id="retAge" value="65"></div>
+  <div class="field"><label>End Simulation Age</label><input type="number" id="endAge" value="90"></div>
+  <div class="field"><label>Annual Contribution — Employee</label><input type="number" id="contribution" value="23000"></div>
+  <div class="field"><label>Annual Contribution — Company Match</label><input type="number" id="companyMatch" value="7000"></div>
+  <div class="field"><label>HSA Annual Contribution (Pre-Retire)</label><input type="number" id="hsaContrib" value="8000"></div>
+  <div class="field"><label>Target Annual Withdrawal (Retirement)</label><input type="number" id="withdrawal" value="60000"></div>
+
+  <!-- Social Security -->
+  <div class="sxn-title">Social Security</div>
+  <div class="field"><label>Husband SS Start Age</label><input type="number" id="ss1Age" value="67"></div>
+  <div class="field"><label>Husband Annual SS ($)</label><input type="number" id="ss1Income" value="40000"></div>
+  <div class="field"><label>Wife SS Start Age</label><input type="number" id="ss2Age" value="67"></div>
+  <p class="note">Wife SS is modeled as 50% of Husband's annual benefit.</p>
+
+  <!-- Market & Simulation -->
+  <div class="sxn-title">Market Assumptions</div>
+  <div class="field"><label>Avg Stock Return (%)</label><input type="number" id="stockReturn" value="8" step="0.1"></div>
+  <div class="field"><label>Stock Volatility / Std Dev (%)</label><input type="number" id="stockStd" value="15" step="0.1"></div>
+  <div class="field"><label>Avg Bond Return (%)</label><input type="number" id="bondReturn" value="4" step="0.1"></div>
+  <div class="field"><label>Bond Volatility / Std Dev (%)</label><input type="number" id="bondStd" value="5" step="0.1"></div>
+  <div class="field"><label>Avg Inflation (%)</label><input type="number" id="inflation" value="3" step="0.1"></div>
+  <div class="field"><label>Number of Simulations</label><input type="number" id="simCount" value="10000"></div>
+
+  <button class="run-btn" onclick="runSimulation()">▶ Run Simulations</button>
+  <div class="spinner" id="spinner">Running simulations…</div>
+</aside>
+
+<!-- ══════════════════════ MAIN ══════════════════════ -->
+<main class="main">
+  <h1 class="main-title">Retirement Confidence</h1>
+  <p style="font-size:13px;font-style:italic;color:var(--white-dim);margin-bottom:16px;line-height:1.7;">
+    Each simulation runs your portfolio through thousands of random market scenarios.
+    The success rate tells you how often your money lasts through your target age.
+  </p>
+
+  <!-- Confidence Banner -->
+  <div class="confidence-banner">
+    <div>
+      <div class="conf-score" id="confScore">—</div>
+      <div class="conf-label">Probability of not running out of money</div>
+    </div>
+    <div class="conf-meter">
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--white-dim);font-style:italic;">
+        <span>0%</span><span>Target ≥ 90%</span><span>100%</span>
+      </div>
+      <div class="conf-meter-track">
+        <div class="conf-meter-fill" id="confFill"></div>
+      </div>
+      <div style="font-size:10px;color:var(--white-dim);font-style:italic;margin-top:5px;" id="confInterpret">Run a simulation to see your result.</div>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-grid">
+    <div class="scard">
+      <div class="scard-lbl">Success Rate</div>
+      <div class="scard-val gold" id="sc-success">—</div>
+    </div>
+    <div class="scard">
+      <div class="scard-lbl">Median Ending Balance</div>
+      <div class="scard-val" id="sc-median">—</div>
+    </div>
+    <div class="scard">
+      <div class="scard-lbl">10th Percentile End</div>
+      <div class="scard-val red" id="sc-p10">—</div>
+    </div>
+    <div class="scard">
+      <div class="scard-lbl">90th Percentile End</div>
+      <div class="scard-val green" id="sc-p90">—</div>
+    </div>
+    <div class="scard">
+      <div class="scard-lbl">Earliest Failure Age</div>
+      <div class="scard-val red" id="sc-fail">—</div>
+    </div>
+    <div class="scard">
+      <div class="scard-lbl">Simulations Run</div>
+      <div class="scard-val" id="sc-sims">—</div>
+    </div>
+  </div>
+
+  <!-- Chart -->
+  <div class="chart-section-title">Portfolio paths by age — percentile bands</div>
+  <div class="chart-wrap">
+    <canvas id="chart"></canvas>
+  </div>
+
+  <!-- ── REVERSE CALCULATOR ── -->
+  <div class="reverse-box">
+    <div class="reverse-title">🔍 What spending gives me 90% confidence?</div>
+    <p class="reverse-sub">
+      Using your current inputs, this finds the maximum annual withdrawal that still
+      achieves your chosen confidence target — using binary search over 500 quick simulations per step.
+    </p>
+    <div class="reverse-row">
+      <label>Target confidence:</label>
+      <input type="number" id="revTarget" value="90" min="50" max="99" step="1">
+      <span style="font-size:12px;color:var(--white-dim);">%</span>
+      <button class="rev-btn" onclick="runReverse()">▶ Find Max Spending</button>
+    </div>
+    <div class="reverse-result" id="revResult">
+      <div class="rev-res-label">Maximum annual spending at your target confidence</div>
+      <div class="rev-res-val" id="revVal">—</div>
+      <div class="rev-res-note" id="revNote">—</div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <a href="topics.html" class="nav-btn"><span>📋</span> Topics</a>
+    <a href="index.html"  class="nav-btn"><span>🏠</span> Home</a>
+  </div>
+</main>
+</div><!-- end page-wrap -->
+
+<script>
+/* ─── HELPERS ─────────────────────────────────────────────── */
+function randn(mean, std) {
+  let u = Math.random(), v = Math.random();
+  if (u === 0) u = 0.0001;
+  let z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  return mean + std * z;
+}
+
+function percentile(arr, p) {
+  let clean = arr.filter(x => x !== null && !isNaN(x)).sort((a, b) => a - b);
+  if (clean.length === 0) return 0;
+  let i = (clean.length - 1) * p;
+  let lo = Math.floor(i), hi = Math.ceil(i);
+  return lo === hi ? clean[lo] : clean[lo] + (clean[hi] - clean[lo]) * (i - lo);
+}
+
+function fm(n) { return '$' + Math.round(n).toLocaleString(); }
+
+/* ─── TOTAL PORTFOLIO ─────────────────────────────────────── */
+function computeTotal() {
+  let t = +v('k401') + +v('rothIRA') + +v('stocks') + +v('bonds')
+        + +v('cash') + +v('cds') + +v('hsaBal');
+  if (t <= 0) t = 1;
+  document.getElementById('totalPortfolio').textContent = 'Total: $' + Math.round(t).toLocaleString();
+  return t;
+}
+function v(id) { return document.getElementById(id).value || 0; }
+
+/* ─── CORE SIMULATION ─────────────────────────────────────── */
+function buildParams(overrideWithdraw) {
+  const total      = computeTotal();
+  const stockAlloc = +v('stocks') / total;
+  const bondAlloc  = (+v('bonds') + +v('cash') + +v('cds')) / total;
+  return {
+    total, stockAlloc, bondAlloc,
+    s1Age:    +v('s1Age'),
+    s2Age:    +v('s2Age'),
+    retAge:   +v('retAge'),
+    endAge:   +v('endAge'),
+    totalContrib: +v('contribution') + +v('companyMatch') + +v('hsaContrib'),
+    withdraw0: overrideWithdraw !== undefined ? overrideWithdraw : +v('withdrawal'),
+    ss1Start: +v('ss1Age'),
+    ss1Inc:   +v('ss1Income'),
+    ss2Start: +v('ss2Age'),
+    ss2Inc:   +v('ss1Income') * 0.5,
+    sRet: +v('stockReturn') / 100,
+    sStd: +v('stockStd')    / 100,
+    bRet: +v('bondReturn')  / 100,
+    bStd: +v('bondStd')     / 100,
+    infl: +v('inflation')   / 100,
+  };
+}
+
+function simulate(p, sims, collectPaths) {
+  const years = p.endAge - p.s1Age + 1;
+  let allPaths = [], endBalances = [], failAges = [];
+
+  for (let i = 0; i < sims; i++) {
+    let port = p.total, w = p.withdraw0;
+    let path = collectPaths ? new Array(years).fill(0) : null;
+    let failed = false;
+
+    for (let y = 0; y < years; y++) {
+      let age1 = p.s1Age + y, age2 = p.s2Age + y;
+      let r = (p.stockAlloc * randn(p.sRet, p.sStd)) + (p.bondAlloc * randn(p.bRet, p.bStd));
+      port *= (1 + r);
+
+      if (age1 < p.retAge) {
+        port += p.totalContrib;
+      } else {
+        let ss = 0;
+        if (age1 >= p.ss1Start) ss += p.ss1Inc;
+        if (age2 >= p.ss2Start) ss += p.ss2Inc;
+        port += ss;
+        port -= w;
+        w *= (1 + p.infl);
+      }
+
+      if (port <= 0) {
+        port = 0;
+        failAges.push(age1);
+        if (collectPaths) path[y] = 0;
+        failed = true;
+        break;
+      }
+      if (collectPaths) path[y] = port;
+    }
+    endBalances.push(port);
+    if (collectPaths) allPaths.push(path);
+  }
+  return { allPaths, endBalances, failAges, sims };
+}
+
+/* ─── RUN MAIN SIMULATION ─────────────────────────────────── */
+let chartInstance;
+
+function runSimulation() {
+  const sims = +v('simCount') || 10000;
+  document.getElementById('spinner').classList.add('show');
+  document.querySelector('.run-btn').disabled = true;
+
+  setTimeout(() => {
+    const p = buildParams();
+    const res = simulate(p, sims, true);
+
+    const successCount = sims - res.failAges.length;
+    const rate = (successCount / sims * 100);
+
+    /* ── Update confidence banner ── */
+    const confEl = document.getElementById('confScore');
+    const fillEl = document.getElementById('confFill');
+    confEl.textContent = rate.toFixed(1) + '%';
+    confEl.className = 'conf-score ' + (rate >= 90 ? 'high' : rate >= 75 ? 'mid' : 'low');
+    fillEl.style.width  = rate + '%';
+    fillEl.style.background = rate >= 90 ? '#27ae60' : rate >= 75 ? '#c9933a' : '#e74c3c';
+    document.getElementById('confInterpret').textContent =
+      rate >= 90 ? '✓ Strong — your plan survives 90%+ of market scenarios.' :
+      rate >= 75 ? '⚠ Moderate — consider adjusting spending or retirement age.' :
+                   '✗ At risk — your plan fails in many scenarios. Review inputs.';
+
+    /* ── Summary cards ── */
+    document.getElementById('sc-success').textContent = rate.toFixed(1) + '%';
+    document.getElementById('sc-median').textContent  = fm(percentile(res.endBalances, 0.5));
+    document.getElementById('sc-p10').textContent     = fm(percentile(res.endBalances, 0.1));
+    document.getElementById('sc-p90').textContent     = fm(percentile(res.endBalances, 0.9));
+    document.getElementById('sc-fail').textContent    = res.failAges.length
+      ? 'Age ' + Math.min(...res.failAges) : 'None';
+    document.getElementById('sc-sims').textContent    = sims.toLocaleString();
+
+    drawChart(res.allPaths, p.s1Age, p.endAge);
+    document.getElementById('spinner').classList.remove('show');
+    document.querySelector('.run-btn').disabled = false;
+  }, 60);
+}
+
+/* ─── CHART ──────────────────────────────────────────────── */
+function drawChart(allPaths, startAge, endAge) {
+  const yearsCount = endAge - startAge + 1;
+  const labels = Array.from({length: yearsCount}, (_, i) => startAge + i);
+  const pdata = [];
+
+  for (let y = 0; y < yearsCount; y++) {
+    let yv = allPaths.map(path => path[y] || 0);
+    pdata.push({
+      p10: percentile(yv, 0.1),
+      p25: percentile(yv, 0.25),
+      p50: percentile(yv, 0.5),
+      p75: percentile(yv, 0.75),
+      p90: percentile(yv, 0.9)
+    });
+  }
+
+  const ctx = document.getElementById('chart').getContext('2d');
+  if (chartInstance) chartInstance.destroy();
+
+  chartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Top 10%',    data: pdata.map(d=>d.p90), borderColor:'#27ae60', borderWidth:1.5, pointRadius:0, fill:false },
+        { label: '75th pct',   data: pdata.map(d=>d.p75), borderColor:'#2ecc71', borderWidth:1,   pointRadius:0, fill:false, borderDash:[4,3] },
+        { label: 'Median',     data: pdata.map(d=>d.p50), borderColor:'#e8b96a', borderWidth:3,   pointRadius:0, fill:false },
+        { label: '25th pct',   data: pdata.map(d=>d.p25), borderColor:'#e67e22', borderWidth:1,   pointRadius:0, fill:false, borderDash:[4,3] },
+        { label: 'Bottom 10%', data: pdata.map(d=>d.p10), borderColor:'#e74c3c', borderWidth:1.5, pointRadius:0, fill:false },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{
+        legend:{ labels:{ color:'#c8c4b4', boxWidth:12, padding:14, font:{size:11} } },
+        tooltip:{ callbacks:{ label: ctx => ' ' + ctx.dataset.label + ': ' + fm(ctx.raw) } }
+      },
+      scales:{
+        x:{
+          grid:{ color:'rgba(201,147,58,0.08)' },
+          ticks:{ color:'#c8c4b4', maxTicksLimit:12 },
+          title:{ display:true, text:"Husband's Age", color:'#c8c4b4', font:{size:11} }
+        },
+        y:{
+          grid:{ color:'rgba(201,147,58,0.08)' },
+          ticks:{ color:'#c8c4b4', callback: v => '$'+(v>=1e6?(v/1e6).toFixed(1)+'M':(v/1e3).toFixed(0)+'K') },
+          title:{ display:true, text:'Portfolio Balance', color:'#c8c4b4', font:{size:11} }
+        }
+      }
+    }
+  });
+}
+
+/* ─── REVERSE CALCULATOR ─────────────────────────────────── */
+function runReverse() {
+  const targetRate = +document.getElementById('revTarget').value / 100;
+  const revBtn = document.querySelector('.rev-btn');
+  revBtn.textContent = 'Searching…';
+  revBtn.disabled = true;
+
+  setTimeout(() => {
+    const SIMS = 1000;  // fast pass per step
+    let lo = 0, hi = 300000, best = 0;
+    const p = buildParams(0);
+
+    // Binary search: find highest withdrawal that achieves target rate
+    for (let iter = 0; iter < 18; iter++) {
+      let mid = Math.round((lo + hi) / 2);
+      p.withdraw0 = mid;
+      const res = simulate(p, SIMS, false);
+      const rate = (SIMS - res.failAges.length) / SIMS;
+      if (rate >= targetRate) { best = mid; lo = mid + 1; }
+      else { hi = mid - 1; }
+    }
+
+    const resEl = document.getElementById('revResult');
+    document.getElementById('revVal').textContent = fm(best);
+    document.getElementById('revNote').textContent =
+      `At $${Math.round(best).toLocaleString()} annual spending (today's dollars, inflation-adjusted each year), ` +
+      `your portfolio survives through age ${+v('endAge')} in at least ` +
+      `${(targetRate*100).toFixed(0)}% of the ${SIMS.toLocaleString()} scenarios tested. ` +
+      `Monthly equivalent: ${fm(best/12)}/month.`;
+    resEl.classList.add('show');
+    revBtn.textContent = '▶ Find Max Spending';
+    revBtn.disabled = false;
+  }, 60);
+}
+
+// Init
+computeTotal();
+</script>
+</body>
+</html>
