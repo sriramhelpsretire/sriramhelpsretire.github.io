@@ -8,13 +8,11 @@
 <style>
   :root {
     --bg:        #1b3a35;
-    --bg-dark:   #142e2a;
     --gold:      #c9933a;
     --gold-lt:   #e8b96a;
     --white:     #f0ece0;
     --white-dim: #c8c4b4;
     --red:       #c0392b;
-    --btn-bg:    #c9933a;
     --btn-text:  #1b3a35;
   }
 
@@ -26,27 +24,28 @@
     font-family: 'Lora', Georgia, serif;
     font-size: 15px;
     min-height: 100vh;
-    position: relative;
+    /* right padding reserves space for the red strip so content never hides under it */
+    padding-right: 14px;
   }
 
-  /* Red accent strip right edge */
+  /* Red accent strip — right edge, thinner on small screens */
   body::after {
     content: '';
     position: fixed;
     top: 0; right: 0;
-    width: 10px;
+    width: 8px;
     height: 100%;
     background: var(--red);
     z-index: 100;
   }
 
-  /* Home icon top right */
+  /* Home icon — tucked left of the red strip */
   .home-icon {
     position: fixed;
     top: 12px;
-    right: 20px;
-    width: 44px;
-    height: 44px;
+    right: 22px;          /* sits just left of the 8px strip */
+    width: 40px;
+    height: 40px;
     background: var(--gold);
     border-radius: 8px;
     display: flex;
@@ -54,62 +53,66 @@
     justify-content: center;
     text-decoration: none;
     z-index: 200;
-    font-size: 22px;
+    font-size: 20px;
     transition: background 0.2s;
   }
   .home-icon:hover { background: var(--gold-lt); }
 
-  /* Main container */
+  /* ── CONTAINER ── */
   .container {
-    max-width: 680px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 36px 24px 60px;
+    padding: 36px 20px 60px;
   }
 
-  /* Page title — bold uppercase matching MEDICARE style */
+  /* ── PAGE TITLE ── */
   .page-title {
     font-family: 'Playfair Display', serif;
-    font-size: 36px;
+    font-size: clamp(22px, 6vw, 36px);   /* fluid: 22px on tiny phones → 36px on desktop */
     font-weight: 900;
-    letter-spacing: 6px;
+    letter-spacing: clamp(2px, 1.5vw, 6px);
     text-transform: uppercase;
     color: var(--white);
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
     padding-bottom: 16px;
     border-bottom: 1px solid rgba(201,147,58,0.3);
+    padding-right: 44px;   /* prevent overlap with home icon on narrow screens */
   }
 
-  /* Gold underlined section headings */
+  /* ── SECTION HEADING ── */
   .section-heading {
     font-family: 'Lora', serif;
-    font-size: 16px;
+    font-size: clamp(13px, 3vw, 16px);
     font-weight: 600;
     color: var(--gold);
     text-decoration: underline;
     text-decoration-color: var(--gold);
-    margin: 28px 0 14px;
+    margin: 24px 0 14px;
   }
 
-  /* Intro paragraph — italic, dimmed */
+  /* ── INTRO ── */
   .intro {
     font-style: italic;
     color: var(--white-dim);
     line-height: 1.75;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: clamp(13px, 3vw, 14px);
   }
 
-  /* Column headers */
+  /* ══════════════════════════════════════
+     DESKTOP LAYOUT  (≥ 560px)
+     Two-column grid with arrow in middle
+  ══════════════════════════════════════ */
   .col-headers {
     display: grid;
-    grid-template-columns: 1fr 36px 1fr;
-    margin-bottom: 10px;
+    grid-template-columns: 1fr 32px 1fr;
+    margin-bottom: 8px;
   }
   .col-header {
     text-align: center;
     font-family: 'Playfair Display', serif;
-    font-size: 13px;
+    font-size: clamp(11px, 2vw, 13px);
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -117,52 +120,56 @@
     color: var(--gold);
   }
 
-  /* Rows */
   .rows { display: flex; flex-direction: column; gap: 7px; }
 
   .row {
     display: grid;
-    grid-template-columns: 1fr 36px 1fr;
+    grid-template-columns: 1fr 32px 1fr;
     align-items: stretch;
+    gap: 0;
   }
 
+  /* Arrow between cells */
+  .arrow-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  /* Down-arrow shown on mobile, hidden on desktop */
+  .arrow-down { display: none; }
+
+  /* ── CELL ── */
   .cell {
-    padding: 10px 14px;
+    padding: 11px 14px;
     border-radius: 6px;
     border: 1px solid rgba(201,147,58,0.3);
-    cursor: pointer;
     text-decoration: none;
     display: block;
     background: rgba(255,255,255,0.04);
     transition: border-color 0.18s, background 0.18s;
+    min-width: 0;          /* prevent grid blowout */
   }
-  .cell:hover {
-    border-color: var(--gold);
-    background: rgba(201,147,58,0.12);
-  }
+  .cell:hover  { border-color: var(--gold); background: rgba(201,147,58,0.12); }
+  .cell:active { background: rgba(201,147,58,0.18); }
+
   .cell-title {
     font-family: 'Lora', serif;
-    font-size: 13px;
+    font-size: clamp(12px, 2.5vw, 13px);
     font-weight: 600;
     color: var(--white);
-    margin-bottom: 2px;
+    margin-bottom: 3px;
+    line-height: 1.3;
   }
   .cell-sub {
     font-family: 'Lora', serif;
-    font-size: 11px;
+    font-size: clamp(10px, 2vw, 11px);
     font-style: italic;
     color: var(--white-dim);
     line-height: 1.4;
   }
 
-  /* Arrow column */
-  .arrow-col {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Shared section divider */
+  /* ── SHARED SECTION ── */
   .shared-divider {
     display: flex;
     align-items: center;
@@ -171,6 +178,7 @@
     font-style: italic;
     font-size: 12px;
     color: var(--white-dim);
+    white-space: nowrap;
   }
   .shared-divider::before,
   .shared-divider::after {
@@ -180,46 +188,45 @@
     background: rgba(201,147,58,0.3);
   }
 
-  /* Shared cards */
   .shared-cards {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
   }
   .shared-card {
-    padding: 10px 14px;
+    padding: 11px 14px;
     border-radius: 6px;
     border: 1px solid rgba(201,147,58,0.5);
     background: rgba(201,147,58,0.08);
-    cursor: pointer;
     text-decoration: none;
     display: block;
     transition: background 0.18s, border-color 0.18s;
+    min-width: 0;
   }
-  .shared-card:hover {
-    background: rgba(201,147,58,0.18);
-    border-color: var(--gold);
-  }
+  .shared-card:hover  { background: rgba(201,147,58,0.18); border-color: var(--gold); }
+  .shared-card:active { background: rgba(201,147,58,0.25); }
+
   .shared-card-title {
     font-family: 'Lora', serif;
-    font-size: 12px;
+    font-size: clamp(11px, 2.5vw, 13px);
     font-weight: 600;
     color: var(--gold-lt);
-    margin-bottom: 2px;
+    margin-bottom: 3px;
+    line-height: 1.3;
   }
   .shared-card-sub {
     font-family: 'Lora', serif;
-    font-size: 11px;
+    font-size: clamp(10px, 2vw, 11px);
     font-style: italic;
     color: var(--white-dim);
     line-height: 1.4;
   }
 
-  /* Legend */
+  /* ── LEGEND ── */
   .legend {
-    margin-top: 22px;
+    margin-top: 20px;
     display: flex;
-    gap: 20px;
+    gap: 16px;
     flex-wrap: wrap;
     font-size: 11px;
     font-style: italic;
@@ -234,13 +241,13 @@
   }
   .legend-dot.shared { background: rgba(201,147,58,0.18); border-color: var(--gold); }
 
-  /* Bottom nav buttons — matching your gold button style */
+  /* ── BOTTOM NAV ── */
   .bottom-nav {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin-top: 48px;
+    margin-top: 44px;
     padding-top: 24px;
     border-top: 1px solid rgba(201,147,58,0.25);
     flex-wrap: wrap;
@@ -248,29 +255,92 @@
   .nav-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    background: var(--btn-bg);
+    background: var(--gold);
     color: var(--btn-text);
     font-family: 'Lora', serif;
     font-size: 15px;
     font-weight: 600;
-    padding: 11px 32px;
+    padding: 12px 32px;
     border-radius: 8px;
     text-decoration: none;
-    border: 2px solid var(--btn-bg);
-    cursor: pointer;
+    border: 2px solid var(--gold);
     letter-spacing: 0.3px;
     transition: background 0.18s, transform 0.1s;
+    min-width: 140px;
   }
-  .nav-btn:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+  .nav-btn:hover  { background: var(--gold-lt); border-color: var(--gold-lt); }
   .nav-btn:active { transform: scale(0.98); }
-  .nav-btn .btn-icon { font-size: 16px; }
+  .btn-icon { font-size: 15px; }
 
-  @media (max-width: 540px) {
+  /* ══════════════════════════════════════
+     MOBILE LAYOUT  (< 560px)
+     Stack each row: work card → ↓ → retire card
+  ══════════════════════════════════════ */
+  @media (max-width: 559px) {
+
+    body { padding-right: 10px; }
+    body::after { width: 6px; }
+
+    .home-icon { right: 16px; width: 36px; height: 36px; font-size: 18px; }
+
+    .container { padding: 28px 14px 50px; }
+
+    /* Hide the side-by-side column headers and arrow on mobile */
+    .col-headers { display: none; }
+    .arrow-col   { display: none; }
+
+    /* Stack rows vertically */
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Label each card inline so context is clear without column headers */
+    .cell::before {
+      content: attr(data-label);
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+      opacity: 0.8;
+    }
+
+    /* Show cell subtitles (hidden only on very tiny screens, shown here) */
+    .cell-sub { display: block; }
+
+    /* Down arrow between the two stacked cards */
+    .arrow-down {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    /* Round the bottom of work card and top of retire card to look like one unit */
+    .cell.work   { border-radius: 6px 6px 0 0; border-bottom: none; }
+    .cell.retire { border-radius: 0 0 6px 6px; border-top: 1px dashed rgba(201,147,58,0.25); }
+
+    /* Shared cards: 1 column on mobile */
     .shared-cards { grid-template-columns: 1fr; }
-    .col-headers, .row { grid-template-columns: 1fr 28px 1fr; }
-    .cell-sub { display: none; }
-    .page-title { font-size: 26px; letter-spacing: 3px; }
+
+    /* Buttons full width on mobile */
+    .bottom-nav { flex-direction: column; gap: 10px; }
+    .nav-btn    { width: 100%; max-width: 320px; }
+  }
+
+  /* ══════════════════════════════════════
+     TABLET LAYOUT  (560px – 767px)
+     Two-column grid, but slightly less padding
+  ══════════════════════════════════════ */
+  @media (min-width: 560px) and (max-width: 767px) {
+    .container { padding: 32px 20px 56px; }
+    .shared-cards { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
 </head>
@@ -331,6 +401,11 @@ const arrowSVG = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
 
+const arrowDownSVG = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+  <path d="M9 3V15M4 10l5 5 5-5" stroke="#c9933a" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
 const rows = [
   {
     work:   { title: 'Income',                    sub: 'Salary, bonuses, side income',           href: 'income.html' },
@@ -378,12 +453,13 @@ rows.forEach(r => {
   const div = document.createElement('div');
   div.className = 'row';
   div.innerHTML = `
-    <a class="cell" href="${r.work.href}">
+    <a class="cell work" href="${r.work.href}" data-label="Working Years">
       <div class="cell-title">${r.work.title}</div>
       <div class="cell-sub">${r.work.sub}</div>
     </a>
     <div class="arrow-col">${arrowSVG}</div>
-    <a class="cell" href="${r.retire.href}">
+    <div class="arrow-down">${arrowDownSVG}</div>
+    <a class="cell retire" href="${r.retire.href}" data-label="Retirement">
       <div class="cell-title">${r.retire.title}</div>
       <div class="cell-sub">${r.retire.sub}</div>
     </a>
