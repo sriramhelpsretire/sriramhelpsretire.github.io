@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Retirement Planner Flowchart (Interactive)</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    #canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: #f5f5f5;
+      cursor: move;
+      user-select: none;
+    }
+    .node {
+      position: absolute;
+      width: 180px;
+      min-height: 50px;
+      background: #fff;
+      border: 1.5px solid #4c9aff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      padding: 10px;
+      cursor: grab;
+      z-index: 10;
+      resize: both;
+      overflow: hidden;
+    }
+    .node.selected {
+      border-color: #e040fb;
+    }
+    .node.decision {
+      background: #fffaf0;
+      border-color: #ffa726;
+    }
+    .node.decision::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 0; height: 0;
+      border: 40px solid transparent;
+      border-width: 30px 30px 0 30px;
+      border-bottom-color: #ffa726;
+      top: 0; left: calc(50% - 30px);
+      transform: rotate(45deg);
+      z-index: -1;
+      opacity: 0.15;
+    }
+    .node-title {
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #222;
+    }
+    .node-text {
+      outline: none;
+      font-size: 14px;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .delete {
+      position: absolute;
+      top: 2px; right: 2px;
+      font-size: 12px;
+      color: #e57373;
+      cursor: pointer;
+    }
+    svg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    line, .label-text {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    line {
+      stroke: #333;
+      stroke-width: 2px;
+    }
+    .label-text {
+      fill: #222;
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+    }
+    .controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 100;
+    }
+    .control {
+      display: inline-block;
+      padding: 8px 12px;
+      margin: 0 4px 4px 0;
+      background: #4c9aff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .control:hover {
+      background: #3380cc;
+    }
+    .info {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 8px 12px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 13px;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div id="canvas">
+    <svg id="lines"></svg>
+  </div>
+  <div class="controls">
+    <button id="addBtn" class="control">Add Step</button>
+    <button id="addDecisionBtn" class="control">Add Decision</button>
+    <button id="connectBtn" class="control">Connect Selected</button>
+  </div>
+  <div class="info">
+    Info: Click a box to select it. Click another box to set it as “From” or “To”. Then click “Connect Selected” to draw an arrow.
+    Delete a node by clicking the 🗑️ on it. Click a connector label to edit its text.
+  </div>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const linesSvg = document.getElementById("lines");
+    let nodes = [];
+    let edges = [];
+    let draggingNode = null;
+    let selectedNode = null;
+    let fromNode = null;
+    let toNode = null;
+
+    function createNode(x, y, text, type = "normal") {
+      const id = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+      const div = document.createElement("div");
+      div.className = `node ${type === "decision" ? "decision" : ""}`;
+      div.id = id;
+      div.style.left = x + "px";
+      div.style.top = y + "px";
+      div.innerHTML = `
+        <div class="node-title">${type === "decision" ? "Decision" : "Step"}</div>
+        <div class="node-text" contenteditable="true">${text}</div>
+        <div class="delete" data-id="${id}">🗑️</div>
+      `;
+      canvas.appendChild(div);
+
+      const textEl = div.querySelector(".node-text");
+      textEl.focus();
+      textEl.selectionStart = textEl.selectionEnd = text.length;
+
+      const node = { id, div, textEl, type };
+      nodes.push(node);
+
+      // Drag
+      div.addEventListener("mousedown", (e) => {
+        if (e.target === textEl || e.target.classList.contains("delete")) return;
+        e.preventDefault();
+        draggingNode = node;
+        node.div.style.cursor = "grabbing";
+      });
+
+      // Delete
+      div.querySelector(".delete").addEventListener("click", (e) => {
+        e.stopPropagation();
+        removeNode(id);
+      });
+
+      // Click = select / set From/To
+      div.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (e.target !== textEl && !e.target.classList.contains("delete")) {
+          toggleSelection(node);
+        }
+      });
+
+      return node;
+    }
+
+    function toggleSelection(node) {
+      const wasSelected = selectedNode === node;
+      if (selectedNode) {
+        selectedNode.div.classList.remove("selected");
+      }
+      selectedNode = wasSelected ? null : node;
+      if (selectedNode) {
+        selectedNode.div.classList.add("selected");
+      }
+      // Update from/to
+      if (!fromNode) {
+        fromNode = selectedNode;
+      } else if (fromNode === selectedNode) {
+        fromNode = null;
+      } else {
+        toNode = selectedNode;
+      }
+    }
+
+    function createEdge(fromId, toId, label = "Connects") {
+      const id = `${fromId}->${toId}`;
+      const edge = {
+        id,
+        from: fromId,
+        to: toId,
+        label
+      };
+      edges.push(edge);
+      updateLines();
+      return edge;
+    }
+
+    function removeEdge(edgeId) {
+      edges = edges.filter(e => e.id !== edgeId);
+      updateLines();
+    }
+
+    function removeNode(id) {
+      // Remove all edges that touch this node
+      edges = edges.filter(e => e.from !== id && e.to !== id);
+      nodes = nodes.filter(n => n.id !== id);
+      const el = document.getElementById(id);
+      if (el) el.remove();
+      updateLines();
+      if (selectedNode && selectedNode.id === id) {
+        setSelection(null);
+      }
+      if (fromNode && fromNode.id === id) fromNode = null;
+      if (toNode && toNode.id === id) toNode = null;
+    }
+
+    function setSelection(node) {
+      if (selectedNode) {
+        selectedNode.div.classList.remove("selected");
+      }
+      selectedNode = node;
+      if (node) {
+        node.div.classList.add("selected");
+      }
+    }
+
+    function updateLines() {
+      while (linesSvg.firstChild) {
+        linesSvg.removeChild(linesSvg.firstChild);
+      }
+      edges.forEach(edge => {
+        const fromNode = nodes.find(n => n.id === edge.from);
+        const toNode = nodes.find(n => n.id === edge.to);
+        if (!fromNode || !toNode) return;
+
+        const f = fromNode.div.getBoundingClientRect();
+        const t = toNode.div.getBoundingClientRect();
+
+        const fromX = f.left + f.width / 2;
+        const fromY = f.top + f.height;
+        const toX = t.left + t.width / 2;
+        const toY = t.top;
+
+        // Line
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", fromX);
+        line.setAttribute("y1", fromY);
+        line.setAttribute("x2", toX);
+        line.setAttribute("y2", toY);
+        line.setAttribute("data-id", edge.id);
+        line.addEventListener("click", (e) => {
+          e.stopPropagation();
+          promptEdgeLabel(edge.id);
+        });
+        linesSvg.appendChild(line);
+
+        // Label text
+        const labelX = (fromX + toX) / 2;
+        const labelY = (fromY + toY) / 2;
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", labelX);
+        text.setAttribute("y", labelY - 8);
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("class", "label-text");
+        text.setAttribute("data-id", edge.id);
+        text.textContent = edge.label;
+        text.addEventListener("click", (e) => {
+          e.stopPropagation();
+          promptEdgeLabel(edge.id);
+        });
+        linesSvg.appendChild(text);
+      });
+    }
+
+    function promptEdgeLabel(edgeId) {
+      const edge = edges.find(e => e.id === edgeId);
+      if (!edge) return;
+      const newLabel = prompt("Connector label:", edge.label);
+      if (newLabel != null) {
+        edge.label = newLabel;
+        updateLines();
+      }
+    }
+
+    // Add step / decision
+    document.getElementById("addBtn").addEventListener("click", () => {
+      const x = 50 + Math.random() * 400;
+      const y = 50 + Math.random() * 300;
+      createNode(x, y, "Step: click to edit", "normal");
+    });
+
+    document.getElementById("addDecisionBtn").addEventListener("click", () => {
+      const x = 50 + Math.random() * 400;
+      const y = 50 + Math.random() * 300;
+      createNode(x, y, "Decision: edit text", "decision");
+    });
+
+    // Connect selected nodes
+    document.getElementById("connectBtn").addEventListener("click", () => {
+      if (!fromNode || !toNode) {
+        alert("Please select both a FROM node and a TO node first.");
+        return;
+      }
+      createEdge(fromNode.id, toNode.id, "To");
+      fromNode = null;
+      toNode = null;
+      setSelection(null);
+    });
+
+    // Dragging
+    canvas.addEventListener("mousemove", (e) => {
+      if (!draggingNode) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left - 90;
+      const y = e.clientY - rect.top - 25;
+      draggingNode.div.style.left = x + "px";
+      draggingNode.div.style.top = y + "px";
+      updateLines();
+    });
+
+    canvas.addEventListener("mouseup", () => {
+      if (draggingNode) {
+        draggingNode.div.style.cursor = "grab";
+        draggingNode = null;
+      }
+    });
+
+    // Example starter flow
+    window.addEventListener("load", () => {
+      const start = createNode(100, 100, "Start", "normal");
+      const age = createNode(120, 200, "Set current and retirement age", "normal");
+      const income = createNode(120, 300, "Income, savings, debts", "normal");
+      const goals = createNode(350, 200, "Define retirement goals", "normal");
+      const cashflow = createNode(350, 300, "Check cash‑flow map", "decision");
+      const montecarlo = createNode(350, 400, "Run Monte Carlo stress test", "normal");
+      const finalize = createNode(350, 500, "Finalize plan (or iterate)", "normal");
+
+      createEdge(start.id, age.id, "Begin");
+      createEdge(age.id, income.id, "Then");
+      createEdge(income.id, goals.id, "Then");
+      createEdge(goals.id, cashflow.id, "Then");
+      createEdge(cashflow.id, montecarlo.id, "If viable");
+      createEdge(montecarlo.id, finalize.id, "Then");
+
+      const adjust = createNode(600, 400, "Adjust age / savings / portfolio", "normal");
+      createEdge(finalize.id, adjust.id, "If not");
+      createEdge(adjust.id, income.id, "Loop back");
+      createEdge(adjust.id, goals.id, "Loop back");
+    });
+  </script>
+</body>
+</html>
