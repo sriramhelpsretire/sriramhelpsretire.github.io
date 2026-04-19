@@ -454,10 +454,10 @@ rows.forEach(r => {
   const div = document.createElement('div');
   div.className = 'row';
   div.innerHTML = `
-    <a class="cell work" href="${r.work.href}" data-label="Working Years">
+    <div class="cell work" href="${r.work.href}" data-label="Working Years">
       <div class="cell-title">${r.work.title}</div>
       <div class="cell-sub">${r.work.sub}</div>
-    </a>
+    </div>
     <div class="arrow-col">${arrowSVG}</div>
     <div class="arrow-down">${arrowDownSVG}</div>
     <div class="cell retire" href="${r.retire.href}" data-label="Retirement">
