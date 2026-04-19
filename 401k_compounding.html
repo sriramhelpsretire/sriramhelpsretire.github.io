@@ -32,9 +32,9 @@
   .sxn h3 { font-family: 'DM Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
   
   .field { margin-bottom: 12px; }
-  .field label { display: block; font-size: 14px; color: #FF3700; margin-bottom: 4px; text-transform: uppercase; }
-  .field input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; color: var(--text); font-family: 'DM Mono', monospace; outline: none; }
-  .field input:focus { border-color: var(--accent); }
+  .field label { display: block; font-size: 14px; color: #7AF51B; margin-bottom: 4px; text-transform: uppercase; }
+  .field input { width: 80%; background: #000000; border: 1px; color: #FFFFFF;border-radius: 6px; padding: 8px 10px; color: #FFFFFF; font-family: 'DM Mono', monospace; outline: none; }
+  .field input:focus { border-color: #F5F11B; }
 
   /* Button System */
   .btn-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
@@ -54,14 +54,14 @@
   }
 
   .calc-btn { background: #FFEA00; color: #000000; }
-  .calc-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .calc-btn:hover { background: #693909; opacity: 0.9; transform: translateY(-1px); }
 
   .home-btn { 
     background: #FFEA00; 
     color: #000000; 
     border: 1px solid var(--accent); 
   }
-  .home-btn:hover { background: var(--accent); color: #0d1117; }
+  .home-btn:hover { background: #693909; color: #0d1117; }
 
   /* Main Area */
   .main { padding: 32px; overflow-y: auto; }
@@ -75,7 +75,7 @@
   table { border-collapse: collapse; width: 100%; font-family: 'DM Mono', monospace; font-size: 12px; }
   thead th { background: #181f2b; color: var(--accent); padding: 12px; text-align: right; border-bottom: 2px solid var(--border); font-size: 11px; }
   tbody td { padding: 10px 12px; text-align: right; color: var(--label); border-bottom: 1px solid var(--border); }
-  tbody tr:hover { background: #1c232d; }
+  tbody tr:hover { background: #693909; }
   td.hl { color: var(--text); font-weight: 500; }
 
   ::-webkit-scrollbar { width: 5px; }
@@ -95,7 +95,7 @@
       <h3>Input current values</h3>
       <div class="field"><label>Current Age</label><input type="number" id="startAge" value="25"></div>
       <div class="field"><label>Annual Contribution ($)</label><input type="number" id="annualCont" value="12000"></div>
-      <div class="field"><label>Employer Match ($)</label><input type="number" id="employerMatch" value="4000"></div>
+      <div class="field"><label>Employer Match ($)</label><input type="number" id="employerMatch" value="0"></div>
       <div class="field"><label>Expected Growth (%)</label><input type="number" id="growthRate" value="6" step="0.0"></div>
       <div class="field"><label>Contribution Increase ($/yr)</label><input type="number" id="contInc" value="0"></div>
       <div class="field"><label>Retirement Age</label><input type="number" id="endAge" value="65"></div>
