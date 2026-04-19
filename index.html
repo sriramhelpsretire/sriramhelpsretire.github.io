@@ -68,7 +68,7 @@
             .hero-section {
                 display: flex;
                 flex-direction: row;
-                align-items: center;
+                align-items: flex-start;
                 gap: 40px;
                 width: 100%;
                 padding: 40px 0 30px;
@@ -77,6 +77,9 @@
             .hero-image {
                 flex: 0 0 44%;
                 max-width: 44%;
+                display: flex;
+                flex-direction: column;
+                gap: 20px; /* Space between the two images */
             }
 
             .content-container {
@@ -100,6 +103,10 @@
 
             .hero-image {
                 width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
             }
 
             .content-container {
@@ -114,6 +121,12 @@
             height: auto;
             border-radius: 6px;
             display: block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Second image slightly emphasized */
+        .emotions-img {
+            border: 1px solid rgba(232, 196, 74, 0.3);
         }
 
         .content-container p {
@@ -128,12 +141,12 @@
         }
 
         /* ── Button Grid ── */
-        .button-grid {
+        .top-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             width: 100%;
-            padding: 30px 0 50px;
+            margin-top: 20px;
         }
 
         .btn {
@@ -152,50 +165,40 @@
         }
 
         .btn:hover {
-            transform: translateY(-4px); translateX(-4px);
+            transform: translateY(-4px) translateX(-4px);
             background-color: #A35614;
         }
-		
-		/* ── Top Row Buttons ── */
-.top-buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    width: 100%;
-    margin-top: 20px;
-}
 
-/* ── Calculator Pad ── */
-.calc-pad {
-    margin-top: 30px;
-    width: 100%;
-    background: #0f2a44;
-    border: 2px solid var(--accent-gold);
-    border-radius: 16px;
-    padding: 30px 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-}
+        /* ── Calculator Pad ── */
+        .calc-pad {
+            margin-top: 30px;
+            width: 100%;
+            background: #0f2a44;
+            border: 2px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
 
-/* Bigger buttons inside pad */
-.pad-btn {
-    background-color: var(--accent-gold);
-    color: #000;
-    text-decoration: none;
-    padding: 18px 20px;
-    border-radius: 14px;
-    font-weight: bold;
-    font-size: clamp(15px, 2vw, 18px);
-    text-align: center;
-    border: 2px solid #000;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
+        .pad-btn {
+            background-color: var(--accent-gold);
+            color: #000;
+            text-decoration: none;
+            padding: 18px 20px;
+            border-radius: 14px;
+            font-weight: bold;
+            font-size: clamp(15px, 2vw, 18px);
+            text-align: center;
+            border: 2px solid #000;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
 
-.pad-btn:hover {
-    transform: translateY(-4px);translateX(-4px);
-    background-color: #A35614;
-}
+        .pad-btn:hover {
+            transform: translateY(-4px) translateX(-4px);
+            background-color: #A35614;
+        }
 
         /* ── Footer ── */
         footer {
@@ -235,6 +238,9 @@
         <div class="hero-section">
             <div class="hero-image">
                 <img src="index_pic.jpg" alt="Retirement Planner Illustration">
+				<br><br><br>
+                
+                <img src="retirement_emotions.png" alt="Retirement Emotions Chart" class="emotions-img">
             </div>
 
             <div class="content-container">
@@ -249,28 +255,23 @@
 					<br><br> Retirement Confidence Calculator - this is a true stress tester of your portfolio and will tell you "Whether your money will last till your times?"
 					<br><br>401k Compounding Calculator - helps young adults undertand the power of compounding. How does investment started early and done consistently pays off huge returns in retirement?
 					<br><br>Income Tax Calculator - one page review of 4 tax situations that we will come across during our retirement. Quick calculations to help us prepare for the question "How do I pay for the taxes?"
-				
 				</p>
             </div>
         </div>
 
-        <!-- ── TOP ROW BUTTONS ── -->
-<div class="top-buttons">
-    <a href="transition_plan.html" class="btn">Retirement Made Easy</a>
-    <a href="website.html" class="btn">Web Sites</a>
-    <a href="terms.html" class="btn">Terms Used</a>
-</div>
+        <div class="top-buttons">
+            <a href="transition_plan.html" class="btn">Retirement Made Easy</a>
+            <a href="website.html" class="btn">Web Sites</a>
+            <a href="terms.html" class="btn">Terms Used</a>
+        </div>
 
-<!-- ── CALCULATOR PAD ── -->
-<div class="calc-pad">
-     	
-	<a href="retirement_calculator.html" class="pad-btn">Retirement Calculator</a>
-    <a href="montecarlo_retirement.html" class="pad-btn">Retirement Confidence Calculator</a>
-    <a href="401k_compounding.html" class="pad-btn">401k Compounding Calculator</a>
-    <a href="tax_calculator.html" class="pad-btn">Income Tax Calculator</a>
-</div>
-<br><br>
-
+        <div class="calc-pad">
+            <a href="retirement_calculator.html" class="pad-btn">Retirement Calculator</a>
+            <a href="montecarlo_retirement.html" class="pad-btn">Retirement Confidence Calculator</a>
+            <a href="401k_compounding.html" class="pad-btn">401k Compounding Calculator</a>
+            <a href="tax_calculator.html" class="pad-btn">Income Tax Calculator</a>
+        </div>
+        <br><br>
     </div>
 
     <footer>
