@@ -483,11 +483,14 @@ body::after {
 <!-- ══════════════════════ MAIN ══════════════════════ -->
 <main class="main">
   <h1 class="main-title">Retirement Confidence</h1>
-  <p style="font-size:13px;font-style:italic;color:var(--white-dim);margin-bottom:16px;line-height:1.7;">
+  <p style="font-size:15px;font-style:italic;color:#EDE982;margin-bottom:16px;line-height:1.7;">
     Runs thousands of market scenarios through three phases: <b style="color:var(--gold-lt)">Phase 1</b> gap years (brokerage only) →
     <b style="color:var(--gold-lt)">Phase 2</b> SS active (SS + brokerage) →
     <b style="color:var(--gold-lt)">Phase 3</b> RMD age (SS + RMD, surplus reinvested).
     Roth is never drawn and shown as your legacy balance.
+	<br> <br>The above is a specific case where Roth conversion is done from the retirement start years till SS is started. Also the assumption is 
+	that money is not withdrawn from Roth IRA and is left for legacy distribution. Conditions can be changed
+	<br><br> Retirement confidence calculator is to give you an idea about "Will I run out of money?" or "How long will my money last?"
   </p>
 
   <!-- Confidence Banner -->
@@ -547,10 +550,11 @@ body::after {
 
   <!-- ── REVERSE CALCULATOR ── -->
   <div class="reverse-box">
-    <div class="reverse-title">🔍 What spending gives me 90% confidence?</div>
+    <div class="reverse-title">🔍 What spending gives me 90% or 95% confidence?</div>
     <p class="reverse-sub">
       Using your current inputs, this finds the maximum annual withdrawal that still
-      achieves your chosen confidence target — using binary search over 500 quick simulations per step.
+      achieves your chosen confidence target — using binary search over 500 quick simulations per step. Input 90 or 95 to
+	  get a higher level of confidence of how much you can spend and still meet the target confidence %
     </p>
     <div class="reverse-row">
       <label>Target confidence:</label>

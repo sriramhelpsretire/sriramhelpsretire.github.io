@@ -357,7 +357,9 @@
 
   <!-- Intro -->
   <p class="intro">
-    A comprehensive view of how each pillar of your financial and personal life evolves from your working years into retirement. Click any card to explore that topic in depth.
+    A comprehensive view of how each pillar of your financial and personal life evolves from your working years into retirement.
+	<br><br> We will get into details of components in each pillar as we move along the retirement phases. To figure out "What is Retirement?"
+	click on the button at the bottom. It will take you through the phases and prepare you for the beautiful next phase in life.
   </p>
 
   <!-- Section heading -->
@@ -407,43 +409,43 @@ const arrowDownSVG = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none
 
 const rows = [
   {
-    work:   { title: 'Income',                    sub: 'Salary, bonuses, side income',           href: 'income.html' },
-    retire: { title: 'Income streams',             sub: 'Social Security, pension, withdrawals',  href: 'income-streams.html' }
+    work:   { title: 'Income',                    sub: 'Salary, bonuses, side income'        },
+    retire: { title: 'Income streams',             sub: 'Social Security, pension, withdrawals'  }
   },
   {
-    work:   { title: 'Employer benefits',          sub: 'Health, 401k match, PTO, life ins.',     href: 'employer-benefits.html' },
-    retire: { title: 'Healthcare coverage',        sub: 'Medicare, supplemental, long-term care', href: 'healthcare-coverage.html' }
+    work:   { title: 'Employer benefits',          sub: 'Health, 401k match, PTO, life ins.',      },
+    retire: { title: 'Healthcare coverage',        sub: 'Medicare, supplemental, long-term care',  }
   },
   {
-    work:   { title: 'Saving & investing',         sub: '401k, IRA, brokerage, emergency fund',   href: 'saving-investing.html' },
-    retire: { title: 'Withdrawal strategy',        sub: 'RMDs, sequence of returns, 4% rule',     href: 'withdrawal-strategy.html' }
+    work:   { title: 'Saving & investing',         sub: '401k, IRA, brokerage, emergency fund',    },
+    retire: { title: 'Withdrawal strategy',        sub: 'RMDs, sequence of returns, 4% rule',     }
   },
   {
-    work:   { title: 'Debt management',            sub: 'Mortgage, student loans, credit cards',  href: 'debt-management.html' },
-    retire: { title: 'Spending & budgeting',       sub: 'Fixed vs. discretionary expenses',       href: 'spending-budgeting.html' }
+    work:   { title: 'Debt management',            sub: 'Mortgage, student loans, credit cards',   },
+    retire: { title: 'Spending & budgeting',       sub: 'Fixed vs. discretionary expenses',        }
   },
   {
-    work:   { title: 'Tax planning',               sub: 'Deductions, tax-advantaged accounts',    href: 'tax-planning.html' },
-    retire: { title: 'Tax in retirement',          sub: 'Roth conversions, bracket management',   href: 'tax-retirement.html' }
+    work:   { title: 'Tax planning',               sub: 'Deductions, tax-advantaged accounts',     },
+    retire: { title: 'Tax in retirement',          sub: 'Roth conversions, bracket management',    }
   },
   {
-    work:   { title: 'Insurance & protection',     sub: 'Life, disability, liability coverage',   href: 'insurance-protection.html' },
-    retire: { title: 'Estate & legacy',            sub: 'Will, trusts, beneficiaries, gifting',   href: 'estate-legacy.html' }
+    work:   { title: 'Insurance & protection',     sub: 'Life, disability, liability coverage',   },
+    retire: { title: 'Estate & legacy',            sub: 'Will, trusts, beneficiaries, gifting',  }
   },
   {
-    work:   { title: 'Career & identity',          sub: 'Advancement, skills, purpose at work',   href: 'career-identity.html' },
-    retire: { title: 'Purpose & fulfillment',      sub: 'Hobbies, volunteering, encore career',   href: 'purpose-fulfillment.html' }
+    work:   { title: 'Career & identity',          sub: 'Advancement, skills, purpose at work',    },
+    retire: { title: 'Purpose & fulfillment',      sub: 'Hobbies, volunteering, encore career',   }
   },
   {
-    work:   { title: 'Social structure & routine', sub: 'Colleagues, schedule, daily rhythm',     href: 'social-structure.html' },
-    retire: { title: 'Social & community',         sub: 'Relationships, community, family roles', href: 'social-community.html' }
+    work:   { title: 'Social structure & routine', sub: 'Colleagues, schedule, daily rhythm',      },
+    retire: { title: 'Social & community',         sub: 'Relationships, community, family roles',  }
   }
 ];
 
 const shared = [
-  { title: 'Health & wellness',      sub: 'Physical, mental, preventive care',    href: 'health-wellness.html' },
-  { title: 'Housing & lifestyle',    sub: 'Location, downsizing, aging in place', href: 'housing-lifestyle.html' },
-  { title: 'Family & relationships', sub: 'Supporting kids, parents, spouse',     href: 'family-relationships.html' }
+  { title: 'Health & wellness',      sub: 'Physical, mental, preventive care',     },
+  { title: 'Housing & lifestyle',    sub: 'Location, downsizing, aging in place',  },
+  { title: 'Family & relationships', sub: 'Supporting kids, parents, spouse',     }
 ];
 
 // Build rows
@@ -458,10 +460,10 @@ rows.forEach(r => {
     </a>
     <div class="arrow-col">${arrowSVG}</div>
     <div class="arrow-down">${arrowDownSVG}</div>
-    <a class="cell retire" href="${r.retire.href}" data-label="Retirement">
+    <div class="cell retire" href="${r.retire.href}" data-label="Retirement">
       <div class="cell-title">${r.retire.title}</div>
       <div class="cell-sub">${r.retire.sub}</div>
-    </a>
+    </div>
   `;
   rowsEl.appendChild(div);
 });
@@ -469,14 +471,13 @@ rows.forEach(r => {
 // Build shared cards
 const sharedEl = document.getElementById('shared-cards');
 shared.forEach(s => {
-  const a = document.createElement('a');
-  a.className = 'shared-card';
-  a.href = s.href;
-  a.innerHTML = `
+  const div = document.createElement('div');   // changed from 'a' to 'div'
+  div.className = 'shared-card';
+  div.innerHTML = `
     <div class="shared-card-title">${s.title}</div>
     <div class="shared-card-sub">${s.sub}</div>
   `;
-  sharedEl.appendChild(a);
+  sharedEl.appendChild(div);
 });
 </script>
 </body>

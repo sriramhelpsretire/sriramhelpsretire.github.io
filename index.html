@@ -40,15 +40,15 @@
         /* ── Top Nav ── */
         .top-nav {
             width: 100%;
-            background-color: #2c2c2c;
+            background-color: #000000;
             padding: 14px 20px;
             border-bottom: 4px solid #a82222;
         }
 
         .top-nav h1 {
-            font-size: clamp(18px, 3.5vw, 28px);
+            font-size: clamp(20px, 3.5vw, 28px);
             letter-spacing: 1px;
-            font-weight: 400;
+            font-weight: 600;
         }
 
         /* ── Layout wrapper ── */
@@ -152,9 +152,50 @@
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            background-color: #f7d976;
+            transform: translateY(-4px); translateX(-4px);
+            background-color: #A35614;
         }
+		
+		/* ── Top Row Buttons ── */
+.top-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* ── Calculator Pad ── */
+.calc-pad {
+    margin-top: 30px;
+    width: 100%;
+    background: #0f2a44;
+    border: 2px solid var(--accent-gold);
+    border-radius: 16px;
+    padding: 30px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Bigger buttons inside pad */
+.pad-btn {
+    background-color: var(--accent-gold);
+    color: #000;
+    text-decoration: none;
+    padding: 18px 20px;
+    border-radius: 14px;
+    font-weight: bold;
+    font-size: clamp(15px, 2vw, 18px);
+    text-align: center;
+    border: 2px solid #000;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.pad-btn:hover {
+    transform: translateY(-4px);translateX(-4px);
+    background-color: #A35614;
+}
 
         /* ── Footer ── */
         footer {
@@ -203,20 +244,32 @@
                     Retirement Planner – A Pocket Guide is a compendium of information and calculations that will help plan your retirement. Retirement is not all about finance, however, once you secure your finance you can plan all the good things you want to get into.
 					<br><br>
 					Calculators are getting added based on usefulness and trials. They will help understand the situation, project for years to come and help in the decision making process
-                </p>
+                    <br><br>
+					Retirement Calculator - helps project our portfolio based on where we are today and certain market assumptions
+					<br><br> Retirement Confidence Calculator - this is a true stress tester of your portfolio and will tell you "Whether your money will last till your times?"
+					<br><br>401k Compounding Calculator - helps young adults undertand the power of compounding. How does investment started early and done consistently pays off huge returns in retirement?
+					<br><br>Income Tax Calculator - one page review of 4 tax situations that we will come across during our retirement. Quick calculations to help us prepare for the question "How do I pay for the taxes?"
+				
+				</p>
             </div>
         </div>
 
-        <div class="button-grid">
-            <a href="transition_plan.html" class="btn">Retirement made easy</a>
-            <a href="retirement_calculator.html" class="btn">Retirement Calculator</a>
-            <a href="montecarlo_retirement.html" class="btn">Retirement Confidence Calculator</a>
-			<a href="401k_compounding.html" class="btn">401k Compounding Calculator</a>
-			<a href="cash_balance.html" class="btn">Cash Balance Calculator</a>
-			<a href="tax_calculator.html" class="btn">Income Tax Calculator</a>
-            <a href="website.html" class="btn">Web Sites</a>
-			<a href="terms.html" class="btn">Terms Used</a>
-        </div>
+        <!-- ── TOP ROW BUTTONS ── -->
+<div class="top-buttons">
+    <a href="transition_plan.html" class="btn">Retirement Made Easy</a>
+    <a href="website.html" class="btn">Web Sites</a>
+    <a href="terms.html" class="btn">Terms Used</a>
+</div>
+
+<!-- ── CALCULATOR PAD ── -->
+<div class="calc-pad">
+     	
+	<a href="retirement_calculator.html" class="pad-btn">Retirement Calculator</a>
+    <a href="montecarlo_retirement.html" class="pad-btn">Retirement Confidence Calculator</a>
+    <a href="401k_compounding.html" class="pad-btn">401k Compounding Calculator</a>
+    <a href="tax_calculator.html" class="pad-btn">Income Tax Calculator</a>
+</div>
+<br><br>
 
     </div>
 

@@ -58,7 +58,7 @@ header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
 .tab-bar::-webkit-scrollbar{height:3px}
 .tab-bar::-webkit-scrollbar-thumb{background:var(--border)}
 .tab{padding:10px 14px;cursor:pointer;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:5px;transition:color .15s,border-color .15s}
-.tab:hover{color:var(--label)}
+.tab:hover{color:#A35614}
 .tab.active{color:var(--text);border-bottom-color:var(--tc,var(--accent))}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--tc,var(--accent))}
 
@@ -656,7 +656,7 @@ function calculate(){
     <input type="number"
            style="width:100px; background:#494949; color:#39FF14; border:1px solid #30363d; border-radius:5px; padding:4px; font-family:'DM Mono',monospace;">
   </div>
-</td>d></tr>`,rows);
+</td></tr>`,rows);
   fill('troth',`${YH}<th style="color:#a78bfa">Start</th><th style="color:#a78bfa">Growth (${gr1v}%)</th><th style="color:#a78bfa">Roth Conv In</th><th style="color:#a78bfa">End Balance</th>`,
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sR)}</td><td class="pos">${fz(r.gR)}</td><td class="pos">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.eR)}</td></tr>`,rows);
   fill('tbrok',`${YH}<th style="color:#60a5fa">Start</th><th style="color:#60a5fa">Growth (${gr1v}%)</th><th style="color:#60a5fa">Reinvested</th><th style="color:#60a5fa">End Balance</th>`,
