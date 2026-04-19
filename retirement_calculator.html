@@ -20,8 +20,8 @@ header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px soli
 .header-left{display:flex;align-items:baseline;gap:12px}
 header h1{font-family:'DM Serif Display',serif;font-size:26px;color:var(--accent)}
 header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
-.home-btn{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);color:var(--label);padding:7px 14px;border-radius:7px;text-decoration:none;font-size:12px;font-weight:600;transition:all .15s}
-.home-btn:hover{border-color:var(--accent);color:#693909}
+.home-btn{display:flex;align-items:center;gap:6px;background:var(--accent);border:1px solid var(--border);color:#0d1117;padding:7px 14px;border-radius:7px;text-decoration:none;font-size:12px;font-weight:600;transition:all .15s}
+.home-btn:hover{background: #693909;opacity:.88}
 .home-btn svg{width:14px;height:14px}
 
 .layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 65px)}
@@ -160,6 +160,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </div>
   <a href="index.html" class="home-btn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+	
     Home
   </a>
 </header>
