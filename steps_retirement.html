@@ -19,8 +19,36 @@
             padding: 0;
             background-color: #080f11;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Changed to column to stack nav and content */
+            align-items: center;
             min-height: 100vh;
+        }
+
+        /* ── Top Nav (Matched Scheme) ── */
+        .top-nav {
+            width: 100%;
+            background-color: #000000;
+            padding: 14px 20px;
+            border-bottom: 4px solid #a82222;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-nav h1 {
+            color: #FFFFFF;
+            font-size: clamp(18px, 3.5vw, 24px);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .top-nav select {
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .page-wrapper {
@@ -43,7 +71,7 @@
             position: relative;
         }
 
-        /* The red decorative bar from the PPT */
+        /* Red decorative bar - adjusted top to 0 to sit flush with wrapper */
         header::after {
             content: '';
             position: absolute;
@@ -69,7 +97,6 @@
             flex: 1;
         }
 
-        /* Hero Image Styling */
         .hero-image {
             width: 100%;
             height: auto;
@@ -103,7 +130,6 @@
             color: #e0e0e0;
         }
 
-        /* Navigation Area */
         .nav-area {
             display: flex;
             align-items: center;
@@ -122,10 +148,12 @@
             border: 2px solid #000;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 		
-			.nav-btn:hover  { background: #693909; color: white; border-color: #693909; }
-			.nav-btn:active { transform: scale(0.98); }
+        .nav-btn:hover  { background: #693909; color: white; border-color: #693909; }
 
         .home-btn {
             background-color: white;
@@ -140,8 +168,7 @@
             text-decoration: none;
         }
 		
-			.home-btn:hover  { background: #693909; color: white; border-color: #693909; }
-			.home-btn:active { transform: scale(0.98); }
+        .home-btn:hover  { background: #693909; color: white; border-color: #693909; }
 
         footer {
             height: 20px;
@@ -157,6 +184,29 @@
 </head>
 <body>
 
+    <div class="top-nav">
+        <h1>Retire Wise and Live Happy</h1>
+
+        <select onchange="if(this.value) window.location.href=this.value;">
+            <option value="">Explore Topics</option>
+
+            <optgroup label="Core Planning">
+                <option value="transition_plan.html">Retirement Made Easy</option>
+                <option value="retirement_plan.html">What is Retirement?</option>
+                <option value="financial_plan.html">Financial Plan</option>
+                <option value="terms.html">Terms Used</option>
+                <option value="website.html">Web Sites</option>
+            </optgroup>
+
+            <optgroup label="Calculators">
+                <option value="retirement_calculator.html">Retirement Calculator</option>
+                <option value="montecarlo_retirement.html">Retirement Confidence</option>
+                <option value="401k_compounding.html">401k Compounding</option>
+                <option value="tax_calculator.html">Income Tax Calculator</option>
+            </optgroup>
+        </select>
+    </div>
+
     <div class="page-wrapper">
         <header>
             <h1>5 steps in retirement</h1>
@@ -165,42 +215,42 @@
         <div class="content">
             <img src="image_9.png" alt="Infographic: 5 Steps to Your Retirement Plan" class="hero-image">
 
-            <p class="intro-p">The process of retirement planning involves assessing current finances, setting a desired lifestyle goal, calculating the necessary target portfolio, and implementing an investment strategy to achieve it. Key steps include maximizing savings, managing debts, preparing for healthcare costs, and adjusting portfolios for inflation and market risks</p>
+            <p class="intro-p">The process of retirement planning involves assessing current finances, setting a desired lifestyle goal, calculating the necessary target portfolio, and implementing an investment strategy to achieve it.</p>
 
             <div class="section-title">Define Retirement Goals and Timeline</div>
             <p><span class="step-label">Identify desired lifestyle:</span> Consider where you will live, travel plans, and anticipated expenses.</p>
-            <p><span class="step-label">Estimate retirement age:</span> Determine when you can afford to stop working and when to claim Social Security (earliest age 62, full benefits at 66-67)</p>
+            <p><span class="step-label">Estimate retirement age:</span> Determine when you can afford to stop working and when to claim Social Security.</p>
 
             <div class="section-title">Assess Financial Standing</div>
             <p><span class="step-label">Calculate net worth:</span> List all assets and debts.</p>
-            <p><span class="step-label">Estimate costs:</span> Develop a budget that accounts for changes like lower commuting costs but higher healthcare costs</p>
+            <p><span class="step-label">Estimate costs:</span> Develop a budget that accounts for changes like higher healthcare costs.</p>
 
             <div class="section-title">Develop a Savings and Investment Strategy</div>
-            <p><span class="step-label">Maximize contributions:</span> Utilize tax-advantaged accounts like 401(k)s and IRAs, ensuring you get employer matches.</p>
-            <p><span class="step-label">Choose investments:</span> Align investments with your risk tolerance, focusing on growth earlier and preservation closer to retirement.</p>
-            <p><span class="step-label">Use an HSA:</span> Consider a Health Savings Account (HSA) to cover future medical expenses tax-free.</p>
+            <p><span class="step-label">Maximize contributions:</span> Utilize tax-advantaged accounts like 401(k)s and IRAs.</p>
+            <p><span class="step-label">Choose investments:</span> Align investments with your risk tolerance.</p>
+            <p><span class="step-label">Use an HSA:</span> Consider a Health Savings Account for future medical expenses.</p>
 
             <div class="section-title">Plan for Income and Risks</div>
-            <p><span class="step-label">Create a withdrawal plan:</span> Use strategies like the 4% rule (use what is appropriate by looking at the numbers from this sheet) to determine how much you can spend from your portfolio annually.</p>
-            <p><span class="step-label">Plan for healthcare:</span> Evaluate Medicare options (Parts A, B, C, D) and long-term care insurance.</p>
-            <p><span class="step-label">Build a buffer:</span> Factor in inflation, potential market downturns, and emergency expenses.</p>
+            <p><span class="step-label">Create a withdrawal plan:</span> Use strategies like the 4% rule to determine safe spending.</p>
+            <p><span class="step-label">Plan for healthcare:</span> Evaluate Medicare options and long-term care insurance.</p>
+            <p><span class="step-label">Build a buffer:</span> Factor in inflation and potential market downturns.</p>
 
             <div class="section-title">Review and Refine</div>
-            <p><span class="step-label">Reassess periodically:</span> Review your investments at least annually to ensure you are on track with your goals.</p>
-            <p><span class="step-label">Adjust as needed:</span> As you approach retirement, shift toward more conservative investments to secure your capital.</p>
-
-            <p style="margin-top: 20px; font-style: italic;">As seen above, financial planning for retirement is a part of retirement and needs to be thought through for a proper execution and a happy "next phase" in life also known as retirement 🏆</p>
+            <p><span class="step-label">Reassess periodically:</span> Review your investments at least annually.</p>
+            <p><span class="step-label">Adjust as needed:</span> As you approach retirement, shift toward more conservative investments.</p>
         </div>
 
         <div class="nav-area">
             <a href="financial_plan.html" class="nav-btn">
-			<span style="font-size: 28px; color: black;">💰</span>Financial Plan</a>
-			
-			<a href="retirement_plan.html" class="nav-btn">
-			<span style="font-size: 28px; color: black;">🏌️</span>Retirement Plan</a>
+                <span style="font-size: 28px;">💰</span>Financial Plan
+            </a>
+            
+            <a href="retirement_plan.html" class="nav-btn">
+                <span style="font-size: 28px;">🏌️</span>Retirement Plan
+            </a>
             
             <a href="index.html" class="home-btn">
-                <span style="font-size: 28px; color: black;">🏠</span>
+                <span style="font-size: 28px;">🏠</span>
             </a>
         </div>
 

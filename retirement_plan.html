@@ -13,14 +13,42 @@
             --red-accent: #a82222;
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #080f11;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Stack nav and content */
+            align-items: center;
             min-height: 100vh;
+        }
+
+        /* ── Top Nav ── */
+        .top-nav {
+            width: 100%;
+            background-color: #000000;
+            padding: 14px 20px;
+            border-bottom: 4px solid #a82222;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-nav h1 {
+            color: #FFFFFF;
+            font-size: clamp(18px, 3.5vw, 24px);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .top-nav select {
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .page-wrapper {
@@ -137,6 +165,28 @@
 </head>
 <body>
 
+    <div class="top-nav">
+        <h1>Retire Wise and Live Happy</h1>
+        <select onchange="if(this.value) window.location.href=this.value;">
+            <option value="">Explore Topics</option>
+            <optgroup label="Core Planning">
+                <option value="transition_plan.html">Retirement Made Easy</option>
+                <option value="retirement_plan.html">What is Retirement?</option>
+                <option value="steps_retirement.html">Steps in retirement planning</option>
+                <option value="financial_plan.html">Financial Plan</option>
+                <option value="medicare_aca.html">Medicare & ACA</option>
+                <option value="terms.html">Terms Used</option>
+                <option value="website.html">Web Sites</option>
+            </optgroup>
+            <optgroup label="Calculators">
+                <option value="retirement_calculator.html">Retirement Calculator</option>
+                <option value="montecarlo_retirement.html">Retirement Confidence</option>
+                <option value="401k_compounding.html">401k Compounding</option>
+                <option value="tax_calculator.html">Income Tax Calculator</option>
+            </optgroup>
+        </select>
+    </div>
+
     <div class="page-wrapper">
         <header>
             <h1>What is retirement?</h1>
@@ -174,7 +224,6 @@
 		</div>
 
         <div class="nav-area">
-            
             <a href="steps_retirement.html" class="steps-btn">Steps in retirement planning</a>
             <a href="index.html" class="home-btn">
                 <span style="font-size: 28px; color: black;">🏠</span>

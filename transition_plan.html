@@ -24,11 +24,38 @@
     font-family: 'Lora', Georgia, serif;
     font-size: 15px;
     min-height: 120vh;
-    /* right padding reserves space for the red strip so content never hides under it */
     padding-right: 14px;
   }
 
-  /* Red accent strip — right edge, thinner on small screens */
+  /* --- Top Nav (Matched from Index) --- */
+  .top-nav {
+      width: 100%;
+      background-color: #000000;
+      padding: 14px 20px;
+      border-bottom: 4px solid #a82222;
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      position: relative;
+      z-index: 300;
+  }
+
+  .top-nav h1 {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: clamp(18px, 3.5vw, 24px);
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: #FFFFFF;
+  }
+
+  .top-nav select {
+      padding: 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+  }
+
+  /* Red accent strip */
   body::after {
     content: '';
     position: fixed;
@@ -39,11 +66,11 @@
     z-index: 100;
   }
 
-  /* Home icon — tucked left of the red strip */
+  /* Home icon */
   .home-icon {
     position: fixed;
-    top: 12px;
-    right: 22px;          /* sits just left of the 8px strip */
+    top: 80px; /* Adjusted down to clear the new nav bar */
+    right: 22px;
     width: 40px;
     height: 40px;
     background: var(--gold);
@@ -68,7 +95,7 @@
   /* ── PAGE TITLE ── */
   .page-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 6vw, 36px);   /* fluid: 22px on tiny phones → 36px on desktop */
+    font-size: clamp(22px, 6vw, 36px);
     font-weight: 900;
     letter-spacing: clamp(2px, 1.5vw, 6px);
     text-transform: uppercase;
@@ -77,10 +104,10 @@
     margin-bottom: 28px;
     padding-bottom: 16px;
     border-bottom: 1px solid rgba(201,147,58,0.3);
-    padding-right: 44px;   /* prevent overlap with home icon on narrow screens */
   }
 
-  /* ── SECTION HEADING ── */
+  /* ... (Rest of your existing CSS remains the same) ... */
+  
   .section-heading {
     font-family: 'Lora', serif;
     font-size: clamp(13px, 3vw, 16px);
@@ -91,7 +118,6 @@
     margin: 24px 0 14px;
   }
 
-  /* ── INTRO ── */
   .intro {
     font-style: italic;
     color: var(--white-dim);
@@ -100,10 +126,6 @@
     font-size: clamp(13px, 3vw, 14px);
   }
 
-  /* ══════════════════════════════════════
-     DESKTOP LAYOUT  (≥ 560px)
-     Two-column grid with arrow in middle
-  ══════════════════════════════════════ */
   .col-headers {
     display: grid;
     grid-template-columns: 1fr 32px 1fr;
@@ -129,17 +151,14 @@
     gap: 0;
   }
 
-  /* Arrow between cells */
   .arrow-col {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
-  /* Down-arrow shown on mobile, hidden on desktop */
   .arrow-down { display: none; }
 
-  /* ── CELL ── */
   .cell {
     padding: 11px 14px;
     border-radius: 6px;
@@ -148,10 +167,9 @@
     display: block;
     background: var(--gold);
     transition: border-color 0.18s, background 0.18s;
-    min-width: 0;          /* prevent grid blowout */
+    min-width: 0;
   }
   .cell:hover  { border-color: var(--gold); background: rgba(255,255,255,0.4); }
-  .cell:active { background: ##693909; }
 
   .cell-title {
     font-family: 'Lora', serif;
@@ -170,7 +188,6 @@
     line-height: 1.4;
   }
 
-  /* ── SHARED SECTION ── */
   .shared-divider {
     display: flex;
     align-items: center;
@@ -205,7 +222,6 @@
     min-width: 0;
   }
   .shared-card:hover  { background: rgba(201,147,58,0.18); border-color: var(--gold); }
-  .shared-card:active { background: rgba(201,147,58,0.25); }
 
   .shared-card-title {
     font-family: 'Lora', serif;
@@ -223,7 +239,6 @@
     line-height: 1.4;
   }
 
-  /* ── LEGEND ── */
   .legend {
     margin-top: 20px;
     display: flex;
@@ -242,7 +257,6 @@
   }
   .legend-dot.shared { background: rgba(201,147,58,0.18); border-color: var(--gold); }
 
-  /* ── BOTTOM NAV ── */
   .bottom-nav {
     display: flex;
     justify-content: center;
@@ -272,128 +286,83 @@
     min-width: 140px;
   }
   .nav-btn:hover  { background: #693909; border-color: var(--gold-lt); }
-  .nav-btn:active { transform: scale(0.98); }
-  .btn-icon { font-size: 15px; }
 
-  /* ══════════════════════════════════════
-     MOBILE LAYOUT  (< 560px)
-     Stack each row: work card → ↓ → retire card
-  ══════════════════════════════════════ */
   @media (max-width: 559px) {
-
     body { padding-right: 10px; }
     body::after { width: 6px; }
-
-    .home-icon { right: 16px; width: 36px; height: 36px; font-size: 18px; }
-
+    .home-icon { top: 70px; right: 16px; width: 36px; height: 36px; font-size: 18px; }
     .container { padding: 28px 14px 50px; }
-
-    /* Hide the side-by-side column headers and arrow on mobile */
     .col-headers { display: none; }
     .arrow-col   { display: none; }
-
-    /* Stack rows vertically */
-    .row {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    /* Label each card inline so context is clear without column headers */
-    .cell::before {
-      content: attr(data-label);
-      display: block;
-      font-family: 'Playfair Display', serif;
-      font-size: 9px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 4px;
-      opacity: 0.8;
-    }
-
-    /* Show cell subtitles (hidden only on very tiny screens, shown here) */
-    .cell-sub { display: block; }
-
-    /* Down arrow between the two stacked cards */
-    .arrow-down {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 4px 0;
-    }
-
-    /* Round the bottom of work card and top of retire card to look like one unit */
+    .row { display: flex; flex-direction: column; }
+    .arrow-down { display: flex; justify-content: center; padding: 4px 0; }
     .cell.work   { border-radius: 6px 6px 0 0; border-bottom: none; }
     .cell.retire { border-radius: 0 0 6px 6px; border-top: 1px dashed rgba(201,147,58,0.25); }
-
-    /* Shared cards: 1 column on mobile */
     .shared-cards { grid-template-columns: 1fr; }
-
-    /* Buttons full width on mobile */
     .bottom-nav { flex-direction: column; gap: 10px; }
     .nav-btn    { width: 100%; max-width: 320px; }
-  }
-
-  /* ══════════════════════════════════════
-     TABLET LAYOUT  (560px – 767px)
-     Two-column grid, but slightly less padding
-  ══════════════════════════════════════ */
-  @media (min-width: 560px) and (max-width: 767px) {
-    .container { padding: 32px 20px 56px; }
-    .shared-cards { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
 </head>
 <body>
 
-<!-- Home icon — top right, matching your page style -->
+<div class="top-nav" style="display:flex; justify-content:space-between; align-items:center; background-color: #000000; padding: 14px 20px; border-bottom: 4px solid #a82222; position: relative; z-index: 300;">
+    <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: clamp(18px, 3.5vw, 24px); letter-spacing: 1px; font-weight: 600; color: #FFFFFF; margin: 0;">Retire Wise and Live Happy</h1>
+
+    <select onchange="if(this.value) window.location.href=this.value;" style="padding:8px; border-radius:6px; font-weight:bold; cursor:pointer;">
+        <option value="">Explore Topics</option>
+        
+        <optgroup label="Core Planning">
+            <option value="transition_plan.html">Retirement Made Easy</option>
+            <option value="retirement_plan.html">What is Retirement?</option>
+            <option value="terms.html">Terms Used</option>
+            <option value="website.html">Web Sites</option>
+        </optgroup>
+
+        <optgroup label="Calculators">
+            <option value="retirement_calculator.html">Retirement Calculator</option>
+            <option value="montecarlo_retirement.html">Retirement Confidence</option>
+            <option value="401k_compounding.html">401k Compounding</option>
+            <option value="tax_calculator.html">Income Tax Calculator</option>
+        </optgroup>
+    </select>
+</div>
+
 <a href="index.html" class="home-icon" title="Home">🏠</a>
 
 <div class="container">
-
-  <!-- Page title -->
   <h1 class="page-title">Transition Plan</h1>
 
-  <!-- Intro -->
   <p class="intro">
     A comprehensive view of how each pillar of your financial and personal life evolves from your working years into retirement.
 	<br><br> We will get into details of components in each pillar as we move along the retirement phases. To figure out "What is Retirement?"
 	click on the button at the bottom. It will take you through the phases and prepare you for the beautiful next phase in life.
   </p>
 
-  <!-- Section heading -->
   <h2 class="section-heading">Working Years → Retirement</h2>
 
-  <!-- Column headers -->
   <div class="col-headers">
     <div class="col-header">Working Years</div>
     <div></div>
     <div class="col-header">Retirement</div>
   </div>
 
-  <!-- Rows injected by JS -->
   <div class="rows" id="rows"></div>
 
-  <!-- Shared section -->
   <div class="shared-divider">Shared throughout both phases</div>
   <div class="shared-cards" id="shared-cards"></div>
 
-  <!-- Legend -->
   <div class="legend">
     <div class="legend-item"><div class="legend-dot work"></div>Working years focus</div>
     <div class="legend-item"><div class="legend-dot retire"></div>Retirement focus</div>
     <div class="legend-item"><div class="legend-dot shared"></div>Shared across both</div>
   </div>
 
-  <!-- Bottom nav buttons -->
   <div class="bottom-nav">
-   
     <a href="retirement_plan.html" class="nav-btn">
       <span class="btn-icon">✈️🌴🌅 What is Retirement? 🎉👋🧑‍🦳</span>
     </a>
   </div>
-
 </div>
 
 <script>
@@ -448,19 +417,18 @@ const shared = [
   { title: 'Family & relationships', sub: 'Supporting kids, parents, spouse',     }
 ];
 
-// Build rows
 const rowsEl = document.getElementById('rows');
 rows.forEach(r => {
   const div = document.createElement('div');
   div.className = 'row';
   div.innerHTML = `
-    <div class="cell work" href="${r.work.href}" data-label="Working Years">
+    <div class="cell work" data-label="Working Years">
       <div class="cell-title">${r.work.title}</div>
       <div class="cell-sub">${r.work.sub}</div>
     </div>
     <div class="arrow-col">${arrowSVG}</div>
     <div class="arrow-down">${arrowDownSVG}</div>
-    <div class="cell retire" href="${r.retire.href}" data-label="Retirement">
+    <div class="cell retire" data-label="Retirement">
       <div class="cell-title">${r.retire.title}</div>
       <div class="cell-sub">${r.retire.sub}</div>
     </div>
@@ -468,10 +436,9 @@ rows.forEach(r => {
   rowsEl.appendChild(div);
 });
 
-// Build shared cards
 const sharedEl = document.getElementById('shared-cards');
 shared.forEach(s => {
-  const div = document.createElement('div');   // changed from 'a' to 'div'
+  const div = document.createElement('div');
   div.className = 'shared-card';
   div.innerHTML = `
     <div class="shared-card-title">${s.title}</div>

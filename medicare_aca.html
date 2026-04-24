@@ -19,8 +19,36 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #080f11;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Stack nav and content */
+            align-items: center;
             min-height: 100vh;
+        }
+
+        /* ── Top Nav ── */
+        .top-nav {
+            width: 100%;
+            background-color: #000000;
+            padding: 14px 20px;
+            border-bottom: 4px solid #a82222;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-nav h1 {
+            color: #FFFFFF;
+            font-size: clamp(18px, 3.5vw, 24px);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .top-nav select {
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .page-wrapper {
@@ -34,24 +62,24 @@
             border-left: 1px solid rgba(255,255,255,0.1);
             border-right: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
         }
 
         /* ── HEADER ── */
         header {
-            padding: 28px 30px 16px;
+            padding: 40px 30px 16px;
             text-align: center;
             position: relative;
         }
 
         header h1 {
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 900;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: white;
-            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000,
-                         1px -1px 0px #000, -1px 1px 0px #000;
-            font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+            text-shadow: 3px 3px 0px #000;
+            font-family: 'Arial Black', sans-serif;
         }
 
         .red-corner {
@@ -64,83 +92,54 @@
 
         /* ── CONTENT ── */
         .content {
-            padding: 8px 28px 20px;
+            padding: 10px 30px;
             font-size: 15px;
-            line-height: 1.55;
+            line-height: 1.6;
             flex: 1;
         }
 
-        /* Section headings — gold underlined */
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
         .section-title {
-            color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 15.5px;
+            color: var(--text-yellow);
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0 10px;
             text-decoration: underline;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            display: block;
         }
 
-        /* Bold label + italic description pattern */
         .entry {
-            margin-bottom: 13px;
-            font-size: 14.5px;
-            line-height: 1.6;
-            color: #e0e0e0;
+            margin-bottom: 12px;
         }
 
-        .entry strong {
-            color: white;
-            font-style: normal;
-        }
+        .entry strong { color: var(--accent-gold); }
+        .entry em { color: #e0e0e0; font-style: italic; }
 
-        .entry em {
-            font-style: italic;
-            color: #e0e0e0;
-        }
+        .italic { font-style: italic; color: #e0e0e0; margin-bottom: 10px; }
 
-        /* Plain italic paragraphs */
-        p.italic {
-            font-style: italic;
-            color: #e0e0e0;
-            font-size: 14.5px;
-            line-height: 1.6;
-            margin-bottom: 13px;
-        }
-
-        /* Clickable link */
-        a.ref-link {
-            color: var(--accent-gold);
-            font-style: italic;
-            font-size: 13.5px;
-            word-break: break-all;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        a.ref-link:hover { text-decoration: underline; }
-
-        p.ref-note {
-            font-style: italic;
-            color: #e0e0e0;
-            font-size: 13.5px;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
+        .ref-link { color: var(--accent-gold); word-break: break-all; }
+        .ref-note { font-size: 13px; color: #ccc; margin-top: 4px; }
 
         /* ── NAV AREA ── */
         .nav-area {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 28px 36px;
-            gap: 8px;
+            padding: 20px 28px 40px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .gold-btn {
             background-color: var(--accent-gold);
             color: black;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
             font-weight: bold;
             text-decoration: none;
@@ -149,11 +148,9 @@
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 7px;
-            transition: opacity .15s;
+            gap: 8px;
         }
-
-        .gold-btn:hover { opacity: .88; }
+        .gold-btn:hover  { background: #693909; color: white; border-color: #693909; }
 
         .home-btn {
             background-color: white;
@@ -166,150 +163,103 @@
             width: 45px;
             height: 45px;
             text-decoration: none;
-            transition: background .15s;
         }
+        .home-btn:hover { background: #693909; border-color: #693909; }
 
-        .home-btn:hover { background: #f0f0f0; }
-
-        /* ── FOOTER ── */
         footer {
             height: 20px;
             width: 100%;
             background-color: var(--red-accent);
             border-top: 2px solid #000;
-            flex-shrink: 0;
         }
 
         @media (max-width: 600px) {
             .page-wrapper { border: none; }
-            header h1 { font-size: 26px; letter-spacing: 2px; }
+            header h1 { font-size: 26px; }
         }
     </style>
 </head>
 <body>
 
-<div class="page-wrapper">
+<div class="top-nav">
+    <h1>Retire Wise and Live Happy</h1>
+    <select onchange="if(this.value) window.location.href=this.value;">
+        <option value="">Explore Topics</option>
+        <optgroup label="Core Planning">
+            <option value="transition_plan.html">Retirement Made Easy</option>
+            <option value="retirement_plan.html">What is Retirement?</option>
+            <option value="steps_retirement.html">Steps in retirement planning</option>
+            <option value="financial_plan.html">Financial Plan</option>
+            <option value="medicare_aca.html">Medicare & ACA</option>
+            <option value="aca_marketplace.html">ACA Marketplace</option>
+            <option value="terms.html">Terms Used</option>
+            <option value="website.html">Web Sites</option>
+        </optgroup>
+        <optgroup label="Calculators">
+            <option value="retirement_calculator.html">Retirement Calculator</option>
+            <option value="montecarlo_retirement.html">Retirement Confidence</option>
+            <option value="401k_compounding.html">401k Compounding</option>
+            <option value="tax_calculator.html">Income Tax Calculator</option>
+        </optgroup>
+    </select>
+</div>
 
+<div class="page-wrapper">
     <header>
         <div class="red-corner"></div>
         <h1>Medicare</h1>
     </header>
 
     <div class="content">
+        <img src="medicare_65.jpg" alt="Medicare at 65" class="hero-image">
 
-        <!-- ── What is Medicare ── -->
-        <span class="section-title">What is Medicare? What are the components of Medicare?</span>
-
-        <p class="italic">
-            Medicare is a Federal Health Insurance program in the U.S. primarily for individuals aged 65 or
-            older, as well as younger people with specific conditions. It helps cover costs for hospital days,
-            doctor visits, and preventative services through various parts.
-        </p>
-
-        <p class="italic">
-            Part A, B, C and D are the components. They do not cover all medical expenses and long term care.
-        </p>
-
-        <!-- ── Key Components ── -->
-        <span class="section-title">Key Components of Medicare</span>
-
+        <div class="section-title">The Four Parts of Medicare</div>
+        
         <div class="entry">
             <strong>Part A (Hospital Insurance):</strong>
-            <em> Covers inpatient hospital stays, care in a skilled nursing facility,
-            hospice care, and some home health care.</em>
+            <em> Covers inpatient hospital stays, care in a skilled nursing facility, hospice care, and some home health care.</em>
         </div>
 
         <div class="entry">
             <strong>Part B (Medical Insurance):</strong>
-            <em> Covers outpatient care, doctor services, medical supplies, and
-            preventive services.</em>
+            <em> Covers certain doctors' services, outpatient care, medical supplies, and preventive services.</em>
         </div>
 
         <div class="entry">
             <strong>Part C (Medicare Advantage):</strong>
-            <em> Private insurance plans approved by Medicare that bundle Parts
-            A and B, and often Part D, into one plan.</em>
+            <em> An all-in-one alternative to Original Medicare, offered by private companies approved by Medicare. These "bundled" plans include Part A, Part B, and usually Part D.</em>
         </div>
 
         <div class="entry">
             <strong>Part D (Prescription Drug Coverage):</strong>
-            <em> Private insurance plans that cover the cost of prescription drugs.</em>
-        </div>
-
-        <!-- ── Eligibility ── -->
-        <span class="section-title">Eligibility and Enrollment</span>
-
-        <div class="entry">
-            <strong>Age 65+:</strong>
-            <em> Most people 65 or older who are U.S. citizens or permanent residents are eligible.</em>
-        </div>
-
-        <div class="entry">
-            <strong>Disability/Condition:</strong>
-            <em> Younger individuals with disabilities, End-Stage Renal Disease, or ALS may qualify.</em>
-        </div>
-
-        <div class="entry">
-            <strong>Enrollment:</strong>
-            <em> You can choose between Original Medicare (Part A &amp; B) or Medicare Advantage
-            (Part C). Initial enrollment usually occurs around the 65th birthday to avoid penalties.</em>
-        </div>
-
-        <!-- ── Costs ── -->
-        <span class="section-title">Costs</span>
-
-        <div class="entry">
-            <strong>Part A:</strong>
-            <em> Usually premium-free if you or your spouse worked and paid Medicare taxes for at least 10 years.</em>
-        </div>
-
-        <div class="entry">
-            <strong>Part B:</strong>
-            <em> Involves a monthly premium, with higher costs for higher incomes.</em>
+            <em> Helps cover the cost of prescription drugs (including many recommended shots or vaccines).</em>
         </div>
 
         <div class="entry">
             <strong>Medigap:</strong>
-            <em> Private insurance, known as Medicare Supplement Insurance, can be purchased to
-            help pay out-of-pocket costs in Original Medicare.</em>
+            <em> Private insurance, known as Medicare Supplement Insurance, can be purchased to help pay out-of-pocket costs in Original Medicare.</em>
         </div>
 
         <br>
-
         <p class="italic">
-            Medicare application should generally start during your 7-month Initial Enrollment Period (IEP),
-            which begins 3 months before your 65<sup>th</sup> birthday month, includes that month, and ends 3 months
-            after. For the earliest coverage, apply during the 3 months before your 65<sup>th</sup> birthday.
+            Medicare application should generally start during your 7-month Initial Enrollment Period (IEP), which begins 3 months before your 65<sup>th</sup> birthday month and ends 3 months after.
         </p>
 
         <a class="ref-link" href="https://www.ssa.gov/medicare/plan/when-to-sign-up" target="_blank">
             https://www.ssa.gov/medicare/plan/when-to-sign-up
         </a>
-        <p class="ref-note">Use this link to get more details and the date based on your birthday you enter there.</p>
-
+        <p class="ref-note">Use this link for details and to find your specific dates.</p>
     </div>
 
-    <!-- Navigation -->
     <div class="nav-area">
-        
-		
-		<a href="aca_marketplace.html" class="gold-btn">
-            <span></span> 🩺</span> ACA Marketplace
-        </a>
-		
-		<a href="retirement_plan.html" class="gold-btn">
-            <span>🏌️</span> Retirement Plan
-        </a>
-		<a href="financial_plan.html" class="gold-btn">
-            <span>💰</span> Financial Plan
-        </a>
-		
-        <a href="index.html" class="home-btn">
-            <span style="font-size:28px;color:black;">🏠</span>
-        </a>
+        <a href="aca_marketplace.html" class="gold-btn"><span>🩺</span> ACA Marketplace</a>
+        <a href="retirement_plan.html" class="gold-btn"><span>🏌️</span> Retirement Plan</a>
+        <a href="financial_plan.html" class="gold-btn"><span>💰</span> Financial Plan</a>
+        <a href="index.html" class="home-btn">🏠</a>
     </div>
 
-
+    <footer></footer>
+</div>
 
 </body>
 </html>

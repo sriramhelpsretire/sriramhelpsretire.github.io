@@ -19,8 +19,36 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #080f11;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Stack nav and content */
+            align-items: center;
             min-height: 100vh;
+        }
+
+        /* ── Top Nav ── */
+        .top-nav {
+            width: 100%;
+            background-color: #000000;
+            padding: 14px 20px;
+            border-bottom: 4px solid #a82222;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-nav h1 {
+            color: #FFFFFF;
+            font-size: clamp(18px, 3.5vw, 24px);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .top-nav select {
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .page-wrapper {
@@ -34,11 +62,12 @@
             border-left: 1px solid rgba(255,255,255,0.1);
             border-right: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
         }
 
         /* ── HEADER ── */
         header {
-            padding: 28px 30px 16px;
+            padding: 40px 30px 16px; /* Increased top padding to clear red corner */
             text-align: center;
             position: relative;
         }
@@ -54,7 +83,6 @@
             font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
         }
 
-        /* Red corner accent (like the image) */
         .red-corner {
             position: absolute;
             top: 0; right: 0;
@@ -86,10 +114,7 @@
             line-height: 1.6;
         }
 
-        /* ── PLANNING AREAS ── */
-        .area {
-            margin-bottom: 18px;
-        }
+        .area { margin-bottom: 18px; }
 
         .area-header {
             font-style: italic;
@@ -98,10 +123,6 @@
             font-size: 14.5px;
             margin-bottom: 6px;
             line-height: 1.5;
-        }
-
-        .area-header .area-num {
-            color: #e0e0e0;
         }
 
         .area-bullets {
@@ -116,11 +137,8 @@
             line-height: 1.7;
         }
 
-        .area-bullets li::before {
-            content: "- ";
-        }
+        .area-bullets li::before { content: "- "; }
 
-        /* ── CLOSING NOTE ── */
         .closing-note {
             font-style: italic;
             color: #e0e0e0;
@@ -136,6 +154,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 18px 28px 36px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .medicare-btn {
@@ -153,8 +173,9 @@
             gap: 8px;
         }
 
-			.medicare-btn:hover  { background: #693909; color: white; border-color: #693909; }
-        	.medicare-btn:active { transform: scale(0.98); }
+        .medicare-btn:hover  { background: #693909; color: white; border-color: #693909; }
+        .medicare-btn:active { transform: scale(0.98); }
+
         .home-btn {
             background-color: white;
             border: 2px solid black;
@@ -171,7 +192,6 @@
         .home-btn:hover  { background: #693909; color: white; border-color: #693909; }
         .home-btn:active { transform: scale(0.98); }
 
-        /* ── FOOTER ── */
         footer {
             height: 20px;
             width: 100%;
@@ -188,6 +208,28 @@
 </head>
 <body>
 
+<div class="top-nav">
+    <h1>Retire Wise and Live Happy</h1>
+    <select onchange="if(this.value) window.location.href=this.value;">
+        <option value="">Explore Topics</option>
+        <optgroup label="Core Planning">
+            <option value="transition_plan.html">Retirement Made Easy</option>
+            <option value="retirement_plan.html">What is Retirement?</option>
+            <option value="steps_retirement.html">5 Steps in Retirement</option>
+            <option value="financial_plan.html">Financial Plan</option>
+            <option value="medicare_aca.html">Medicare & ACA</option>
+            <option value="terms.html">Terms Used</option>
+            <option value="website.html">Web Sites</option>
+        </optgroup>
+        <optgroup label="Calculators">
+            <option value="retirement_calculator.html">Retirement Calculator</option>
+            <option value="montecarlo_retirement.html">Retirement Confidence</option>
+            <option value="401k_compounding.html">401k Compounding</option>
+            <option value="tax_calculator.html">Income Tax Calculator</option>
+        </optgroup>
+    </select>
+</div>
+
 <div class="page-wrapper">
 
     <header>
@@ -196,7 +238,6 @@
     </header>
 
     <div class="content">
-
         <img src="six_areas_financial_plan.jpg" alt="6 Areas of Financial Planning Wheel" style="width:100%;height:auto;border-radius:8px;margin-bottom:18px;border:1px solid rgba(255,255,255,0.15);">
 
         <p class="intro-question">What are the 6 areas of comprehensive financial planning?</p>
@@ -204,124 +245,67 @@
         <p class="intro-text">
             The six core areas of financial planning include financial position (cash flow/debt), protection
             planning (insurance), investment planning, tax planning, retirement planning, and estate
-            planning. These areas provide a comprehensive strategy to manage assets, mitigate risks, and
-            secure long-term financial stability and growth.
+            planning.
         </p>
 
-        <!-- 1 -->
         <div class="area">
-            <p class="area-header">
-                <span class="area-num">1.</span>
-                &nbsp;Financial Position/Cash Flow Management: Analyzing net worth (assets vs. debt),
-                budgeting, and managing cash reserves to understand current financial health.
-            </p>
+            <p class="area-header">1. Financial Position/Cash Flow Management</p>
             <ul class="area-bullets">
                 <li>Cash flow / budgeting</li>
                 <li>Debt management and emergency reserves planning</li>
-                <li>Financial ratios</li>
             </ul>
         </div>
 
-        <!-- 2 -->
         <div class="area">
-            <p class="area-header">
-                2. Protection Planning (Risk Management): Safeguarding against financial loss using life, disability,
-                and long-term care insurance, as well as managing personal liability risks.
-            </p>
+            <p class="area-header">2. Protection Planning (Risk Management)</p>
             <ul class="area-bullets">
-                <li>Life insurance</li>
-                <li>Disability Insurance</li>
-                <li>Long-term care insurance</li>
+                <li>Life, Disability, and Long-term care insurance</li>
                 <li>Employee benefits</li>
             </ul>
         </div>
 
-        <!-- 3 -->
         <div class="area">
-            <p class="area-header">
-                3. Investment Planning: Strategizing asset allocation, diversification, and investment selection to
-                meet goals while considering risk tolerance.
-            </p>
+            <p class="area-header">3. Investment Planning</p>
             <ul class="area-bullets">
-                <li>Portfolio management</li>
-                <li>Personalized investment programs</li>
-                <li>Platforms utilizing institutional level management</li>
+                <li>Portfolio management and institutional level management</li>
                 <li>Evaluating risk tolerance and time horizon</li>
             </ul>
         </div>
 
-        <!-- 4 -->
         <div class="area">
-            <p class="area-header">
-                4. Tax Planning: Implementing strategies to minimize tax liability through tax-deferred investing
-                and understanding tax implications of income and investments.
-            </p>
+            <p class="area-header">4. Tax Planning</p>
             <ul class="area-bullets">
-                <li>Implementation and development of company sponsored retirement plans</li>
-                <li>Personalization of plan(s)</li>
-                <li>Traditional IRA, Roth IRA, Rollover IRA</li>
-                <li>529 college savings plans — Employee stock option planning and analysis</li>
+                <li>Company retirement plans and personalization</li>
+                <li>Traditional, Roth, and Rollover IRAs</li>
             </ul>
         </div>
 
-        <!-- 5 -->
         <div class="area">
-            <p class="area-header">
-                5. Retirement Planning: Setting goals for retirement income and developing strategies using tools
-                like 401(k)s, IRAs, and Social Security to sustain a lifestyle.
-            </p>
+            <p class="area-header">5. Retirement Planning</p>
             <ul class="area-bullets">
-                <li>Distribution planning</li>
-                <li>Identification of income needs</li>
+                <li>Distribution planning and income identification</li>
                 <li>Plan for "sequence-of-returns risk"</li>
             </ul>
         </div>
 
-        <!-- 6 -->
         <div class="area">
-            <p class="area-header">
-                6. Estate Planning: Organizing the transfer of assets, creating wills, establishing trusts, and
-                setting up guardianship to manage legacies.
-            </p>
+            <p class="area-header">6. Estate Planning</p>
             <ul class="area-bullets">
-                <li>Wealth transfer</li>
-                <li>Business succession</li>
-                <li>Charitable planning</li>
-                <li>Co-ordination of insurance policies and estate planning documents</li>
+                <li>Wealth transfer and business succession</li>
+                <li>Co-ordination of insurance and estate documents</li>
             </ul>
         </div>
 
-        <p class="closing-note">
-            Each of the above 6 areas is critical and is to be planned alongside and not in silos. Decisions on
-            one area could affect or should consider other areas as well.
-        </p>
-
-        <br>
-
-        <p class="closing-note">
-            Given below are 4 key retirement cash flow topics. An overall understanding is key to touch all the 6 areas of financial planning.
-        </p>
+        <p class="closing-note">Each area is critical and should be planned alongside others, not in silos.</p>
 
         <img src="cash_flow.jpg" alt="4 Key Retirement Cash Flow Topics" style="width:100%;height:auto;border-radius:8px;margin-top:12px;margin-bottom:4px;border:1px solid rgba(255,255,255,0.15);">
-
     </div>
 
-    <!-- Navigation -->
-    <div class="nav-area" style="justify-content:space-between;gap:8px;">
-        
-        <a href="medicare_aca.html" class="medicare-btn">
-            <span>🩺</span> Medicare &amp; ACA
-        </a>
-		
-		<a href="retirement_calculator.html" class="medicare-btn">
-            <span>📈💰📊</span> Retirement Calculator
-        </a>
-		<a href="retirement_plan.html" class="medicare-btn">
-            <span>🏌️</span> Retirement Plan
-        </a>
-        <a href="index.html" class="home-btn">
-            <span style="font-size:28px;color:black;">🏠</span>
-        </a>
+    <div class="nav-area">
+        <a href="medicare_aca.html" class="medicare-btn"><span>🩺</span> Medicare & ACA</a>
+        <a href="retirement_calculator.html" class="medicare-btn"><span>📈💰📊</span> Retirement Calculator</a>
+        <a href="retirement_plan.html" class="medicare-btn"><span>🏌️</span> Retirement Plan</a>
+        <a href="index.html" class="home-btn">🏠</a>
     </div>
 
     <footer></footer>

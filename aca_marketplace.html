@@ -19,8 +19,36 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #080f11;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Stacks the top-nav above the wrapper */
+            align-items: center;
             min-height: 100vh;
+        }
+
+        /* ── Top Nav ── */
+        .top-nav {
+            width: 100%;
+            background-color: #000000;
+            padding: 14px 20px;
+            border-bottom: 4px solid #a82222;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .top-nav h1 {
+            color: #FFFFFF;
+            font-size: clamp(18px, 3.5vw, 24px);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .top-nav select {
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         .page-wrapper {
@@ -34,24 +62,24 @@
             border-left: 1px solid rgba(255,255,255,0.1);
             border-right: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
         }
 
         /* ── HEADER ── */
         header {
-            padding: 28px 30px 16px;
+            padding: 40px 30px 16px;
             text-align: center;
             position: relative;
         }
 
         header h1 {
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 900;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: white;
-            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000,
-                         1px -1px 0px #000, -1px 1px 0px #000;
-            font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+            text-shadow: 3px 3px 0px #000;
+            font-family: 'Arial Black', sans-serif;
         }
 
         .red-corner {
@@ -64,83 +92,45 @@
 
         /* ── CONTENT ── */
         .content {
-            padding: 8px 28px 20px;
+            padding: 10px 30px;
             font-size: 15px;
-            line-height: 1.55;
+            line-height: 1.6;
             flex: 1;
         }
 
-        /* Section headings — gold underlined */
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
         .section-title {
-            color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 15.5px;
+            color: var(--text-yellow);
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0 10px;
             text-decoration: underline;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            display: block;
         }
 
-        /* Bold label + italic description pattern */
-        .entry {
-            margin-bottom: 13px;
-            font-size: 14.5px;
-            line-height: 1.6;
-            color: #e0e0e0;
-        }
-
-        .entry strong {
-            color: white;
-            font-style: normal;
-        }
-
-        .entry em {
-            font-style: italic;
-            color: #e0e0e0;
-        }
-
-        /* Plain italic paragraphs */
-        p.italic {
-            font-style: italic;
-            color: #e0e0e0;
-            font-size: 14.5px;
-            line-height: 1.6;
-            margin-bottom: 13px;
-        }
-
-        /* Clickable link */
-        a.ref-link {
-            color: var(--accent-gold);
-            font-style: italic;
-            font-size: 13.5px;
-            word-break: break-all;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        a.ref-link:hover { text-decoration: underline; }
-
-        p.ref-note {
-            font-style: italic;
-            color: #e0e0e0;
-            font-size: 13.5px;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
+        .ref-link { color: var(--accent-gold); word-break: break-all; }
+        .ref-note { font-size: 14px; color: #ccc; margin-top: 10px; line-height: 1.5; }
 
         /* ── NAV AREA ── */
         .nav-area {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 28px 36px;
-            gap: 8px;
+            padding: 20px 28px 40px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .gold-btn {
             background-color: var(--accent-gold);
             color: black;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
             font-weight: bold;
             text-decoration: none;
@@ -149,11 +139,9 @@
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 7px;
-            transition: opacity .15s;
+            gap: 8px;
         }
-
-        .gold-btn:hover { opacity: .88; }
+        .gold-btn:hover { background: #693909; color: white; border-color: #693909; }
 
         .home-btn {
             background-color: white;
@@ -166,118 +154,76 @@
             width: 45px;
             height: 45px;
             text-decoration: none;
-            transition: background .15s;
         }
+        .home-btn:hover { background: #693909; border-color: #693909; }
 
-        .home-btn:hover { background: #f0f0f0; }
-
-        /* ── FOOTER ── */
         footer {
             height: 20px;
             width: 100%;
             background-color: var(--red-accent);
             border-top: 2px solid #000;
-            flex-shrink: 0;
         }
 
         @media (max-width: 600px) {
             .page-wrapper { border: none; }
-            header h1 { font-size: 26px; letter-spacing: 2px; }
+            header h1 { font-size: 26px; }
         }
     </style>
 </head>
 <body>
 
-<div class="page-wrapper">
+<div class="top-nav">
+    <h1>Retire Wise and Live Happy</h1>
+    <select onchange="if(this.value) window.location.href=this.value;">
+        <option value="">Explore Topics</option>
+        <optgroup label="Core Planning">
+            <option value="transition_plan.html">Retirement Made Easy</option>
+            <option value="retirement_plan.html">What is Retirement?</option>
+            <option value="steps_retirement.html">Steps in retirement planning</option>
+            <option value="financial_plan.html">Financial Plan</option>
+            <option value="medicare_aca.html">Medicare & ACA</option>
+            <option value="aca_marketplace.html">ACA Marketplace</option>
+            <option value="terms.html">Terms Used</option>
+            <option value="website.html">Web Sites</option>
+        </optgroup>
+        <optgroup label="Calculators">
+            <option value="retirement_calculator.html">Retirement Calculator</option>
+            <option value="montecarlo_retirement.html">Retirement Confidence</option>
+            <option value="401k_compounding.html">401k Compounding</option>
+            <option value="tax_calculator.html">Income Tax Calculator</option>
+        </optgroup>
+    </select>
+</div>
 
+<div class="page-wrapper">
     <header>
         <div class="red-corner"></div>
         <h1>ACA Marketplace</h1>
     </header>
 
     <div class="content">
+        
 
-        <!-- ── What is ACA ── -->
-        <span class="section-title">What is ACA?</span>
+        <p>The health insurance marketplace (also known as the "exchange" or "ACA marketplace") is a service that helps people shop for and enroll in affordable health insurance. The federal government operates Healthcare.gov, while some states run their own exchanges.</p>
+        
+        <div class="section-title">Key Information</div>
+        <a class="ref-link" href="https://www.healthcare.gov/" target="_blank">https://www.healthcare.gov/</a>
+        
+        <p class="ref-note">Health insurance is available through the marketplace. You can also visit your state's health insurance exchange for additional local details. Many states use the federal site, while others have their own dedicated portals accessible via the dropdown on the main page.</p>
 
-        <p class="italic">
-            The Affordable Care Act (ACA), often called Obamacare, is 2010 U.S. health reform law aiming to make health insurance more accessible and affordable.
-            It established the Health Insurance Marketplace, expanded Medicaid to lower-income adults, and prohibits insurers from denying coverage due to pre-existing 
-			conditions			
+        <div class="section-title">Important Enrollment Dates</div>
+        <p class="ref-note">
+            <strong>November 1:</strong> Open Enrollment starts — first day you can enroll in, renew, or change health plans.<br><br>
+            <strong>December 15:</strong> Last day to enroll for coverage to start January 1.<br><br>
+            <strong>January 1:</strong> Coverage starts for those who enrolled by December 15.<br><br>
+            <strong>January 15:</strong> Open Enrollment ends. After this date, you generally need a Special Enrollment Period (e.g., job loss, moving) to enroll.
         </p>
-
-        <p class="italic">
-            Part A, B, C and D are the components. They do not cover all medical expenses and long term care.
-        </p>
-
-        <!-- ── Key Components ── -->
-        <span class="section-title">Key aspects of the ACA include</span>
-
-        <div class="entry">
-            <strong>Health Insurance Marketplace:</strong>
-            <em> A platform where individuals can compare plans, often with government subsidies to reduce monthly premiums.</em>
-        </div>
-
-        <div class="entry">
-            <strong>Medicaid Expansion:</strong>
-            <em> Many states expanded Medicaid eligibility to adults with incomes below 138% of the federal poverty level.</em>
-        </div>
-
-        <div class="entry">
-            <strong>Consumer Protections:</strong>
-            <em> Insurers cannot charge more or deny coverage based on pre-existing conditions and must cover essential health benefits.</em>
-        </div>
-
-        <div class="entry">
-            <strong>No Lifetime Limits:</strong>
-            <em> Elimination of annual or lifetime limits on essential health benefits.</em>
-        </div>
-		
-		<div class="entry">
-            <strong>Young Adult Coverage:</strong>
-            <em> Allows young adults to remain on their parents' insurance plans until age 26</em>
-        </div>
-           <br>        
-
-        <a class="ref-link" href="https://www.healthcare.gov/where-can-i-read-the-affordable-care-act/" target="_blank">
-            https://www.healthcare.gov/where-can-i-read-the-affordable-care-act/
-        </a>
-        <p class="ref-note">Use this link to get more details about ACA (from HealthCare.gov).</p>
-		<br>
-		
-		<a class="ref-link" href="https://www.healthcare.gov/get-coverage//" target="_blank">
-            https://www.healthcare.gov/get-coverage/
-        </a>
-        <p class="ref-note">Need health insurance? You can enroll for coverage by picking the state in the drop down.</p>
-		<br>
-		
-		<p class="ref-note">When can you get health insurance? Some dates and tasks are given below.</p>
-		
-		<p class="ref-note">November 1: Open Enrollment starts — first day you can enroll in, renew, or change health plans through the Marketplace for the coming year. Coverage can start as soon as January 1.
-                       <br>   <br> December 15: Last day to enroll in or change plans for coverage to start January 1.
-                        <br> <br>    January 1: Coverage starts for those who enroll in or change plans by December 15 and pay their first premium.
-                       <br> <br>     January 15: Open Enrollment ends — last day to enroll in or change Marketplace health plans for the year. After this date, you can enroll in or change plans only if you qualify for a Special Enrollment Period.
-                        <br> <br>    February 1: Coverage starts for those who enroll in or change plans December 16 through January 15 and pay their first premium.</p>
-
     </div>
 
-    <!-- Navigation -->
     <div class="nav-area">
-        
-        <a href="index.html" class="home-btn">
-            <span style="font-size:28px;color:black;">🏠</span>
-			
-        </a>
-		
-		<a href="retirement_plan.html" class="gold-btn">
-            <span>🏌️</span> Retirement Plan
-        </a>
-		
-		<a href="financial_plan.html" class="gold-btn">
-            <span>💰</span> Financial Plan
-        </a>
-
-		
+        <a href="index.html" class="home-btn">🏠</a>
+        <a href="retirement_plan.html" class="gold-btn"><span>🏌️</span> Retirement Plan</a>
+        <a href="financial_plan.html" class="gold-btn"><span>💰</span> Financial Plan</a>
     </div>
 
     <footer></footer>
