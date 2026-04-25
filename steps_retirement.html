@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5 Steps in Retirement</title>
+    <title>Steps in Retirement</title>
     <style>
         :root {
             --bg-dark: #0d1b1e;
@@ -13,33 +13,32 @@
             --red-accent: #a82222;
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #080f11;
             display: flex;
-            flex-direction: column; /* Changed to column to stack nav and content */
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
 
-        /* ── Top Nav (Matched Scheme) ── */
+        /* ── Top Nav ── */
         .top-nav {
             width: 100%;
-            background-color: #000000;
+            background-color: #000;
             padding: 14px 20px;
-            border-bottom: 4px solid #a82222;
-            display: flex; 
-            justify-content: space-between; 
+            border-bottom: 4px solid var(--red-accent);
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             z-index: 1000;
         }
 
         .top-nav h1 {
-            color: #FFFFFF;
+            color: #fff;
             font-size: clamp(18px, 3.5vw, 24px);
-            letter-spacing: 1px;
             font-weight: 600;
             margin: 0;
         }
@@ -51,11 +50,11 @@
             cursor: pointer;
         }
 
+        /* ── Page Wrapper ── */
         .page-wrapper {
             width: 100%;
-            max-width: 600px;
+            max-width: 660px;
             background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
-            background-attachment: fixed;
             color: white;
             min-height: 100vh;
             display: flex;
@@ -63,112 +62,196 @@
             border-left: 1px solid rgba(255,255,255,0.1);
             border-right: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            position: relative;
         }
 
+        /* ── Header ── */
         header {
             padding: 30px 30px 10px 30px;
             position: relative;
         }
 
-        /* Red decorative bar - adjusted top to 0 to sit flush with wrapper */
         header::after {
             content: '';
             position: absolute;
-            top: 0;
-            right: 30px;
-            width: 40px;
-            height: 100px;
+            top: 0; right: 30px;
+            width: 40px; height: 100px;
             background-color: var(--red-accent);
             border-bottom: 2px solid #000;
         }
 
         header h1 {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 400;
             margin: 0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
-        .content {
-            padding: 10px 30px;
-            font-size: 15px;
-            line-height: 1.4;
-            flex: 1;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin: 10px 0 20px 0;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
+        /* ── Intro ── */
         .intro-p {
             color: var(--text-yellow);
             font-style: italic;
-            margin-bottom: 20px;
+            font-size: 14px;
+            padding: 12px 30px 16px;
+            line-height: 1.5;
         }
 
-        .section-title {
+        /* ── Accordion ── */
+        .accordion {
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .acc-item {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(231,202,96,0.2);
+        }
+
+        .acc-header {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            cursor: pointer;
+            padding: 13px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            transition: background 0.2s;
+        }
+
+        .acc-header:hover {
+            background: rgba(237,143,9,0.7);
+        }
+
+        .acc-header.open {
+            background: rgba(231,202,96,0.12);
+            border-bottom: 1px solid rgba(231,202,96,0.25);
+        }
+
+        .acc-step {
+            font-size: 11px;
+            color: #1AC41A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .acc-title {
             color: var(--text-yellow);
+            font-size: 15px;
             font-weight: bold;
-            text-decoration: underline;
-            font-size: 17px;
-            margin-top: 20px;
-            margin-bottom: 8px;
         }
 
-        .step-label {
-            color: var(--text-yellow);
-            font-weight: 600;
+        .acc-icon {
+            color: var(--accent-gold);
+            font-size: 18px;
+            transition: transform 0.25s;
+            flex-shrink: 0;
+            margin-left: 10px;
         }
 
-        p {
+        .acc-header.open .acc-icon {
+            transform: rotate(45deg);
+        }
+
+        .acc-body {
+            display: none;
+            padding: 14px 16px;
+            font-size: 14px;
+            line-height: 1.65;
+            color: #ddd;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .acc-body.open {
+            display: block;
+        }
+
+        .acc-body p {
             margin-bottom: 10px;
-            color: #e0e0e0;
         }
 
+        .acc-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .acc-body .sub-label {
+            color: var(--accent-gold);
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 4px;
+        }
+
+        .acc-body ul {
+            padding-left: 18px;
+            margin-bottom: 10px;
+        }
+
+        .acc-body ul li {
+            margin-bottom: 5px;
+        }
+
+        .acc-body .highlight {
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        .acc-body .gold {
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        .acc-body .tip {
+            background: rgba(231,202,96,0.08);
+            border-left: 3px solid var(--accent-gold);
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #eee;
+        }
+
+        /* ── Bottom Nav ── */
         .nav-area {
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 20px;
-            padding: 20px 30px 40px 30px;
+            gap: 14px;
+            padding: 20px 24px 30px;
         }
 
         .nav-btn {
             background-color: var(--accent-gold);
             color: black;
-            padding: 10px 20px;
+            padding: 10px 16px;
             border-radius: 8px;
             font-weight: bold;
             text-decoration: none;
             border: 2px solid #000;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
             font-size: 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-		
-        .nav-btn:hover  { background: #693909; color: white; border-color: #693909; }
+
+        .nav-btn:hover { background: #693909; color: white; border-color: #693909; }
 
         .home-btn {
             background-color: white;
             border: 2px solid black;
-            padding: 5px;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
+            width: 45px; height: 45px;
             text-decoration: none;
         }
-		
-        .home-btn:hover  { background: #693909; color: white; border-color: #693909; }
+
+        .home-btn:hover { background: #693909; }
 
         footer {
             height: 20px;
@@ -179,88 +262,343 @@
 
         @media (max-width: 600px) {
             .page-wrapper { border: none; }
+            .accordion { padding: 0 12px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
-        <h1>Retire Wise and Live Happy</h1>
+<!-- Top Nav -->
+<div class="top-nav">
+    <h1>Retire Wise and Live Happy</h1>
+    <select onchange="if(this.value) window.location.href=this.value;">
+        <option value="">Explore Topics</option>
+        <optgroup label="Core Planning">
+            <option value="transition_plan.html">Retirement Made Easy</option>
+            <option value="retirement_plan.html">What is Retirement?</option>
+            <option value="financial_plan.html">Financial Plan</option>
+            <option value="terms.html">Terms Used</option>
+            <option value="website.html">Web Sites</option>
+        </optgroup>
+        <optgroup label="Calculators">
+            <option value="retirement_calculator.html">Retirement Calculator</option>
+            <option value="montecarlo_retirement.html">Retirement Confidence</option>
+            <option value="401k_compounding.html">401k Compounding</option>
+            <option value="tax_calculator.html">Income Tax Calculator</option>
+        </optgroup>
+        <optgroup label="Go Back">
+            <option value="index.html">HOME</option>
+        </optgroup>
+    </select>
+</div>
 
-        <select onchange="if(this.value) window.location.href=this.value;">
-            <option value="">Explore Topics</option>
+<div class="page-wrapper">
 
-            <optgroup label="Core Planning">
-                <option value="transition_plan.html">Retirement Made Easy</option>
-                <option value="retirement_plan.html">What is Retirement?</option>
-                <option value="financial_plan.html">Financial Plan</option>
-                <option value="terms.html">Terms Used</option>
-                <option value="website.html">Web Sites</option>
-            </optgroup>
+    <header>
+        <h1>Steps in Retirement</h1>
+    </header>
+<br>
+    <p class="intro-p">Retirement planning means assessing current finances, setting a lifestyle goal, calculating your target portfolio, and implementing a strategy to achieve it. Tap any step to expand.</p>
 
-            <optgroup label="Calculators">
-                <option value="retirement_calculator.html">Retirement Calculator</option>
-                <option value="montecarlo_retirement.html">Retirement Confidence</option>
-                <option value="401k_compounding.html">401k Compounding</option>
-                <option value="tax_calculator.html">Income Tax Calculator</option>
-            </optgroup>
-			
-			<optgroup label="Go Back">
-		 <option value="index.html">HOME</option>
-		</optgroup>
-			
-        </select>
-    </div>
+    <div class="accordion">
 
-    <div class="page-wrapper">
-        <header>
-            <h1>5 steps in retirement</h1>
-        </header>
-
-        <div class="content">
-            <img src="image_9.png" alt="Infographic: 5 Steps to Your Retirement Plan" class="hero-image">
-
-            <p class="intro-p">The process of retirement planning involves assessing current finances, setting a desired lifestyle goal, calculating the necessary target portfolio, and implementing an investment strategy to achieve it.</p>
-
-            <div class="section-title">Define Retirement Goals and Timeline</div>
-            <p><span class="step-label">Identify desired lifestyle:</span> Consider where you will live, travel plans, and anticipated expenses.</p>
-            <p><span class="step-label">Estimate retirement age:</span> Determine when you can afford to stop working and when to claim Social Security.</p>
-
-            <div class="section-title">Assess Financial Standing</div>
-            <p><span class="step-label">Calculate net worth:</span> List all assets and debts.</p>
-            <p><span class="step-label">Estimate costs:</span> Develop a budget that accounts for changes like higher healthcare costs.</p>
-
-            <div class="section-title">Develop a Savings and Investment Strategy</div>
-            <p><span class="step-label">Maximize contributions:</span> Utilize tax-advantaged accounts like 401(k)s and IRAs.</p>
-            <p><span class="step-label">Choose investments:</span> Align investments with your risk tolerance.</p>
-            <p><span class="step-label">Use an HSA:</span> Consider a Health Savings Account for future medical expenses.</p>
-
-            <div class="section-title">Plan for Income and Risks</div>
-            <p><span class="step-label">Create a withdrawal plan:</span> Use strategies like the 4% rule to determine safe spending.</p>
-            <p><span class="step-label">Plan for healthcare:</span> Evaluate Medicare options and long-term care insurance.</p>
-            <p><span class="step-label">Build a buffer:</span> Factor in inflation and potential market downturns.</p>
-
-            <div class="section-title">Review and Refine</div>
-            <p><span class="step-label">Reassess periodically:</span> Review your investments at least annually.</p>
-            <p><span class="step-label">Adjust as needed:</span> As you approach retirement, shift toward more conservative investments.</p>
+        <!-- 1 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 1</div>
+                    <div class="acc-title">Get a Complete Readout of Your Income &amp; Investments</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>Don't stop at just saving money during work years. Be actively involved in tracking where money is, and how much it grows year over year.</p>
+                <p>Building your portfolio is critical for understanding the investment vehicles where your money is located. <span class="gold">Current financial position is the first step</span> toward retirement planning — ideally started early in your career, but 5 years prior is never too late.</p>
+                <p>Use a free portal or a portfolio tracker to figure out <span class="gold">asset allocation</span> — within each asset class, where the money is located and how it is performing over time.</p>
+                <p>Looking at historical data helps understand how various asset classes have done — and reinforces the importance of starting to save and invest early.</p>
+                <div class="tip">💡 Use the <strong>401k Compounding Calculator</strong> to see how starting early, investing wisely, saving consistently, and getting a company match leads to exponential growth: A = P(1 + r/n)^(nt)</div>
+            </div>
         </div>
 
-        <div class="nav-area">
-            <a href="financial_plan.html" class="nav-btn">
-                <span style="font-size: 28px;">💰</span>Financial Plan
-            </a>
-            
-            <a href="retirement_plan.html" class="nav-btn">
-                <span style="font-size: 28px;">🏌️</span>Retirement Plan
-            </a>
-            
-            <a href="index.html" class="home-btn">
-                <span style="font-size: 28px;">🏠</span>
-            </a>
+        <!-- 2 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 2</div>
+                    <div class="acc-title">Take a First Stab at the Retirement Age</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>With a clearer picture of your finances, you can take a first stab at "when do I want to retire?" This is <span class="gold">retirement by design</span>.</p>
+                <p>People continue working for many reasons — passion, compensation, health insurance, purpose, or simply not knowing what else to do. We will address the big and often forgotten element: <span class="highlight">FEAR</span>. It has many layers and needs to be addressed to unlock the ability to retire happily.</p>
+                <p>There are 2 theories on timing: <span class="gold">Retire by Number</span> and <span class="gold">Retire by Age</span>. For now, pick an age — 60, 62, 65, or whatever feels right — without emotional attachment. We will iterate on it.</p>
+                <div class="tip">💡 Don't kick the can down the road. Take the bull by the horns — the best time to start is now.</div>
+            </div>
         </div>
 
-        <footer></footer>
+        <!-- 3 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 3</div>
+                    <div class="acc-title">Projection of Portfolio</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>With a retirement age in mind, project your portfolio 20–30 years into the future. Use the <span class="gold">Retirement Calculator</span> with your current financial situation and realistic assumptions — conservative, moderate, or aggressive depending on your risk appetite.</p>
+                <p>Growth and taxes year-over-year give meaningful insight into how assets perform. Run "what-if" analyses and save summaries to CSV for review.</p>
+                <p>This will raise important questions — hold on to them as you progress:</p>
+                <ul>
+                    <li>How much more should I contribute to tax-deferred accounts?</li>
+                    <li>What is Roth Conversion and how do I use it?</li>
+                    <li>At what age should I or my spouse take Social Security?</li>
+                    <li>What is RMD and why does it spike my income?</li>
+                    <li>Will my money last through retirement?</li>
+                </ul>
+                <p>There are <span class="gold">6 areas of Comprehensive Financial Planning</span>: Investment Planning | Retirement Planning | Risk Management | Cash Flow Management | Tax Planning | Estate Planning. All six must be optimized together — touching one without the others gives a half-baked plan.</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 4</div>
+                    <div class="acc-title">Annual Spend Forecast</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>This ties the two critical pieces — <span class="gold">Income and Spending</span> — together for a deeper portfolio forecast. Start by rolling up monthly fixed expenses, quarterly/annual expenses, discretionary needs, and emergency reserves into an annual spend figure. The calculator adjusts current dollars for inflation.</p>
+                <p>Factor in mortgage (if active in retirement), health insurance, and the <span class="gold">Medicare gap</span>. If you retire before 65, you will need coverage for the gap years — via ACA, COBRA, or a spouse's plan. This is not a reason to delay retirement if your portfolio is managed well.</p>
+                <p>Portfolio rebalancing is an ongoing art: give invested money time to grow, think like an <span class="gold">investor not a trader</span>, and avoid panic-selling during market volatility. Re-balance based on your risk appetite and age, keeping an eye on cash flow buckets.</p>
+                <div class="tip">💡 Power of compounding requires patience. Diversification + market understanding + time = your money working for you.</div>
+            </div>
+        </div>
+		
+		
+		<!-- 5 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 5</div>
+                    <div class="acc-title">Portfolio Re-balancing</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>You saved well during your work years, and it is commendable. Maybe you were not that astute about it because of conditions or knowledge about the possibilities. Regardless you have savings which have been invested and now you have a portfolio of investments.
+</p>
+                <p>Managing portfolio is an art and it involves some understanding of assets, asset classes, market understanding, tax implications, capital gains and so many other factors. Nevertheless, it can be done if you have some interest and are willing to dedicate some time….after all it is your hard-earned money.
+</p>
+                <p>Portfolio rebalancing is an ongoing art: give invested money time to grow, think like an <span class="gold">investor not a trader</span>, and avoid panic-selling during market volatility. Re-balance based on your risk appetite and age, keeping an eye on cash flow buckets.</p>
+               
+				<p>Re-balancing is done with your appetite for risk, and it should be associated with your age. We will go back to Cash Flow analysis and planning to iterate on the different buckets for “Where does cash come from?” It is hinging on so many factors including expenses and sources of income (gets more complicated with SS and RMD later)
+</p>
+
+
+			   <div class="tip">💡 Power of compounding requires patience. Diversification + market understanding + time = your money working for you.</div>
+            </div>
+        </div>
+		
+							
+
+        <!-- 6 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 6</div>
+                    <div class="acc-title">Retirement Confidence &amp; Monte Carlo Simulations</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>The <span class="gold">Retirement Confidence Calculator</span> is built on Monte Carlo Simulations. Unlike a straight-line portfolio projection with a fixed % growth, Monte Carlo runs thousands of simulations — putting your portfolio through unique market scenarios.</p>
+                <p><em>Example:</em> What if the portfolio was flat or negative for 5 years? How long does it take to recover and reach targets?</p>
+                <p>This helps answer the hardest retirement questions:</p>
+                <ul>
+                    <li>"Will I run out of money?"</li>
+                    <li>"How long will the money last?"</li>
+                    <li>"With 90–95% confidence, how much can I spend each year without running out?"</li>
+                </ul>
+                <p>The simulator covers <span class="gold">3 phases</span>:</p>
+                <ul>
+                    <li><strong>Phase I – Gap Years:</strong> Retirement start to SS. Draw from brokerage (long-term capital gains). Perform Roth Conversions.</li>
+                    <li><strong>Phase II – SS Active:</strong> Income from SS + Brokerage. Continue Roth Conversions. Use CDs, bonds, cash with their own tax implications.</li>
+                    <li><strong>Phase III – RMD Age:</strong> SS + RMD. Roth account held for legacy transfer, never drawn.</li>
+                </ul>
+                <div class="tip">💡 Plug your Retirement Calculator numbers into the Monte Carlo Simulator to stress-test your portfolio across thousands of scenarios.</div>
+            </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 7</div>
+                    <div class="acc-title">Cash Flow Analysis in Retirement</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p><span class="gold">"Where does the required cash come from?"</span> is equally important as portfolio growth. Cash sources include: High Yield Savings | Money Market | CDs | Corporate Bonds | Municipal Bonds | Target Date Funds | Treasury Bonds/Bills/Notes | Cash.</p>
+                <p>Cash flow strategy by phase:</p>
+                <ul>
+                    <li><strong>Gap years:</strong> Draw from brokerage and bonds while doing Roth conversions. Pay taxes from cash to keep tax-deferred accounts growing.</li>
+                    <li><strong>SS active:</strong> Reduce cash draws, continue Roth conversions. Two SS streams may exceed annual spend — balance with cash to handle taxes.</li>
+                    <li><strong>RMD age:</strong> SS + RMD typically exceed annual spend. May stop Roth conversions; save the surplus.</li>
+                </ul>
+                <p><span class="highlight">Sequence of Returns Risk:</span> The danger that negative market returns early in retirement — combined with withdrawals — can permanently reduce portfolio longevity. Mitigate with a bucket strategy and adequate cash reserves.</p>
+                <div class="tip">💡 Once cash flow is mapped, revisit and re-balance your portfolio to stay aligned with your plan.</div>
+            </div>
+        </div>
+
+        <!-- 8-->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 8</div>
+                    <div class="acc-title">Risk Management</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>Risk Management is the <span class="gold">protective layer</span> of the financial plan — identifying what could disrupt finances and putting safeguards in place. It covers insurance, emergency funds, diversification, debt management, and contingency planning against illness, job loss, disability, market volatility, or major unexpected expenses.</p>
+                <p>Key risks to manage:</p>
+                <ul>
+                    <li>Market volatility and inflation</li>
+                    <li>Disability, premature death, long-term care needs</li>
+                    <li>Retiring into a down market — no one can time the market</li>
+                    <li>Sequence-of-returns risk in early retirement</li>
+                </ul>
+                <p>Risk management and investment planning work together. Someone near retirement may shift toward stability while using insurance and cash reserves to avoid selling investments during a market drop.</p>
+                <div class="tip">💡 A diversified portfolio without an emergency fund is still vulnerable. Proper cash reserves keep the investment plan focused on long-term compounding instead of short-term damage control.</div>
+            </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 9</div>
+                    <div class="acc-title">Tax Planning</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>Tax planning minimizes taxes in a way that <span class="gold">supports the whole financial plan</span> — not just this year's bill. It includes income tax strategy, capital gains harvesting, tax deferral, Roth conversions, and choosing the right accounts to contribute to or withdraw from.</p>
+                <p>The account mix matters greatly:</p>
+                <ul>
+                    <li><strong>Traditional / Tax-Deferred:</strong> Taxed on withdrawal (ordinary income)</li>
+                    <li><strong>Roth / Tax-Free:</strong> No tax on qualified withdrawals</li>
+                    <li><strong>Taxable Brokerage:</strong> Subject to capital gains tax</li>
+                </ul>
+                <p><span class="gold">Withdrawal order</span> matters — drawing from one account before another can change your tax bracket, Social Security taxability, Medicare IRMAA premiums, and capital gains exposure.</p>
+                <p>Roth conversions in lower-income years shift money to tax-free status before RMDs begin, potentially reducing lifetime tax burden significantly.</p>
+                <div class="tip">💡 Make taxes part of the strategy from day one — not just at filing time. Look 5–10 years ahead.</div>
+            </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 10</div>
+                    <div class="acc-title">Social Security</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>Social Security provides monthly retirement, disability, and survivor benefits. You generally need to be at least <span class="gold">62 with ~10 years of work credits</span> to qualify for retirement benefits.</p>
+                <p>Your benefit is based on your <span class="gold">35 highest-earning years</span> (indexed and averaged). Claiming before Full Retirement Age reduces your monthly benefit; delaying past FRA (up to age 70) increases it.</p>
+                <p>Key timing considerations:</p>
+                <ul>
+                    <li>Delay SS to allow Roth conversions at lower income — and let the SS benefit grow</li>
+                    <li>Start earlier if cash flow demands it</li>
+                    <li><span class="highlight">Retirement age and SS withdrawal age are not the same</span> — they can be timed independently</li>
+                    <li>SS has an embedded COLA — it grows year over year</li>
+                    <li>Spouse SS timing matters — optimize both together</li>
+                </ul>
+                <div class="tip">💡 Visit SSA.gov to see your projected benefit by claiming age. Build this into your Monte Carlo Simulator.</div>
+            </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 11</div>
+                    <div class="acc-title">Required Minimum Distribution (RMD)</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>RMD is the <span class="gold">minimum annual withdrawal</span> required from tax-deferred accounts once you reach the required starting age. Applies to traditional IRAs, SEP IRAs, SIMPLE IRAs, 401(k)s, and 403(b)s. <span class="highlight">Roth IRAs are exempt</span> for the original owner.</p>
+                <p>RMDs are calculated using IRS Uniform Lifetime Table factors (based on life expectancy):</p>
+                <ul>
+                    <li>Age 73: Factor 26.5 → ~$37,736 on a $1M balance</li>
+                    <li>Age 75: Factor 24.6</li>
+                    <li>Age 90: Factor 12.2 — RMD can become very large</li>
+                </ul>
+                <p>RMDs are treated as <span class="gold">ordinary income</span> — they can push you into higher tax brackets, increase Social Security taxation, and trigger Medicare IRMAA surcharges. This is why reducing tax-deferred balances through Roth conversions early matters.</p>
+                <p>For <span class="gold">legal heirs (beneficiaries)</span>: there is a 10-year rule. When both spouses pass away, heirs must withdraw the full inherited amount within 10 years.</p>
+                <div class="tip">💡 Missing an RMD triggers a penalty. Set reminders and track this deadline carefully each year.</div>
+            </div>
+        </div>
+
+        <!-- 12-->
+        <div class="acc-item">
+            <button class="acc-header" onclick="toggle(this)">
+                <div>
+                    <div class="acc-step">Step 12</div>
+                    <div class="acc-title">Estate Planning</div>
+                </div>
+                <span class="acc-icon">+</span>
+            </button>
+            <div class="acc-body">
+                <p>Estate Planning decides how your <span class="gold">assets, debts, and personal wishes</span> are handled if you become incapacitated or after you die. The four core documents:</p>
+                <ul>
+                    <li><strong>Will:</strong> Who gets your property and who manages the estate</li>
+                    <li><strong>Trust:</strong> Controls how assets are managed and distributed, often outside probate</li>
+                    <li><strong>Durable Power of Attorney:</strong> Someone handles financial/legal matters if you cannot</li>
+                    <li><strong>Health Care Directive / Living Will:</strong> Your medical preferences if you cannot speak for yourself</li>
+                </ul>
+                <p>Estate and tax planning are tightly connected — how assets are titled, transferred, and distributed affects both estate taxes and income taxes for heirs. A well-designed estate plan accounts for tax effects, not just legal inheritance rules.</p>
+                <div class="tip">💡 Periodically review beneficiary designations, wills, trusts, powers of attorney, and health care directives together so they all remain aligned with current laws and family circumstances.</div>
+            </div>
+        </div>
+
+    </div><!-- end accordion -->
+
+    <!-- Bottom Nav -->
+    <div class="nav-area">
+        <a href="financial_plan.html" class="nav-btn"><span style="font-size:22px;">💰</span> Financial Plan</a>
+        <a href="retirement_plan.html" class="nav-btn"><span style="font-size:22px;">🏌️</span> Retirement Plan</a>
+        <a href="index.html" class="home-btn"><span style="font-size:26px;">🏠</span></a>
     </div>
+
+    <footer></footer>
+
+</div><!-- end page-wrapper -->
+
+<script>
+    function toggle(btn) {
+        const body = btn.nextElementSibling;
+        const isOpen = btn.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.acc-header').forEach(h => h.classList.remove('open'));
+        document.querySelectorAll('.acc-body').forEach(b => b.classList.remove('open'));
+
+        // Open clicked (unless it was already open)
+        if (!isOpen) {
+            btn.classList.add('open');
+            body.classList.add('open');
+        }
+    }
+</script>
 
 </body>
 </html>
