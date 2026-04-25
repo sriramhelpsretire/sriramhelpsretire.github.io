@@ -20,7 +20,8 @@ body {
     padding: 0;
     background-color: #080f11;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
 }
 
@@ -97,6 +98,33 @@ header h1 {
     display: block;
 }
 
+/* Top Nav */
+.top-nav {
+    width: 100%;
+    background-color: #000;
+    padding: 14px 20px;
+    border-bottom: 4px solid var(--red-accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.top-nav h1 {
+    color: white;
+    font-size: clamp(18px, 3vw, 24px);
+}
+
+.top-nav select {
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+
+
+
 /* Description */
 .site-desc {
     display: block;
@@ -167,10 +195,35 @@ footer {
 </head>
 <body>
 
+    <div class="top-nav">
+        <h1>Retire Wise and Live Happy</h1>
+        <select onchange="if(this.value) window.location.href=this.value;">
+            <option value="">Explore Topics</option>
+            <optgroup label="Core Planning">
+                <option value="transition_plan.html">Retirement Made Easy</option>
+                <option value="aca_marketplace.html">ACA Marketplace</option>
+                <option value="medicare_aca_dev.html">Medicare Hub</option>
+                <option value="terms.html">Terms Used</option>
+            </optgroup>
+            <optgroup label="Calculators">
+                <option value="retirement_calculator.html">Retirement Calculator</option>
+                <option value="montecarlo_retirement.html">Retirement Confidence</option>
+                <option value="401k_compounding.html">401k Compounding</option>
+                <option value="tax_calculator.html">Income Tax Calculator</option>
+            </optgroup>
+            <optgroup label="Go Back">
+                <option value="index.html">HOME</option>
+            </optgroup>
+        </select>
+    </div>
+
     <div class="page-wrapper">
         <header>
             <h1>Some important websites</h1>
         </header>
+		
+		
+		
 
         <div class="content">
             <ul class="website-list">
