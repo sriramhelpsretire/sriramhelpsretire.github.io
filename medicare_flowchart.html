@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medicare, Hospitalization & Medigap</title>
+
+<style>
+:root {
+    --bg-dark: #0d1b1e;
+    --bg-light: #1b4d5c;
+    --accent-gold: #e7ca60;
+    --text-yellow: #f4d03f;
+    --red-accent: #a82222;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #080f11;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Top Nav */
+.top-nav {
+    width: 100%;
+    background-color: #000;
+    padding: 14px 20px;
+    border-bottom: 4px solid var(--red-accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-nav h1 {
+    color: white;
+    font-size: clamp(18px, 3vw, 24px);
+}
+
+.top-nav select {
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+/* Page Wrapper */
+.page-wrapper {
+    width: 100%;
+    max-width: 700px;
+    background: radial-gradient(circle at center, var(--bg-light), var(--bg-dark));
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 30px 20px 10px;
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+header p.subtitle {
+    color: var(--accent-gold);
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+/* Content */
+.content {
+    padding: 20px;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.content p {
+    margin-bottom: 16px;
+}
+
+.highlight {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.gold {
+    color: var(--accent-gold);
+    font-weight: bold;
+}
+
+/* Section label */
+.section-label {
+    color: var(--accent-gold);
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--bg-light);
+    padding-bottom: 4px;
+    margin: 20px 0 10px;
+}
+
+/* Parts grid */
+.parts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.part-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(231,202,96,0.3);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.part-card .part-label {
+    color: var(--accent-gold);
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.part-card .part-desc {
+    font-size: 13px;
+    color: #ccc;
+}
+
+/* Flow boxes */
+.flow-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.flow-box {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.flow-box.green {
+    border-left: 3px solid #4caf50;
+}
+
+.flow-box.purple {
+    border-left: 3px solid #9c27b0;
+}
+
+.flow-box.red-border {
+    border-left: 3px solid #ff4d4d;
+}
+
+.flow-box.gold-border {
+    border-left: 3px solid var(--accent-gold);
+}
+
+.flow-box h4 {
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.flow-box ul {
+    padding-left: 16px;
+}
+
+.flow-box ul li {
+    margin-bottom: 3px;
+}
+
+/* Medigap comparison */
+.medigap-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.medigap-card {
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13px;
+}
+
+.medigap-card.yes {
+    background: rgba(76, 175, 80, 0.15);
+    border: 1px solid #4caf50;
+}
+
+.medigap-card.no {
+    background: rgba(168, 34, 34, 0.15);
+    border: 1px solid var(--red-accent);
+}
+
+.medigap-card h4 {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.medigap-card.yes h4 { color: #81c784; }
+.medigap-card.no h4  { color: #ff6b6b; }
+
+.medigap-card ul {
+    padding-left: 16px;
+}
+
+.medigap-card ul li {
+    margin-bottom: 3px;
+}
+
+.oop-note {
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.medigap-card.yes .oop-note { color: #81c784; }
+.medigap-card.no  .oop-note { color: #ff6b6b; }
+
+/* Important notes */
+.note-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(231,202,96,0.25);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+.note-box strong {
+    color: var(--accent-gold);
+}
+
+/* Key Takeaway */
+.takeaway {
+    background: rgba(231,202,96,0.08);
+    border: 1px solid var(--accent-gold);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    font-size: 14px;
+    color: #eee;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+.takeaway span {
+    color: var(--accent-gold);
+    font-weight: bold;
+}
+
+/* Disclaimer */
+.disclaimer {
+    font-size: 11px;
+    color: #888;
+    text-align: center;
+    padding: 0 20px;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+/* Bottom Nav */
+.nav-area {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.gold-btn {
+    background: var(--accent-gold);
+    color: black;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 2px solid black;
+}
+
+.home-btn {
+    background: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Top Nav -->
+<div class="top-nav">
+    <h1>Retire Wise and Live Happy</h1>
+    <select onchange="if(this.value) window.location.href=this.value;">
+        <option value="">Explore Topics</option>
+        <optgroup label="Core Planning">
+            <option value="transition_plan.html">Retirement Made Easy</option>
+            <option value="aca_marketplace.html">ACA Marketplace</option>
+            <option value="medicare_aca_dev.html">Medicare Hub</option>
+            <option value="terms.html">Terms Used</option>
+        </optgroup>
+        <optgroup label="Calculators">
+            <option value="retirement_calculator.html">Retirement Calculator</option>
+            <option value="montecarlo_retirement.html">Retirement Confidence</option>
+            <option value="401k_compounding.html">401k Compounding</option>
+            <option value="tax_calculator.html">Income Tax Calculator</option>
+        </optgroup>
+        <optgroup label="Go Back">
+            <option value="index.html">HOME</option>
+        </optgroup>
+    </select>
+</div>
+
+<div class="page-wrapper">
+
+<!-- Header -->
+<header>
+    <h1>Medicare, Hospitalization &amp; Medigap</h1>
+    <p class="subtitle">How Coverage Works From Admission to Recovery</p>
+</header>
+
+<div class="content">
+
+    <!-- Intro -->
+    <p>Medicare at the outset seems to be simple and straightforward. One needs to understand the nuances and ask <span class="highlight">"who pays for what"</span> at all junctures. There is a concept of <span class="highlight">Medigap</span> which can be purchased in addition to Part B and Part D (Part A is a core part of Medicare).</p>
+
+    <!-- Medicare Parts -->
+    <div class="section-label">The Four Parts of Medicare</div>
+
+    <div class="parts-grid">
+        <div class="part-card">
+            <div class="part-label">Part A — Hospital Insurance</div>
+            <div class="part-desc">Covers hospital room, meals, nursing care, inpatient services &amp; supplies. (The Building)</div>
+        </div>
+        <div class="part-card">
+            <div class="part-label">Part B — Medical Insurance</div>
+            <div class="part-desc">Covers doctors, specialists, surgeons, diagnostic tests, MRIs, labs &amp; anesthesia. (The People)</div>
+        </div>
+        <div class="part-card">
+            <div class="part-label">Part D — Prescription Drugs</div>
+            <div class="part-desc">Standalone prescription drug coverage added on top of Original Medicare.</div>
+        </div>
+        <div class="part-card">
+            <div class="part-label">Part C — Medicare Advantage</div>
+            <div class="part-desc">Private plans that bundle Part A + Part B (and often Part D) into one plan.</div>
+        </div>
+    </div>
+
+    <!-- Hospitalization Flow -->
+    <div class="section-label">When You Go to the Hospital</div>
+
+    <p>The key question is: <span class="gold">How are you classified?</span> This classification dramatically affects your costs and future coverage.</p>
+
+    <div class="flow-row">
+        <div class="flow-box green">
+            <h4>✅ Admitted (Inpatient)</h4>
+            Doctor decides you need inpatient care. Covered under <span class="gold">Part A</span> for the hospital stay and <span class="gold">Part B</span> for doctors/services.
+        </div>
+        <div class="flow-box purple">
+            <h4>⚠️ Not Admitted (Observation / Outpatient)</h4>
+            You are treated but not admitted as inpatient. Everything billed under <span class="highlight">Part B only</span> — you pay 20% of all approved services (no Part A).
+        </div>
+    </div>
+
+    <!-- What You Pay Without Medigap -->
+    <div class="section-label">What You Pay Without Medigap</div>
+
+    <div class="flow-row">
+        <div class="flow-box red-border">
+            <h4>Part A Costs</h4>
+            <ul>
+                <li>Deductible per benefit period (~$1,632 in 2024)</li>
+                <li>Coinsurance after deductible</li>
+                <li>Amounts vary based on length of stay</li>
+            </ul>
+        </div>
+        <div class="flow-box red-border">
+            <h4>Part B Costs</h4>
+            <ul>
+                <li>Monthly Part B premium</li>
+                <li>Annual deductible (~$240 in 2024)</li>
+                <li>20% coinsurance on ALL approved Part B services — <span class="highlight">no cap</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="flow-box red-border" style="margin-bottom:14px;">
+        <h4>Observation / Outpatient Costs (No Medigap)</h4>
+        <ul>
+            <li>Monthly Part B premium + annual deductible</li>
+            <li>20% coinsurance on ALL approved services — <span class="highlight">no cap</span></li>
+            <li>Can be <span class="highlight">very expensive</span>, especially for long observation stays</li>
+        </ul>
+    </div>
+
+    <!-- Medigap Section -->
+    <div class="section-label">Do You Have a Medigap (Medicare Supplement) Plan?</div>
+
+    <p>Medigap is purchased in addition to Original Medicare to fill the coverage gaps — deductibles, coinsurance, and copays.</p>
+
+    <!-- Inpatient with / without Medigap -->
+    <p style="color: var(--accent-gold); font-size:13px; margin-bottom:8px;">▶ For Inpatient Admission:</p>
+    <div class="medigap-row">
+        <div class="medigap-card yes">
+            <h4>✅ With Medigap — Medigap Pays the Gaps</h4>
+            <ul>
+                <li>Part A deductible</li>
+                <li>Part A &amp; B coinsurance / copays</li>
+                <li>Blood (Part A deductible)</li>
+                <li>Hospice coinsurance/copays</li>
+                <li>Foreign travel emergency (Plans C, D, F, G, M, N only)</li>
+            </ul>
+            <p class="oop-note">Your out-of-pocket = little or nothing for covered services</p>
+        </div>
+        <div class="medigap-card no">
+            <h4>❌ Without Medigap — You Pay the Gaps</h4>
+            <ul>
+                <li>Part A deductible</li>
+                <li>Part A &amp; B coinsurance</li>
+                <li>Blood deductible</li>
+                <li>Hospice coinsurance / copays</li>
+                <li>Can be <span style="color:#ff6b6b;">thousands of dollars</span></li>
+            </ul>
+            <p class="oop-note">Your out-of-pocket = potentially very high</p>
+        </div>
+    </div>
+
+    <!-- Observation with / without Medigap -->
+    <p style="color: var(--accent-gold); font-size:13px; margin-bottom:8px;">▶ For Observation / Outpatient Stay:</p>
+    <div class="medigap-row">
+        <div class="medigap-card yes">
+            <h4>✅ With Medigap — Medigap Pays the Gaps</h4>
+            <ul>
+                <li>Part B 20% coinsurance</li>
+                <li>Part B deductible</li>
+            </ul>
+            <p class="oop-note">Your out-of-pocket = little or nothing for covered services</p>
+        </div>
+        <div class="medigap-card no">
+            <h4>❌ Without Medigap — You Pay the Gaps</h4>
+            <ul>
+                <li>20% of ALL approved Part B services — <span style="color:#ff6b6b;">no cap</span></li>
+                <li>Can be very expensive, especially for long observation stays</li>
+            </ul>
+            <p class="oop-note">Your out-of-pocket = potentially very high</p>
+        </div>
+    </div>
+
+    <!-- After Discharge -->
+    <div class="section-label">After Hospital Discharge</div>
+
+    <div class="flow-row">
+        <div class="flow-box gold-border">
+            <h4>After Inpatient Stay</h4>
+            To qualify for Skilled Nursing Facility (SNF) care under Part A:
+            <ul style="margin-top:6px;">
+                <li>Must have a 3-day inpatient stay (3 midnights)</li>
+                <li>SNF care is covered (limited days)</li>
+                <li>Home health care may be covered</li>
+            </ul>
+        </div>
+        <div class="flow-box red-border">
+            <h4>After Observation Stay</h4>
+            Does <span class="highlight">NOT</span> qualify for SNF care under Part A (because there was no 3-day inpatient stay).
+            <br><br>
+            You may be responsible for the <span class="highlight">full cost</span> of rehab or extended care.
+        </div>
+    </div>
+
+    <!-- Important Notes -->
+    <div class="section-label">Important Notes</div>
+
+    <div class="note-box">
+        <strong>Observation vs Inpatient:</strong> Classification can significantly affect your out-of-pocket costs and future coverage. Always ask your care team about your status (inpatient vs observation) and estimated costs.
+    </div>
+    <div class="note-box">
+        <strong>Part B 20% Coinsurance:</strong> Part B has 20% coinsurance with no out-of-pocket maximum. Without Medigap, you are exposed to unlimited financial risk.
+    </div>
+    <div class="note-box">
+        <strong>"Benefit Period" for Part A:</strong> Starts the day you are admitted as an inpatient and ends when you have been out of the hospital for 60 consecutive days.
+    </div>
+    <div class="note-box">
+        <strong>What Medigap Does NOT Cover:</strong> Prescription drugs, long-term care, dental, vision, or hearing aids. These require separate coverage (Part D, etc.).
+    </div>
+
+    <!-- Key Takeaway -->
+    <div class="section-label">Key Takeaway</div>
+
+    <div class="takeaway">
+        <span>Part A</span> (The Building — Hospital Stay) &nbsp;+&nbsp;
+        <span>Part B</span> (The People — Doctors &amp; Medical Services) &nbsp;+&nbsp;
+        <span>Medigap</span> (The Filler — Pays the Gaps)
+        <br><br>
+        = <span>Financial Protection &amp; Peace of Mind</span>
+        <br><br>
+        This is how Original Medicare and Medigap work together in a hospitalization scenario.
+    </div>
+
+</div>
+
+<p class="disclaimer">Costs are approximate and change yearly. Always check Medicare.gov or speak with a licensed professional for personal advice.</p>
+
+<!-- Bottom Nav -->
+<div class="nav-area">
+    <a href="medicare_aca.html" class="gold-btn">Medicare Hub</a>
+    <a href="aca_vs_cobra.html" class="gold-btn">ACA vs COBRA</a>
+    <a href="index.html" class="home-btn">🏠</a>
+</div>
+
+</div><!-- end page-wrapper -->
+
+</body>
+</html>

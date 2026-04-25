@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthcare Coverage (Medicare)</title>
+
+<style>
+:root {
+    --bg-dark: #0d1b1e;
+    --bg-light: #1b4d5c;
+    --accent-gold: #e7ca60;
+    --text-yellow: #f4d03f;
+    --red-accent: #a82222;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #080f11;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Top Nav */
+.top-nav {
+    width: 100%;
+    background-color: #000;
+    padding: 14px 20px;
+    border-bottom: 4px solid var(--red-accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-nav h1 {
+    color: white;
+    font-size: clamp(18px, 3vw, 24px);
+}
+
+.top-nav select {
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+/* Page Wrapper */
+.page-wrapper {
+    width: 100%;
+    max-width: 700px;
+    background: radial-gradient(circle at center, var(--bg-light), var(--bg-dark));
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 30px 20px 10px;
+}
+
+header h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Content */
+.content {
+    padding: 20px;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.content p {
+    margin-bottom: 14px;
+}
+
+/* Table Styling */
+.table-container {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #0a2a4a;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #1f5a8a;
+}
+
+tr:nth-child(odd) {
+    background-color: #d94c3d;
+}
+
+/* Bullet Points */
+ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+/* Bottom Nav */
+.nav-area {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.gold-btn {
+    background: var(--accent-gold);
+    color: black;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 2px solid black;
+}
+
+.home-btn {
+    background: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-nav">
+    <h1>Retire Wise and Live Happy</h1>
+
+    <select onchange="if(this.value) window.location.href=this.value;">
+        <option value="">Explore Topics</option>
+
+        <optgroup label="Core Planning">
+            <option value="transition_plan.html">Retirement Made Easy</option>
+            <option value="aca_marketplace.html">ACA Marketplace</option>
+            <option value="medicare_aca_dev.html">Medicare Hub</option>
+            <option value="terms.html">Terms Used</option>
+        </optgroup>
+
+        <optgroup label="Calculators">
+            <option value="retirement_calculator.html">Retirement Calculator</option>
+            <option value="montecarlo_retirement.html">Retirement Confidence</option>
+            <option value="401k_compounding.html">401k Compounding</option>
+            <option value="tax_calculator.html">Income Tax Calculator</option>
+        </optgroup>
+
+        <optgroup label="Go Back">
+            <option value="index.html">HOME</option>
+        </optgroup>
+    </select>
+</div>
+
+<div class="page-wrapper">
+
+<header>
+    <h1>Healthcare Coverage (Medicare)</h1>
+</header>
+
+<div class="content">
+
+<p>During work years, we pick a health insurance covered by employer for ourselves and family and take care of health coverage. What happens during retirement?</p>
+
+<p>What is Medicare? What are the components of Medicare? We have already seen in the Medicare page. Let us spend some time on the details around it. One important note: application should start during the 7-month initial enrollment period. Details are available on Medicare web site.</p>
+
+<p><strong>Given below are some premium costs based on 2026 numbers (use for estimation purposes)</strong></p>
+
+<div class="table-container">
+<table>
+<tr>
+<th>Income (MAGI)</th>
+<th>Part B</th>
+<th>Part D</th>
+<th>IRMAA</th>
+<th>Total / Month</th>
+<th>Per Person / Year</th>
+<th>Couple / Year</th>
+</tr>
+
+<tr>
+<td>$218k or less</td>
+<td>$202.90</td>
+<td>$35</td>
+<td>$0</td>
+<td>$237.90</td>
+<td>$2,854.80</td>
+<td>$5,709.60</td>
+</tr>
+
+<tr>
+<td>$218k–$274k</td>
+<td>$284.10</td>
+<td>$35</td>
+<td>$14.50</td>
+<td>$333.60</td>
+<td>$4,003.20</td>
+<td>$8,006.40</td>
+</tr>
+
+<tr>
+<td>$274k–$342k</td>
+<td>$405.80</td>
+<td>$35</td>
+<td>$37.50</td>
+<td>$478.30</td>
+<td>$5,739.60</td>
+<td>$11,479.20</td>
+</tr>
+
+</table>
+</div>
+
+<p>IRMAA is a surcharge (Income Related Monthly Adjustment Amount) added to Medicare Part B and Part D premiums based on income levels (MAGI). This is a key parameter to watch during retirement projections.</p>
+
+<ul>
+<li>Medicare uses a <strong>2-year look back rule</strong> to determine premiums.</li>
+<li>MAGI includes: 401k withdrawals, Roth conversions, interest/dividends, capital gains, rental income.</li>
+<li>Does NOT include: Roth withdrawals, HSA reimbursements, return of principal.</li>
+</ul>
+
+</div>
+
+<div class="nav-area">
+    <a href="aca_marketplace.html" class="gold-btn">🩺 ACA Marketplace</a>
+    <a href="medicare_aca_dev.html" class="gold-btn">Medicare Hub</a>
+    <a href="index.html" class="home-btn">🏠</a>
+</div>
+
+</div>
+
+</body>
+</html>

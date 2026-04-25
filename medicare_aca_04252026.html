@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Planning</title>
+    <title>Medicare</title>
     <style>
         :root {
             --bg-dark: #0d1b1e;
@@ -67,7 +67,7 @@
 
         /* ── HEADER ── */
         header {
-            padding: 40px 30px 16px; /* Increased top padding to clear red corner */
+            padding: 40px 30px 16px;
             text-align: center;
             position: relative;
         }
@@ -78,9 +78,8 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: white;
-            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000,
-                         1px -1px 0px #000, -1px 1px 0px #000;
-            font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+            text-shadow: 3px 3px 0px #000;
+            font-family: 'Arial Black', sans-serif;
         }
 
         .red-corner {
@@ -93,75 +92,54 @@
 
         /* ── CONTENT ── */
         .content {
-            padding: 6px 28px 20px;
+            padding: 10px 30px;
             font-size: 15px;
-            line-height: 1.55;
+            line-height: 1.6;
             flex: 1;
         }
 
-        .intro-question {
-            color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 15px;
-            margin-bottom: 10px;
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
         }
 
-        .intro-text {
-            font-style: italic;
-            color: #e0e0e0;
-            margin-bottom: 18px;
-            font-size: 14.5px;
-            line-height: 1.6;
-        }
-
-        .area { margin-bottom: 18px; }
-
-        .area-header {
-            font-style: italic;
-            font-weight: 600;
-            color: #e0e0e0;
-            font-size: 14.5px;
-            margin-bottom: 6px;
-            line-height: 1.5;
-        }
-
-        .area-bullets {
-            list-style: none;
-            padding-left: 32px;
-        }
-
-        .area-bullets li {
+        .section-title {
             color: var(--text-yellow);
-            font-style: italic;
-            font-size: 14px;
-            line-height: 1.7;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 20px 0 10px;
+            text-decoration: underline;
         }
 
-        .area-bullets li::before { content: "- "; }
-
-        .closing-note {
-            font-style: italic;
-            color: #e0e0e0;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-top: 10px;
-            margin-bottom: 8px;
+        .entry {
+            margin-bottom: 12px;
         }
+
+        .entry strong { color: var(--accent-gold); }
+        .entry em { color: #e0e0e0; font-style: italic; }
+
+        .italic { font-style: italic; color: #e0e0e0; margin-bottom: 10px; }
+
+        .ref-link { color: var(--accent-gold); word-break: break-all; }
+        .ref-note { font-size: 13px; color: #ccc; margin-top: 4px; }
 
         /* ── NAV AREA ── */
         .nav-area {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 28px 36px;
+            padding: 20px 28px 40px;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .medicare-btn {
+        .gold-btn {
             background-color: var(--accent-gold);
             color: black;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
             font-weight: bold;
             text-decoration: none;
@@ -172,9 +150,7 @@
             align-items: center;
             gap: 8px;
         }
-
-        .medicare-btn:hover  { background: #693909; color: white; border-color: #693909; }
-        .medicare-btn:active { transform: scale(0.98); }
+        .gold-btn:hover  { background: #693909; color: white; border-color: #693909; }
 
         .home-btn {
             background-color: white;
@@ -188,16 +164,13 @@
             height: 45px;
             text-decoration: none;
         }
-
-        .home-btn:hover  { background: #693909; color: white; border-color: #693909; }
-        .home-btn:active { transform: scale(0.98); }
+        .home-btn:hover { background: #693909; border-color: #693909; }
 
         footer {
             height: 20px;
             width: 100%;
             background-color: var(--red-accent);
             border-top: 2px solid #000;
-            flex-shrink: 0;
         }
 
         @media (max-width: 600px) {
@@ -215,9 +188,9 @@
         <optgroup label="Core Planning">
             <option value="transition_plan.html">Retirement Made Easy</option>
             <option value="retirement_plan.html">What is Retirement?</option>
-            <option value="steps_retirement.html">5 Steps in Retirement</option>
-            
-            <option value="medicare_aca.html">Medicare & ACA</option>
+            <option value="steps_retirement.html">Steps in retirement planning</option>
+            <option value="financial_plan.html">Financial Plan</option>
+            <option value="aca_marketplace.html">ACA Marketplace</option>
             <option value="terms.html">Terms Used</option>
             <option value="website.html">Web Sites</option>
         </optgroup>
@@ -232,84 +205,61 @@
 		 <option value="index.html">HOME</option>
 		</optgroup>
 		
+		
     </select>
 </div>
 
 <div class="page-wrapper">
-
     <header>
         <div class="red-corner"></div>
-        <h1>Financial Planning</h1>
+        <h1>Medicare</h1>
     </header>
 
     <div class="content">
-        <img src="six_areas_financial_plan.jpg" alt="6 Areas of Financial Planning Wheel" style="width:100%;height:auto;border-radius:8px;margin-bottom:18px;border:1px solid rgba(255,255,255,0.15);">
+        
 
-        <p class="intro-question">What are the 6 areas of comprehensive financial planning?</p>
+        <div class="section-title">The Four Parts of Medicare</div>
+        
+        <div class="entry">
+            <strong>Part A (Hospital Insurance):</strong>
+            <em> Covers inpatient hospital stays, care in a skilled nursing facility, hospice care, and some home health care.</em>
+        </div>
 
-        <p class="intro-text">
-            The six core areas of financial planning include financial position (cash flow/debt), protection
-            planning (insurance), investment planning, tax planning, retirement planning, and estate
-            planning.
+        <div class="entry">
+            <strong>Part B (Medical Insurance):</strong>
+            <em> Covers certain doctors' services, outpatient care, medical supplies, and preventive services.</em>
+        </div>
+
+        <div class="entry">
+            <strong>Part C (Medicare Advantage):</strong>
+            <em> An all-in-one alternative to Original Medicare, offered by private companies approved by Medicare. These "bundled" plans include Part A, Part B, and usually Part D.</em>
+        </div>
+
+        <div class="entry">
+            <strong>Part D (Prescription Drug Coverage):</strong>
+            <em> Helps cover the cost of prescription drugs (including many recommended shots or vaccines).</em>
+        </div>
+
+        <div class="entry">
+            <strong>Medigap:</strong>
+            <em> Private insurance, known as Medicare Supplement Insurance, can be purchased to help pay out-of-pocket costs in Original Medicare.</em>
+        </div>
+
+        <br>
+        <p class="italic">
+            Medicare application should generally start during your 7-month Initial Enrollment Period (IEP), which begins 3 months before your 65<sup>th</sup> birthday month and ends 3 months after.
         </p>
 
-        <div class="area">
-            <p class="area-header">1. Financial Position/Cash Flow Management</p>
-            <ul class="area-bullets">
-                <li>Cash flow / budgeting</li>
-                <li>Debt management and emergency reserves planning</li>
-            </ul>
-        </div>
-
-        <div class="area">
-            <p class="area-header">2. Protection Planning (Risk Management)</p>
-            <ul class="area-bullets">
-                <li>Life, Disability, and Long-term care insurance</li>
-                <li>Employee benefits</li>
-            </ul>
-        </div>
-
-        <div class="area">
-            <p class="area-header">3. Investment Planning</p>
-            <ul class="area-bullets">
-                <li>Portfolio management and institutional level management</li>
-                <li>Evaluating risk tolerance and time horizon</li>
-            </ul>
-        </div>
-
-        <div class="area">
-            <p class="area-header">4. Tax Planning</p>
-            <ul class="area-bullets">
-                <li>Company retirement plans and personalization</li>
-                <li>Traditional, Roth, and Rollover IRAs</li>
-            </ul>
-        </div>
-
-        <div class="area">
-            <p class="area-header">5. Retirement Planning</p>
-            <ul class="area-bullets">
-                <li>Distribution planning and income identification</li>
-                <li>Plan for "sequence-of-returns risk"</li>
-            </ul>
-        </div>
-
-        <div class="area">
-            <p class="area-header">6. Estate Planning</p>
-            <ul class="area-bullets">
-                <li>Wealth transfer and business succession</li>
-                <li>Co-ordination of insurance and estate documents</li>
-            </ul>
-        </div>
-
-        <p class="closing-note">Each area is critical and should be planned alongside others, not in silos.</p>
-
-        <img src="cash_flow.jpg" alt="4 Key Retirement Cash Flow Topics" style="width:100%;height:auto;border-radius:8px;margin-top:12px;margin-bottom:4px;border:1px solid rgba(255,255,255,0.15);">
+        <a class="ref-link" href="https://www.ssa.gov/medicare/plan/when-to-sign-up" target="_blank">
+            https://www.ssa.gov/medicare/plan/when-to-sign-up
+        </a>
+        <p class="ref-note">Use this link for details and to find your specific dates.</p>
     </div>
 
     <div class="nav-area">
-        <a href="medicare_aca.html" class="medicare-btn"><span>🩺</span> Medicare & ACA</a>
-        <a href="retirement_calculator.html" class="medicare-btn"><span>📈💰📊</span> Retirement Calculator</a>
-        <a href="retirement_plan.html" class="medicare-btn"><span>🏌️</span> Retirement Plan</a>
+        <a href="aca_marketplace.html" class="gold-btn"><span>🩺</span> ACA Marketplace</a>
+        <a href="retirement_plan.html" class="gold-btn"><span>🏌️</span> Retirement Plan</a>
+        <a href="financial_plan.html" class="gold-btn"><span>💰</span> Financial Plan</a>
         <a href="index.html" class="home-btn">🏠</a>
     </div>
 

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthcare Coverage (ACA)</title>
+
+<style>
+:root {
+    --bg-dark: #0d1b1e;
+    --bg-light: #1b4d5c;
+    --accent-gold: #e7ca60;
+    --text-yellow: #f4d03f;
+    --red-accent: #a82222;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #080f11;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Top Nav */
+.top-nav {
+    width: 100%;
+    background-color: #000;
+    padding: 14px 20px;
+    border-bottom: 4px solid var(--red-accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-nav h1 {
+    color: white;
+    font-size: clamp(18px, 3vw, 24px);
+}
+
+.top-nav select {
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+/* Page Wrapper */
+.page-wrapper {
+    width: 100%;
+    max-width: 700px;
+    background: radial-gradient(circle at center, var(--bg-light), var(--bg-dark));
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 30px 20px 10px;
+}
+
+header h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Content */
+.content {
+    padding: 20px;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.content p {
+    margin-bottom: 16px;
+}
+
+/* Highlight headings inside text */
+.highlight {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+/* Bottom Nav */
+.nav-area {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: auto;
+}
+
+.gold-btn {
+    background: var(--accent-gold);
+    color: black;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 2px solid black;
+}
+
+.home-btn {
+    background: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-nav">
+    <h1>Retire Wise and Live Happy</h1>
+
+    <select onchange="if(this.value) window.location.href=this.value;">
+        <option value="">Explore Topics</option>
+
+        <optgroup label="Core Planning">
+            <option value="transition_plan.html">Retirement Made Easy</option>
+            <option value="aca_marketplace.html">ACA Marketplace</option>
+            <option value="medicare_aca_dev.html">Medicare Hub</option>
+            <option value="terms.html">Terms Used</option>
+        </optgroup>
+
+        <optgroup label="Calculators">
+            <option value="retirement_calculator.html">Retirement Calculator</option>
+            <option value="montecarlo_retirement.html">Retirement Confidence</option>
+            <option value="401k_compounding.html">401k Compounding</option>
+            <option value="tax_calculator.html">Income Tax Calculator</option>
+        </optgroup>
+
+        <optgroup label="Go Back">
+            <option value="index.html">HOME</option>
+        </optgroup>
+    </select>
+</div>
+
+<div class="page-wrapper">
+
+<header>
+    <h1>Healthcare Coverage (ACA)</h1>
+</header>
+
+<div class="content">
+
+<p><span class="highlight">What is Affordable Care Act (ACA)?</span> It was legislated in 2010 to increase health insurance coverage, reduce costs, and implement consumer protections.</p>
+
+<p><span class="highlight">Health Insurance Marketplace:</span> A central platform (such as healthcare.gov) where individuals can compare and purchase private insurance plans.</p>
+
+<p><span class="highlight">Subsidies and tax credits:</span> If your incomes are between 100% and 400% of the federal poverty level, you may be eligible for subsidies and tax credits.</p>
+
+<p><span class="highlight">Essential health benefits:</span> All ACA compliant plans must cover ten core areas, including emergency services, prescription drugs, maternity care, and mental health services.</p>
+
+<p><span class="highlight">Consumer protections:</span> Insurance companies cannot deny coverage or charge more for pre-existing conditions, nor can they set annual or lifetime limits on essential health benefits.</p>
+
+<br>
+
+<p><span class="highlight">How is ACA used by people who are planning for retirement?</span></p>
+
+<p>For example, let’s assume that one of the spouses is planning to retire while the other is not working (otherwise they could have used the working spouse’s health insurance). They can time it such that the retirement is at age 65 or later, apply for Medicare in the initial enrollment period, and avail it later.</p>
+
+<p>If the non-working spouse is younger than 65, ACA could be used to bridge the gap. If the non-working spouse is 65 or older, they could have started their Medicare.</p>
+
+<p>You can go to Covered California Plans (if you are a resident of CA) and shop for plans which suit your needs.</p>
+
+</div>
+
+<div class="nav-area">
+    <a href="medicare_aca.html" class="gold-btn">Medicare Hub</a>
+    <a href="transition_plan.html" class="gold-btn">Retirement Plan</a>
+    <a href="index.html" class="home-btn">🏠</a>
+</div>
+
+</div>
+
+</body>
+</html>
