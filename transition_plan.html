@@ -23,36 +23,35 @@
     color: var(--white);
     font-family: 'Lora', Georgia, serif;
     font-size: 15px;
-    min-height: 120vh;
+    min-height: 100vh;
     padding-right: 14px;
   }
 
-  /* --- Top Nav (Matched from Index) --- */
+  /* ── Top Nav ── */
   .top-nav {
-      width: 100%;
-      background-color: #000000;
-      padding: 14px 20px;
-      border-bottom: 4px solid #a82222;
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center;
-      position: relative;
-      z-index: 300;
+    width: 100%;
+    background-color: #000;
+    padding: 14px 20px;
+    border-bottom: 4px solid #a82222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 300;
   }
-
   .top-nav h1 {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: clamp(18px, 3.5vw, 24px);
-      letter-spacing: 1px;
-      font-weight: 600;
-      color: #FFFFFF;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(18px, 3.5vw, 24px);
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
   }
-
   .top-nav select {
-      padding: 8px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
   }
 
   /* Red accent strip */
@@ -60,8 +59,7 @@
     content: '';
     position: fixed;
     top: 0; right: 0;
-    width: 8px;
-    height: 100%;
+    width: 8px; height: 100%;
     background: var(--red);
     z-index: 100;
   }
@@ -69,10 +67,8 @@
   /* Home icon */
   .home-icon {
     position: fixed;
-    top: 80px; /* Adjusted down to clear the new nav bar */
-    right: 22px;
-    width: 40px;
-    height: 40px;
+    top: 80px; right: 22px;
+    width: 40px; height: 40px;
     background: var(--gold);
     border-radius: 8px;
     display: flex;
@@ -85,14 +81,14 @@
   }
   .home-icon:hover { background: var(--gold-lt); }
 
-  /* ── CONTAINER ── */
+  /* ── Container ── */
   .container {
-    max-width: 760px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 36px 20px 60px;
   }
 
-  /* ── PAGE TITLE ── */
+  /* ── Page Title ── */
   .page-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(22px, 6vw, 36px);
@@ -101,13 +97,19 @@
     text-transform: uppercase;
     color: var(--white);
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     padding-bottom: 16px;
     border-bottom: 1px solid rgba(201,147,58,0.3);
   }
 
-  /* ... (Rest of your existing CSS remains the same) ... */
-  
+  .intro {
+    font-style: italic;
+    color: var(--white-dim);
+    line-height: 1.75;
+    margin-bottom: 20px;
+    font-size: clamp(13px, 3vw, 14px);
+  }
+
   .section-heading {
     font-family: 'Lora', serif;
     font-size: clamp(13px, 3vw, 16px);
@@ -118,18 +120,11 @@
     margin: 24px 0 14px;
   }
 
-  .intro {
-    font-style: italic;
-    color: var(--white-dim);
-    line-height: 1.75;
-    margin-bottom: 10px;
-    font-size: clamp(13px, 3vw, 14px);
-  }
-
+  /* ── Column Headers ── */
   .col-headers {
     display: grid;
-    grid-template-columns: 1fr 32px 1fr;
-    margin-bottom: 8px;
+    grid-template-columns: 1fr 28px 1fr;
+    margin-bottom: 10px;
   }
   .col-header {
     text-align: center;
@@ -139,55 +134,128 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     padding: 8px 0;
-    color: #FFFFFF;
+    color: #fff;
   }
 
-  .rows { display: flex; flex-direction: column; gap: 7px; }
+  /* ── Rows ── */
+  .rows { display: flex; flex-direction: column; gap: 8px; }
 
   .row {
     display: grid;
-    grid-template-columns: 1fr 32px 1fr;
-    align-items: stretch;
+    grid-template-columns: 1fr 28px 1fr;
+    align-items: start;
     gap: 0;
   }
 
   .arrow-col {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding-top: 16px;
     flex-shrink: 0;
   }
   .arrow-down { display: none; }
 
-  .cell {
-    padding: 11px 14px;
-    border-radius: 6px;
-    border: 1px solid rgba(201,147,58,0.3);
-    text-decoration: none;
-    display: block;
-    background: var(--gold);
-    transition: border-color 0.18s, background 0.18s;
-    min-width: 0;
+  /* ── Accordion Cell ── */
+  .acc-cell {
+    border-radius: 8px;
+    border: 1px solid rgba(201,147,58,0.4);
+    overflow: hidden;
   }
-  .cell:hover  { border-color: var(--gold); background: rgba(255,255,255,0.4); }
+
+  .acc-cell-header {
+    width: 100%;
+    background: var(--gold);
+    border: none;
+    cursor: pointer;
+    padding: 11px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .acc-cell-header:hover { background: var(--gold-lt); }
+  .acc-cell-header.open  { background: var(--gold-lt); }
+
+  .acc-cell-header-text { flex: 1; min-width: 0; }
 
   .cell-title {
     font-family: 'Lora', serif;
-    font-size: clamp(14px, 2.5vw, 13px);
+    font-size: clamp(13px, 2.5vw, 14px);
     font-weight: 900;
-    color: #000000;
-    margin-bottom: 3px;
+    color: #000;
+    margin-bottom: 2px;
     line-height: 1.3;
   }
   .cell-sub {
     font-family: 'Lora', serif;
     font-size: clamp(10px, 2vw, 11px);
-	font-weight: 900;
+    font-weight: 700;
     font-style: italic;
-    color: #0040FF;
-    line-height: 1.4;
+    color: #0040ff;
+    line-height: 1.3;
   }
 
+  .acc-toggle {
+    font-size: 18px;
+    color: #000;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-left: 8px;
+    transition: transform 0.25s;
+    line-height: 1;
+  }
+  .acc-cell-header.open .acc-toggle {
+    transform: rotate(45deg);
+  }
+
+  /* ── Accordion Body ── */
+  .acc-cell-body {
+    display: none;
+    padding: 12px 14px;
+    background: rgba(0,0,0,0.25);
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--white);
+    border-top: 1px solid rgba(201,147,58,0.25);
+  }
+  .acc-cell-body.open { display: block; }
+
+  .acc-cell-body p {
+    margin-bottom: 8px;
+    color: var(--white-dim);
+  }
+  .acc-cell-body p:last-child { margin-bottom: 0; }
+
+  .acc-cell-body ul {
+    padding-left: 16px;
+    margin-bottom: 8px;
+    color: var(--white-dim);
+  }
+  .acc-cell-body ul li { margin-bottom: 4px; }
+
+  .acc-cell-body .sub-label {
+    color: var(--gold-lt);
+    font-weight: bold;
+    display: block;
+    margin: 8px 0 3px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .placeholder {
+    color: rgba(201,147,58,0.5);
+    font-style: italic;
+    font-size: 12px;
+    border: 1px dashed rgba(201,147,58,0.3);
+    border-radius: 4px;
+    padding: 8px 10px;
+  }
+
+  /* ── Shared Section ── */
   .shared-divider {
     display: flex;
     align-items: center;
@@ -195,7 +263,7 @@
     margin: 28px 0 14px;
     font-style: italic;
     font-size: 14px;
-    color: #FFFFFF;
+    color: #fff;
     white-space: nowrap;
   }
   .shared-divider::before,
@@ -211,24 +279,35 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
   }
-  .shared-card {
-    padding: 11px 14px;
-    border-radius: 6px;
+
+  /* Shared cards also as accordions */
+  .shared-acc {
+    border-radius: 8px;
     border: 1px solid rgba(201,147,58,0.5);
-    background: rgba(201,147,58,0.08);
-    text-decoration: none;
-    display: block;
-    transition: background 0.18s, border-color 0.18s;
-    min-width: 0;
+    overflow: hidden;
   }
-  .shared-card:hover  { background: rgba(201,147,58,0.18); border-color: var(--gold); }
+
+  .shared-acc-header {
+    width: 100%;
+    background: rgba(201,147,58,0.1);
+    border: none;
+    cursor: pointer;
+    padding: 11px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .shared-acc-header:hover { background: rgba(201,147,58,0.2); }
+  .shared-acc-header.open  { background: rgba(201,147,58,0.18); border-bottom: 1px solid rgba(201,147,58,0.3); }
 
   .shared-card-title {
     font-family: 'Lora', serif;
     font-size: clamp(11px, 2.5vw, 13px);
     font-weight: 900;
     color: var(--gold-lt);
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     line-height: 1.3;
   }
   .shared-card-sub {
@@ -236,9 +315,31 @@
     font-size: clamp(10px, 2vw, 11px);
     font-style: italic;
     color: var(--white-dim);
-    line-height: 1.4;
+    line-height: 1.3;
   }
 
+  .shared-toggle {
+    font-size: 16px;
+    color: var(--gold-lt);
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-left: 6px;
+    transition: transform 0.25s;
+  }
+  .shared-acc-header.open .shared-toggle { transform: rotate(45deg); }
+
+  .shared-acc-body {
+    display: none;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.2);
+    font-family: 'Lora', serif;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--white-dim);
+  }
+  .shared-acc-body.open { display: block; }
+
+  /* ── Legend ── */
   .legend {
     margin-top: 20px;
     display: flex;
@@ -252,11 +353,15 @@
   .legend-dot {
     width: 10px; height: 10px;
     border-radius: 2px;
-    border: 1px solid rgba(201,147,58,0.5);
+    background: var(--gold);
     flex-shrink: 0;
   }
-  .legend-dot.shared { background: rgba(201,147,58,0.18); border-color: var(--gold); }
+  .legend-dot.shared {
+    background: rgba(201,147,58,0.18);
+    border: 1px solid var(--gold);
+  }
 
+  /* ── Bottom Nav ── */
   .bottom-nav {
     display: flex;
     justify-content: center;
@@ -285,59 +390,53 @@
     transition: background 0.18s, transform 0.1s;
     min-width: 140px;
   }
-  .nav-btn:hover  { background: #693909; border-color: var(--gold-lt); }
+  .nav-btn:hover { background: #693909; border-color: var(--gold-lt); color: white; }
 
+  /* ── Mobile ── */
   @media (max-width: 559px) {
     body { padding-right: 10px; }
     body::after { width: 6px; }
     .home-icon { top: 70px; right: 16px; width: 36px; height: 36px; font-size: 18px; }
-    .container { padding: 28px 14px 50px; }
+    .container { padding: 28px 12px 50px; }
     .col-headers { display: none; }
     .arrow-col   { display: none; }
-    .row { display: flex; flex-direction: column; }
-    .arrow-down { display: flex; justify-content: center; padding: 4px 0; }
-    .cell.work   { border-radius: 6px 6px 0 0; border-bottom: none; }
-    .cell.retire { border-radius: 0 0 6px 6px; border-top: 1px dashed rgba(201,147,58,0.25); }
+    .row { display: flex; flex-direction: column; gap: 4px; }
+    .arrow-down { display: flex; justify-content: center; padding: 2px 0; }
     .shared-cards { grid-template-columns: 1fr; }
     .bottom-nav { flex-direction: column; gap: 10px; }
-    .nav-btn    { width: 100%; max-width: 320px; }
+    .nav-btn { width: 100%; max-width: 320px; }
   }
 </style>
 </head>
 <body>
 
-<div class="top-nav" style="display:flex; justify-content:space-between; align-items:center; background-color: #000000; padding: 14px 20px; border-bottom: 4px solid #a82222; position: relative; z-index: 300;">
-    <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: clamp(18px, 3.5vw, 24px); letter-spacing: 1px; font-weight: 600; color: #FFFFFF; margin: 0;">Retire Wise and Live Happy</h1>
-
-    <select onchange="if(this.value) window.location.href=this.value;" style="padding:8px; border-radius:6px; font-weight:bold; cursor:pointer;">
+<!-- Top Nav -->
+<div class="top-nav">
+    <h1>Retire Wise and Live Happy</h1>
+    <select onchange="if(this.value) window.location.href=this.value;">
         <option value="">Explore Topics</option>
-        
         <optgroup label="Core Planning">
             <option value="retirement_plan.html">What is Retirement?</option>
             <option value="terms.html">Terms Used</option>
             <option value="website.html">Web Sites</option>
         </optgroup>
-
         <optgroup label="Calculators">
             <option value="retirement_calculator.html">Retirement Calculator</option>
             <option value="montecarlo_retirement.html">Retirement Confidence</option>
             <option value="401k_compounding.html">401k Compounding</option>
             <option value="tax_calculator.html">Income Tax Calculator</option>
         </optgroup>
-		
-		<optgroup label="Healthcare">
+        <optgroup label="Healthcare">
             <option value="medicare_aca.html">Medicare Hub</option>
             <option value="healthcare_medicare.html">Healthcare - Medicare</option>
             <option value="healthcare_aca.html">Healthcare - ACA</option>
             <option value="aca_vs_cobra.html">ACA vs COBRA</option>
-			<option value="medicare_flowchart.html">Medicare Flowchart</option>
-			<option value="long_term_care.html">Long Term Care</option>
+            <option value="medicare_flowchart.html">Medicare Flowchart</option>
+            <option value="long_term_care.html">Long Term Care</option>
         </optgroup>
-		
-		<optgroup label="Go Back">
-		 <option value="index.html">HOME</option>
-		</optgroup>
-		
+        <optgroup label="Go Back">
+            <option value="index.html">HOME</option>
+        </optgroup>
     </select>
 </div>
 
@@ -348,8 +447,8 @@
 
   <p class="intro">
     A comprehensive view of how each pillar of your financial and personal life evolves from your working years into retirement.
-	<br><br> We will get into details of components in each pillar as we move along the retirement phases. To figure out "What is Retirement?"
-	click on the button at the bottom. It will take you through the phases and prepare you for the beautiful next phase in life.
+    <br><br>Tap any card to expand details. We will get into details of components in each pillar as we move along the retirement phases.
+    To figure out "What is Retirement?" click on the button at the bottom.
   </p>
 
   <h2 class="section-heading">Working Years → Retirement</h2>
@@ -366,14 +465,13 @@
   <div class="shared-cards" id="shared-cards"></div>
 
   <div class="legend">
-    <div class="legend-item"><div class="legend-dot work"></div>Working years focus</div>
-    <div class="legend-item"><div class="legend-dot retire"></div>Retirement focus</div>
+    <div class="legend-item"><div class="legend-dot"></div>Working years / Retirement focus</div>
     <div class="legend-item"><div class="legend-dot shared"></div>Shared across both</div>
   </div>
 
   <div class="bottom-nav">
     <a href="retirement_plan.html" class="nav-btn">
-      <span class="btn-icon">✈️🌴🌅 What is Retirement? 🎉👋🧑‍🦳</span>
+      ✈️🌴🌅 What is Retirement? 🎉👋🧑‍🦳
     </a>
   </div>
 </div>
@@ -389,75 +487,268 @@ const arrowDownSVG = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none
         stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
 
+// Each row: work and retire each have title, sub, and body (placeholder for you to fill)
 const rows = [
   {
-    work:   { title: 'Income',                    sub: 'Salary, bonuses, side income'        },
-    retire: { title: 'Income streams',             sub: 'Social Security, pension, withdrawals'  }
+    work: {
+      title: 'Income',
+      sub: 'Salary, bonuses, side income',
+      body: `
+        <span class="sub-label">Foundation Layer — Income Categories</span>
+        <ul>
+          <li>Salary (base pay)</li>
+          <li>Bonuses (variable)</li>
+          <li>Side income (consulting, freelancing)</li>
+          <li>Equity Compensation (RSU, ESPP)</li>
+          <li>Passive income (rent, dividends, interest)</li>
+        </ul>
+
+        <span class="sub-label">What to do during working years</span>
+        <ul>
+          <li><strong>Stabilize &amp; grow income:</strong> Increase primary income every 2–3 years | Build at least one secondary income stream | Avoid over-reliance on bonuses</li>
+          <li><strong>Convert income into assets:</strong> Income is temporary and assets are permanent — target savings rate 25%–40% | Automate 401(k), HSA, Brokerage</li>
+          <li><strong>Smooth income volatility:</strong> Treat bonuses as 50% invest, 25% goals, 25% lifestyle</li>
+          <li><strong>Track from early income:</strong> Fixed vs Variable Income | Growth rate assumption | Income and Age</li>
+        </ul>
+
+        <p>Salary base pay is critical — it drives bonus calculations, determines retirement contributions, impacts Social Security benefits, affects borrowing capacity, and influences tax bracket positioning.</p>
+        <p>Learn the art of negotiation when asking for the right compensation package, in line with the skills &amp; experience you bring and the value you add through your service.</p>
+      `
+    },
+    retire: {
+      title: 'Income Streams',
+      sub: 'Social Security, pension, withdrawals',
+      body: `<p class="placeholder">[ Add content here — e.g. Social Security timing, pension options, brokerage withdrawals, the role of dividends and interest income in retirement ]</p>`
+    }
   },
   {
-    work:   { title: 'Employer benefits',          sub: 'Health, 401k match, PTO, life ins.',      },
-    retire: { title: 'Healthcare coverage',        sub: 'Medicare, supplemental, long-term care',  }
+    work: {
+      title: 'Employer Benefits',
+      sub: 'Health, 401k match, PTO, life ins.',
+      body: `
+        <span class="sub-label">Health Insurance</span>
+        <ul>
+          <li>Employer-sponsored health plans are often worth $10K–$20K+ per year in premiums paid on your behalf</li>
+          <li><strong>Know your plan type:</strong> HMO (lower cost, restricted network) | PPO (more flexibility, higher cost) | HDHP (high deductible — pairs with HSA)</li>
+          <li>If offered an HDHP, always contribute to the HSA — the only triple tax-advantaged account (pre-tax in, grows tax-free, tax-free out for medical)</li>
+          <li>Review open enrollment every year — your needs change, and so do plan offerings</li>
+          <li>A working spouse's plan may be better — always compare before defaulting to your employer's plan</li>
+        </ul>
+
+        <span class="sub-label">401k Match</span>
+        <ul>
+          <li>Free money — always contribute at least enough to get the full employer match, no exceptions</li>
+          <li>Typical match: 50%–100% of contributions up to 3%–6% of salary — leaving it unclaimed is an instant loss</li>
+          <li><strong>Vesting schedules matter:</strong> Cliff vesting (all-or-nothing at a date) vs graded vesting (phased over years) — leaving early could forfeit unvested amounts</li>
+          <li>Max out beyond the match if possible — 2024 limit is $23,000 ($30,500 if age 50+)</li>
+          <li>Choose low-cost index funds inside the plan wherever available</li>
+        </ul>
+
+        <span class="sub-label">PTO (Paid Time Off)</span>
+        <ul>
+          <li>PTO has real monetary value — know your company's policy: payout at separation vs use-it-or-lose-it</li>
+          <li>If your company pays out unused PTO, track it as part of your total compensation</li>
+          <li>Use PTO strategically — mental recovery directly impacts productivity, career longevity, and health</li>
+          <li>Some companies offer PTO buyback programs or conversion to retirement contributions</li>
+        </ul>
+
+        <span class="sub-label">Life Insurance</span>
+        <ul>
+          <li>Employer-provided group term life is typically 1–2x salary — often not enough for a family with dependents</li>
+          <li>Usually free or very low cost — always enroll</li>
+          <li>Do <strong>not</strong> rely solely on employer life insurance — it ends when you leave the job</li>
+          <li>Supplement with a personal term life policy, especially while you have dependents, a mortgage, or income obligations</li>
+          <li><strong>Term life</strong> (pure protection, lower cost) vs <strong>Whole/Universal life</strong> (investment component, higher cost) — understand the difference</li>
+        </ul>
+      `
+    },
+    retire: {
+      title: 'Healthcare Coverage',
+      sub: 'Medicare, supplemental, long-term care',
+      body: `<p class="placeholder">[ Add content here — e.g. Medicare Parts A/B/D, Medigap, Medicare Advantage, LTC insurance, IRMAA, the gap years before age 65 ]</p>`
+    }
   },
   {
-    work:   { title: 'Saving & investing',         sub: '401k, IRA, brokerage, emergency fund',    },
-    retire: { title: 'Withdrawal strategy',        sub: 'RMDs, sequence of returns, 4% rule',     }
+    work: {
+      title: 'Saving & Investing',
+      sub: '401k, IRA, brokerage, emergency fund',
+      body: `<p class="placeholder">[ Add content here — e.g. 401k contribution limits, Roth vs Traditional IRA, Mega Backdoor Roth, brokerage taxable accounts, emergency fund sizing ]</p>`
+    },
+    retire: {
+      title: 'Withdrawal Strategy',
+      sub: 'RMDs, sequence of returns, 4% rule',
+      body: `<p class="placeholder">[ Add content here — e.g. withdrawal order (taxable → tax-deferred → Roth), RMD rules, the 4% rule, sequence-of-returns risk, bucket strategy ]</p>`
+    }
   },
   {
-    work:   { title: 'Debt management',            sub: 'Mortgage, student loans, credit cards',   },
-    retire: { title: 'Spending & budgeting',       sub: 'Fixed vs. discretionary expenses',        }
+    work: {
+      title: 'Debt Management',
+      sub: 'Mortgage, student loans, credit cards',
+      body: `<p class="placeholder">[ Add content here — e.g. paying down high-interest debt, mortgage payoff strategy, entering retirement debt-free, debt vs. investing tradeoff ]</p>`
+    },
+    retire: {
+      title: 'Spending & Budgeting',
+      sub: 'Fixed vs. discretionary expenses',
+      body: `<p class="placeholder">[ Add content here — e.g. retirement spending smile, fixed vs. discretionary buckets, inflation-adjusting your budget, annual spend forecast methodology ]</p>`
+    }
   },
   {
-    work:   { title: 'Tax planning',               sub: 'Deductions, tax-advantaged accounts',     },
-    retire: { title: 'Tax in retirement',          sub: 'Roth conversions, bracket management',    }
+    work: {
+      title: 'Tax Planning',
+      sub: 'Deductions, tax-advantaged accounts',
+      body: `<p class="placeholder">[ Add content here — e.g. pre-tax vs. Roth contributions, tax-loss harvesting, maximizing deductions, HSA as a stealth retirement account ]</p>`
+    },
+    retire: {
+      title: 'Tax in Retirement',
+      sub: 'Roth conversions, bracket management',
+      body: `<p class="placeholder">[ Add content here — e.g. Roth conversion ladders, managing MAGI for IRMAA, Social Security taxation thresholds, capital gains rate optimization ]</p>`
+    }
   },
   {
-    work:   { title: 'Insurance & protection',     sub: 'Life, disability, liability coverage',   },
-    retire: { title: 'Estate & legacy',            sub: 'Will, trusts, beneficiaries, gifting',  }
+    work: {
+      title: 'Insurance & Protection',
+      sub: 'Life, disability, liability coverage',
+      body: `<p class="placeholder">[ Add content here — e.g. term vs. whole life, disability insurance importance, umbrella policy, how protection planning safeguards the financial plan ]</p>`
+    },
+    retire: {
+      title: 'Estate & Legacy',
+      sub: 'Will, trusts, beneficiaries, gifting',
+      body: `<p class="placeholder">[ Add content here — e.g. will vs. trust, durable power of attorney, beneficiary designations, annual gifting exclusion, Roth as legacy vehicle ]</p>`
+    }
   },
   {
-    work:   { title: 'Career & identity',          sub: 'Advancement, skills, purpose at work',    },
-    retire: { title: 'Purpose & fulfillment',      sub: 'Hobbies, volunteering, encore career',   }
+    work: {
+      title: 'Career & Identity',
+      sub: 'Advancement, skills, purpose at work',
+      body: `<p class="placeholder">[ Add content here — e.g. the identity tied to a career, transitioning away from a professional title, skills that carry over, the importance of knowing your "why" ]</p>`
+    },
+    retire: {
+      title: 'Purpose & Fulfillment',
+      sub: 'Hobbies, volunteering, encore career',
+      body: `<p class="placeholder">[ Add content here — e.g. finding structure and meaning in retirement, part-time consulting, passion projects, volunteering, travel, and personal growth ]</p>`
+    }
   },
   {
-    work:   { title: 'Social structure & routine', sub: 'Colleagues, schedule, daily rhythm',      },
-    retire: { title: 'Social & community',         sub: 'Relationships, community, family roles',  }
+    work: {
+      title: 'Social Structure & Routine',
+      sub: 'Colleagues, schedule, daily rhythm',
+      body: `<p class="placeholder">[ Add content here — e.g. how workplace provides social connection and routine, the importance of intentionally rebuilding this in retirement ]</p>`
+    },
+    retire: {
+      title: 'Social & Community',
+      sub: 'Relationships, community, family roles',
+      body: `<p class="placeholder">[ Add content here — e.g. maintaining friendships, community involvement, grandparenting, spouse adjustment, combating isolation in retirement ]</p>`
+    }
   }
 ];
 
 const shared = [
-  { title: 'Health & wellness',      sub: 'Physical, mental, preventive care',     },
-  { title: 'Housing & lifestyle',    sub: 'Location, downsizing, aging in place',  },
-  { title: 'Family & relationships', sub: 'Supporting kids, parents, spouse',     }
+  {
+    title: 'Health & Wellness',
+    sub: 'Physical, mental, preventive care',
+    body: `<p class="placeholder">[ Add content here — e.g. staying physically active, mental health in both phases, preventive care habits, the link between health and financial security ]</p>`
+  },
+  {
+    title: 'Housing & Lifestyle',
+    sub: 'Location, downsizing, aging in place',
+    body: `<p class="placeholder">[ Add content here — e.g. when to downsize, reverse mortgage considerations, aging-in-place modifications, relocating for tax or lifestyle reasons ]</p>`
+  },
+  {
+    title: 'Family & Relationships',
+    sub: 'Supporting kids, parents, spouse',
+    body: `<p class="placeholder">[ Add content here — e.g. supporting adult children, sandwich generation pressures, spousal alignment on retirement vision, caregiving responsibilities ]</p>`
+  }
 ];
 
+// Track open state per cell independently (row index + side)
+let openCells = {};   // key: "row-0-work", "row-0-retire", "shared-0" etc.
+
+function toggleCell(key, headerEl, bodyEl) {
+  const isOpen = openCells[key];
+  if (isOpen) {
+    headerEl.classList.remove('open');
+    bodyEl.classList.remove('open');
+    openCells[key] = false;
+  } else {
+    headerEl.classList.add('open');
+    bodyEl.classList.add('open');
+    openCells[key] = true;
+  }
+}
+
+function makeAccCell(data, key) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'acc-cell';
+
+  const header = document.createElement('button');
+  header.className = 'acc-cell-header';
+  header.innerHTML = `
+    <div class="acc-cell-header-text">
+      <div class="cell-title">${data.title}</div>
+      <div class="cell-sub">${data.sub}</div>
+    </div>
+    <span class="acc-toggle">+</span>
+  `;
+
+  const body = document.createElement('div');
+  body.className = 'acc-cell-body';
+  body.innerHTML = data.body;
+
+  header.addEventListener('click', () => toggleCell(key, header, body));
+  wrapper.appendChild(header);
+  wrapper.appendChild(body);
+  return wrapper;
+}
+
+// Build rows
 const rowsEl = document.getElementById('rows');
-rows.forEach(r => {
+rows.forEach((r, i) => {
   const div = document.createElement('div');
   div.className = 'row';
-  div.innerHTML = `
-    <div class="cell work" data-label="Working Years">
-      <div class="cell-title">${r.work.title}</div>
-      <div class="cell-sub">${r.work.sub}</div>
-    </div>
-    <div class="arrow-col">${arrowSVG}</div>
-    <div class="arrow-down">${arrowDownSVG}</div>
-    <div class="cell retire" data-label="Retirement">
-      <div class="cell-title">${r.retire.title}</div>
-      <div class="cell-sub">${r.retire.sub}</div>
-    </div>
-  `;
+
+  const workCell  = makeAccCell(r.work,   `row-${i}-work`);
+  const retireCell = makeAccCell(r.retire, `row-${i}-retire`);
+
+  const arrowDiv = document.createElement('div');
+  arrowDiv.className = 'arrow-col';
+  arrowDiv.innerHTML = arrowSVG;
+
+  const arrowDownDiv = document.createElement('div');
+  arrowDownDiv.className = 'arrow-down';
+  arrowDownDiv.innerHTML = arrowDownSVG;
+
+  div.appendChild(workCell);
+  div.appendChild(arrowDiv);
+  div.appendChild(arrowDownDiv);
+  div.appendChild(retireCell);
   rowsEl.appendChild(div);
 });
 
+// Build shared cards
 const sharedEl = document.getElementById('shared-cards');
-shared.forEach(s => {
-  const div = document.createElement('div');
-  div.className = 'shared-card';
-  div.innerHTML = `
-    <div class="shared-card-title">${s.title}</div>
-    <div class="shared-card-sub">${s.sub}</div>
+shared.forEach((s, i) => {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'shared-acc';
+
+  const header = document.createElement('button');
+  header.className = 'shared-acc-header';
+  header.innerHTML = `
+    <div>
+      <div class="shared-card-title">${s.title}</div>
+      <div class="shared-card-sub">${s.sub}</div>
+    </div>
+    <span class="shared-toggle">+</span>
   `;
-  sharedEl.appendChild(div);
+
+  const body = document.createElement('div');
+  body.className = 'shared-acc-body';
+  body.innerHTML = s.body;
+
+  const key = `shared-${i}`;
+  header.addEventListener('click', () => toggleCell(key, header, body));
+  wrapper.appendChild(header);
+  wrapper.appendChild(body);
+  sharedEl.appendChild(wrapper);
 });
 </script>
 </body>
