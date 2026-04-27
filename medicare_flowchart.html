@@ -7,18 +7,20 @@
 
 <style>
 :root {
-    --bg-dark: #0d1b1e;
-    --bg-light: #1b4d5c;
-    --accent-gold: #e7ca60;
-    --text-yellow: #f4d03f;
-    --red-accent: #a82222;
+    --bg-page:     #f2f4f7;
+    --bg-card:     #ffffff;
+    --accent-gold: #c9933a;
+    --gold-dark:   #8b6914;
+    --text-dark:   #1a2a3a;
+    --text-mid:    #3d5166;
+    --red-accent:  #a82222;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #080f11;
+    background-color: var(--bg-page);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,12 +52,15 @@ body {
 .page-wrapper {
     width: 100%;
     max-width: 700px;
-    background: radial-gradient(circle at center, var(--bg-light), var(--bg-dark));
-    color: white;
+    background: var(--bg-card);
+    color: var(--text-dark);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
+    border-left: 1px solid rgba(0,0,0,0.07);
+    border-right: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0 0 30px rgba(0,0,0,0.10);
 }
 
 /* Header */
@@ -71,7 +76,7 @@ header h1 {
 }
 
 header p.subtitle {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-size: 14px;
     margin-top: 6px;
 }
@@ -85,26 +90,27 @@ header p.subtitle {
 
 .content p {
     margin-bottom: 16px;
+    color: var(--text-mid);
 }
 
 .highlight {
-    color: #ff4d4d;
+    color: #b91c1c;
     font-weight: bold;
 }
 
 .gold {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-weight: bold;
 }
 
 /* Section label */
 .section-label {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-bottom: 1px solid var(--bg-light);
+    border-bottom: 2px solid #000;
     padding-bottom: 4px;
     margin: 20px 0 10px;
 }
@@ -118,14 +124,14 @@ header p.subtitle {
 }
 
 .part-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(231,202,96,0.3);
+    background: #f8f9fa;
+    border: 1.5px solid #000;
     border-radius: 8px;
     padding: 12px;
 }
 
 .part-card .part-label {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 4px;
@@ -133,7 +139,7 @@ header p.subtitle {
 
 .part-card .part-desc {
     font-size: 13px;
-    color: #ccc;
+    color: var(--text-mid);
 }
 
 /* Flow boxes */
@@ -145,27 +151,29 @@ header p.subtitle {
 }
 
 .flow-box {
-    background: rgba(255,255,255,0.05);
+    background: #f8f9fa;
+    border: 1.5px solid #000;
     border-radius: 8px;
     padding: 12px;
     font-size: 13px;
     line-height: 1.5;
+    color: var(--text-mid);
 }
 
 .flow-box.green {
-    border-left: 3px solid #4caf50;
+    border-left: 4px solid #2e7d32;
 }
 
 .flow-box.purple {
-    border-left: 3px solid #9c27b0;
+    border-left: 4px solid #6a1b9a;
 }
 
 .flow-box.red-border {
-    border-left: 3px solid #ff4d4d;
+    border-left: 4px solid #b91c1c;
 }
 
 .flow-box.gold-border {
-    border-left: 3px solid var(--accent-gold);
+    border-left: 4px solid var(--gold-dark);
 }
 
 .flow-box h4 {
@@ -197,13 +205,15 @@ header p.subtitle {
 }
 
 .medigap-card.yes {
-    background: rgba(76, 175, 80, 0.15);
-    border: 1px solid #4caf50;
+    background: rgba(46, 125, 50, 0.07);
+    border: 1.5px solid #000;
+    border-left: 5px solid #2e7d32;
 }
 
 .medigap-card.no {
-    background: rgba(168, 34, 34, 0.15);
-    border: 1px solid var(--red-accent);
+    background: rgba(185, 28, 28, 0.06);
+    border: 1.5px solid #000;
+    border-left: 5px solid #b91c1c;
 }
 
 .medigap-card h4 {
@@ -212,8 +222,8 @@ header p.subtitle {
     margin-bottom: 6px;
 }
 
-.medigap-card.yes h4 { color: #81c784; }
-.medigap-card.no h4  { color: #ff6b6b; }
+.medigap-card.yes h4 { color: #2e7d32; }
+.medigap-card.no h4  { color: #b91c1c; }
 
 .medigap-card ul {
     padding-left: 16px;
@@ -221,6 +231,7 @@ header p.subtitle {
 
 .medigap-card ul li {
     margin-bottom: 3px;
+    color: var(--text-mid);
 }
 
 .oop-note {
@@ -229,47 +240,47 @@ header p.subtitle {
     font-size: 12px;
 }
 
-.medigap-card.yes .oop-note { color: #81c784; }
-.medigap-card.no  .oop-note { color: #ff6b6b; }
+.medigap-card.yes .oop-note { color: #2e7d32; }
+.medigap-card.no  .oop-note { color: #b91c1c; }
 
 /* Important notes */
 .note-box {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(231,202,96,0.25);
+    background: #f8f9fa;
+    border: 1.5px solid #000;
     border-radius: 8px;
     padding: 12px 14px;
     margin-bottom: 10px;
     font-size: 13px;
-    color: #ddd;
+    color: var(--text-mid);
     line-height: 1.5;
 }
 
 .note-box strong {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
 }
 
 /* Key Takeaway */
 .takeaway {
-    background: rgba(231,202,96,0.08);
-    border: 1px solid var(--accent-gold);
+    background: rgba(139,105,20,0.07);
+    border: 1.5px solid #000;
     border-radius: 10px;
     padding: 14px;
     text-align: center;
     font-size: 14px;
-    color: #eee;
+    color: var(--text-dark);
     margin-top: 10px;
     line-height: 1.6;
 }
 
 .takeaway span {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-weight: bold;
 }
 
 /* Disclaimer */
 .disclaimer {
     font-size: 11px;
-    color: #888;
+    color: #666;
     text-align: center;
     padding: 0 20px;
     margin-top: 10px;
@@ -421,7 +432,7 @@ header p.subtitle {
     <p>Medigap is purchased in addition to Original Medicare to fill the coverage gaps — deductibles, coinsurance, and copays.</p>
 
     <!-- Inpatient with / without Medigap -->
-    <p style="color: var(--accent-gold); font-size:13px; margin-bottom:8px;">▶ For Inpatient Admission:</p>
+    <p style="color: var(--gold-dark); font-size:13px; margin-bottom:8px; font-weight:bold;">▶ For Inpatient Admission:</p>
     <div class="medigap-row">
         <div class="medigap-card yes">
             <h4>✅ With Medigap — Medigap Pays the Gaps</h4>
@@ -441,14 +452,14 @@ header p.subtitle {
                 <li>Part A &amp; B coinsurance</li>
                 <li>Blood deductible</li>
                 <li>Hospice coinsurance / copays</li>
-                <li>Can be <span style="color:#ff6b6b;">thousands of dollars</span></li>
+                <li>Can be <span style="color:#b91c1c;">thousands of dollars</span></li>
             </ul>
             <p class="oop-note">Your out-of-pocket = potentially very high</p>
         </div>
     </div>
 
     <!-- Observation with / without Medigap -->
-    <p style="color: var(--accent-gold); font-size:13px; margin-bottom:8px;">▶ For Observation / Outpatient Stay:</p>
+    <p style="color: var(--gold-dark); font-size:13px; margin-bottom:8px; font-weight:bold;">▶ For Observation / Outpatient Stay:</p>
     <div class="medigap-row">
         <div class="medigap-card yes">
             <h4>✅ With Medigap — Medigap Pays the Gaps</h4>
@@ -461,7 +472,7 @@ header p.subtitle {
         <div class="medigap-card no">
             <h4>❌ Without Medigap — You Pay the Gaps</h4>
             <ul>
-                <li>20% of ALL approved Part B services — <span style="color:#ff6b6b;">no cap</span></li>
+                <li>20% of ALL approved Part B services — <span style="color:#b91c1c;">no cap</span></li>
                 <li>Can be very expensive, especially for long observation stays</li>
             </ul>
             <p class="oop-note">Your out-of-pocket = potentially very high</p>

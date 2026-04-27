@@ -6,18 +6,20 @@
     <title>Steps in Retirement</title>
     <style>
         :root {
-            --bg-dark: #0d1b1e;
-            --bg-light: #1b4d5c;
-            --accent-gold: #e7ca60;
-            --text-yellow: #f4d03f;
-            --red-accent: #a82222;
+            --bg-page:     #f2f4f7;
+            --bg-card:     #ffffff;
+            --accent-gold: #c9933a;
+            --gold-dark:   #8b6914;
+            --text-dark:   #1a2a3a;
+            --text-mid:    #3d5166;
+            --red-accent:  #a82222;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #080f11;
+            background-color: var(--bg-page);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -54,14 +56,14 @@
         .page-wrapper {
             width: 100%;
             max-width: 660px;
-            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
-            color: white;
+            background: var(--bg-card);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            border-left: 1px solid rgba(255,255,255,0.1);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border-left: 1px solid rgba(0,0,0,0.07);
+            border-right: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 0 30px rgba(0,0,0,0.10);
         }
 
         /* ── Header ── */
@@ -88,7 +90,7 @@
 
         /* ── Intro ── */
         .intro-p {
-            color: var(--text-yellow);
+            color: var(--gold-dark);
             font-style: italic;
             font-size: 14px;
             padding: 12px 30px 16px;
@@ -107,12 +109,13 @@
         .acc-item {
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid rgba(231,202,96,0.2);
+			color: #95C1ED
+            border: 1.5px solid #000;
         }
 
         .acc-header {
             width: 100%;
-            background: rgba(255,255,255,0.05);
+            background: #ffffff
             border: none;
             cursor: pointer;
             padding: 13px 16px;
@@ -120,7 +123,7 @@
             justify-content: space-between;
             align-items: center;
             text-align: left;
-            transition: background 0.2s;
+            transition: background 0.6s;
         }
 
         .acc-header:hover {
@@ -128,26 +131,27 @@
         }
 
         .acc-header.open {
-            background: rgba(231,202,96,0.12);
-            border-bottom: 1px solid rgba(231,202,96,0.25);
+            background: rgba(139,105,20,0.08);
+            border-bottom: 1.5px solid #000;
         }
 
         .acc-step {
             font-size: 11px;
-            color: #1AC41A;
+            color: #C41A1A;
+			font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 2px;
         }
 
         .acc-title {
-            color: var(--text-yellow);
+            color: #000;
             font-size: 15px;
             font-weight: bold;
         }
 
         .acc-icon {
-            color: var(--accent-gold);
+            color: var(--gold-dark);
             font-size: 18px;
             transition: transform 0.25s;
             flex-shrink: 0;
@@ -163,8 +167,8 @@
             padding: 14px 16px;
             font-size: 14px;
             line-height: 1.65;
-            color: #ddd;
-            background: rgba(0,0,0,0.2);
+            color: var(--text-mid);
+            background: #f8f9fa;
         }
 
         .acc-body.open {
@@ -180,7 +184,7 @@
         }
 
         .acc-body .sub-label {
-            color: var(--accent-gold);
+            color: var(--gold-dark);
             font-weight: bold;
             display: block;
             margin: 10px 0 4px;
@@ -201,18 +205,18 @@
         }
 
         .acc-body .gold {
-            color: var(--accent-gold);
+            color: var(--gold-dark);
             font-weight: bold;
         }
 
         .acc-body .tip {
-            background: rgba(231,202,96,0.08);
-            border-left: 3px solid var(--accent-gold);
+            background: rgba(139,105,20,0.07);
+            border-left: 3px solid var(--gold-dark);
             border-radius: 4px;
             padding: 8px 12px;
             margin-top: 10px;
             font-size: 13px;
-            color: #eee;
+            color: #000;
         }
 
         /* ── Bottom Nav ── */
@@ -225,7 +229,7 @@
         }
 
         .nav-btn {
-            background-color: var(--accent-gold);
+            background-color: var(--gold-dark);
             color: black;
             padding: 10px 16px;
             border-radius: 8px;
@@ -238,7 +242,7 @@
             gap: 6px;
         }
 
-        .nav-btn:hover { background: #693909; color: white; border-color: #693909; }
+        .nav-btn:hover { background: #693909; color: #fff; border-color: #693909; }
 
         .home-btn {
             background-color: white;
@@ -316,7 +320,7 @@
                 <p>Building your portfolio is critical for understanding the investment vehicles where your money is located. <span class="gold">Current financial position is the first step</span> toward retirement planning — ideally started early in your career, but 5 years prior is never too late.</p>
                 <p>Use a free portal or a portfolio tracker to figure out <span class="gold">asset allocation</span> — within each asset class, where the money is located and how it is performing over time.</p>
                 <p>Looking at historical data helps understand how various asset classes have done — and reinforces the importance of starting to save and invest early.</p>
-                <div class="tip">💡 Use the <strong>401k Compounding Calculator</strong> to see how starting early, investing wisely, saving consistently, and getting a company match leads to exponential growth: A = P(1 + r/n)^(nt)</div>
+                <div class="tip">💡 Use the <strong><a href="401k_compounding.html">401k Compounding Calculator</a></strong> to see how starting early, investing wisely, saving consistently, and getting a company match leads to exponential growth: A = P(1 + r/n)^(nt)</div>
             </div>
         </div>
 
@@ -347,7 +351,7 @@
                 <span class="acc-icon">+</span>
             </button>
             <div class="acc-body">
-                <p>With a retirement age in mind, project your portfolio 20–30 years into the future. Use the <span class="gold">Retirement Calculator</span> with your current financial situation and realistic assumptions — conservative, moderate, or aggressive depending on your risk appetite.</p>
+                <p>With a retirement age in mind, project your portfolio 20–30 years into the future. Use the <span class="gold"><a href= "retirement_calculator.html">Retirement Calculator</a></span> with your current financial situation and realistic assumptions — conservative, moderate, or aggressive depending on your risk appetite.</p>
                 <p>Growth and taxes year-over-year give meaningful insight into how assets perform. Run "what-if" analyses and save summaries to CSV for review.</p>
                 <p>This will raise important questions — hold on to them as you progress:</p>
                 <ul>
@@ -415,7 +419,7 @@
                 <span class="acc-icon">+</span>
             </button>
             <div class="acc-body">
-                <p>The <span class="gold">Retirement Confidence Calculator</span> is built on Monte Carlo Simulations. Unlike a straight-line portfolio projection with a fixed % growth, Monte Carlo runs thousands of simulations — putting your portfolio through unique market scenarios.</p>
+                <p>The <span class="gold"><a href= "montecarlo_retirement.html">Retirement Confidence Calculator</a></span> is built on Monte Carlo Simulations. Unlike a straight-line portfolio projection with a fixed % growth, Monte Carlo runs thousands of simulations — putting your portfolio through unique market scenarios.</p>
                 <p><em>Example:</em> What if the portfolio was flat or negative for 5 years? How long does it take to recover and reach targets?</p>
                 <p>This helps answer the hardest retirement questions:</p>
                 <ul>
@@ -521,7 +525,7 @@
                     <li>SS has an embedded COLA — it grows year over year</li>
                     <li>Spouse SS timing matters — optimize both together</li>
                 </ul>
-                <div class="tip">💡 Visit SSA.gov to see your projected benefit by claiming age. Build this into your Monte Carlo Simulator.</div>
+                <div class="tip">💡 Visit <a href= "https://www.ssa.gov/">SSA.gov </a>to see your projected benefit by claiming age. Build this into your Monte Carlo Simulator.</div>
             </div>
         </div>
 
@@ -544,7 +548,7 @@
                 </ul>
                 <p>RMDs are treated as <span class="gold">ordinary income</span> — they can push you into higher tax brackets, increase Social Security taxation, and trigger Medicare IRMAA surcharges. This is why reducing tax-deferred balances through Roth conversions early matters.</p>
                 <p>For <span class="gold">legal heirs (beneficiaries)</span>: there is a 10-year rule. When both spouses pass away, heirs must withdraw the full inherited amount within 10 years.</p>
-                <div class="tip">💡 Missing an RMD triggers a penalty. Set reminders and track this deadline carefully each year.</div>
+                <div class="tip">💡 Missing an RMD triggers a penalty. Set reminders and track this deadline carefully each year. Visit <a href= https://www.investor.gov/financial-tools-calculators/calculators/required-minimum-distribution-calculator"><strong>RMD calculator</strong></a> on investor.gov web site.</div>
             </div>
         </div>
 

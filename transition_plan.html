@@ -7,20 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:        #1b3a35;
+    --bg:        #f2f4f7;
+    --bg-card:   #ffffff;
     --gold:      #c9933a;
     --gold-lt:   #e8b96a;
-    --white:     #f0ece0;
-    --white-dim: #c8c4b4;
+    --gold-dark: #8b6914;
+    --text-dark: #1a2a3a;
+    --text-mid:  #3d5166;
     --red:       #c0392b;
-    --btn-text:  #1b3a35;
+    --btn-text:  #ffffff;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     background: var(--bg);
-    color: var(--white);
+    color: var(--text-dark);
     font-family: 'Lora', Georgia, serif;
     font-size: 15px;
     min-height: 100vh;
@@ -95,7 +97,7 @@
     font-weight: 900;
     letter-spacing: clamp(2px, 1.5vw, 6px);
     text-transform: uppercase;
-    color: var(--white);
+    color: var(--text-dark);
     text-align: center;
     margin-bottom: 20px;
     padding-bottom: 16px;
@@ -104,7 +106,7 @@
 
   .intro {
     font-style: italic;
-    color: var(--white-dim);
+    color: var(--text-mid);
     line-height: 1.75;
     margin-bottom: 20px;
     font-size: clamp(13px, 3vw, 14px);
@@ -114,7 +116,7 @@
     font-family: 'Lora', serif;
     font-size: clamp(13px, 3vw, 16px);
     font-weight: 600;
-    color: var(--gold);
+    color: var(--text-dark);
     text-decoration: underline;
     text-decoration-color: var(--gold);
     margin: 24px 0 14px;
@@ -134,7 +136,7 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     padding: 8px 0;
-    color: #fff;
+    color: var(--text-dark);
   }
 
   /* ── Rows ── */
@@ -166,7 +168,7 @@
   .acc-cell-header {
     width: 100%;
     background: var(--gold);
-    border: none;
+    border: 1.5px solid #000;
     cursor: pointer;
     padding: 11px 14px;
     display: flex;
@@ -214,30 +216,31 @@
   .acc-cell-body {
     display: none;
     padding: 12px 14px;
-    background: rgba(0,0,0,0.25);
+    background: var(--bg-card);
     font-family: 'Lora', serif;
     font-size: 13px;
     line-height: 1.65;
-    color: var(--white);
+    color: var(--text-dark);
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
     border-top: 1px solid rgba(201,147,58,0.25);
   }
   .acc-cell-body.open { display: block; }
 
   .acc-cell-body p {
     margin-bottom: 8px;
-    color: var(--white-dim);
+    color: var(--text-mid);
   }
   .acc-cell-body p:last-child { margin-bottom: 0; }
 
   .acc-cell-body ul {
     padding-left: 16px;
     margin-bottom: 8px;
-    color: var(--white-dim);
+    color: var(--text-mid);
   }
   .acc-cell-body ul li { margin-bottom: 4px; }
 
   .acc-cell-body .sub-label {
-    color: var(--gold-lt);
+    color: var(--gold-dark);
     font-weight: bold;
     display: block;
     margin: 8px 0 3px;
@@ -247,7 +250,7 @@
   }
 
   .placeholder {
-    color: rgba(201,147,58,0.5);
+    color: rgba(139,105,20,0.6);
     font-style: italic;
     font-size: 12px;
     border: 1px dashed rgba(201,147,58,0.3);
@@ -263,7 +266,7 @@
     margin: 28px 0 14px;
     font-style: italic;
     font-size: 14px;
-    color: #fff;
+    color: var(--text-dark);
     white-space: nowrap;
   }
   .shared-divider::before,
@@ -306,7 +309,7 @@
     font-family: 'Lora', serif;
     font-size: clamp(11px, 2.5vw, 13px);
     font-weight: 900;
-    color: var(--gold-lt);
+    color: var(--gold-dark);
     margin-bottom: 2px;
     line-height: 1.3;
   }
@@ -314,13 +317,13 @@
     font-family: 'Lora', serif;
     font-size: clamp(10px, 2vw, 11px);
     font-style: italic;
-    color: var(--white-dim);
+    color: var(--text-mid);
     line-height: 1.3;
   }
 
   .shared-toggle {
     font-size: 16px;
-    color: var(--gold-lt);
+    color: var(--gold-dark);
     font-weight: bold;
     flex-shrink: 0;
     margin-left: 6px;
@@ -331,11 +334,11 @@
   .shared-acc-body {
     display: none;
     padding: 10px 14px;
-    background: rgba(0,0,0,0.2);
+    background: var(--bg-card);
     font-family: 'Lora', serif;
     font-size: 12px;
     line-height: 1.6;
-    color: var(--white-dim);
+    color: var(--text-mid);
   }
   .shared-acc-body.open { display: block; }
 
@@ -347,7 +350,7 @@
     flex-wrap: wrap;
     font-size: 11px;
     font-style: italic;
-    color: var(--white-dim);
+    color: var(--text-mid);
   }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-dot {
@@ -390,7 +393,7 @@
     transition: background 0.18s, transform 0.1s;
     min-width: 140px;
   }
-  .nav-btn:hover { background: #693909; border-color: var(--gold-lt); color: white; }
+  .nav-btn:hover { background: #693909; border-color: var(--gold-lt); color: #fff; }
 
   /* ── Mobile ── */
   @media (max-width: 559px) {
@@ -540,7 +543,7 @@ const rows = [
           <li>Free money — always contribute at least enough to get the full employer match, no exceptions</li>
           <li>Typical match: 50%–100% of contributions up to 3%–6% of salary — leaving it unclaimed is an instant loss</li>
           <li><strong>Vesting schedules matter:</strong> Cliff vesting (all-or-nothing at a date) vs graded vesting (phased over years) — leaving early could forfeit unvested amounts</li>
-          <li>Max out beyond the match if possible — 2024 limit is $23,000 ($30,500 if age 50+)</li>
+          <li>Max out beyond the match if possible — 2026 limit is $24,500 ($32,500 if age 50+)</li>
           <li>Choose low-cost index funds inside the plan wherever available</li>
         </ul>
 
@@ -568,6 +571,14 @@ const rows = [
       body: `<p class="placeholder">[ Add content here — e.g. Medicare Parts A/B/D, Medigap, Medicare Advantage, LTC insurance, IRMAA, the gap years before age 65 ]</p>`
     }
   },
+  
+  
+  
+  
+  
+  
+  
+
   {
     work: {
       title: 'Saving & Investing',

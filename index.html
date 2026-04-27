@@ -6,30 +6,20 @@
     <title>Retire Wise and Live Happy</title>
     <style>
         :root {
-            --bg-top: #0b1a1f;
-            --bg-bottom: #1c4d5c;
-            --accent-gold: #e8c44a;
-            --text-white: #FFFFFF;
-            --text-gold: #c29d40;
-            --footer-bg: #D1FFBD;
-            --footer-text: #000000;
+            --bg-page:      #f9f8f4;
+            --accent-gold:  #d4af37;
+            --text-dark:    #2c2c2c;
+            --bar-dark:     #1a1a1a;
+            --dropdown-dark: #333333;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body {
-            height: 100%;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom));
-            background-attachment: fixed;
-            color: var(--text-white);
+            background-color: var(--bg-page);
+            color: var(--text-dark);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -43,143 +33,93 @@
             background-color: #000000;
             padding: 14px 20px;
             border-bottom: 4px solid #a82222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
         }
 
         .top-nav h1 {
             font-size: clamp(20px, 3.5vw, 28px);
+            color: #FFFFFF;
             letter-spacing: 1px;
             font-weight: 600;
         }
 
-        /* ── Layout wrapper ── */
+        .top-nav select {
+            background: var(--dropdown-dark);
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 1px solid var(--accent-gold);
+            cursor: pointer;
+        }
+
+        /* ── Full Width Banner Image ── */
+        .banner-image {
+            width: 100%;
+            display: block;
+        }
+
+        .banner-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ── Content Container ── */
         .page-body {
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            flex: 1;
-            width: 100%;
-            max-width: 1100px;
-            padding: 0 20px;
-            gap: 0;
         }
 
-        /* ── Desktop: side-by-side hero ── */
-        @media (min-width: 768px) {
-            .hero-section {
-                display: flex;
-                flex-direction: row;
-                align-items: flex-start;
-                gap: 40px;
-                width: 100%;
-                padding: 40px 0 30px;
-            }
-
-            .hero-image {
-                flex: 0 0 44%;
-                max-width: 44%;
-                display: flex;
-                flex-direction: column;
-                gap: 20px; /* Space between the two images */
-            }
-
-            .content-container {
-                flex: 1;
-                text-align: left;
-                padding: 0;
-                margin: 0;
-            }
-        }
-
-        /* ── Mobile: stacked hero ── */
-        @media (max-width: 767px) {
-            .hero-section {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-                padding: 20px 0 10px;
-                gap: 20px;
-            }
-
-            .hero-image {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-
-            .content-container {
-                width: 100%;
-                text-align: center;
-                padding: 0;
-            }
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 6px;
-            display: block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        /* Second image slightly emphasized */
-        .emotions-img {
-            border: 1px solid rgba(232, 196, 74, 0.3);
-        }
-
-        .content-container p {
-            font-size: clamp(15px, 2vw, 18px);
+        .content-text {
+            text-align: left;
+            margin: 20px 0;
             line-height: 1.6;
-            margin-bottom: 16px;
+            font-size: 17px;
         }
 
-        .highlight-text {
-            color: var(--text-gold);
-            font-weight: bold;
+        .content-text p {
+            margin-bottom: 18px;
         }
 
-        /* ── Button Grid ── */
+        /* ── Buttons & UI ── */
         .top-buttons {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 10px;
+            margin-bottom: 30px;
         }
 
         .btn {
             background-color: var(--accent-gold);
-            color: #000000;
+            color: #000;
             text-decoration: none;
             padding: 14px 20px;
             border-radius: 12px;
             font-weight: bold;
-            font-size: clamp(14px, 1.8vw, 17px);
-            text-transform: uppercase;
             border: 2px solid #000;
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            display: block;
             text-align: center;
+            transition: transform 0.2s;
         }
 
-        .btn:hover {
-            transform: translateY(-4px) translateX(-4px);
-            background-color: #A35614;
-        }
-
-        /* ── Calculator Pad ── */
         .calc-pad {
-            margin-top: 30px;
-            width: 100%;
-            background: #0f2a44;
+            background: var(--bar-dark);
             border: 2px solid var(--accent-gold);
             border-radius: 16px;
             padding: 30px 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
+            width: 100%;
         }
 
         .pad-btn {
@@ -189,105 +129,80 @@
             padding: 18px 20px;
             border-radius: 14px;
             font-weight: bold;
-            font-size: clamp(15px, 2vw, 18px);
+            border: 1px solid #000;
             text-align: center;
-            border: 2px solid #000;
-            transition: transform 0.2s ease, background-color 0.2s ease;
         }
 
-        .pad-btn:hover {
-            transform: translateY(-4px) translateX(-4px);
-            background-color: #A35614;
-        }
-
-        /* ── Footer ── */
         footer {
             width: 100%;
-            background-color: var(--footer-bg);
-            color: var(--footer-text);
-            padding: 20px 0;
-            margin-top: auto;
-        }
-
-        .footer-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-            font-size: 14px;
-            line-height: 1.7;
+            background-color: var(--bar-dark);
+            color: #ffffff;
+            padding: 25px 0;
+            margin-top: 40px;
             text-align: left;
         }
 
-        footer strong {
-            text-decoration: underline;
-        }
-
-        footer p + p {
-            margin-top: 8px;
+        .footer-inner { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            font-size: 14px; 
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
 
-    <div class="top-nav" style="display:flex; justify-content:space-between; align-items:center;">
-    <h1>Retire Wise and Live Happy</h1>
+    <div class="top-nav">
+        <h1>Retire Wise and Live Happy</h1>
+        <select onchange="if(this.value) window.location.href=this.value;">
+            <option value="">Explore Topics</option>
+            <optgroup label="Core Planning">
+                <option value="transition_plan.html">Retirement Made Easy</option>
+                <option value="steps_retirement.html">Steps in Retirement</option>
+                <option value="terms.html">Terms Used</option>
+                <option value="website.html">Web Sites</option>
+            </optgroup>
+            <optgroup label="Calculators">
+                <option value="retirement_calculator.html">Retirement Calculator</option>
+                <option value="montecarlo_retirement.html">Retirement Confidence</option>
+                <option value="401k_compounding.html">401k Compounding</option>
+                <option value="tax_calculator.html">Income Tax Calculator</option>
+            </optgroup>
+            <optgroup label="Healthcare">
+                <option value="medicare_aca.html">Medicare Hub</option>
+                <option value="healthcare_medicare.html">Healthcare - Medicare</option>
+                <option value="healthcare_aca.html">Healthcare - ACA</option>
+                <option value="aca_vs_cobra.html">ACA vs COBRA</option>
+                <option value="medicare_flowchart.html">Medicare Flowchart</option>
+                <option value="long_term_care.html">Long Term Care</option>
+            </optgroup>
+        </select>
+    </div>
 
-    <select onchange="if(this.value) window.location.href=this.value;" 
-            style="padding:8px; border-radius:6px; font-weight:bold;">
-        <option value="">Explore Topics</option>
-
-        <optgroup label="Core Planning">
-            <option value="transition_plan.html">Retirement Made Easy</option>
-            <option value="terms.html">Terms Used</option>
-            <option value="website.html">Web Sites</option>
-        </optgroup>
-
-        <optgroup label="Calculators">
-            <option value="retirement_calculator.html">Retirement Calculator</option>
-            <option value="montecarlo_retirement.html">Retirement Confidence</option>
-            <option value="401k_compounding.html">401k Compounding</option>
-            <option value="tax_calculator.html">Income Tax Calculator</option>
-        </optgroup>
-		
-		
-        <optgroup label="Healthcare">
-            <option value="medicare_aca.html">Medicare Hub</option>
-            <option value="healthcare_medicare.html">Healthcare - Medicare</option>
-            <option value="healthcare_aca.html">Healthcare - ACA</option>
-            <option value="aca_vs_cobra.html">ACA vs COBRA</option>
-			<option value="medicare_flowchart.html">Medicare Flowchart</option>
-			<option value="long_term_care.html">Long Term Care</option>
-        </optgroup>
-		
-		
-		
-    </select>
-</div>
+    <div class="banner-image">
+        <img src="index_pic.jpg" alt="Retirement Banner">
+    </div>
 
     <div class="page-body">
-
-        <div class="hero-section">
-            <div class="hero-image">
-                <img src="index_pic.jpg" alt="Retirement Planner Illustration">
-				<br><br><br>
-                
-                <img src="retirement_emotions.jpg" alt="Retirement Emotions Chart" class="emotions-img">
-            </div>
-
-            <div class="content-container">
-                <p>Welcome to a peaceful place where we discuss various aspects of retirement, and the hope is to make you feel at peace financially and retire comfortably.</p><br>
-                <p>The philosophy that you don't retire <em>out of</em> something, but <em>into</em> something, emphasizes that retirement is a transition to a new phase in life with a bigger purpose.</p>
-                <p class="highlight-text"><br>
-                    Retirement Planner – A Pocket Guide is a compendium of information and calculations that will help plan your retirement. Retirement is not all about finance, however, once you secure your finance you can plan all the good things you want to get into.
-					<br><br>
-					Calculators are getting added based on usefulness and trials. They will help understand the situation, project for years to come and help in the decision making process
-                    <br><br>
-					Retirement Calculator - helps project our portfolio based on where we are today and certain market assumptions
-					<br><br> Retirement Confidence Calculator - this is a true stress tester of your portfolio and will tell you "Whether your money will last till your times?"
-					<br><br>401k Compounding Calculator - helps young adults undertand the power of compounding. How does investment started early and done consistently pays off huge returns in retirement?
-					<br><br>Income Tax Calculator - one page review of 4 tax situations that we will come across during our retirement. Quick calculations to help us prepare for the question "How do I pay for the taxes?"
-				</p>
-            </div>
+        <div class="content-text">
+            <p>Welcome to a peaceful place where we discuss various aspects of retirement, and the hope is to make you feel at peace financially and retire comfortably.</p>
+            
+            <p>The philosophy that you don't retire <em>out of</em> something, but <em>into</em> something, emphasizes that retirement is a transition to a new phase in life with a bigger purpose.</p>
+            
+            <p>Retirement Planner – A Pocket Guide is a compendium of information and calculations that will help plan your retirement. Retirement is not all about finance, however, once you secure your finance you can plan all the good things you want to get into.</p>
+            
+            <p>Calculators are getting added based on usefulness and trials. They will help understand the situation, project for years to come and help in the decision making process</p>
+            
+            <p><strong>Retirement Calculator</strong> - helps project our portfolio based on where we are today and certain market assumptions</p>
+            
+            <p><strong>Retirement Confidence Calculator</strong> - this is a true stress tester of your portfolio and will tell you "Whether your money will last till your times?"</p>
+            
+            <p><strong>401k Compounding Calculator</strong> - helps young adults undertand the power of compounding. How does investment started early and done consistently pays off huge returns in retirement?</p>
+            
+            <p><strong>Income Tax Calculator</strong> - one page review of 4 tax situations that we will come across during our retirement. Quick calculations to help us prepare for the question "How do I pay for the taxes?"</p>
+            
+            <p style="font-style: italic; font-size: 14px; margin-top: 10px;">Disclaimer: Working on the content; please excuse if you find repetition. Repetitive information will be removed and logically flowing web pages will be retained.</p>
         </div>
 
         <div class="top-buttons">
@@ -302,7 +217,6 @@
             <a href="401k_compounding.html" class="pad-btn">401k Compounding Calculator</a>
             <a href="tax_calculator.html" class="pad-btn">Income Tax Calculator</a>
         </div>
-        <br><br>
     </div>
 
     <footer>

@@ -6,18 +6,20 @@
     <title>Financial Planning</title>
     <style>
         :root {
-            --bg-dark: #0d1b1e;
-            --bg-light: #1b4d5c;
-            --accent-gold: #e7ca60;
-            --text-yellow: #f4d03f;
-            --red-accent: #a82222;
+            --bg-page:     #f2f4f7;
+            --bg-card:     #ffffff;
+            --accent-gold: #c9933a;
+            --gold-dark:   #8b6914;
+            --text-dark:   #1a2a3a;
+            --text-mid:    #3d5166;
+            --red-accent:  #a82222;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #080f11;
+            background-color: var(--bg-page);
             display: flex;
             flex-direction: column; /* Stack nav and content */
             align-items: center;
@@ -54,14 +56,14 @@
         .page-wrapper {
             width: 100%;
             max-width: 600px;
-            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
-            color: white;
+            background: var(--bg-card);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            border-left: 1px solid rgba(255,255,255,0.1);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border-left: 1px solid rgba(0,0,0,0.07);
+            border-right: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 0 30px rgba(0,0,0,0.10);
             position: relative;
         }
 
@@ -77,9 +79,8 @@
             font-weight: 900;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: white;
-            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000,
-                         1px -1px 0px #000, -1px 1px 0px #000;
+            color: var(--text-dark);
+            text-shadow: none;
             font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
         }
 
@@ -100,7 +101,7 @@
         }
 
         .intro-question {
-            color: var(--accent-gold);
+            color: var(--gold-dark);
             font-weight: 700;
             font-size: 15px;
             margin-bottom: 10px;
@@ -108,7 +109,7 @@
 
         .intro-text {
             font-style: italic;
-            color: #e0e0e0;
+            color: var(--text-mid);
             margin-bottom: 18px;
             font-size: 14.5px;
             line-height: 1.6;
@@ -119,7 +120,7 @@
         .area-header {
             font-style: italic;
             font-weight: 600;
-            color: #e0e0e0;
+            color: var(--text-dark);
             font-size: 14.5px;
             margin-bottom: 6px;
             line-height: 1.5;
@@ -131,7 +132,7 @@
         }
 
         .area-bullets li {
-            color: var(--text-yellow);
+            color: var(--gold-dark);
             font-style: italic;
             font-size: 14px;
             line-height: 1.7;
@@ -141,7 +142,7 @@
 
         .closing-note {
             font-style: italic;
-            color: #e0e0e0;
+            color: var(--text-mid);
             font-size: 14px;
             line-height: 1.6;
             margin-top: 10px;
@@ -243,7 +244,7 @@
     </header>
 
     <div class="content">
-        <img src="six_areas_financial_plan.jpg" alt="6 Areas of Financial Planning Wheel" style="width:100%;height:auto;border-radius:8px;margin-bottom:18px;border:1px solid rgba(255,255,255,0.15);">
+        <img src="six_areas_financial_plan.jpg" alt="6 Areas of Financial Planning Wheel" style="width:100%;height:auto;border-radius:8px;margin-bottom:18px;border:1px solid rgba(0,0,0,0.10);">
 
         <p class="intro-question">What are the 6 areas of comprehensive financial planning?</p>
 
@@ -256,54 +257,54 @@
         <div class="area">
             <p class="area-header">1. Financial Position/Cash Flow Management</p>
             <ul class="area-bullets">
-                <li>Cash flow / budgeting</li>
-                <li>Debt management and emergency reserves planning</li>
+                <li><strong>Cash flow / budgeting</strong></li>
+                <li><strong>Debt management and emergency reserves planning</strong></li>
             </ul>
         </div>
 
         <div class="area">
             <p class="area-header">2. Protection Planning (Risk Management)</p>
             <ul class="area-bullets">
-                <li>Life, Disability, and Long-term care insurance</li>
-                <li>Employee benefits</li>
+                <li><strong>Life, Disability, and Long-term care insurance</strong></li>
+                <li><strong>Employee benefits</strong></li>
             </ul>
         </div>
 
         <div class="area">
             <p class="area-header">3. Investment Planning</p>
             <ul class="area-bullets">
-                <li>Portfolio management and institutional level management</li>
-                <li>Evaluating risk tolerance and time horizon</li>
+                <li><strong>Portfolio management and institutional level management</strong></li>
+                <li><strong>Evaluating risk tolerance and time horizon</strong></li>
             </ul>
         </div>
 
         <div class="area">
             <p class="area-header">4. Tax Planning</p>
             <ul class="area-bullets">
-                <li>Company retirement plans and personalization</li>
-                <li>Traditional, Roth, and Rollover IRAs</li>
+                <li><strong>Company retirement plans and personalization</strong></li>
+                <li><strong>Traditional, Roth, and Rollover IRAs</strong></li>
             </ul>
         </div>
 
         <div class="area">
             <p class="area-header">5. Retirement Planning</p>
             <ul class="area-bullets">
-                <li>Distribution planning and income identification</li>
-                <li>Plan for "sequence-of-returns risk"</li>
+                <li><strong>Distribution planning and income identification</strong></li>
+                <li><strong>Plan for "sequence-of-returns risk"</strong></li>
             </ul>
         </div>
 
         <div class="area">
             <p class="area-header">6. Estate Planning</p>
             <ul class="area-bullets">
-                <li>Wealth transfer and business succession</li>
-                <li>Co-ordination of insurance and estate documents</li>
+                <li><strong>Wealth transfer and business succession</strong></li>
+                <li><strong>Co-ordination of insurance and estate documents</strong></li>
             </ul>
         </div>
 
         <p class="closing-note">Each area is critical and should be planned alongside others, not in silos.</p>
 
-        <img src="cash_flow.jpg" alt="4 Key Retirement Cash Flow Topics" style="width:100%;height:auto;border-radius:8px;margin-top:12px;margin-bottom:4px;border:1px solid rgba(255,255,255,0.15);">
+        <img src="cash_flow.jpg" alt="4 Key Retirement Cash Flow Topics" style="width:100%;height:auto;border-radius:8px;margin-top:12px;margin-bottom:4px;border:1px solid rgba(0,0,0,0.10);">
     </div>
 
     <div class="nav-area">

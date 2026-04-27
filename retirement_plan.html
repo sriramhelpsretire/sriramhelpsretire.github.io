@@ -6,10 +6,12 @@
     <title>What is Retirement?</title>
     <style>
         :root {
-            --bg-dark: #0d1b1e;
-            --bg-light: #1b4d5c;
-            --accent-gold: #e7ca60;
-            --text-yellow: #f4d03f;
+            --bg-page:    #f2f4f7;
+            --bg-card:    #ffffff;
+            --accent-gold: #c9933a;
+            --gold-dark:  #8b6914;
+            --text-dark:  #1a2a3a;
+            --text-mid:   #3d5166;
             --red-accent: #a82222;
         }
 
@@ -17,7 +19,7 @@
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #080f11;
+            background-color: var(--bg-page);
             display: flex;
             flex-direction: column; /* Stack nav and content */
             align-items: center;
@@ -54,15 +56,14 @@
         .page-wrapper {
             width: 100%;
             max-width: 600px;
-            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
-            background-attachment: fixed;
-            color: white;
+            background: var(--bg-card);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            border-left: 1px solid rgba(255,255,255,0.1);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border-left: 1px solid rgba(0,0,0,0.07);
+            border-right: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 0 30px rgba(0,0,0,0.10);
         }
 
         header {
@@ -73,7 +74,7 @@
             font-size: 32px;
             font-weight: 400;
             margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: none;
         }
 
         .content {
@@ -88,11 +89,11 @@
             height: auto;
             border-radius: 5px;
             margin: 10px 0 20px 0;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(0,0,0,0.10);
         }
 
         .section-title {
-            color: var(--text-yellow);
+            color: var(--gold-dark);
             font-weight: bold;
             font-size: 19px;
             margin-top: 25px;
@@ -103,13 +104,13 @@
 
         .sub-header {
             text-decoration: underline;
-            color: var(--text-yellow);
+            color: var(--gold-dark);
             font-weight: 600;
         }
 
         p {
             margin-bottom: 15px;
-            color: #e0e0e0;
+            color: var(--text-mid);
         }
 
         /* Navigation Area */

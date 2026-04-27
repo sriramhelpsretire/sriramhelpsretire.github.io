@@ -6,18 +6,20 @@
     <title>Medicare Hub</title>
     <style>
         :root {
-            --bg-dark: #0d1b1e;
-            --bg-light: #1b4d5c;
-            --accent-gold: #e7ca60;
-            --text-yellow: #f4d03f;
-            --red-accent: #a82222;
+            --bg-page:     #f2f4f7;
+            --bg-card:     #ffffff;
+            --accent-gold: #c9933a;
+            --gold-dark:   #8b6914;
+            --text-dark:   #1a2a3a;
+            --text-mid:    #000;
+            --red-accent:  #a82222;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #080f11;
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background-color: var(--bg-page);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -35,40 +37,40 @@
             z-index: 1000;
         }
 
-        .top-nav h1 { color: #FFFFFF; font-size: clamp(18px, 3.5vw, 24px); margin: 0; }
+        .top-nav h1 { color: #FFFFFF; font-size: clamp(18px, 3.5vw, 26px); margin: 0; }
         .top-nav select { padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
         .page-wrapper {
             width: 100%;
             max-width: 600px;
-            background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
-            color: white;
+            background: var(--bg-card);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            border-left: 1px solid rgba(255,255,255,0.1);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border-left: 1px solid rgba(0,0,0,0.07);
+            border-right: 1px solid rgba(0,0,0,0.07);
+            box-shadow: 0 0 30px rgba(0,0,0,0.10);
             position: relative;
         }
 
         header { padding: 40px 30px 16px; text-align: center; position: relative; }
-        header h1 { font-size: 34px; font-weight: 900; text-transform: uppercase; text-shadow: 3px 3px 0px #000; }
+        header h1 { font-size: 34px; font-weight: 900; text-transform: uppercase; color: var(--text-dark); text-shadow: none; }
         .red-corner { position: absolute; top: 0; right: 0; width: 22px; height: 80px; background-color: var(--red-accent); }
 
         .content { padding: 10px 30px; flex: 1; }
-        .section-title { color: var(--text-yellow); font-weight: bold; font-size: 18px; margin: 25px 0 10px; text-decoration: underline; }
+        .section-title { color: #328019; font-weight: bold; font-size: 20px; margin: 25px 0 10px; text-decoration: underline; }
 
         /* Card Grid System */
         .card-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 20px;
             margin: 20px 0;
         }
         .topic-card {
-            background: rgba(231, 202, 96, 0.1);
-            border: 1px solid var(--accent-gold);
+            background: #f8f9fa;
+            border: 1.5px solid #000;
             border-radius: 8px;
             padding: 15px;
             text-decoration: none;
@@ -77,9 +79,9 @@
             flex-direction: column;
             justify-content: center;
         }
-        .topic-card:hover { background: rgba(231, 202, 96, 0.25); transform: translateY(-2px); }
-        .topic-card h3 { color: var(--text-yellow); font-size: 14px; margin-bottom: 5px; }
-        .topic-card p { color: #e0e0e0; font-size: 12px; line-height: 1.3; }
+        .topic-card:hover { background: rgba(139,105,20,0.08); transform: translateY(-2px); }
+        .topic-card h3 { color: var(--gold-dark); font-size: 20px; margin-bottom: 5px; }
+        .topic-card p { color: var(--text-mid); font-size: 16px; line-height: 1.3; }
 
         .nav-area { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px 40px; gap: 10px; }
         .gold-btn { background: var(--accent-gold); color: black; padding: 10px 18px; border-radius: 8px; font-weight: bold; text-decoration: none; border: 2px solid #000; font-size: 14px; }
@@ -125,21 +127,21 @@
     </header>
 
     <div class="content">
-        <p style="font-style: italic; color: #ccc;">Medicare is the federal health insurance program for people 65 or older, 
+        <p style="font-size: 20px; font-style: italic;color: #000;">Medicare is the federal health insurance program for people 65 or older, 
 		and certain younger people with disabilities.</p><br>
         
-		<p style="font-style: italic; color: #ccc;">4 parts of Medicare.</p><br>
+		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>4 parts of Medicare.</u></p><br>
 		
-		<p style="font-style: italic; color: #ccc;">Part A (Hospital Insurance): Covers inpatient hospital stays, care in a 
+		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>💡 Part A (Hospital Insurance)</u>: Covers inpatient hospital stays, care in a 
 		skilled nursing facility, hospice care, and some home health care.</p><br>
 		
-		<p style="font-style: italic; color: #ccc;">Part B (Medical Insurance): Covers certain doctors' services, outpatient care, 
+		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>💡 Part B (Medical Insurance)</u>: Covers certain doctors' services, outpatient care, 
 		medical supplies, and preventive services.</p><br>
 		
-		<p style="font-style: italic; color: #ccc;">Part C (Medicare Advantage): An all-in-one alternative to Original Medicare, 
+		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>💡 Part C (Medicare Advantage)</u>: An all-in-one alternative to Original Medicare, 
 		offered by private companies approved by Medicare. These "bundled" plans include Part A, Part B, and usually Part D.</p><br>
 		
-		<p style="font-style: italic; color: #ccc;">Part D (Prescription Drug Coverage): Helps cover the cost of prescription drugs 
+		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>💡 Part D (Prescription Drug Coverage)</u>: Helps cover the cost of prescription drugs 
 		(including many recommended shots or vaccines).</p><br>
 		
 		
@@ -171,9 +173,11 @@
             
         </div>
     </div>
+	
+	
 
     <div class="nav-area">
-        <a href="aca_marketplace.html" class="gold-btn">🩺 ACA Marketplace</a>
+        <a href="healthcare_aca.html" class="gold-btn">🩺 ACA Marketplace</a>
         <a href="retirement_plan.html" class="gold-btn">🏌️ Retirement Plan</a>
         <a href="index.html" class="home-btn">🏠</a>
     </div>

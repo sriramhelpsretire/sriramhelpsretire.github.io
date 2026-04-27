@@ -6,19 +6,21 @@
     <title>Important Websites</title>
     <style>
        :root {
-    --bg-dark: #0d1b1e;
-    --bg-light: #1b4d5c;
-    --accent-gold: #e7ca60;
-    --text-yellow: #f4d03f;
-    --link-cyan: #00ffff;
-    --red-accent: #a82222;
+    --bg-page:     #f2f4f7;
+    --bg-card:     #ffffff;
+    --accent-gold: #c9933a;
+    --gold-dark:   #8b6914;
+    --text-dark:   #1a2a3a;
+    --text-mid:    #3d5166;
+    --link-blue:   #1a6fa8;
+    --red-accent:  #a82222;
 }
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #080f11;
+    background-color: var(--bg-page);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,16 +30,15 @@ body {
 /* Container */
 .page-wrapper {
     width: 100%;
-    max-width: 800px; /* wider for desktop */
-    background: radial-gradient(circle at center, var(--bg-light) 0%, var(--bg-dark) 100%);
-    background-attachment: fixed;
-    color: white;
+    max-width: 800px;
+    background: var(--bg-card);
+    color: var(--text-dark);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    border-left: 1px solid rgba(255,255,255,0.1);
-    border-right: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    border-left: 1px solid rgba(0,0,0,0.07);
+    border-right: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0 0 30px rgba(0,0,0,0.10);
 }
 
 /* Header */
@@ -60,6 +61,7 @@ header h1 {
     font-size: clamp(22px, 4vw, 34px);
     font-weight: 400;
     margin: 0;
+    color: var(--text-dark);
 }
 
 /* Content */
@@ -76,13 +78,15 @@ header h1 {
 }
 
 .site-item {
-    margin-bottom: 22px;
+    margin-bottom: 0;
     line-height: 1.6;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.09);
 }
 
 /* Title */
 .site-title {
-    color: var(--text-yellow);
+    color: var(--gold-dark);
     font-weight: bold;
     font-size: clamp(16px, 2.5vw, 20px);
     display: block;
@@ -91,7 +95,7 @@ header h1 {
 
 /* Link */
 .site-link {
-    color: var(--link-cyan);
+    color: var(--link-blue);
     word-break: break-word;
     font-size: clamp(13px, 2.3vw, 15px);
     text-decoration: underline;
@@ -112,7 +116,7 @@ header h1 {
 }
 
 .top-nav h1 {
-    color: white;
+    color: #ffffff;
     font-size: clamp(18px, 3vw, 24px);
 }
 
@@ -129,7 +133,7 @@ header h1 {
 .site-desc {
     display: block;
     font-size: clamp(14px, 2.4vw, 16px);
-    color: #e0e0e0;
+    color: var(--text-mid);
     margin-top: 6px;
 }
 

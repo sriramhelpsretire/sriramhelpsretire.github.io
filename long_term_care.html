@@ -7,18 +7,20 @@
 
 <style>
 :root {
-    --bg-dark: #0d1b1e;
-    --bg-light: #1b4d5c;
-    --accent-gold: #e7ca60;
-    --text-yellow: #f4d03f;
-    --red-accent: #a82222;
+    --bg-page:     #f2f4f7;
+    --bg-card:     #ffffff;
+    --accent-gold: #c9933a;
+    --gold-dark:   #8b6914;
+    --text-dark:   #1a2a3a;
+    --text-mid:    #3d5166;
+    --red-accent:  #a82222;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #080f11;
+    background-color: var(--bg-page);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,7 +38,7 @@ body {
 }
 
 .top-nav h1 {
-    color: white;
+    color: #ffffff;
     font-size: clamp(18px, 3vw, 24px);
 }
 
@@ -50,12 +52,15 @@ body {
 .page-wrapper {
     width: 100%;
     max-width: 700px;
-    background: radial-gradient(circle at center, var(--bg-light), var(--bg-dark));
-    color: white;
+    background: var(--bg-card);
+    color: var(--text-dark);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
+    border-left: 1px solid rgba(0,0,0,0.07);
+    border-right: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0 0 30px rgba(0,0,0,0.10);
 }
 
 /* Header */
@@ -71,7 +76,7 @@ header h1 {
 }
 
 header p.subtitle {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-size: 14px;
     margin-top: 6px;
 }
@@ -85,15 +90,16 @@ header p.subtitle {
 
 .content p {
     margin-bottom: 14px;
+    color: var(--text-mid);
 }
 
 .highlight {
-    color: #ff4d4d;
+    color: #b91c1c;
     font-weight: bold;
 }
 
 .gold {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-weight: bold;
 }
 
@@ -103,12 +109,12 @@ header p.subtitle {
 
 /* Section Label */
 .section-label {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border-bottom: 1px solid var(--bg-light);
+    border-bottom: 2px solid #000;
     padding-bottom: 4px;
     margin: 22px 0 12px;
 }
@@ -122,8 +128,8 @@ header p.subtitle {
 }
 
 .setting-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(231,202,96,0.25);
+    background: #f8f9fa;
+    border: 1.5px solid #000;
     border-radius: 8px;
     padding: 12px;
     font-size: 13px;
@@ -131,11 +137,11 @@ header p.subtitle {
 }
 
 .setting-card h4 {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-size: 13px;
     font-weight: bold;
     margin-bottom: 6px;
-    border-bottom: 1px solid rgba(231,202,96,0.2);
+    border-bottom: 1px solid rgba(0,0,0,0.15);
     padding-bottom: 4px;
 }
 
@@ -145,31 +151,31 @@ header p.subtitle {
 
 .setting-card ul li {
     margin-bottom: 3px;
-    color: #ccc;
+    color: var(--text-mid);
 }
 
 .setting-card .best-for {
     margin-top: 6px;
     font-size: 12px;
-    color: #81c784;
+    color: #2e7d32;
     font-style: italic;
 }
 
 .setting-card .sub-item {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-weight: bold;
 }
 
 .setting-card .note {
     margin-top: 6px;
     font-size: 12px;
-    color: #ff8a65;
+    color: #c2410c;
 }
 
 /* Full-width setting card */
 .setting-card-full {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(231,202,96,0.25);
+    background: #f8f9fa;
+    border: 1.5px solid #000;
     border-radius: 8px;
     padding: 12px 14px;
     font-size: 13px;
@@ -178,7 +184,7 @@ header p.subtitle {
 }
 
 .setting-card-full h4 {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-size: 13px;
     font-weight: bold;
     margin-bottom: 6px;
@@ -186,7 +192,7 @@ header p.subtitle {
 
 .setting-card-full ul {
     padding-left: 16px;
-    color: #ccc;
+    color: var(--text-mid);
 }
 
 .setting-card-full ul li {
@@ -196,7 +202,7 @@ header p.subtitle {
 .setting-card-full .note {
     margin-top: 6px;
     font-size: 12px;
-    color: #ff8a65;
+    color: #c2410c;
 }
 
 /* Cost Table */
@@ -208,46 +214,46 @@ header p.subtitle {
 }
 
 .data-table thead tr {
-    background: rgba(231,202,96,0.25);
+    background: var(--text-dark);
 }
 
 .data-table thead th {
-    color: var(--accent-gold);
+    color: #ffffff;
     padding: 8px 10px;
     text-align: left;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid rgba(231,202,96,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .data-table tbody tr {
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .data-table tbody tr:nth-child(even) {
-    background: rgba(255,255,255,0.04);
+    background: rgba(139,105,20,0.06);
 }
 
 .data-table tbody td {
     padding: 8px 10px;
-    color: #ddd;
+    color: var(--text-mid);
     vertical-align: top;
 }
 
 .data-table tbody td:first-child {
-    color: white;
+    color: var(--text-dark);
     font-weight: 500;
 }
 
 .data-table tbody td strong {
-    color: #ff8a65;
+    color: #c2410c;
 }
 
 /* Risk Exposure Box */
 .risk-box {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(231,202,96,0.3);
+    background: #f8f9fa;
+    border: 1.5px solid #000;
     border-radius: 8px;
     padding: 14px;
     font-size: 13px;
@@ -264,7 +270,7 @@ header p.subtitle {
     gap: 8px;
     align-items: flex-start;
     padding: 6px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .risk-row:last-child {
@@ -272,19 +278,19 @@ header p.subtitle {
 }
 
 .risk-condition {
-    color: #ccc;
+    color: var(--text-mid);
     min-width: 160px;
     font-size: 13px;
 }
 
 .risk-arrow {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
     font-weight: bold;
     margin: 0 4px;
 }
 
 .risk-action {
-    color: white;
+    color: var(--text-dark);
     font-size: 13px;
 }
 
@@ -297,64 +303,64 @@ header p.subtitle {
 }
 
 .payer-table thead tr {
-    background: rgba(231,202,96,0.25);
+    background: var(--text-dark);
 }
 
 .payer-table thead th {
-    color: var(--accent-gold);
+    color: #ffffff;
     padding: 8px 10px;
     text-align: left;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid rgba(231,202,96,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .payer-table tbody tr {
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .payer-table tbody tr:nth-child(even) {
-    background: rgba(255,255,255,0.04);
+    background: rgba(139,105,20,0.06);
 }
 
 .payer-table tbody td {
     padding: 8px 10px;
-    color: #ccc;
+    color: var(--text-mid);
     vertical-align: top;
     line-height: 1.4;
 }
 
 .payer-table tbody td:first-child {
-    color: white;
+    color: var(--text-dark);
     font-weight: bold;
     white-space: nowrap;
 }
 
 .payer-table tbody td:last-child {
-    color: #ff8a65;
+    color: #c2410c;
 }
 
 /* Note box */
 .note-box {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(231,202,96,0.25);
+    background: #f8f9fa;
+    border: 1.5px solid #000;
     border-radius: 8px;
     padding: 12px 14px;
     margin-bottom: 10px;
     font-size: 13px;
-    color: #ddd;
+    color: var(--text-mid);
     line-height: 1.5;
 }
 
 .note-box strong {
-    color: var(--accent-gold);
+    color: var(--gold-dark);
 }
 
 /* Disclaimer */
 .disclaimer {
     font-size: 11px;
-    color: #888;
+    color: #666;
     text-align: center;
     padding: 0 20px;
     margin-top: 10px;

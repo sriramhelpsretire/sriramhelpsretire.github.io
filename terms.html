@@ -6,8 +6,8 @@
     <title>Retirement Terms - Deciphered</title>
     <style>
         body {
-            background: radial-gradient(circle at center, #1a3c40 0%, #0d2024 100%);
-            color: #d1e1e4;
+            background: #f2f4f7;
+            color: #1a2a3a;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 40px;
             line-height: 1.6;
@@ -27,11 +27,11 @@
         }
 
         h1 {
-            color: #ffffff;
+            color: #1a2a3a;
             font-size: 2.2rem;
             font-weight: normal;
             margin-bottom: 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 2px solid #000;
             padding-bottom: 20px;
         }
 
@@ -52,36 +52,42 @@
         }
 
         .icon-bullet {
-            color: #4ecdc4;
+            color: #8b6914;
             margin-right: 15px;
             font-size: 1.2rem;
         }
 
         .term-abbr {
-            color: #f1c40f;
+            color: #8b6914;
             font-weight: bold;
             margin-right: 10px;
         }
 
         .term-full {
-            color: #ffffff;
+            color: #1a2a3a;
         }
 
         .underline {
             text-decoration: underline;
-            text-decoration-color: #f1c40f;
+            text-decoration-color: #8b6914;
             text-underline-offset: 5px;
             text-decoration-thickness: 1px;
         }
 
         /* Neon Green style for detailed explanations */
         .neon-text {
-            color: #39FF14;
+            color: #3d5166;
             display: block;
             font-size: 0.95rem;
-            margin: 8px 0 10px 35px; 
+            margin: 8px 0 10px 35px;
             max-width: 850px;
             line-height: 1.5;
+            background: #f8f9fa;
+            border-left: 4px solid #8b6914;
+            border: 1.5px solid #000;
+            border-left: 4px solid #8b6914;
+            border-radius: 6px;
+            padding: 8px 12px;
         }
 
         .link-section {
@@ -97,27 +103,27 @@
 
         .link-item::before {
             content: counter(term-counter) ". ";
-            color: #f1c40f;
+            color: #8b6914;
             font-weight: bold;
             font-size: 1.2rem;
         }
 
         .link-title {
-            color: #f1c40f;
+            color: #8b6914;
             font-size: 1.2rem;
             font-weight: bold;
         }
 
         /* Neon Green links to prevent visited purple */
         .link-url, .link-url:visited {
-            color: #39FF14;
+            color: #1a6fa8;
             text-decoration: underline;
             display: block;
             margin-bottom: 5px;
         }
 
         .description {
-            color: #cbd5e0;
+            color: #3d5166;
         }
 
         .footer-nav {
@@ -128,9 +134,9 @@
         }
 
         .btn-home {
-            background-color: transparent;
-            color: #f1c40f;
-            border: 2px solid #f1c40f;
+            background-color: #c9933a;
+            color: #000;
+            border: 2px solid #000;
             padding: 12px 40px;
             text-decoration: none;
             font-weight: bold;
@@ -138,13 +144,13 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
         }
 
         .btn-home:hover {
-            background-color: #f1c40f;
-            color: #0d2024;
-            box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+            background-color: #693909;
+            color: #fff;
+            border-color: #693909;
             transform: translateY(-2px);
         }
     </style>

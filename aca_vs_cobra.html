@@ -7,18 +7,20 @@
 
 <style>
 :root {
-    --bg-dark: #0d1b1e;
-    --bg-light: #1b4d5c;
-    --accent-gold: #e7ca60;
-    --text-yellow: #f4d03f;
-    --red-accent: #a82222;
+    --bg-page:     #f2f4f7;
+    --bg-card:     #ffffff;
+    --accent-gold: #c9933a;
+    --gold-dark:   #8b6914;
+    --text-dark:   #1a2a3a;
+    --text-mid:    #3d5166;
+    --red-accent:  #a82222;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: #080f11;
+    background-color: var(--bg-page);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,7 +38,7 @@ body {
 }
 
 .top-nav h1 {
-    color: white;
+    color: #ffffff;
     font-size: clamp(18px, 3vw, 24px);
 }
 
@@ -50,12 +52,15 @@ body {
 .page-wrapper {
     width: 100%;
     max-width: 700px;
-    background: radial-gradient(circle at center, var(--bg-light), var(--bg-dark));
-    color: white;
+    background: var(--bg-card);
+    color: var(--text-dark);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
+    border-left: 1px solid rgba(0,0,0,0.07);
+    border-right: 1px solid rgba(0,0,0,0.07);
+    box-shadow: 0 0 30px rgba(0,0,0,0.10);
 }
 
 /* Header */
@@ -78,11 +83,12 @@ header h1 {
 
 .content p {
     margin-bottom: 16px;
+    color: var(--text-mid);
 }
 
 /* Highlight headings inside text */
 .highlight {
-    color: #ff4d4d;
+    color: #b91c1c;
     font-weight: bold;
 }
 
@@ -170,13 +176,13 @@ Cons - networks may be narrower / you may need to change doctors / plans feel co
 
 
 
-<p>Choose COBRA if you just retired and more importantly mid year, and you want short-term continuity / you are in the middle of a
+<p>📌 Choose COBRA if you just retired and more importantly mid year, and you want short-term continuity / you are in the middle of a
 treatment / you will transition to Medicare soon.</p><br>
 
-<p> Choose ACA if you are retiring well before 65 / you can control your income (of course understanding IRMAA and taxes) / you want to optimize long-term
+<p>📌 Choose ACA if you are retiring well before 65 / you can control your income (of course understanding IRMAA and taxes) / you want to optimize long-term
 costs </p><br>
 
-<p> Smart Hybrid Strategy - Start with COBRA for a few months and switch to ACA during open enrollment period</p>
+<p> 📌 Smart Hybrid Strategy - Start with COBRA for a few months and switch to ACA during open enrollment period</p>
 
 
 </div>
