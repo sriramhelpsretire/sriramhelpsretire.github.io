@@ -8,18 +8,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
-  --bg:#0d1117;--surface:#161b22;--surface2:#1e2530;--border:#30363d;
+  --bg:#DAE2EB;--surface:#161b22;--surface2:#1e2530;--border:#30363d;
   --accent:#e8c84a;--green:#4ade80;--blue:#60a5fa;--purple:#a78bfa;
   --orange:#fb923c;--pink:#fb7185;--slate:#94a3b8;--sky:#38bdf8;--rose:#f472b6;
-  --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#f0f6fc;
+  --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#000000;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
 
-header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
+header{background:#f9f8f4;border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
 .header-left{display:flex;align-items:baseline;gap:12px}
-header h1{font-family:'DM Serif Display',serif;font-size:26px;color:var(--accent)}
-header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
+header h1{font-family:'DM Serif Display',serif;font-size:26px;color:#000000}
+header span{color:#09349E;font-size:16px;font-family:'DM Mono',monospace}
 .home-btn{display:flex;align-items:center;gap:6px;background:var(--accent);border:1px solid var(--border);color:#0d1117;padding:7px 14px;border-radius:7px;text-decoration:none;font-size:12px;font-weight:600;transition:all .15s}
 .home-btn:hover{background: #693909;opacity:.88}
 .home-btn svg{width:14px;height:14px}
@@ -27,13 +27,13 @@ header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
 .layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 65px)}
 
 /* SIDEBAR */
-.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 65px);position:sticky;top:0}
+.sidebar{background:#cef2e5;border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 65px);position:sticky;top:0}
 .sxn{margin-bottom:18px}
-.sxn h3{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.sxn h3{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#000000;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 .field{margin-bottom:7px}
-.field label{display:block;font-size:10px;color:var(--label);margin-bottom:2px;font-weight:500}
-.field input{width:100%;background:#494949;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:#39FF14;font-family:'DM Mono',monospace;font-size:14px;outline:none;transition:border-color .15s}
-.field input:focus{border-color:var(--accent)}
+.field label{display:block;font-size:12px;color:#000000;margin-bottom:2px;font-weight:500}
+.field input{width:100%;background:#ffffff;border:1px solid var(--border);border-radius:5px;padding:5px 8px;color:#000000;font-family:'DM Mono',monospace;font-size:14px;outline:none;transition:border-color .15s}
+.field input:focus{border-color:#000000}
 .field input[type=number]::-webkit-inner-spin-button{opacity:.3}
 .calc-btn{width:100%;background:var(--accent);color:#0d1117;border:none;border-radius:7px;padding:9px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;margin-top:4px;transition:opacity .15s,transform .1s}
 .calc-btn:hover{background: #693909;opacity:.88}
@@ -44,14 +44,14 @@ header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
 
 /* Summary Cards */
 .cards{display:flex;gap:8px;padding:12px 20px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 13px;min-width:120px;flex:1;position:relative;overflow:hidden}
+.card{background:#F2ECB1;border:1px solid var(--border);border-radius:8px;padding:10px 13px;min-width:120px;flex:1;position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
 .card.gold::before{background:var(--accent)}.card.green::before{background:var(--green)}
 .card.blue::before{background:var(--blue)}.card.purple::before{background:var(--purple)}
 .card.red::before{background:var(--danger)}
-.card-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Mono',monospace;margin-bottom:4px}
-.card-val{font-family:'DM Serif Display',serif;font-size:17px;color:var(--text)}
-.card-sub{font-size:9px;color:var(--muted);margin-top:2px}
+.card-lbl{font-size:9px;color:#000000;text-transform:uppercase;letter-spacing:1.5px;font-family:'DM Mono',monospace;margin-bottom:4px}
+.card-val{font-family:'DM Serif Display',serif;font-size:17px;color:#000000}
+.card-sub{font-size:9px;color:#000000;margin-top:2px}
 
 /* Tab bar */
 .tab-bar{display:flex;padding:0 20px;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}
@@ -66,26 +66,29 @@ header span{color:#DE3163;font-size:16px;font-family:'DM Mono',monospace}
 .table-area{flex:1;overflow:auto;padding:16px 20px}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
-.panel-title{font-family:'DM Serif Display',serif;font-size:15px;color:var(--label);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.panel-title{font-family:'DM Serif Display',serif;font-size:15px;color:#000000;margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .pdot{width:8px;height:8px;border-radius:50%;display:inline-block}
 
-.table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:auto;max-height:calc(100vh - 320px)}
+.table-wrap{background:#f2eece;border:1px solid var(--border);border-radius:8px;overflow:auto;max-height:calc(100vh - 320px)}
 table{border-collapse:collapse;width:100%;font-size:14px;font-family:'DM Mono',monospace}
-thead th{position:sticky;top:0;background:#181f2b;font-size:12px;letter-spacing:.5px;text-transform:uppercase;padding:10px 11px;text-align:right;white-space:nowrap;border-bottom:2px solid var(--border);z-index:2}
+thead th{position:sticky;top:0;background:#082E6E;font-size:12px;letter-spacing:.5px;text-transform:uppercase;padding:10px 11px;text-align:right;white-space:nowrap;border-bottom:2px solid var(--border);z-index:2}
 th.c{text-align:center}th.l{text-align:left}
 tbody tr{border-bottom:1px solid #1a2130;transition:background .1s}
-tbody tr:hover{background:#693909}
+tbody tr:hover {
+  background: #c5a000 !important; /* !important forces this color to win over .r-row and .m-row */
+  color: #000000 !important;      /* Ensures text turns black on hover for all rows */
+}
 tbody tr.r-row{background:rgba(232,200,74,.05)}
 tbody tr.m-row{background:rgba(74,222,128,.04)}
 td{padding:8px 11px;text-align:right;color:var(--label);white-space:nowrap}
 td.c{text-align:center}td.l{text-align:left}
-td.hl{color:var(--text);font-weight:500}td.pos{color:var(--green)}td.neg{color:var(--danger)}td.dim{color:var(--muted)}
+td.hl{color:#000000;font-weight:500}td.pos{color:#006400}td.neg{color:#8B0000}td.dim{color:var(--muted)}
 .tag{display:inline-block;font-size:7px;padding:1px 4px;border-radius:3px;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.5px;vertical-align:middle;margin-left:3px}
 .tag-r{background:rgba(232,200,74,.2);color:#FFFF00}.tag-m{background:rgba(74,222,128,.15);color:var(--green)}
 
 .chart-section{padding:24px 20px 32px;border-top:1px solid var(--border);background:var(--bg)}
-.chart-section-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--accent);margin-bottom:6px;letter-spacing:-.3px}
-.chart-section-sub{font-size:12px;color:var(--muted);margin-bottom:20px;font-family:'DM Mono',monospace}
+.chart-section-title{font-family:'DM Serif Display',serif;font-size:20px;color:#000000;margin-bottom:6px;letter-spacing:-.3px}
+.chart-section-sub{font-size:12px;color:#000000;margin-bottom:20px;font-family:'DM Mono',monospace}
 
 .chart-toggle{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .ctbtn{padding:7px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
@@ -93,14 +96,14 @@ td.hl{color:var(--text);font-weight:500}td.pos{color:var(--green)}td.neg{color:v
 .ctbtn:hover{color:#693909}
 
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
-.chart-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
+.chart-box{background:#ffffff;border:1px solid var(--border);border-radius:10px;padding:18px}
 .chart-box.full{grid-column:1/-1}
 .chart-box-title{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:14px}
 .chart-canvas-wrap{position:relative;height:220px}
 .chart-canvas-wrap.tall{height:280px}
 
 .sliders-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
-.slider-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px}
+.slider-box{background:#ffffff;border:1px solid var(--border);border-radius:10px;padding:18px}
 .slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .slider-label span:first-child{font-size:12px;color:var(--label);font-weight:500}
 .slider-val{font-family:'DM Serif Display',serif;font-size:22px}
@@ -111,17 +114,19 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 #sliderA::-webkit-slider-thumb{background:var(--accent)}
 #sliderB::-webkit-slider-thumb{background:var(--sky)}
 
-.compare-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
-.compare-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:14px}
+
+
+.compare-box{background:#6780B5;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
+.compare-title{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#000000;font-family:'DM Mono',monospace;margin-bottom:14px}
 .compare-table{width:100%;border-collapse:collapse}
-.compare-table th{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'DM Mono',monospace;padding:6px 12px;text-align:right;border-bottom:1px solid var(--border)}
+.compare-table th{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#;font-family:'DM Mono',monospace;padding:6px 12px;text-align:right;border-bottom:1px solid var(--border)}
 .compare-table th:first-child{text-align:left}
 .compare-table td{padding:10px 12px;text-align:right;font-family:'DM Mono',monospace;font-size:13px;border-bottom:1px solid #1a2130;color:var(--label)}
 .compare-table td:first-child{text-align:left;color:var(--label);font-family:'DM Sans',sans-serif;font-size:13px}
 .compare-table tr:last-child td{border-bottom:none;font-weight:700;color:var(--text);font-size:14px}
 .compare-table tr:last-child td:first-child{color:var(--text)}
-.col-a{color:var(--accent)!important}
-.col-b{color:var(--sky)!important}
+.col-a{color:#ffffff!important}
+.col-b{color:#ffffff!important}
 
 .bottom-home{display:flex;justify-content:center;padding:28px 20px 36px;border-top:1px solid var(--border)}
 .bottom-home-btn{display:flex;align-items:center;gap:8px;background:var(--surface);border:2px solid var(--border);color:var(--accent);padding:11px 28px;border-radius:9px;text-decoration:none;font-size:16px;font-weight:600;transition:all .2s;letter-spacing:.3px}
@@ -156,7 +161,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <header>
   <div class="header-left">
     <h1>Retirement Portfolio Calculator</h1>
-    <span><p><u> Couples Financial Projection(CA) || Enter Data, Calculate Projection, <br>Save summary to CSV  </u></p></span>
+    <span><p><u> Couples Financial Projection(CA)</u> | <u>Enter Data, Calculate Projection,</u> <br><u>Save summary to CSV  </u></p></span>
   </div>
   <a href="index.html" class="home-btn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -217,10 +222,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 <div class="main">
   <div class="cards">
-    <div class="card gold"><div class="card-lbl">Portfolio at Retirement Age</div><div class="card-val" id="c-retire">—</div><div class="card-sub" id="c-retire-s">age 65</div></div>
-    <div class="card green"><div class="card-lbl">Peak Portfolio</div><div class="card-val" id="c-peak">—</div><div class="card-sub" id="c-peak-s">—</div></div>
-    <div class="card purple"><div class="card-lbl">Lifetime SS</div><div class="card-val" id="c-ss">—</div><div class="card-sub">projected</div></div>
-    <div class="card red"><div class="card-lbl">Lifetime Tax</div><div class="card-val" id="c-tax">—</div><div class="card-sub">Fed + CA</div></div>
+    <div class="card gold"><div class="card-lbl"><strong>Portfolio at Retirement Age</strong></div><div class="card-val" id="c-retire">—</div><div class="card-sub" id="c-retire-s">age 65</div></div>
+    <div class="card green"><div class="card-lbl"><strong>Peak Portfolio</strong></div><div class="card-val" id="c-peak">—</div><div class="card-sub" id="c-peak-s">—</div></div>
+    <div class="card purple"><div class="card-lbl"><strong>Lifetime Social Security</strong></div><div class="card-val" id="c-ss">—</div><div class="card-sub">projected</div></div>
+    <div class="card red"><div class="card-lbl"><strong>Lifetime Tax</strong></div><div class="card-val" id="c-tax">—</div><div class="card-sub">Fed + CA</div></div>
   </div>
 
   <div class="tab-bar">
@@ -653,9 +658,9 @@ function calculate(){
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.s4)}</td><td class="pos">${fz(r.g4)}</td><td class="pos">${r.c4?fz(r.c4):'—'}</td><td class="neg">${r.w4?fz(r.w4):'—'}</td><td class="neg">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.e4)}</td>
 <td>
   <div style="display:flex; align-items:center; gap:1px;">
-    <span style="color:#39FF14;">$</span>
+    <span style="color:#000000;">$</span>
     <input type="number"
-           style="width:100px; background:#494949; color:#39FF14; border:1px solid #30363d; border-radius:5px; padding:4px; font-family:'DM Mono',monospace;">
+           style="width:100px; background:#ffffff; color:#000000; border:1px solid #30363d; border-radius:5px; padding:4px; font-family:'DM Mono',monospace;">
   </div>
 </td></tr>`,rows);
   fill('troth',`${YH}<th style="color:#a78bfa">Start</th><th style="color:#a78bfa">Growth (${gr1v}%)</th><th style="color:#a78bfa">Roth Conv In</th><th style="color:#a78bfa">End Balance</th>`,
@@ -683,7 +688,7 @@ function calculate(){
 <th style="color:#4ade80">HSA</th>
 <th style="color:#fb923c">Bonds</th>
 <th style="color:var(--accent)">Fed AGI</th>
-<th style="color:var(--text)">Total Portfolio</th>
+<th style="color:#000000">Total Portfolio</th>
 <th style="color:#fb7185">Total SS</th>
 <th style="color:#38bdf8">RMD</th>
 <th style="color:#f472b6">Fed Tax</th>
