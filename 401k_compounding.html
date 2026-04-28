@@ -8,33 +8,33 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root {
-    --bg:#0d1117; --surface:#161b22; --surface2:#1e2530; --border:#30363d;
-    --accent:#e8c84a; --green:#4ade80; --blue:#60a5fa; --text:#e6edf3; --muted:#7d8590; --label:#a8b3bf;
+    --bg:#f2f4f7; --surface:#ffffff; --surface2:#f8f9fa; --border:#000000;
+    --accent:#8b6914; --green:#2e7d32; --blue:#1a6fa8; --text:#1a2a3a; --muted:#3d5166; --label:#3d5166;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; }
 
   header { 
-    background: linear-gradient(135deg, #0d1117, #1a2235); 
-    border-bottom: 1px solid var(--border); 
+    background: #1a2a3a;
+    border-bottom: 4px solid #a82222; 
     padding: 18px 32px; 
     display: flex; 
     align-items: baseline; 
     gap: 14px; 
   }
-  header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--accent); }
-  header span { color: #33FF00; font-size: 14px; font-family: 'DM Mono', monospace; }
+  header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; color: #e8c84a; }
+  header span { color: #c8c4b4; font-size: 14px; font-family: 'DM Mono', monospace; }
 
   .layout { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 69px); }
 
   /* Sidebar Styling */
-  .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px 20px; overflow-y: auto; }
-  .sxn h3 { font-family: 'DM Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
+  .sidebar { background: #1a2a3a; border-right: 2px solid #000; padding: 24px 20px; overflow-y: auto; }
+  .sxn h3 { font-family: 'DM Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #e8c84a; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid rgba(201,147,58,0.4); }
   
   .field { margin-bottom: 12px; }
-  .field label { display: block; font-size: 14px; color: #7AF51B; margin-bottom: 4px; text-transform: uppercase; }
-  .field input { width: 80%; background: #000000; border: 1px; color: #FFFFFF;border-radius: 6px; padding: 8px 10px; color: #FFFFFF; font-family: 'DM Mono', monospace; outline: none; }
-  .field input:focus { border-color: #F5F11B; }
+  .field label { display: block; font-size: 14px; color: #e0e0e0; margin-bottom: 4px; text-transform: uppercase; }
+  .field input { width: 80%; background: #0f2233; border: 1px solid rgba(201,147,58,0.5); color: #e8b96a; border-radius: 6px; padding: 8px 10px; font-family: 'DM Mono', monospace; outline: none; }
+  .field input:focus { border-color: #c9933a; }
 
   /* Button System */
   .btn-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
@@ -54,32 +54,32 @@
   }
 
   .calc-btn { background: #FFEA00; color: #000000; }
-  .calc-btn:hover { background: #693909; opacity: 0.9; transform: translateY(-1px); }
+  .calc-btn:hover { background: #693909; color: #fff; opacity: 1; transform: translateY(-1px); }
 
   .home-btn { 
     background: #FFEA00; 
     color: #000000; 
     border: 1px solid var(--accent); 
   }
-  .home-btn:hover { background: #693909; color: #0d1117; }
+  .home-btn:hover { background: #693909; color: #fff; }
 
   /* Main Area */
   .main { padding: 32px; overflow-y: auto; }
-  .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 32px; border-top: 4px solid var(--green); display: inline-block; min-width: 300px; }
-  .summary-card .label { font-family: 'DM Mono', monospace; font-size: 14px; color: #FFD900; margin-bottom: 8px; }
-  .summary-card .value { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--text); }
+  .summary-card { background: #ffffff; border: 1.5px solid #000; border-radius: 12px; padding: 24px; margin-bottom: 32px; border-top: 4px solid #2e7d32; display: inline-block; min-width: 300px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .summary-card .label { font-family: 'DM Mono', monospace; font-size: 14px; color: #8b6914; margin-bottom: 8px; }
+  .summary-card .value { font-family: 'DM Serif Display', serif; font-size: 36px; color: #1a2a3a; }
 
-  .chart-container { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 32px; height: 350px; }
+  .chart-container { background: #ffffff; border: 1.5px solid #000; border-radius: 12px; padding: 22px; margin-bottom: 32px; height: 350px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
-  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .table-wrap { background: #ffffff; border: 1.5px solid #000; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
   table { border-collapse: collapse; width: 100%; font-family: 'DM Mono', monospace; font-size: 12px; }
-  thead th { background: #181f2b; color: var(--accent); padding: 12px; text-align: right; border-bottom: 2px solid var(--border); font-size: 11px; }
-  tbody td { padding: 10px 12px; text-align: right; color: var(--label); border-bottom: 1px solid var(--border); }
-  tbody tr:hover { background: #693909; }
-  td.hl { color: var(--text); font-weight: 500; }
+  thead th { background: #1a2a3a; color: #e8c84a; padding: 12px; text-align: right; border-bottom: 2px solid #000; font-size: 11px; }
+  tbody td { padding: 10px 12px; text-align: right; color: #3d5166; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  tbody tr:hover { background: rgba(139,105,20,0.08); }
+  td.hl { color: #1a2a3a; font-weight: 500; }
 
   ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
 </style>
 </head>
 <body>
@@ -164,10 +164,10 @@ function calculateCompounding() {
         dataPoints.push(balance.toFixed(0));
 
         html += `<tr>
-            <td style="text-align:left; color:var(--accent)">${i}</td>
+            <td style="text-align:left; color:#8b6914; font-weight:bold;">${i}</td>
             <td>$${contribution.toLocaleString()}</td>
             <td>$${match.toLocaleString()}</td>
-            <td style="color:var(--green)">$${Math.round(growthAmt).toLocaleString()}</td>
+            <td style="color:#2e7d32">$${Math.round(growthAmt).toLocaleString()}</td>
             <td class="hl">$${Math.round(balance).toLocaleString()}</td>
         </tr>`;
 
@@ -214,17 +214,17 @@ function updateChart(labels, data) {
     },
     scales: {
         x: { 
-            grid: { color: '#30363d' }, 
-            ticks: { color: '#7d8590', font: { family: 'DM Mono' } } 
+            grid: { color: 'rgba(0,0,0,0.08)' }, 
+            ticks: { color: '#1a2a3a', font: { family: 'DM Mono' } } 
         },
         y: { 
-            grid: { color: '#30363d' }, 
+            grid: { color: 'rgba(0,0,0,0.08)' }, 
             // This ensures the axis area is wide enough for large dollar amounts
             afterFit: (axis) => {
                 axis.width = 80; 
             },
             ticks: { 
-                color: '#7d8590', 
+                color: '#1a2a3a', 
                 font: { family: 'DM Mono' }, 
                 // Ensure the dollar sign and commas are included
                 callback: v => '$' + v.toLocaleString() 

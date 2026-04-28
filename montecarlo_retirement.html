@@ -8,16 +8,17 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root {
-  --bg:        #1b3a35;
-  --bg-dark:   #122b27;
-  --surface:   #1f4039;
+  --bg:        #f2f4f7;
+  --bg-dark:   #ffffff;
+  --bg-sidebar:#1a2a3a;
+  --surface:   #f8f9fa;
   --gold:      #c9933a;
-  --gold-lt:   #e8b96a;
-  --gold-dim:  rgba(201,147,58,0.15);
-  --gold-bdr:  rgba(201,147,58,0.35);
-  --white:     #f0ece0;
-  --white-dim: #c8c4b4;
-  --neon:      #39FF14;
+  --gold-lt:   #8b6914;
+  --gold-dim:  rgba(139,105,20,0.08);
+  --gold-bdr:  rgba(0,0,0,0.15);
+  --white:     #1a2a3a;
+  --white-dim: #3d5166;
+  --neon:      #1a2a3a;
   --red:       #c0392b;
   --green:     #27ae60;
   --danger:    #e74c3c;
@@ -31,7 +32,7 @@ body {
   background:var(--bg);
   color:var(--white);
   min-height:100vh;
-  padding-right:14px; /* space for red strip */
+  padding-right:14px;
 }
 
 /* Red accent strip */
@@ -61,8 +62,8 @@ body::after {
 
 /* ── SIDEBAR ── */
 .sidebar {
-  background:var(--bg-dark);
-  border-right:1px solid var(--gold-bdr);
+  background:var(--bg-sidebar);
+  border-right:2px solid #000;
   padding:28px 18px 40px;
   overflow-y:auto;
   position:sticky;
@@ -76,18 +77,18 @@ body::after {
   font-weight:900;
   letter-spacing:3px;
   text-transform:uppercase;
-  color:var(--white);
+  color:#ffffff;
   text-align:center;
   margin-bottom:6px;
   padding-bottom:14px;
-  border-bottom:1px solid var(--gold-bdr);
+  border-bottom:1px solid rgba(201,147,58,0.4);
   padding-right:44px; /* avoid home icon */
 }
 
 .sidebar-sub {
   font-size:11px;
   font-style:italic;
-  color:var(--white-dim);
+  color:#c8c4b4;
   text-align:center;
   margin-bottom:20px;
 }
@@ -97,9 +98,9 @@ body::after {
   font-family:'Lora',serif;
   font-size:13px;
   font-weight:600;
-  color:var(--gold);
+  color:#e8b96a;
   text-decoration:underline;
-  text-decoration-color:var(--gold);
+  text-decoration-color:#e8b96a;
   margin:22px 0 10px;
   letter-spacing:0.3px;
 }
@@ -110,36 +111,36 @@ body::after {
   display:block;
   font-size:11px;
   font-weight:600;
-  color:#FFFFFF;
+  color:#e0e0e0;
   margin-bottom:3px;
   font-family:'Lora',serif;
 }
 .field input {
   width:100%;
-  background:#000000;
-  border:1px solid var(--gold-bdr);
+  background:#0f2233;
+  border:1px solid rgba(201,147,58,0.5);
   border-radius:5px;
   padding:7px 10px;
-  color:#E3BF09;
+  color:#e8b96a;
   font-family:'Lora',monospace;
   font-size:13px;
   outline:none;
   transition:border-color .15s;
 }
-.field input:focus{border-color:var(--gold);}
+.field input:focus{border-color:#c9933a;}
 .field input[type=number]::-webkit-inner-spin-button{opacity:.3;}
 
 /* Total box */
 .total-box {
-  background:rgba(201,147,58,0.12);
-  border:1px solid var(--gold);
+  background:rgba(201,147,58,0.15);
+  border:1px solid #c9933a;
   border-radius:6px;
   padding:10px 14px;
   text-align:center;
   font-family:'Playfair Display',serif;
   font-size:15px;
   font-weight:700;
-  color:var(--gold-lt);
+  color:#e8b96a;
   margin:14px 0 4px;
 }
 
@@ -147,7 +148,7 @@ body::after {
 .note {
   font-size:10px;
   font-style:italic;
-  color:var(--white-dim);
+  color:#c8c4b4;
   line-height:1.5;
   padding:6px 0 0;
 }
@@ -155,8 +156,8 @@ body::after {
 /* Run button */
 .run-btn {
   width:100%;
-  background:var(--gold);
-  color:#1b3a35;
+  background:#c9933a;
+  color:#000;
   border:none;
   border-radius:7px;
   padding:12px;
@@ -183,16 +184,17 @@ body::after {
   font-weight:900;
   letter-spacing:4px;
   text-transform:uppercase;
-  color:var(--white);
+  color:#1a2a3a;
   margin-bottom:6px;
   padding-bottom:14px;
-  border-bottom:1px solid var(--gold-bdr);
+  border-bottom:2px solid #000;
 }
 
 /* ── CONFIDENCE BANNER ── */
 .confidence-banner {
-  background:var(--bg-dark);
-  border:2px solid var(--gold);
+  background:#ffffff;
+  border:2px solid #000;
+  border-top:4px solid #c9933a;
   border-radius:10px;
   padding:20px 24px;
   margin:20px 0;
@@ -201,6 +203,7 @@ body::after {
   justify-content:space-between;
   flex-wrap:wrap;
   gap:14px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
 }
 .conf-score {
   font-family:'Playfair Display',serif;
@@ -215,7 +218,7 @@ body::after {
 .conf-label {
   font-size:12px;
   font-style:italic;
-  color:var(--white-dim);
+  color:#3d5166;
   margin-top:4px;
 }
 .conf-meter {
@@ -225,7 +228,7 @@ body::after {
 }
 .conf-meter-track {
   height:10px;
-  background:rgba(255,255,255,0.1);
+  background:rgba(0,0,0,0.1);
   border-radius:5px;
   overflow:hidden;
   margin-top:8px;
@@ -245,16 +248,17 @@ body::after {
   margin:16px 0 24px;
 }
 .scard {
-  background:var(--bg-dark);
-  border:1px solid var(--gold-bdr);
+  background:#ffffff;
+  border:1.5px solid #000;
   border-radius:8px;
   padding:14px 16px;
-  border-top:3px solid var(--gold);
+  border-top:4px solid #c9933a;
+  box-shadow:0 2px 8px rgba(0,0,0,0.07);
 }
 .scard-lbl {
   font-size:10px;
   font-family:'Lora',serif;
-  color:var(--white-dim);
+  color:#3d5166;
   text-transform:uppercase;
   letter-spacing:1px;
   margin-bottom:6px;
@@ -262,7 +266,7 @@ body::after {
 .scard-val {
   font-family:'Playfair Display',serif;
   font-size:20px;
-  color:var(--white);
+  color:#1a2a3a;
 }
 .scard-val.green {color:var(--green);}
 .scard-val.red   {color:var(--danger);}
@@ -273,39 +277,41 @@ body::after {
   font-family:'Lora',serif;
   font-size:14px;
   font-weight:600;
-  color:var(--gold);
+  color:#8b6914;
   text-decoration:underline;
-  text-decoration-color:var(--gold);
+  text-decoration-color:#8b6914;
   margin-bottom:12px;
 }
 .chart-wrap {
-  background:var(--bg-dark);
-  border:1px solid var(--gold-bdr);
+  background:#ffffff;
+  border:1.5px solid #000;
   border-radius:8px;
   padding:18px;
   height:380px;
   margin-bottom:28px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.07);
 }
 
 /* ── REVERSE CALCULATOR ── */
 .reverse-box {
-  background:var(--bg-dark);
-  border:1px solid var(--gold-bdr);
+  background:#ffffff;
+  border:1.5px solid #000;
   border-radius:10px;
   padding:22px 24px;
   margin-top:28px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.07);
 }
 .reverse-title {
   font-family:'Playfair Display',serif;
   font-size:17px;
   font-weight:700;
-  color:var(--gold-lt);
+  color:#8b6914;
   margin-bottom:4px;
 }
 .reverse-sub {
   font-size:12px;
   font-style:italic;
-  color:var(--white-dim);
+  color:#3d5166;
   margin-bottom:18px;
   line-height:1.6;
 }
@@ -319,17 +325,17 @@ body::after {
 .reverse-row label {
   font-size:12px;
   font-weight:600;
-  color:var(--neon);
+  color:#1a2a3a;
   white-space:nowrap;
   font-family:'Lora',serif;
 }
 .reverse-row input {
   width:100px;
-  background:#494949;
-  border:1px solid var(--gold-bdr);
+  background:#f8f9fa;
+  border:1.5px solid #000;
   border-radius:5px;
   padding:7px 10px;
-  color:var(--neon);
+  color:#1a2a3a;
   font-family:'Lora',monospace;
   font-size:13px;
   outline:none;
@@ -350,8 +356,9 @@ body::after {
 }
 .rev-btn:hover{background:#693909;}
 .reverse-result {
-  background:rgba(201,147,58,0.1);
-  border:1px solid var(--gold);
+  background:rgba(139,105,20,0.07);
+  border:1.5px solid #000;
+  border-left:4px solid #8b6914;
   border-radius:8px;
   padding:16px 20px;
   display:none;
@@ -360,19 +367,19 @@ body::after {
 .rev-res-label {
   font-size:11px;
   font-style:italic;
-  color:var(--white-dim);
+  color:#3d5166;
   margin-bottom:4px;
 }
 .rev-res-val {
   font-family:'Playfair Display',serif;
   font-size:28px;
   font-weight:700;
-  color:var(--gold-lt);
+  color:#8b6914;
 }
 .rev-res-note {
   font-size:11px;
   font-style:italic;
-  color:var(--white-dim);
+  color:#3d5166;
   margin-top:6px;
   line-height:1.6;
 }
@@ -384,7 +391,7 @@ body::after {
   gap:16px;
   margin-top:44px;
   padding-top:24px;
-  border-top:1px solid var(--gold-bdr);
+  border-top:2px solid #000;
   flex-wrap:wrap;
 }
 .nav-btn {
@@ -395,7 +402,7 @@ body::after {
   border:2px solid var(--gold);min-width:140px;justify-content:center;
   transition:background .18s,transform .1s;
 }
-.nav-btn:hover{background:#693909;border-color:var(--gold-lt);}
+.nav-btn:hover{background:#693909;color:#fff;border-color:#693909;}
 .nav-btn:active{transform:scale(.98);}
 
 /* ── RUNNING SPINNER ── */
@@ -404,7 +411,7 @@ body::after {
   text-align:center;
   font-size:12px;
   font-style:italic;
-  color:var(--white-dim);
+  color:#3d5166;
   padding:8px 0;
 }
 .spinner.show{display:block;}
@@ -412,7 +419,7 @@ body::after {
 /* ── RESPONSIVE: stack sidebar on mobile ── */
 @media(max-width:760px){
   .page-wrap{grid-template-columns:1fr;}
-  .sidebar{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--gold-bdr);}
+  .sidebar{position:static;max-height:none;border-right:none;border-bottom:1px solid rgba(0,0,0,0.15);}
   .main{padding:20px 14px 50px;}
   .conf-score{font-size:40px;}
   .summary-grid{grid-template-columns:repeat(2,1fr);}
@@ -483,10 +490,10 @@ body::after {
 <!-- ══════════════════════ MAIN ══════════════════════ -->
 <main class="main">
   <h1 class="main-title">Retirement Confidence</h1>
-  <p style="font-size:15px;font-style:italic;color:#EDE982;margin-bottom:16px;line-height:1.7;">
-    Runs thousands of market scenarios through three phases: <b style="color:var(--gold-lt)">Phase 1</b> gap years (brokerage only) →
-    <b style="color:var(--gold-lt)">Phase 2</b> SS active (SS + brokerage) →
-    <b style="color:var(--gold-lt)">Phase 3</b> RMD age (SS + RMD, surplus reinvested).
+  <p style="font-size:15px;font-style:italic;color:#3d5166;margin-bottom:16px;line-height:1.7;">
+    Runs thousands of market scenarios through three phases: <b style="color:#8b6914">Phase 1</b> gap years (brokerage only) →
+    <b style="color:#8b6914">Phase 2</b> SS active (SS + brokerage) →
+    <b style="color:#8b6914">Phase 3</b> RMD age (SS + RMD, surplus reinvested).
     Roth is never drawn and shown as your legacy balance.
 	<br> <br>The above is a specific case where Roth conversion is done from the retirement start years till SS is started. Also the assumption is 
 	that money is not withdrawn from Roth IRA and is left for legacy distribution. Conditions can be changed
@@ -842,15 +849,15 @@ function drawChart(allPaths, startAge, endAge) {
       responsive:true, maintainAspectRatio:false,
       interaction:{mode:'index', intersect:false},
       plugins:{
-        legend:{labels:{color:'#c8c4b4', boxWidth:12, padding:14, font:{size:11}}},
+        legend:{labels:{color:'#000000', boxWidth:12, padding:14, font:{size:11}}},
         tooltip:{callbacks:{label:ctx=>' '+ctx.dataset.label+': '+fmm(ctx.raw)}}
       },
       scales:{
-        x:{grid:{color:'rgba(201,147,58,0.08)'}, ticks:{color:'#c8c4b4', maxTicksLimit:12},
-           title:{display:true, text:"Husband's Age", color:'#c8c4b4', font:{size:11}}},
-        y:{grid:{color:'rgba(201,147,58,0.08)'},
-           ticks:{color:'#c8c4b4', callback:val=>val>=1e6?'$'+(val/1e6).toFixed(1)+'M':'$'+(val/1e3).toFixed(0)+'K'},
-           title:{display:true, text:'Portfolio (Brokerage + 401k)', color:'#c8c4b4', font:{size:11}}}
+        x:{grid:{color:'#000000'}, ticks:{color:'#000000', maxTicksLimit:12},
+           title:{display:true, text:"Husband's Age", color:'#000000', font:{size:11}}},
+        y:{grid:{color:'#000000'},
+           ticks:{color:'#000000', callback:val=>val>=1e6?'$'+(val/1e6).toFixed(1)+'M':'$'+(val/1e3).toFixed(0)+'K'},
+           title:{display:true, text:'Portfolio (Brokerage + 401k)', color:'000000', font:{size:11}}}
       }
     }
   });
