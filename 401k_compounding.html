@@ -8,92 +8,93 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root {
-    --bg:#f2f4f7; --surface:#ffffff; --surface2:#f8f9fa; --border:#000000;
-    --accent:#8b6914; --green:#2e7d32; --blue:#1a6fa8; --text:#1a2a3a; --muted:#3d5166; --label:#3d5166;
+    --bg:#f2f4f7; --surface:#ffffff; --border:#000000;
+    --accent:#8b6914; --green:#2e7d32; --blue:#1a6fa8; --text:#1a2a3a; --muted:#3d5166;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; }
 
-  header { 
-    background: #1a2a3a;
-    border-bottom: 4px solid #a82222; 
-    padding: 18px 32px; 
-    display: flex; 
-    align-items: baseline; 
-    gap: 14px;
-    justify-content: space-between;
+  header {
+    background: #1a2a3a; border-bottom: 4px solid #a82222;
+    padding: 18px 32px; display: flex; align-items: baseline; gap: 14px; justify-content: space-between;
   }
   header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; color: #e8c84a; }
   header span { color: #c8c4b4; font-size: 14px; font-family: 'DM Mono', monospace; }
-  header select {
-    background: #333333;
-    color: white;
-    padding: 8px;
-    border-radius: 6px;
-    font-weight: bold;
-    border: 1px solid #d4af37;
-    cursor: pointer;
-  }
+  header select { background:#333; color:#fff; padding:8px; border-radius:6px; font-weight:bold; border:1px solid #d4af37; cursor:pointer; }
 
-  .layout { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 69px); }
-  .sidebar { background: #1a2a3a; border-right: 2px solid #000; padding: 24px 20px; overflow-y: auto; }
-  .sxn h3 { font-family: 'DM Mono', monospace; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: #e8c84a; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px solid rgba(201,147,58,0.4); }
-  
-  .field { margin-bottom: 12px; }
-  .field label { display: block; font-size: 14px; color: #e0e0e0; margin-bottom: 4px; text-transform: uppercase; }
-  .field input { width: 80%; background: #0f2233; border: 1px solid rgba(201,147,58,0.5); color: #e8b96a; border-radius: 6px; padding: 8px 10px; font-family: 'DM Mono', monospace; outline: none; }
-  .field input:focus { border-color: #c9933a; }
+  .layout { display: grid; grid-template-columns: 310px 1fr; min-height: calc(100vh - 69px); }
+  .sidebar { background: #1a2a3a; border-right: 2px solid #000; padding: 20px 18px; overflow-y: auto; }
+  .sxn { margin-bottom: 18px; }
+  .sxn h3 { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#e8c84a; margin-bottom:10px; padding-bottom:5px; border-bottom:1px solid rgba(201,147,58,0.4); }
 
-  .btn-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-  
-  .action-btn { 
-    width: 100%; 
-    border-radius: 8px; 
-    padding: 12px; 
-    font-weight: 700; 
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    cursor: pointer; 
-    text-align: center;
-    text-decoration: none;
-    transition: 0.2s; 
-    border: none;
-  }
+  .field { margin-bottom: 9px; }
+  .field label { display:block; font-size:10px; color:#c8c4b4; margin-bottom:3px; text-transform:uppercase; letter-spacing:.5px; }
+  .field input { width:100%; background:#0f2233; border:1px solid rgba(201,147,58,0.5); color:#e8b96a; border-radius:6px; padding:7px 10px; font-family:'DM Mono',monospace; font-size:13px; outline:none; }
+  .field input:focus { border-color:#c9933a; }
+  .field-note { font-size:10px; color:#4a5568; font-family:'DM Mono',monospace; margin-top:2px; }
+  .limit-warn { font-size:10px; color:#f87171; font-family:'DM Mono',monospace; margin-top:3px; display:none; }
+  .limit-ok   { font-size:10px; color:#4ade80; font-family:'DM Mono',monospace; margin-top:3px; display:none; }
 
-  .calc-btn { background: #FFEA00; color: #000000; }
-  .calc-btn:hover { background: #693909; color: #fff; opacity: 1; transform: translateY(-1px); }
+  .delay-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 
-  .home-btn { 
-    background: #FFEA00; 
-    color: #000000; 
-    border: 1px solid var(--accent); 
-  }
-  .home-btn:hover { background: #693909; color: #fff; }
+  .btn-group { margin-top:14px; display:flex; flex-direction:column; gap:8px; }
+  .action-btn { width:100%; border-radius:8px; padding:11px; font-weight:700; font-family:'DM Sans',sans-serif; font-size:13px; cursor:pointer; text-align:center; text-decoration:none; border:none; }
+  .calc-btn  { background:#FFEA00; color:#000; }
+  .calc-btn:hover  { background:#693909; color:#fff; }
+  .home-btn  { background:#FFEA00; color:#000; border:1px solid var(--accent); }
+  .home-btn:hover  { background:#693909; color:#fff; }
 
-  .main { padding: 32px; overflow-y: auto; }
-  .summary-card { background: #ffffff; border: 1.5px solid #000; border-radius: 12px; padding: 24px; margin-bottom: 32px; border-top: 4px solid #2e7d32; display: inline-block; min-width: 300px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-  .summary-card .label { font-family: 'DM Mono', monospace; font-size: 14px; color: #8b6914; margin-bottom: 8px; }
-  .summary-card .value { font-family: 'DM Serif Display', serif; font-size: 36px; color: #1a2a3a; }
+  .main { padding:22px 26px; overflow-y:auto; }
 
-  .chart-container { background: #ffffff; border: 1.5px solid #000; border-radius: 12px; padding: 22px; margin-bottom: 32px; height: 350px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  /* Summary cards */
+  .cards { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:18px; }
+  .card { background:#fff; border:1.5px solid #000; border-radius:10px; padding:14px 18px; min-width:160px; box-shadow:0 2px 8px rgba(0,0,0,.07); }
+  .card.c-green  { border-top:4px solid #2e7d32; }
+  .card.c-blue   { border-top:4px solid #1a6fa8; }
+  .card.c-amber  { border-top:4px solid #d97706; }
+  .card.c-purple { border-top:4px solid #7c3aed; }
+  .card.c-red    { border-top:4px solid #dc2626; }
+  .card .clabel { font-family:'DM Mono',monospace; font-size:10px; color:#8b6914; margin-bottom:4px; text-transform:uppercase; letter-spacing:.4px; }
+  .card .cval   { font-family:'DM Serif Display',serif; font-size:24px; color:#1a2a3a; line-height:1.15; }
+  .card .csub   { font-family:'DM Mono',monospace; font-size:10px; color:#64748b; margin-top:4px; }
 
-  .table-wrap { background: #ffffff; border: 1.5px solid #000; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-  table { border-collapse: collapse; width: 100%; font-family: 'DM Mono', monospace; font-size: 12px; }
-  thead th { background: #1a2a3a; color: #e8c84a; padding: 12px; text-align: right; border-bottom: 2px solid #000; font-size: 11px; }
-  tbody td { padding: 10px 12px; text-align: right; color: #3d5166; border-bottom: 1px solid rgba(0,0,0,0.08); }
-  tbody tr:hover { background: rgba(139,105,20,0.08); }
-  td.hl { color: #1a2a3a; font-weight: 500; }
+  /* Insight bar */
+  .insight-bar { background:#0d2b1a; border:1px solid #1a4731; border-radius:8px; padding:10px 14px; margin-bottom:18px; display:flex; flex-wrap:wrap; gap:16px; }
+  .ii { font-family:'DM Mono',monospace; font-size:11px; }
+  .ii .ik { color:#475569; }
+  .ii .iv { color:#4ade80; font-weight:600; }
+  .ii .iv.warn { color:#fb923c; }
 
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+  /* Charts */
+  .charts-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+  .chart-box { background:#fff; border:1.5px solid #000; border-radius:10px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,.07); }
+  .chart-box h4 { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#1a2a3a; margin-bottom:10px; }
+  .chart-canvas-wrap { height:240px; position:relative; }
+
+  /* Table */
+  .table-wrap { background:#fff; border:1.5px solid #000; border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.07); }
+  table { border-collapse:collapse; width:100%; font-family:'DM Mono',monospace; font-size:11px; }
+  thead th { background:#1a2a3a; color:#e8c84a; padding:9px 10px; text-align:right; border-bottom:2px solid #000; font-size:10px; letter-spacing:.4px; text-transform:uppercase; white-space:nowrap; }
+  thead th:first-child { text-align:left; }
+  tbody td { padding:7px 10px; text-align:right; color:#3d5166; border-bottom:1px solid rgba(0,0,0,.06); white-space:nowrap; }
+  tbody td:first-child { text-align:left; }
+  tbody tr:hover { background:rgba(139,105,20,.07); }
+  td.hl  { color:#1a2a3a; font-weight:600; }
+  td.g   { color:#2e7d32; }
+  td.dim { color:#94a3b8; font-style:italic; }
+  .tag-cu    { background:rgba(124,58,237,.15); color:#7c3aed; font-size:8px; padding:1px 4px; border-radius:3px; margin-left:3px; }
+  .tag-super { background:rgba(220,38,38,.15);  color:#dc2626; font-size:8px; padding:1px 4px; border-radius:3px; margin-left:3px; }
+
+  ::-webkit-scrollbar { width:5px; }
+  ::-webkit-scrollbar-thumb { background:#ccc; border-radius:3px; }
 </style>
 </head>
 <body>
 
 <header>
-  <div style="display:flex; align-items:baseline; gap:14px;">
+  <div style="display:flex;align-items:baseline;gap:14px;">
     <h1>401k COMPOUNDING GROWTH</h1>
-    <span>-- Start saving early and stay consistent --</span>
+    <span>— Start from day one. Stay consistent. Time does the heavy lifting.</span>
   </div>
   <select onchange="if(this.value) window.location.href=this.value;">
     <option value="">Explore Topics</option>
@@ -121,148 +122,390 @@
 </header>
 
 <div class="layout">
-  <aside class="sidebar">
-    <div class="sxn">
-      <h3>Input current values</h3>
-      <div class="field"><label>Current Age</label><input type="number" id="startAge" value="25"></div>
-      <div class="field"><label>Annual Contribution ($)</label><input type="number" id="annualCont" value="12000"></div>
-      <div class="field"><label>Employer Match ($)</label><input type="number" id="employerMatch" value="0"></div>
-      <div class="field"><label>Expected Growth (%)</label><input type="number" id="growthRate" value="6" step="0.0"></div>
-      <div class="field"><label>Contribution Increase ($/yr)</label><input type="number" id="contInc" value="0"></div>
-      <div class="field"><label>Retirement Age</label><input type="number" id="endAge" value="65"></div>
-    </div>
-    
-    <div class="btn-group">
-      <button class="action-btn calc-btn" onclick="calculateCompounding()">CALCULATE GROWTH</button>
-      <a href="index.html" class="action-btn home-btn">HOME</a>
-    </div>
-  </aside>
+<aside class="sidebar">
 
-  <main class="main">
-    <div class="summary-card">
-      <div class="label">Projected Balance at Age <span id="displayRetirementAge">65</span></div>
-      <div class="value" id="finalBalance">$0</div>
+  <div class="sxn">
+    <h3>Your Situation</h3>
+    <div class="field">
+      <label>Current Age</label>
+      <input type="number" id="startAge" value="25" oninput="checkLimit()">
     </div>
+    <div class="field">
+      <label>Starting Balance ($)</label>
+      <input type="number" id="startBal" value="0">
+      <div class="field-note">Existing 401k / rollover balance</div>
+    </div>
+    <div class="field">
+      <label>Retirement Age</label>
+      <input type="number" id="endAge" value="65">
+    </div>
+  </div>
 
-    <div class="chart-container">
-      <canvas id="growthChart"></canvas>
+  <div class="sxn">
+    <h3>Contributions</h3>
+    <div class="field">
+      <label>Your Annual Contribution ($)</label>
+      <input type="number" id="annualCont" value="23500" oninput="checkLimit()">
+      <div id="limitWarn" class="limit-warn"></div>
+      <div id="limitOk"   class="limit-ok"></div>
     </div>
+    <div class="field">
+      <label>Employer Match ($)</label>
+      <input type="number" id="empMatch" value="5000">
+      <div class="field-note">Fixed annual match</div>
+    </div>
+    <div class="field">
+      <label>Contribution Increase ($/yr)</label>
+      <input type="number" id="contInc" value="500">
+      <div class="field-note">Step-up each year (raise, habit)</div>
+    </div>
+  </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="text-align:left">Age</th>
-            <th>Yearly Contribution</th>
-            <th>Employer Match</th>
-            <th>Growth Interest</th>
-            <th>End Balance</th>
-          </tr>
-        </thead>
-        <tbody id="resultsBody"></tbody>
-      </table>
+  <div class="sxn">
+    <h3>Growth &amp; Costs</h3>
+    <div class="field">
+      <label>Expected Gross Return (%)</label>
+      <input type="number" id="grossRate" value="7" step="0.1">
     </div>
-  </main>
+    <div class="field">
+      <label>Fund Expense Ratio (%)</label>
+      <input type="number" id="expRatio" value="0.10" step="0.01">
+      <div class="field-note">Index fund typical: 0.03–0.20%</div>
+    </div>
+    <div class="field">
+      <label>Inflation Rate (%)</label>
+      <input type="number" id="inflation" value="3.0" step="0.1">
+      <div class="field-note">Used to show real (today's $) values</div>
+    </div>
+  </div>
+
+  <div class="sxn">
+    <h3>Delay Comparison</h3>
+    <div class="field-note" style="color:#c8c4b4;margin-bottom:8px;">What if you waited?</div>
+    <div class="delay-row">
+      <div class="field"><label>Delay 1 (yrs)</label><input type="number" id="delay1" value="5" min="1" max="30"></div>
+      <div class="field"><label>Delay 2 (yrs)</label><input type="number" id="delay2" value="10" min="1" max="30"></div>
+    </div>
+  </div>
+
+  <div class="sxn">
+    <h3>Withdrawal Preview</h3>
+    <div class="field">
+      <label>Safe Withdrawal Rate (%)</label>
+      <input type="number" id="swr" value="4.0" step="0.1">
+      <div class="field-note">4% rule (Bengen). Adjust to taste.</div>
+    </div>
+  </div>
+
+  <div class="btn-group">
+    <button class="action-btn calc-btn" onclick="run()">CALCULATE GROWTH</button>
+    <a href="index.html" class="action-btn home-btn">HOME</a>
+  </div>
+</aside>
+
+<main class="main">
+
+  <!-- Summary cards -->
+  <div class="cards">
+    <div class="card c-green">
+      <div class="clabel">Balance at Age <span id="dRetAge">65</span></div>
+      <div class="cval" id="cFinal">—</div>
+      <div class="csub" id="cFinalReal">— in today's $</div>
+    </div>
+    <div class="card c-blue">
+      <div class="clabel">You Contributed</div>
+      <div class="cval" id="cContrib">—</div>
+      <div class="csub" id="cContribPct">— of final balance</div>
+    </div>
+    <div class="card c-amber">
+      <div class="clabel">Compounding Added</div>
+      <div class="cval" id="cGrowth">—</div>
+      <div class="csub" id="cGrowthPct">— of final balance</div>
+    </div>
+    <div class="card c-purple">
+      <div class="clabel">Monthly Income (SWR)</div>
+      <div class="cval" id="cSWR">—</div>
+      <div class="csub">at <span id="dSWR">4.0</span>% withdrawal rate</div>
+    </div>
+    <div class="card c-red">
+      <div class="clabel">Cost of Waiting</div>
+      <div class="cval" id="cDelay">—</div>
+      <div class="csub">vs. starting <span id="dDelay1">5</span> yrs later</div>
+    </div>
+  </div>
+
+  <!-- Insight bar -->
+  <div class="insight-bar">
+    <div class="ii"><span class="ik">Net return (after fees): </span><span class="iv" id="iNet">—</span></div>
+    <div class="ii"><span class="ik">Years of compounding: </span><span class="iv" id="iYrs">—</span></div>
+    <div class="ii"><span class="ik">2026 IRS limit (your age): </span><span class="iv" id="iLim">—</span></div>
+    <div class="ii"><span class="ik">Catch-up eligible (50+): </span><span class="iv" id="iCU">—</span></div>
+    <div class="ii"><span class="ik">SECURE 2.0 super catch-up (60–63): </span><span class="iv" id="iSCU">—</span></div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-row">
+    <div class="chart-box">
+      <h4>📈 Balance Growth — Start Now vs. Waiting</h4>
+      <div class="chart-canvas-wrap"><canvas id="chartLine"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <h4>🧱 Your Money vs. Compounding (Stacked)</h4>
+      <div class="chart-canvas-wrap"><canvas id="chartStack"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Detail table -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Age</th>
+          <th>Contrib (capped)</th>
+          <th>Employer Match</th>
+          <th>Growth (net)</th>
+          <th>End Balance</th>
+          <th>Real Value</th>
+          <th>Cumul. Contrib</th>
+          <th>Cumul. Growth</th>
+          <th>Delay <span id="thD1">5</span>yr Balance</th>
+          <th>Delay <span id="thD2">10</span>yr Balance</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+</main>
 </div>
 
 <script>
-let chartInstance = null;
+// ── 2026 IRS 401k limits ──────────────────────────────────────────────────
+const IRS = { std: 23500, cu50: 31000, superCU: 34750 };
 
-function calculateCompounding() {
-    let age = parseInt(document.getElementById('startAge').value);
-    let contribution = parseFloat(document.getElementById('annualCont').value);
-    let match = parseFloat(document.getElementById('employerMatch').value);
-    let growth = parseFloat(document.getElementById('growthRate').value) / 100;
-    let increment = parseFloat(document.getElementById('contInc').value);
-    let retirementAge = parseInt(document.getElementById('endAge').value);
-    
-    let balance = 0;
-    let dataLabels = [];
-    let dataPoints = [];
-    let html = "";
-
-    document.getElementById('displayRetirementAge').innerText = retirementAge;
-
-    for (let i = age; i <= retirementAge; i++) {
-        let startBal = balance;
-        let totalAnnualCont = contribution + match;
-        let growthAmt = (startBal + totalAnnualCont) * growth;
-        balance = startBal + totalAnnualCont + growthAmt;
-
-        dataLabels.push("Age " + i);
-        dataPoints.push(balance.toFixed(0));
-
-        html += `<tr>
-            <td style="text-align:left; color:#8b6914; font-weight:bold;">${i}</td>
-            <td>$${contribution.toLocaleString()}</td>
-            <td>$${match.toLocaleString()}</td>
-            <td style="color:#2e7d32">$${Math.round(growthAmt).toLocaleString()}</td>
-            <td class="hl">$${Math.round(balance).toLocaleString()}</td>
-        </tr>`;
-
-        contribution += increment;
-    }
-
-    document.getElementById('resultsBody').innerHTML = html;
-    document.getElementById('finalBalance').innerText = '$' + Math.round(balance).toLocaleString();
-    updateChart(dataLabels, dataPoints);
+function irsLimit(age) {
+  if (age >= 60 && age <= 63) return { lim: IRS.superCU, tag: 'super', note: 'Super catch-up (60–63)' };
+  if (age >= 50)              return { lim: IRS.cu50,    tag: 'cu',    note: 'Catch-up (50+)' };
+  return                             { lim: IRS.std,     tag: '',      note: 'Standard' };
 }
 
-function updateChart(labels, data) {
-    const ctx = document.getElementById('growthChart').getContext('2d');
-    if (chartInstance) chartInstance.destroy();
+function gi(id)  { return parseFloat(document.getElementById(id).value) || 0; }
+function gii(id) { return parseInt(document.getElementById(id).value)   || 0; }
+function fmt(n)  { return '$' + Math.round(n).toLocaleString(); }
 
-    chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: '401k Balance',
-                data: data,
-                borderColor: '#e8c84a',
-                backgroundColor: 'rgba(232, 200, 74, 0.1)',
-                fill: true,
-                tension: 0.3,
-                borderWidth: 2
-            }]
-        },
-        options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    layout: {
-        padding: {
-            left: 10,
-            right: 20,
-            top: 10,
-            bottom: 0
-        }
+function checkLimit() {
+  const age  = gii('startAge') || 25;
+  const cont = gi('annualCont');
+  const { lim, note } = irsLimit(age);
+  const wEl = document.getElementById('limitWarn');
+  const oEl = document.getElementById('limitOk');
+  if (cont > lim) {
+    wEl.style.display = 'block'; wEl.textContent = `⚠ Exceeds 2026 IRS limit of ${fmt(lim)} (${note})`;
+    oEl.style.display = 'none';
+  } else {
+    oEl.style.display = 'block'; oEl.textContent = `✓ Within 2026 limit: ${fmt(lim)} (${note})`;
+    wEl.style.display = 'none';
+  }
+}
+
+// Simulate one scenario; returns array of year-end balances indexed from startAge
+function simulate(startAge, endAge, startBal, contBase, match, contInc, netRate, delayYrs) {
+  let bal = startBal, cont = contBase, results = [];
+  for (let age = startAge; age <= endAge; age++) {
+    if (age < startAge + delayYrs) { results.push(0); cont += contInc; continue; }
+    const { lim } = irsLimit(age);
+    const eff = Math.min(cont, lim);
+    const g   = (bal + eff + match) * netRate;
+    bal = bal + eff + match + g;
+    results.push(Math.round(bal));
+    cont += contInc;
+  }
+  return results;
+}
+
+let chartLine = null, chartStack = null;
+
+function run() {
+  const startAge = gii('startAge') || 25;
+  const endAge   = gii('endAge')   || 65;
+  const startBal = gi('startBal');
+  const contBase = gi('annualCont');
+  const match    = gi('empMatch');
+  const contInc  = gi('contInc');
+  const netRate  = (gi('grossRate') - gi('expRatio')) / 100;
+  const infl     = gi('inflation') / 100;
+  const swr      = gi('swr') / 100;
+  const delay1   = gii('delay1') || 5;
+  const delay2   = gii('delay2') || 10;
+  const years    = endAge - startAge;
+
+  // Update labels
+  document.getElementById('dRetAge').textContent  = endAge;
+  document.getElementById('dSWR').textContent     = (swr * 100).toFixed(1);
+  document.getElementById('dDelay1').textContent  = delay1;
+  document.getElementById('thD1').textContent     = delay1;
+  document.getElementById('thD2').textContent     = delay2;
+
+  // Insight bar
+  document.getElementById('iNet').textContent = (netRate * 100).toFixed(2) + '%';
+  document.getElementById('iYrs').textContent = years + ' yrs';
+  const { lim, note } = irsLimit(startAge);
+  document.getElementById('iLim').textContent = fmt(lim) + ' (' + note + ')';
+  const cu  = startAge >= 50;
+  const scu = startAge >= 60 && startAge <= 63;
+  const cuEl  = document.getElementById('iCU');
+  const scuEl = document.getElementById('iSCU');
+  cuEl.textContent  = cu  ? '✓ Yes' : '✗ Not yet';  cuEl.className  = 'iv' + (cu  ? '' : ' warn');
+  scuEl.textContent = scu ? '✓ Yes' : (startAge < 60 ? '✗ Not yet' : '✗ Past window');
+  scuEl.className   = 'iv' + (scu ? '' : ' warn');
+
+  checkLimit();
+
+  // Main simulation + two delay scenarios
+  const d1Bals = simulate(startAge, endAge, startBal, contBase, match, contInc, netRate, delay1);
+  const d2Bals = simulate(startAge, endAge, startBal, contBase, match, contInc, netRate, delay2);
+
+  let bal = startBal, cont = contBase;
+  let cumC = 0, cumG = 0;
+  const labels = [], bals = [], contribs = [], growths = [], reals = [];
+  let html = '';
+
+  for (let age = startAge; age <= endAge; age++) {
+    const yr = age - startAge;
+    const { lim: limA, tag } = irsLimit(age);
+    const eff = Math.min(cont, limA);
+    const g   = (bal + eff + match) * netRate;
+    bal  = bal + eff + match + g;
+    cumC += eff + match;
+    cumG += g;
+    const realVal = bal / Math.pow(1 + infl, yr);
+    const d1 = d1Bals[yr] || 0;
+    const d2 = d2Bals[yr] || 0;
+
+    labels.push('Age ' + age);
+    bals.push(Math.round(bal));
+    contribs.push(Math.round(cumC));
+    growths.push(Math.round(cumG));
+    reals.push(Math.round(realVal));
+
+    const cuTag = tag === 'super' ? '<span class="tag-super">SUPER</span>'
+                : tag === 'cu'    ? '<span class="tag-cu">CATCH-UP</span>' : '';
+
+    html += `<tr>
+      <td style="color:#8b6914;font-weight:600">${age}${cuTag}</td>
+      <td>${fmt(eff)}</td>
+      <td>${fmt(match)}</td>
+      <td class="g">${fmt(g)}</td>
+      <td class="hl">${fmt(bal)}</td>
+      <td style="color:#64748b">${fmt(realVal)}</td>
+      <td>${fmt(cumC)}</td>
+      <td class="g">${fmt(cumG)}</td>
+      <td class="${d1 ? '' : 'dim'}">${d1 ? fmt(d1) : '— not started'}</td>
+      <td class="${d2 ? '' : 'dim'}">${d2 ? fmt(d2) : '— not started'}</td>
+    </tr>`;
+    cont += contInc;
+  }
+  document.getElementById('tbody').innerHTML = html;
+
+  // Cards
+  const finalBal  = bals[bals.length - 1];
+  const finalReal = reals[reals.length - 1];
+  const cpct = Math.round(cumC / finalBal * 100);
+  const gpct = Math.round(cumG / finalBal * 100);
+  const d1Final = d1Bals[d1Bals.length - 1] || 0;
+  document.getElementById('cFinal').textContent      = fmt(finalBal);
+  document.getElementById('cFinalReal').textContent  = fmt(finalReal) + " in today's $";
+  document.getElementById('cContrib').textContent    = fmt(cumC);
+  document.getElementById('cContribPct').textContent = cpct + '% of final balance';
+  document.getElementById('cGrowth').textContent     = fmt(cumG);
+  document.getElementById('cGrowthPct').textContent  = gpct + '% of final balance — pure compounding';
+  document.getElementById('cSWR').textContent        = fmt((finalBal * swr) / 12) + '/mo';
+  document.getElementById('cDelay').textContent      = '-' + fmt(finalBal - d1Final);
+  document.getElementById('dDelay1').textContent     = delay1;
+
+  // Line chart
+  const ctx1 = document.getElementById('chartLine').getContext('2d');
+  if (chartLine) chartLine.destroy();
+  chartLine = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Start Now',              data: bals,   borderColor:'#e8c84a', backgroundColor:'rgba(232,200,74,.08)', fill:true, tension:.3, borderWidth:2.5, pointRadius:0 },
+        { label: `+${delay1}yr delay`,     data: d1Bals, borderColor:'#60a5fa', backgroundColor:'rgba(96,165,250,.05)', fill:true, tension:.3, borderWidth:2,   pointRadius:0, borderDash:[5,4] },
+        { label: `+${delay2}yr delay`,     data: d2Bals, borderColor:'#f87171', backgroundColor:'rgba(248,113,113,.05)',fill:true, tension:.3, borderWidth:2,   pointRadius:0, borderDash:[3,3] },
+      ]
     },
-    plugins: { 
-        legend: { display: false } 
-    },
-    scales: {
-        x: { 
-            grid: { color: 'rgba(0,0,0,0.08)' }, 
-            ticks: { color: '#1a2a3a', font: { family: 'DM Mono' } } 
-        },
-        y: { 
-            grid: { color: 'rgba(0,0,0,0.08)' }, 
-            afterFit: (axis) => {
-                axis.width = 80; 
-            },
-            ticks: { 
-                color: '#1a2a3a', 
-                font: { family: 'DM Mono' }, 
-                callback: v => '$' + v.toLocaleString() 
-            } 
-        }
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins: {
+        legend: { labels:{ color:'#1a2a3a', font:{ family:'DM Mono', size:10 }, boxWidth:14 } },
+        tooltip: { callbacks:{ label: c => ' ' + fmt(c.raw) } }
+      },
+      scales: {
+        x: { grid:{ color:'rgba(0,0,0,.07)' }, ticks:{ color:'#3d5166', font:{ family:'DM Mono', size:10 }, maxTicksLimit:10 } },
+        y: { grid:{ color:'rgba(0,0,0,.07)' }, ticks:{ color:'#3d5166', font:{ family:'DM Mono', size:10 }, callback: v => '$'+(v/1000).toFixed(0)+'k' } }
+      }
     }
-}
-    });
+  });
+
+  // Stacked bar chart
+  const ctx2 = document.getElementById('chartStack').getContext('2d');
+  if (chartStack) chartStack.destroy();
+  chartStack = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label:'Your Money (Contrib + Match)', data:contribs, backgroundColor:'rgba(30,120,60,.75)',  borderWidth:0 },
+        { label:'Compounding Growth',           data:growths,  backgroundColor:'rgba(232,200,74,.80)', borderWidth:0 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins: {
+        legend: { labels:{ color:'#1a2a3a', font:{ family:'DM Mono', size:10 }, boxWidth:14 } },
+        tooltip: {
+          callbacks: {
+            label:  c  => ' ' + c.dataset.label + ': ' + fmt(c.raw),
+            footer: items => 'Total: ' + fmt(items.reduce((s,i) => s + i.raw, 0))
+          }
+        }
+      },
+      scales: {
+        x: { stacked:true, grid:{ display:false }, ticks:{ color:'#3d5166', font:{ family:'DM Mono', size:10 }, maxTicksLimit:10 } },
+        y: { stacked:true, grid:{ color:'rgba(0,0,0,.07)' }, ticks:{ color:'#3d5166', font:{ family:'DM Mono', size:10 }, callback: v => '$'+(v/1000).toFixed(0)+'k' } }
+      }
+    }
+  });
 }
 
-calculateCompounding();
+run();
+checkLimit();
 </script>
 
+<!--
+  CHANGE LOG
+  ==========
+  Original  — Basic 401k compounding: age, contribution, match, growth, step-up, retirement age.
+
+  2026-05-04 — Major update. All suggestions implemented:
+    + Starting balance field (for existing 401k / rollovers)
+    + Fund expense ratio → net return = gross return − expense ratio
+    + Inflation rate → real (today's $) shown in cards and table column
+    + IRS 2026 limit guard: warns if contribution exceeds limit for age
+    + Contributions auto-capped at IRS limit per year during calculation
+    + Age-aware catch-up ($31,000 at 50+) and SECURE 2.0 super catch-up ($34,750 at 60–63)
+    + Catch-up / SUPER tags on age rows in table
+    + Delay comparison: two configurable "what if I waited N years" scenarios
+    + Line chart updated: 3 lines (Start Now, Delay 1, Delay 2)
+    + Stacked bar chart: Your Money (green) vs. Compounding Growth (gold)
+    + Safe withdrawal rate → monthly income preview card
+    + Cards: final nominal, final real, cumul contrib %, cumul growth %, SWR, delay cost
+    + Insight bar: net return, years, IRS limit, catch-up eligibility flags
+    + Table: real value col, cumul contrib, cumul growth, delay 1 & 2 balances
+
+  Update IRS object each November when IRS announces next-year limits.
+-->
 </body>
 </html>
