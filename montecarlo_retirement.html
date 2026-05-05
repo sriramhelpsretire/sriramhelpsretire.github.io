@@ -439,15 +439,60 @@ body::after {
   <div class="sidebar-title">Monte Carlo<br>Simulator</div>
   <p class="sidebar-sub">Adjust inputs, then run simulations</p>
   <a href="index.html"  class="nav-btn"><span>🏠</span> Home</a>
-  <!-- Current Balances -->
+  <!-- Portfolio Tracker Sync -->
   <div class="sxn-title">Current Balances</div>
-  <div class="field"><label>401(k) / Traditional IRA</label><input type="number" id="k401" value="500000" oninput="computeTotal()"></div>
-  <div class="field"><label>Roth IRA Balance</label><input type="number" id="rothIRA" value="50000" oninput="computeTotal()"></div>
-  <div class="field"><label>Stocks / Brokerage</label><input type="number" id="stocks" value="50000" oninput="computeTotal()"></div>
-  <div class="field"><label>Bonds</label><input type="number" id="bonds" value="50000" oninput="computeTotal()"></div>
-  <div class="field"><label>Cash</label><input type="number" id="cash" value="20000" oninput="computeTotal()"></div>
-  <div class="field"><label>CDs</label><input type="number" id="cds" value="20000" oninput="computeTotal()"></div>
-  <div class="field"><label>HSA Balance (Current)</label><input type="number" id="hsaBal" value="10000" oninput="computeTotal()"></div>
+  <div style="background:rgba(201,147,58,0.08);border:1px solid rgba(201,147,58,0.5);border-radius:7px;padding:10px;margin-bottom:12px;">
+    <div style="font-size:10px;color:#e8b96a;font-family:'Lora',monospace;letter-spacing:1px;margin-bottom:7px;font-weight:600;">📊 PORTFOLIO TRACKER SYNC</div>
+    <button onclick="syncFromPortfolioTracker()"
+      style="width:100%;background:#c9933a;color:#000;border:none;border-radius:6px;padding:7px 10px;font-family:'Lora',serif;font-size:12px;font-weight:700;cursor:pointer;margin-bottom:7px;">
+      🔄 Sync Balances from Portfolio Tracker
+    </button>
+    <div id="ptSyncStatus" style="font-size:10px;color:#c8c4b4;font-family:'Lora',monospace;min-height:14px;line-height:1.5;font-style:italic;"></div>
+  </div>
+
+  <div class="field">
+    <label>401(k) / Traditional IRA
+      <span id="lbl401k" style="display:none;font-size:9px;color:#4ade80;margin-left:3px;">✓ synced</span>
+    </label>
+    <div style="font-size:9px;color:#c8c4b4;font-family:'Lora',monospace;margin-bottom:2px;">BrokerageLink HPE · HPE 401k · Rollover IRA</div>
+    <input type="number" id="k401" value="500000" oninput="computeTotal()">
+  </div>
+  <div class="field">
+    <label>Roth IRA Balance
+      <span id="lblRoth" style="display:none;font-size:9px;color:#a78bfa;margin-left:3px;">✓ synced</span>
+    </label>
+    <div style="font-size:9px;color:#c8c4b4;font-family:'Lora',monospace;margin-bottom:2px;">Roth IRA</div>
+    <input type="number" id="rothIRA" value="50000" oninput="computeTotal()">
+  </div>
+  <div class="field">
+    <label>Stocks / Brokerage
+      <span id="lblStocks" style="display:none;font-size:9px;color:#60a5fa;margin-left:3px;">✓ synced</span>
+    </label>
+    <div style="font-size:9px;color:#c8c4b4;font-family:'Lora',monospace;margin-bottom:2px;">Individual Brokerage · Merril · Robinhood</div>
+    <input type="number" id="stocks" value="50000" oninput="computeTotal()">
+  </div>
+  <div class="field">
+    <label>Bonds
+      <span id="lblBonds" style="display:none;font-size:9px;color:#fb923c;margin-left:3px;">✓ synced</span>
+    </label>
+    <div style="font-size:9px;color:#c8c4b4;font-family:'Lora',monospace;margin-bottom:2px;">Treasury Direct</div>
+    <input type="number" id="bonds" value="50000" oninput="computeTotal()">
+  </div>
+  <div class="field">
+    <label>Cash <span style="font-size:9px;color:#c8c4b4;font-style:italic;">(manual)</span></label>
+    <input type="number" id="cash" value="20000" oninput="computeTotal()">
+  </div>
+  <div class="field">
+    <label>CDs <span style="font-size:9px;color:#c8c4b4;font-style:italic;">(manual)</span></label>
+    <input type="number" id="cds" value="20000" oninput="computeTotal()">
+  </div>
+  <div class="field">
+    <label>HSA Balance (Current)
+      <span id="lblHSA" style="display:none;font-size:9px;color:#4ade80;margin-left:3px;">✓ synced</span>
+    </label>
+    <div style="font-size:9px;color:#c8c4b4;font-family:'Lora',monospace;margin-bottom:2px;">Health Savings Account</div>
+    <input type="number" id="hsaBal" value="10000" oninput="computeTotal()">
+  </div>
   <div class="total-box" id="totalPortfolio">Total: $700,000</div>
 
   <!-- Ages & Contributions -->
@@ -892,6 +937,94 @@ function runReverse() {
 }
 
 computeTotal();
+
+// ── Portfolio Tracker Sync ────────────────────────────────────────────────────
+// ── Portfolio Tracker Sync ────────────────────────────────────────────────────
+// Reads pre-computed balances saved by the Portfolio Tracker dashboard.
+// Uses the same values shown in "Balances required for Retirement Calculator".
+const PT_RETIRE_KEY = 'portfolio_retire_balances_v1';
+
+// Maps each input field id → the label key in the saved snapshot
+const PT_FIELD_MAP = {
+  k401:    '401k Balance',
+  rothIRA: 'Roth IRA Balance',
+  stocks:  'Brokerage Balance',
+  hsaBal:  'HSA Balance',
+  bonds:   'Bonds Balance'
+};
+const PT_COLORS   = { k401:'#c9933a', rothIRA:'#a78bfa', stocks:'#60a5fa', bonds:'#fb923c', hsaBal:'#c9933a' };
+const PT_LABEL_IDS = { k401:'lbl401k', rothIRA:'lblRoth', stocks:'lblStocks', bonds:'lblBonds', hsaBal:'lblHSA' };
+
+function ptSetStatus(msg, type) {
+  const el = document.getElementById('ptSyncStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = type === 'ok' ? '#4ade80' : type === 'warn' ? '#fb923c' : '#f87171';
+  el.style.fontStyle = 'normal';
+}
+
+function syncFromPortfolioTracker() {
+  try {
+    const raw = localStorage.getItem(PT_RETIRE_KEY);
+    if (!raw) {
+      ptSetStatus('⚠ No data found. Open Portfolio Tracker — balances save automatically.', 'warn');
+      return;
+    }
+    const balances = JSON.parse(raw);
+    const fmt = n => '$' + Math.round(n).toLocaleString();
+    let anyPopulated = false;
+
+    for (const [fid, label] of Object.entries(PT_FIELD_MAP)) {
+      const val = balances[label] || 0;
+      const el  = document.getElementById(fid);
+      if (!el) continue;
+      el.value = val;
+      el.style.borderColor = val > 0 ? PT_COLORS[fid] : '';
+      el.style.boxShadow   = val > 0 ? `0 0 0 1px ${PT_COLORS[fid]}44` : '';
+      el.title = `Synced from Portfolio Tracker: ${label} = ${fmt(val)}`;
+      const lbl = document.getElementById(PT_LABEL_IDS[fid]);
+      if (lbl) {
+        lbl.style.display = val > 0 ? 'inline' : 'none';
+        lbl.style.color   = PT_COLORS[fid];
+        lbl.textContent   = val > 0 ? `✓ ${fmt(val)}` : '';
+      }
+      if (val > 0) anyPopulated = true;
+    }
+
+    computeTotal();
+
+    const ts      = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    const savedAt = balances.updatedAt ? new Date(balances.updatedAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '?';
+    const total   = Object.values(PT_FIELD_MAP).reduce((s, label) => s + (balances[label]||0), 0);
+    ptSetStatus(
+      anyPopulated
+        ? `✓ Synced at ${ts}  ·  Portfolio snapshot: ${savedAt}  ·  Total: ${fmt(total)}`
+        : `⚠ Balances found but all zero — check Portfolio Tracker`,
+      anyPopulated ? 'ok' : 'warn'
+    );
+  } catch(e) {
+    ptSetStatus('✗ Error reading portfolio: ' + e.message, 'err');
+  }
+}
+
+// Auto-sync on page load
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem(PT_RETIRE_KEY)) {
+    syncFromPortfolioTracker();
+  } else {
+    ptSetStatus('Open Portfolio Tracker first — balances sync automatically.', 'warn');
+  }
+});
+
+// Auto-sync whenever Portfolio Tracker updates the balance snapshot
+window.addEventListener('storage', (e) => {
+  if (e.key === PT_RETIRE_KEY && e.newValue) {
+    syncFromPortfolioTracker();
+    const el = document.getElementById('ptSyncStatus');
+    if (el) { el.style.fontWeight = 'bold'; setTimeout(() => { el.style.fontWeight = 'normal'; }, 2000); }
+  }
+});
+// ─────────────────────────────────────────────────────────────────────────────
 </script>
 </body>
 </html>
