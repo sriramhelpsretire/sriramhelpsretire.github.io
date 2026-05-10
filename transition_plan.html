@@ -418,30 +418,33 @@
 <div class="top-nav">
     <h1>Retire Wise and Live Happy</h1>
     <select onchange="if(this.value) window.location.href=this.value;">
-        <option value="">Explore Topics</option>
-        <optgroup label="Core Planning">
-            <option value="retirement_plan.html">📌  What is Retirement?</option>
-            <option value="terms.html">📌  Terms Used</option>
-            <option value="website.html">📌  Web Sites</option>
-        </optgroup>
-        <optgroup label="Calculators">
-            <option value="retirement_calculator.html">📌Retirement Calculator</option>
-            <option value="montecarlo_retirement.html">📌Retirement Confidence</option>
-            <option value="401k_compounding.html">📌401k Compounding</option>
-            <option value="tax_calculator.html">📌Income Tax Calculator</option>
-        </optgroup>
-        <optgroup label="Healthcare">
-            <option value="medicare_aca.html">📌Medicare Hub</option>
-            <option value="healthcare_medicare.html">📌Healthcare - Medicare</option>
-            <option value="healthcare_aca.html">📌Healthcare - ACA</option>
-            <option value="aca_vs_cobra.html">📌ACA vs COBRA</option>
-            <option value="medicare_flowchart.html">📌Medicare Flowchart</option>
-            <option value="long_term_care.html">📌Long Term Care</option>
-        </optgroup>
-        <optgroup label="Go Back">
-            <option value="index.html">HOME</option>
-        </optgroup>
-    </select>
+            <option value="">Explore Topics</option>
+            <optgroup label="Core Planning">
+                <option value="transition_plan.html">📌 Retirement Made Easy</option>
+                <option value="steps_retirement.html">📌 Steps in Retirement</option>
+                <option value="financial_plan.html">📌 Financial Plan</option>
+                <option value="terms.html">📌 Terms Used</option>
+                <option value="website.html">📌 Web Sites</option>
+            </optgroup>
+            <optgroup label="Calculators">
+                <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
+                <option value="retirement_calculator.html">📌 Retirement Calculator</option>
+                <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
+                <option value="401k_compounding.html">📌 401k Compounding</option>
+                <option value="tax_calculator.html">📌 Income Tax Calculator</option>
+            </optgroup>
+            <optgroup label="Healthcare">
+                <option value="medicare_aca.html">📌 Medicare Hub</option>
+                <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
+                <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
+                <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
+                <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
+                <option value="long_term_care.html">📌 Long Term Care</option>
+            </optgroup>
+            <optgroup label="Go Back">
+                <option value="index.html">🏠 HOME</option>
+            </optgroup>
+        </select>
 </div>
 
 <a href="index.html" class="home-icon" title="Home">🏠</a>
@@ -587,7 +590,54 @@ const rows = [
     work: {
       title: 'Saving & Investing',
       sub: '401k, IRA, brokerage, emergency fund',
-      body: `<p class="placeholder">[ Add content here — e.g. 401k contribution limits, Roth vs Traditional IRA, Mega Backdoor Roth, brokerage taxable accounts, emergency fund sizing ]</p>`
+      body: `
+        <span class="sub-label">Emergency Fund — The Foundation</span>
+        <ul>
+          <li><strong>Build this first, before anything else:</strong> 3–6 months of essential expenses in a high-yield savings account (HYSA) — job loss, medical events, or unexpected repairs should never force you to touch investments</li>
+          <li>Target 6 months if you have a single income household, variable income, or are self-employed</li>
+          <li>Keep it liquid and separate from your checking account — out of sight reduces temptation</li>
+          <li>HYSA rates (4%–5% in recent years) mean your emergency fund can also earn meaningful interest while it waits</li>
+        </ul>
+
+        <span class="sub-label">401(k) / Employer Retirement Plans</span>
+        <ul>
+          <li><strong>2026 contribution limits:</strong> $24,500 (under 50) | $32,500 (age 50+ with catch-up) — maximize these before taxable investing</li>
+          <li><strong>Traditional 401(k):</strong> Contributions are pre-tax — reduces your taxable income today, but withdrawals in retirement are taxed as ordinary income</li>
+          <li><strong>Roth 401(k):</strong> Contributions are after-tax — no tax break today, but all growth and withdrawals in retirement are completely tax-free</li>
+          <li>Always contribute at least enough to capture the full employer match — this is guaranteed 50%–100% instant return</li>
+          <li>Choose low-cost index funds (total market, S&amp;P 500) — avoid high-expense-ratio actively managed funds inside the plan</li>
+          <li><strong>After-tax contributions (Mega Backdoor Roth):</strong> If your plan allows, contribute after-tax dollars beyond the standard limit and convert to Roth — unlocks up to $69,000 total annual contributions</li>
+        </ul>
+
+        <span class="sub-label">IRA — Individual Retirement Account</span>
+        <ul>
+          <li><strong>2026 IRA limit:</strong> $7,000 ($8,000 if age 50+) — contribute every year without exception</li>
+          <li><strong>Traditional IRA:</strong> Pre-tax if income-eligible; grows tax-deferred; taxed on withdrawal — best if you expect a lower tax bracket in retirement</li>
+          <li><strong>Roth IRA:</strong> After-tax contributions; grows tax-free; withdrawals in retirement are 100% tax-free — best if you expect equal or higher taxes later; also has no RMDs</li>
+          <li><strong>Backdoor Roth IRA:</strong> If income exceeds Roth eligibility limits, contribute to a non-deductible Traditional IRA then immediately convert to Roth — perfectly legal and widely used</li>
+          <li>Roth IRA is the most flexible retirement vehicle — contributions (not earnings) can be withdrawn anytime without penalty, making it a dual-purpose savings and retirement tool</li>
+        </ul>
+
+        <span class="sub-label">Taxable Brokerage Account</span>
+        <ul>
+          <li>After maxing tax-advantaged accounts, a taxable brokerage account is your next best vehicle — no contribution limits, no withdrawal restrictions</li>
+          <li>Best suited for: long-term investments held over 1 year (qualifying for lower capital gains rates), bridge income before age 59½, and goals outside retirement</li>
+          <li><strong>Tax-efficient investing here:</strong> Hold index ETFs (low turnover = low taxable events) | Avoid high-dividend funds in taxable accounts | Use tax-loss harvesting to offset gains</li>
+          <li>This account is your most flexible asset — no rules, no penalties, no required distributions</li>
+        </ul>
+
+        <span class="sub-label">Asset Allocation — The Big Picture</span>
+        <ul>
+          <li><strong>Rule of thumb:</strong> Subtract your age from 110 (or 120 for aggressive) for your equity percentage — the rest in bonds/fixed income</li>
+          <li>During working years, lean heavily toward equities (stocks) — you have time to recover from downturns; bonds become more important as retirement nears</li>
+          <li><strong>Rebalance annually:</strong> Market moves will drift your allocation — bring it back to your target once a year</li>
+          <li>Diversify across: US Large Cap | US Small Cap | International Developed | Emerging Markets | Bonds — low-cost index ETFs cover all of these efficiently</li>
+          <li>Avoid over-concentration in your employer's stock — your income already depends on that company; your investments shouldn't too</li>
+        </ul>
+
+        <p>The order of savings priority matters: Emergency Fund → 401(k) to full match → HSA (if eligible) → Max Roth IRA → Max 401(k) → Mega Backdoor Roth → Taxable Brokerage. Following this sequence maximizes tax efficiency at every dollar saved.</p>
+        <p>Consistency over time beats timing the market. Automate your contributions so saving happens before spending — and let compounding do the rest.</p>
+      `
     },
     retire: {
       title: 'Withdrawal Strategy',
@@ -599,7 +649,54 @@ const rows = [
     work: {
       title: 'Debt Management',
       sub: 'Mortgage, student loans, credit cards',
-      body: `<p class="placeholder">[ Add content here — e.g. paying down high-interest debt, mortgage payoff strategy, entering retirement debt-free, debt vs. investing tradeoff ]</p>`
+      body: `
+        <span class="sub-label">Understanding Your Debt Landscape</span>
+        <ul>
+          <li><strong>Not all debt is equal:</strong> Good debt (mortgage, student loans at low rates) builds assets or earning power | Bad debt (credit cards, personal loans at high rates) destroys wealth silently</li>
+          <li>List every debt: balance, interest rate, minimum payment, and payoff date — you cannot manage what you don't measure</li>
+          <li><strong>The danger zone:</strong> Any debt above 7%–8% interest is costing you more than a diversified portfolio is likely to earn — eliminate these aggressively</li>
+          <li>Your net worth = Assets minus Liabilities — reducing debt is just as powerful as growing investments</li>
+        </ul>
+
+        <span class="sub-label">Credit Cards — The Silent Wealth Killer</span>
+        <ul>
+          <li>Average credit card interest rate exceeds 20% — no investment reliably beats this; paying off card balances is the highest guaranteed return available</li>
+          <li><strong>Pay the full statement balance every month, without exception</strong> — carrying any balance negates all rewards, cashback, and points instantly</li>
+          <li><strong>Two payoff strategies:</strong> Avalanche method (highest interest rate first — mathematically optimal) | Snowball method (smallest balance first — psychologically motivating)</li>
+          <li>If carrying balances, consider a 0% APR balance transfer card — buys time to pay principal without interest accruing</li>
+          <li>Use credit cards as a tool (rewards, fraud protection, credit building) — never as a loan</li>
+        </ul>
+
+        <span class="sub-label">Student Loans</span>
+        <ul>
+          <li>Federal vs. private matters — federal loans offer income-driven repayment plans, deferment options, and potential forgiveness programs; private loans have none of these</li>
+          <li>If federal loan rate is below 5%, consider investing the difference rather than paying aggressively — the market has historically outpaced low-rate debt</li>
+          <li>If rate is above 6%–7%, prioritize payoff over investing in taxable accounts (but not over 401k match or Roth IRA)</li>
+          <li>Refinancing to a lower rate can save tens of thousands — but refinancing federal loans into private forfeits all federal protections permanently</li>
+          <li>Know your payoff timeline and factor it into your retirement projection — being debt-free at retirement dramatically reduces the income you need</li>
+        </ul>
+
+        <span class="sub-label">Mortgage — Managing Your Largest Debt</span>
+        <ul>
+          <li>A mortgage at 3%–4% (common in 2020–2022) is cheap debt — investing surplus cash often makes more sense than prepaying</li>
+          <li>At 6%–7%+ (current rates), the calculus shifts — extra principal payments become a more compelling guaranteed return</li>
+          <li><strong>Target: enter retirement mortgage-free</strong> — eliminating your largest fixed expense dramatically reduces your required withdrawal rate</li>
+          <li>Extra principal payments: even one extra payment per year can shave 4–6 years off a 30-year mortgage and save significant interest</li>
+          <li>Refinancing when rates drop by 1%+ can reduce monthly payments and total interest — run the break-even math (closing costs ÷ monthly savings = months to break even)</li>
+          <li>Home equity is an asset — but it is illiquid; don't count on it as a primary retirement income source</li>
+        </ul>
+
+        <span class="sub-label">Debt vs. Investing — The Right Balance</span>
+        <ul>
+          <li><strong>Always do first:</strong> 401(k) up to full employer match (instant 50–100% return beats all debt payoff) and maintain emergency fund</li>
+          <li><strong>Then prioritize by rate:</strong> Pay off debt above 7%–8% before investing further | Below 4%–5%, invest the difference | 5%–7% is the gray zone — split the difference</li>
+          <li>Roth IRA contributions should still happen alongside debt payoff — you cannot go back and contribute to prior years</li>
+          <li>Entering retirement debt-free is a goal worth optimizing toward — it converts fixed obligations into discretionary spending and dramatically lowers your income floor</li>
+        </ul>
+
+        <p>Debt management during working years is not just about interest savings — it is about building the freedom to retire on your terms. Every debt eliminated before retirement is a monthly obligation that disappears, reducing the portfolio withdrawal you need to sustain your lifestyle.</p>
+        <p>Run a simple target: be completely debt-free (mortgage included) by age 60–62. Work backwards from that goal and add extra payments wherever the math supports it.</p>
+      `
     },
     retire: {
       title: 'Spending & Budgeting',
@@ -611,7 +708,49 @@ const rows = [
     work: {
       title: 'Tax Planning',
       sub: 'Deductions, tax-advantaged accounts',
-      body: `<p class="placeholder">[ Add content here — e.g. pre-tax vs. Roth contributions, tax-loss harvesting, maximizing deductions, HSA as a stealth retirement account ]</p>`
+      body: `
+        <span class="sub-label">The Core Principle — Reduce Tax at Every Stage</span>
+        <ul>
+          <li>Every dollar saved in taxes is a dollar that compounds in your portfolio — tax planning is not optional, it is one of the highest-return activities during working years</li>
+          <li><strong>Three types of accounts, three tax treatments:</strong> Pre-tax (Traditional 401k/IRA — deduct now, taxed later) | After-tax Roth (pay now, tax-free forever) | Taxable Brokerage (no shelter, but favorable capital gains rates)</li>
+          <li>The goal during working years: minimize taxes today while building future tax-free income — the right mix of all three gives you flexibility to manage tax brackets in retirement</li>
+        </ul>
+
+        <span class="sub-label">Pre-Tax Contributions — Reduce Taxable Income Now</span>
+        <ul>
+          <li><strong>401(k) Traditional:</strong> Every dollar contributed reduces your W-2 income dollar-for-dollar — at a 32% bracket, a $24,500 contribution saves $7,840 in federal tax immediately</li>
+          <li><strong>Traditional IRA:</strong> Deductible if you don't have a workplace plan, or if income is below phase-out limits — $7,000 / $8,000 (50+) for 2026</li>
+          <li><strong>HSA — the stealth retirement account:</strong> Triple tax advantage — pre-tax in, grows tax-free, tax-free out for medical expenses | After age 65, withdrawals for any purpose taxed as ordinary income (same as Traditional IRA) | Invest HSA funds; pay medical costs out of pocket and reimburse yourself decades later</li>
+          <li>Flexible Spending Account (FSA): Use-it-or-lose-it pre-tax account for medical and dependent care — contribute exactly what you'll spend, not more</li>
+        </ul>
+
+        <span class="sub-label">Roth Strategy — Build Tax-Free Future Income</span>
+        <ul>
+          <li><strong>Roth 401(k) and Roth IRA:</strong> No deduction today, but all growth and qualified withdrawals are completely tax-free — the more time until retirement, the more powerful this becomes</li>
+          <li>Prioritize Roth when: you are in a lower bracket now than you expect in retirement | you have many years of compounding ahead | you want to reduce future RMDs</li>
+          <li><strong>Backdoor Roth IRA:</strong> When income exceeds Roth eligibility limits, contribute to a non-deductible Traditional IRA and convert immediately — perfectly legal</li>
+          <li><strong>Mega Backdoor Roth:</strong> If your 401(k) plan allows after-tax contributions and in-service withdrawals, you can contribute up to ~$46,500 additional after-tax dollars and convert to Roth</li>
+        </ul>
+
+        <span class="sub-label">Tax-Loss Harvesting — Turn Losses Into an Asset</span>
+        <ul>
+          <li>In your taxable brokerage account, sell positions at a loss to offset capital gains elsewhere — reduces your tax bill without changing your overall investment strategy</li>
+          <li>Immediately reinvest in a similar (not identical) fund to maintain market exposure — watch the 30-day wash sale rule</li>
+          <li>Up to $3,000 of net losses per year can offset ordinary income — excess losses carry forward indefinitely</li>
+          <li>Most effective in volatile markets — corrections and down years create harvesting opportunities</li>
+        </ul>
+
+        <span class="sub-label">Key Deductions to Maximize</span>
+        <ul>
+          <li><strong>Standard vs. itemizing:</strong> 2026 standard deduction is $30,000 (MFJ) — only itemize if mortgage interest + property taxes + charitable giving exceeds this threshold</li>
+          <li><strong>Donor-Advised Fund (DAF):</strong> Bunch multiple years of charitable giving into one year to clear the standard deduction threshold, then grant to charities over time</li>
+          <li>Qualified Business Income (QBI) deduction if you have self-employment or consulting income — up to 20% deduction on net business income</li>
+          <li>Track deductible expenses carefully: home office (if legitimately self-employed), professional development, investment-related costs</li>
+        </ul>
+
+        <p>Tax planning during working years is not a once-a-year conversation at tax time — it is a year-round strategy. The decisions you make now about account type, contribution amounts, and investment placement will determine how much of your retirement portfolio belongs to you versus the IRS.</p>
+        <p>Work with a CPA annually and run projections: know your current marginal bracket, estimate your retirement bracket, and build the pre-tax vs. Roth mix accordingly.</p>
+      `
     },
     retire: {
       title: 'Tax in Retirement',
@@ -623,7 +762,52 @@ const rows = [
     work: {
       title: 'Insurance & Protection',
       sub: 'Life, disability, liability coverage',
-      body: `<p class="placeholder">[ Add content here — e.g. term vs. whole life, disability insurance importance, umbrella policy, how protection planning safeguards the financial plan ]</p>`
+      body: `
+        <span class="sub-label">Why Protection Planning Comes Before Investing</span>
+        <ul>
+          <li>Insurance is not an expense — it is the foundation that protects everything you are building | A single uninsured event (disability, lawsuit, premature death) can wipe out decades of savings</li>
+          <li>The purpose of insurance during working years: replace income if you cannot work, protect dependents if you die prematurely, shield assets from liability, and cover catastrophic health costs</li>
+          <li>Review all coverage annually — your needs change as income grows, family expands, and net worth increases</li>
+        </ul>
+
+        <span class="sub-label">Life Insurance — Protecting Those Who Depend on You</span>
+        <ul>
+          <li><strong>Term Life Insurance:</strong> Pure income-replacement protection for a fixed period (10, 20, 30 years) — low cost, high benefit, exactly what most families need during working years</li>
+          <li><strong>Coverage rule of thumb:</strong> 10–12x your annual income | Factor in: mortgage payoff, children's education, spouse's income replacement needs, and years until financial independence</li>
+          <li>Buy term early — premiums are lowest when you are young and healthy; a 20-year term locked in at 35 covers you to 55 at the lowest possible rate</li>
+          <li><strong>Whole / Universal Life:</strong> Combines insurance with a cash-value investment component — significantly more expensive; appropriate only in specific estate planning scenarios; not a substitute for term + investing the difference</li>
+          <li>Employer group life (typically 1–2x salary) is a starting point, not a complete solution — and it ends the day you leave the company</li>
+        </ul>
+
+        <span class="sub-label">Disability Insurance — Your Most Underrated Asset</span>
+        <ul>
+          <li>Your ability to earn income is your greatest financial asset — a 40-year-old earning $150K has $3M+ in future earning potential; disability insurance protects that asset</li>
+          <li>Social Security disability is difficult to qualify for and pays far less than most people expect — do not rely on it as your only plan</li>
+          <li><strong>Short-term disability:</strong> Typically covers 60%–70% of salary for 3–6 months — often provided by employer</li>
+          <li><strong>Long-term disability (LTD):</strong> The critical one — covers 60%–70% of income after a 90-day elimination period, often to age 65 | If your employer offers it, enroll immediately | If not, purchase an individual policy</li>
+          <li>Key policy features to look for: own-occupation definition (pays if you can't do your specific job, not just any job) | non-cancellable | guaranteed renewable</li>
+          <li>Self-employed individuals especially need personal LTD — no employer safety net exists</li>
+        </ul>
+
+        <span class="sub-label">Umbrella Liability Insurance</span>
+        <ul>
+          <li>As net worth grows, so does liability exposure — umbrella insurance provides $1M–$5M+ of coverage above your auto and home policies for pennies on the dollar</li>
+          <li>Covers: at-fault auto accidents exceeding auto policy limits, injuries on your property, libel/slander claims, and certain personal liability events</li>
+          <li>Typically costs $150–$300/year for $1M of coverage — one of the best value insurance products available</li>
+          <li>Essential if you own a home, have significant assets, have teenage drivers, or have a public-facing profession</li>
+        </ul>
+
+        <span class="sub-label">Property &amp; Casualty — Don't Overlook the Basics</span>
+        <ul>
+          <li><strong>Homeowner's / Renter's insurance:</strong> Ensure dwelling coverage reflects actual replacement cost, not market value — these are very different numbers in high-cost areas like California</li>
+          <li>Review annually — renovations, inflation, and new valuables can leave you significantly underinsured</li>
+          <li><strong>Auto insurance:</strong> Carry liability limits well above state minimums — minimum coverage is rarely adequate for real-world accidents</li>
+          <li>Bundle home and auto with the same carrier for meaningful premium discounts</li>
+        </ul>
+
+        <p>Protection planning is the unsexy part of financial planning that nobody wants to think about — until they need it. The right coverage structure means a catastrophic event derails your year, not your lifetime financial plan.</p>
+        <p>Run an annual insurance review: confirm coverage amounts still match your net worth and income, check that beneficiary designations are current, and compare premiums to ensure you are not overpaying.</p>
+      `
     },
     retire: {
       title: 'Estate & Legacy',
@@ -635,7 +819,42 @@ const rows = [
     work: {
       title: 'Career & Identity',
       sub: 'Advancement, skills, purpose at work',
-      body: `<p class="placeholder">[ Add content here — e.g. the identity tied to a career, transitioning away from a professional title, skills that carry over, the importance of knowing your "why" ]</p>`
+      body: `
+        <span class="sub-label">Your Career Is a Financial Engine — Treat It Like One</span>
+        <ul>
+          <li>Every raise, promotion, and salary negotiation has a compounding effect — a $10,000 raise at 35 does not just mean $10K more per year; it lifts your bonus base, 401(k) contributions, Social Security benefit, and all future raises built on top of it</li>
+          <li><strong>Negotiate every offer and every review</strong> — research market rates (Levels.fyi, Glassdoor, LinkedIn Salary) and advocate confidently; employers expect it</li>
+          <li>Think in total compensation, not just salary: base + bonus + equity (RSU/ESPP/options) + benefits + PTO + retirement match — the full package is what matters</li>
+          <li>Increase your savings rate with every raise — redirect 50% of each raise directly to savings before lifestyle inflation takes hold</li>
+        </ul>
+
+        <span class="sub-label">Skills — Your Most Durable Asset</span>
+        <ul>
+          <li>Technical skills, domain expertise, and leadership capability drive income growth — invest in them deliberately, not passively</li>
+          <li>Stay current in your field: industry certifications, continuing education, and professional networks are career insurance against obsolescence</li>
+          <li>Build transferable skills: communication, problem-solving, cross-functional leadership — these travel with you across jobs, industries, and even into retirement consulting</li>
+          <li>Document your impact in quantifiable terms (revenue generated, cost saved, teams led, projects delivered) — this is the raw material of a compelling career narrative</li>
+        </ul>
+
+        <span class="sub-label">Identity — The Deeper Work</span>
+        <ul>
+          <li>For many high-achievers, career is not just a job — it is a core part of identity: your title, your expertise, your daily rhythm, your social network, your sense of purpose</li>
+          <li>This is healthy during working years — but becomes a liability if retirement is not planned as a transition <em>to</em> something, not just <em>away from</em> work</li>
+          <li>Begin asking the important questions well before retirement: Who am I outside of what I do? What matters to me beyond performance? What would I pursue if money were not a constraint?</li>
+          <li>The most financially prepared retirees who still struggle are often those who never separated their identity from their title — start this inner work early</li>
+        </ul>
+
+        <span class="sub-label">Strategic Career Decisions That Impact Retirement</span>
+        <ul>
+          <li><strong>Job changes:</strong> Understand vesting schedules before leaving — unvested 401(k) match and equity can represent significant value; the timing of a departure matters</li>
+          <li><strong>Equity compensation:</strong> RSUs vest over time and are taxed as ordinary income at vesting | ISOs/NSOs have complex tax treatment — understand your grant terms and plan with a CPA before exercising</li>
+          <li><strong>ESPP:</strong> If offered with a 15% discount, this is usually a high-return benefit — participate, then sell promptly to avoid over-concentration in your employer's stock</li>
+          <li>Peak earning years (typically ages 45–60) are the most powerful savings window — resist lifestyle inflation and direct the surplus aggressively into retirement accounts</li>
+        </ul>
+
+        <p>Your career is simultaneously your income engine, your identity anchor, and the primary vehicle through which your entire retirement is funded. Treating it with intentionality — negotiating aggressively, investing in skills, making strategic moves, and managing equity thoughtfully — is one of the most powerful financial decisions you can make.</p>
+        <p>And alongside the financial dimension, begin now to develop interests, relationships, and a sense of self that exists outside the office. The transition into retirement will be smoother, richer, and more purposeful for it.</p>
+      `
     },
     retire: {
       title: 'Purpose & Fulfillment',
@@ -647,7 +866,42 @@ const rows = [
     work: {
       title: 'Social Structure & Routine',
       sub: 'Colleagues, schedule, daily rhythm',
-      body: `<p class="placeholder">[ Add content here — e.g. how workplace provides social connection and routine, the importance of intentionally rebuilding this in retirement ]</p>`
+      body: `
+        <span class="sub-label">What Work Silently Provides</span>
+        <ul>
+          <li>Beyond the paycheck, work provides an invisible infrastructure that most people never consciously notice until it is gone: structure, purpose, identity, social connection, intellectual stimulation, and a daily reason to get up with intention</li>
+          <li>Colleagues are not just coworkers — for many people they are a primary social circle: the people you eat lunch with, solve problems alongside, celebrate milestones with, and talk to every single day</li>
+          <li>The daily routine itself is anchoring — meeting times, commutes, deadlines, and schedules create a rhythm that organizes life without requiring conscious effort</li>
+          <li>Recognizing what work gives you beyond income is the first step to intentionally building those same things into retirement</li>
+        </ul>
+
+        <span class="sub-label">Investing in Relationships During Working Years</span>
+        <ul>
+          <li>Friendships outside of work require deliberate effort during busy career years — but they are the relationships that will sustain you after the office connections fade</li>
+          <li>Maintain and deepen friendships with people who are not colleagues: neighbors, old friends, college connections, community members, family — these are your retirement social fabric</li>
+          <li>Couple relationships often take a back seat to careers and child-rearing — invest in your partnership intentionally; retirement will put you in each other's company far more than any prior phase of life</li>
+          <li>Develop at least one or two activities with a built-in social dimension: a sport, a club, a volunteer role, a faith community — these become anchors in retirement</li>
+        </ul>
+
+        <span class="sub-label">Building Structure Beyond the Job</span>
+        <ul>
+          <li>Hobbies are not frivolous — they are pre-retirement practice for how you will spend your time when work no longer fills the calendar</li>
+          <li>Develop at least one physically active pursuit, one intellectually engaging interest, and one social or community-based activity during working years</li>
+          <li>Consider volunteering before retirement — it builds a sense of contribution, provides structure, and creates a community of purpose-driven people</li>
+          <li>Explore whether any of your skills or passions could translate into an encore career, consulting practice, or part-time engagement — many retirees find that 10–15 hours per week of meaningful work is the perfect balance</li>
+        </ul>
+
+        <span class="sub-label">The Routine Transition — Plan It Consciously</span>
+        <ul>
+          <li>The abrupt shift from a structured 40+ hour work week to an open calendar is one of the most psychologically jarring aspects of retirement — even for people who are financially prepared</li>
+          <li>Start experimenting with unstructured time well before retirement: take a sabbatical if possible, use vacation time to simulate retirement weeks, and notice honestly what feels fulfilling vs. what creates restlessness</li>
+          <li>Talk with your spouse or partner about what your typical day looks like in retirement — alignment on expectations, pace, space, and shared activities is critical and often overlooked</li>
+          <li>Build a loose retirement week template before you retire: when you wake up, how mornings are spent, what mid-week looks like, how weekends differ — structure does not disappear in retirement, it just becomes self-created</li>
+        </ul>
+
+        <p>The people who thrive in retirement are rarely the ones who simply stopped working — they are the ones who built a life alongside their career that was rich enough to carry them forward. Social connection, routine, and purpose do not appear automatically on the day you retire; they are cultivated over years.</p>
+        <p>Use your working years to build the relationships, habits, and interests that will make retirement not an ending, but the beginning of your most intentional chapter.</p>
+      `
     },
     retire: {
       title: 'Social & Community',
