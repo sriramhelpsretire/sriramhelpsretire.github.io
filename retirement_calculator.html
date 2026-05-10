@@ -84,7 +84,23 @@ td{padding:8px 11px;text-align:right;color:var(--label);white-space:nowrap}
 td.c{text-align:center}td.l{text-align:left}
 td.hl{color:#000000;font-weight:500}td.pos{color:#006400}td.neg{color:#8B0000}td.dim{color:var(--muted)}
 .tag{display:inline-block;font-size:7px;padding:1px 4px;border-radius:3px;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.5px;vertical-align:middle;margin-left:3px}
-.tag-r{background:rgba(232,200,74,.2);color:#FFFF00}.tag-m{background:rgba(74,222,128,.15);color:var(--green)}
+.tag-r{background:rgba(232,200,74,.2);color:#000000}.tag-m{background:rgba(74,222,128,.15);color:#000000}
+.tag-irmaa{background:rgba(251,146,60,.25);color:#fb923c}
+.tag-irmaa-hi{background:rgba(248,113,113,.3);color:#f87171}
+.irmaa-ref{background:#1a1f2e;border:1px solid #334155;border-radius:8px;padding:14px;margin-bottom:16px}
+.irmaa-ref h4{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#e8c84a;margin-bottom:10px}
+.irmaa-ref table{width:100%;border-collapse:collapse;font-size:12px;font-family:'DM Mono',monospace}
+.irmaa-ref th{background:#0f172a;color:#94a3b8;padding:7px 10px;text-align:right;font-size:10px;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid #334155}
+.irmaa-ref th:first-child{text-align:left}
+.irmaa-ref td{padding:6px 10px;text-align:right;border-bottom:1px solid #1e293b;color:#cbd5e1}
+.irmaa-ref td:first-child{text-align:left}
+.irmaa-ref tr.irmaa-std td{color:#4ade80}
+.irmaa-ref tr.irmaa-t1 td{color:#fbbf24}
+.irmaa-ref tr.irmaa-t2 td{color:#fb923c}
+.irmaa-ref tr.irmaa-t3 td{color:#f87171}
+.irmaa-ref tr.irmaa-t4 td{color:#e879f9}
+.irmaa-ref tr.irmaa-t5 td{color:#f472b6}
+.irmaa-note{font-size:10px;color:#64748b;font-family:'DM Mono',monospace;margin-top:8px;line-height:1.6}
 
 .chart-section{padding:24px 20px 32px;border-top:1px solid var(--border);background:var(--bg)}
 .chart-section-title{font-family:'DM Serif Display',serif;font-size:20px;color:#000000;margin-bottom:6px;letter-spacing:-.3px}
@@ -194,12 +210,49 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="field"><label>Roth Conversion (age 65–74)</label><input type="number" id="rothConv" value="100000"></div>
     <div class="field"><label>401k Withdrawal (post-retire)</label><input type="number" id="w401k" value="0"></div>
   </div>
-  <div class="sxn"><h3>Starting Balances</h3>
-    <div class="field"><label>401k Balance</label><input type="number" id="b401k" value="500000"></div>
-    <div class="field"><label>Roth IRA Balance</label><input type="number" id="bRoth" value="50000"></div>
-    <div class="field"><label>Brokerage Balance</label><input type="number" id="bBrok" value="50000"></div>
-    <div class="field"><label>HSA Balance</label><input type="number" id="bHSA" value="50000"></div>
-    <div class="field"><label>Bonds Balance</label><input type="number" id="bBonds" value="50000"></div>
+  <div class="sxn">
+    <h3>Starting Balances</h3>
+    <!-- Portfolio Tracker Auto-Sync -->
+    <div style="background:#0d2b1a;border:1px solid #1a4731;border-radius:7px;padding:8px 10px;margin-bottom:10px;">
+      <div id="ptSyncStatus" style="font-size:11px;color:#7d8590;font-family:'DM Mono',monospace;min-height:14px;line-height:1.4;"></div>
+      <div id="ptSyncDetail" style="display:none;margin-top:6px;font-size:10px;font-family:'DM Mono',monospace;line-height:1.8;border-top:1px solid #1a4731;padding-top:6px;"></div>
+    </div>
+
+    <div class="field">
+      <label>401k Balance
+        <span id="lbl401k" style="display:none;font-size:10px;color:#4ade80;margin-left:4px;">✓ synced</span>
+      </label>
+      <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">BrokerageLink HPE · HPE 401k · Rollover IRA</div>
+      <input type="number" id="b401k" value="500000">
+    </div>
+    <div class="field">
+      <label>Roth IRA Balance
+        <span id="lblRoth" style="display:none;font-size:10px;color:#a78bfa;margin-left:4px;">✓ synced</span>
+      </label>
+      <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Roth IRA</div>
+      <input type="number" id="bRoth" value="50000">
+    </div>
+    <div class="field">
+      <label>Brokerage Balance
+        <span id="lblBrok" style="display:none;font-size:10px;color:#60a5fa;margin-left:4px;">✓ synced</span>
+      </label>
+      <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Individual Brokerage · Merril · Robinhood</div>
+      <input type="number" id="bBrok" value="50000">
+    </div>
+    <div class="field">
+      <label>HSA Balance
+        <span id="lblHSA" style="display:none;font-size:10px;color:#4ade80;margin-left:4px;">✓ synced</span>
+      </label>
+      <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Health Savings Account</div>
+      <input type="number" id="bHSA" value="50000">
+    </div>
+    <div class="field">
+      <label>Bonds Balance
+        <span id="lblBonds" style="display:none;font-size:10px;color:#fb923c;margin-left:4px;">✓ synced</span>
+      </label>
+      <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Treasury Direct</div>
+      <input type="number" id="bBonds" value="50000">
+    </div>
   </div>
   <div class="sxn"><h3>Social Security</h3>
     <div class="field"><label>SS Start Age — Husband</label><input type="number" id="ssStartH" value="67"></div>
@@ -239,6 +292,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="tab" style="--tc:#f472b6" data-tab="pfed"><span class="dot" style="--tc:#f472b6"></span>Federal Tax</div>
     <div class="tab" style="--tc:#94a3b8" data-tab="pca"><span class="dot" style="--tc:#94a3b8"></span>CA Tax</div>
     <div class="tab" style="--tc:#fbbf24" data-tab="psum"><span class="dot" style="--tc:#fbbf24"></span>Full Summary</div>
+    <div class="tab" style="--tc:#fb923c" data-tab="pirmaa"><span class="dot" style="--tc:#fb923c"></span>IRMAA Medicare</div>
   </div>
 
   <div class="table-area">
@@ -281,6 +335,55 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="tab-panel" id="psum">
       <div class="panel-title"><span class="pdot" style="background:#fbbf24"></span>Full Summary — All Accounts</div>
       <div class="table-wrap"><table id="tsum"></table></div>
+    </div>
+    <div class="tab-panel" id="pirmaa">
+      <div class="panel-title"><span class="pdot" style="background:#fb923c"></span>IRMAA — Medicare Income-Related Surcharge</div>
+
+      <!-- IRMAA Reference Table -->
+      <div class="irmaa-ref">
+        <h4>📋 2025 IRMAA Brackets — Married Filing Jointly (MFJ)</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>MAGI (MFJ)</th>
+              <th>Part B / person / mo</th>
+              <th>Part B couple / yr</th>
+              <th>Part D / person / mo</th>
+              <th>Part D couple / yr</th>
+              <th>Total Surcharge / yr</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="irmaa-std">
+              <td>Standard</td><td>≤ $212,000</td><td>$185.00</td><td>$4,440</td><td>$0</td><td>$0</td><td>$4,440</td>
+            </tr>
+            <tr class="irmaa-t1">
+              <td>Tier 1 ⚑</td><td>$212,001 – $266,000</td><td>$259.00</td><td>$6,216</td><td>$12.90</td><td>$310</td><td>$6,526</td>
+            </tr>
+            <tr class="irmaa-t2">
+              <td>Tier 2 ⚑⚑</td><td>$266,001 – $334,000</td><td>$370.00</td><td>$8,880</td><td>$33.30</td><td>$799</td><td>$9,679</td>
+            </tr>
+            <tr class="irmaa-t3">
+              <td>Tier 3 ⚑⚑⚑</td><td>$334,001 – $402,000</td><td>$480.90</td><td>$11,542</td><td>$53.80</td><td>$1,291</td><td>$12,833</td>
+            </tr>
+            <tr class="irmaa-t4">
+              <td>Tier 4 ⚑⚑⚑⚑</td><td>$402,001 – $750,000</td><td>$591.90</td><td>$14,206</td><td>$74.20</td><td>$1,781</td><td>$15,987</td>
+            </tr>
+            <tr class="irmaa-t5">
+              <td>Tier 5 ⚑⚑⚑⚑⚑</td><td>> $750,000</td><td>$628.90</td><td>$15,094</td><td>$81.00</td><td>$1,944</td><td>$17,038</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="irmaa-note">
+          ⓘ 2-year lookback: Medicare premium for Year N is determined by MAGI reported on tax return 2 years prior (Year N-2).<br>
+          ⓘ Medicare Part B starts at age 65. IRMAA is assessed on Part B + Part D premiums. Amounts shown for a couple (2 persons).<br>
+          ⓘ Part D surcharge applies per plan enrolled. If not enrolled in Part D, that surcharge is $0. Brackets adjust annually with CPI.
+        </div>
+      </div>
+
+      <!-- IRMAA Projection Table -->
+      <div class="table-wrap"><table id="tirmaa"></table></div>
     </div>
   </div>
 
@@ -362,11 +465,88 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </div>
 </div>
 
-<script src="js/tax_engine.js"></script>
+<script>
+// ── tax_engine.js (inlined) ───────────────────────────────────────────────────
+const FED_BRACKETS = [
+  { lo: 0,       hi: 24800,   r: 0.10 },
+  { lo: 24800,   hi: 100800,  r: 0.12 },
+  { lo: 100800,  hi: 211400,  r: 0.22 },
+  { lo: 211400,  hi: 403550,  r: 0.24 },
+  { lo: 403550,  hi: 512450,  r: 0.32 },
+  { lo: 512450,  hi: 768700,  r: 0.35 },
+  { lo: 768700,  hi: 1e18,    r: 0.37 }
+];
+const CA_BRACKETS = [
+  { lo: 0,        hi: 22158,   r: 0.010 },
+  { lo: 22158,    hi: 52528,   r: 0.020 },
+  { lo: 52528,    hi: 82904,   r: 0.040 },
+  { lo: 82904,    hi: 115084,  r: 0.060 },
+  { lo: 115084,   hi: 145448,  r: 0.080 },
+  { lo: 145448,   hi: 742958,  r: 0.093 },
+  { lo: 742958,   hi: 891542,  r: 0.103 },
+  { lo: 891542,   hi: 1485906, r: 0.113 },
+  { lo: 1485906,  hi: 1e18,    r: 0.123 }
+];
+const FED = FED_BRACKETS;
+const CA  = CA_BRACKETS;
+
+function taxCalc(inc, br) {
+  if (inc <= 0) return 0;
+  let t = 0;
+  for (const b of br) {
+    if (inc <= b.lo) break;
+    t += (Math.min(inc, b.hi) - b.lo) * b.r;
+  }
+  return Math.round(t);
+}
+const calculateTax = taxCalc;
+
+function computeTax({ conv, w401, rmd, totalSS_yr, fedDed, caDed, caEx, isRetired }) {
+  const nonSsInc = (isRetired ? (conv + w401) : 0) + rmd;
+  const provInc  = nonSsInc + (totalSS_yr * 0.5);
+  let taxSsFed = 0;
+  if (provInc > 44000)      taxSsFed = Math.round(totalSS_yr * 0.85);
+  else if (provInc > 32000) taxSsFed = Math.round(Math.min(totalSS_yr * 0.5, (provInc - 32000) * 0.5));
+  const fedAgi        = nonSsInc + taxSsFed;
+  const fedTaxableInc = Math.max(0, fedAgi - fedDed);
+  const fedTax        = isRetired ? taxCalc(fedTaxableInc, FED_BRACKETS) : 0;
+  const caAdjInc      = nonSsInc;
+  const caTaxableInc  = Math.max(0, caAdjInc - caDed);
+  const caTaxRaw      = isRetired ? taxCalc(caTaxableInc, CA_BRACKETS) : 0;
+  const caTax         = Math.max(0, caTaxRaw - caEx);
+  const totalTax_yr   = fedTax + caTax;
+  return { nonSsInc, provInc, taxSsFed, fedAgi, fedTaxableInc, fedTax,
+           caAdjInc, caTaxableInc, caTaxRaw, caTax, totalTax_yr };
+}
+// ─────────────────────────────────────────────────────────────────────────────
+</script>
 <script>
 // FED, CA, FED_BRACKETS, CA_BRACKETS, taxCalc, computeTax — all from js/tax_engine.js
 
 const RMD_F={75:24.6,76:23.7,77:22.9,78:22,79:21.1,80:20.2,81:19.4,82:18.5,83:17.7,84:16.8,85:16,86:15.2,87:14.4,88:13.7,89:12.9,90:12.2};
+
+// ── IRMAA Brackets 2025 (MFJ) ────────────────────────────────────────────────
+// Source: CMS 2025. Part B monthly per person. 2-year MAGI lookback.
+const IRMAA_MFJ = [
+  { tier:0, label:'Standard',   magiLo:0,      magiHi:212000, partB_mo:185.00, partD_mo:0     },
+  { tier:1, label:'Tier 1',     magiLo:212001, magiHi:266000, partB_mo:259.00, partD_mo:12.90 },
+  { tier:2, label:'Tier 2',     magiLo:266001, magiHi:334000, partB_mo:370.00, partD_mo:33.30 },
+  { tier:3, label:'Tier 3',     magiLo:334001, magiHi:402000, partB_mo:480.90, partD_mo:53.80 },
+  { tier:4, label:'Tier 4',     magiLo:402001, magiHi:750000, partB_mo:591.90, partD_mo:74.20 },
+  { tier:5, label:'Tier 5',     magiLo:750001, magiHi:1e18,   partB_mo:628.90, partD_mo:81.00 },
+];
+function getIRMAA(magi) {
+  for (const b of IRMAA_MFJ) { if (magi <= b.magiHi) return b; }
+  return IRMAA_MFJ[IRMAA_MFJ.length - 1];
+}
+// IRMAA flag tiers: 0 = none, 1-2 = warning (orange), 3-5 = high (red)
+function irmaaTag(tier) {
+  if (tier === 0) return '';
+  const flags = '⚑'.repeat(tier);
+  const cls = tier <= 2 ? 'tag-irmaa' : 'tag-irmaa-hi';
+  return `<span class="tag ${cls}">IRMAA ${flags}</span>`;
+}
+// ─────────────────────────────────────────────────────────────────────────────
 function gi(id){return parseFloat(document.getElementById(id).value)||0}
 function f(n) {
     if (n === null || n === undefined || isNaN(n)) return '—';
@@ -640,6 +820,33 @@ function calculate(){
 });
     prev={a:e4,b:eR,c:eB,d:eH,e:eBn};
   }
+
+  // ── IRMAA Post-Processing (2-year lookback) ──────────────────────────────
+  // Medicare starts at 65. IRMAA for Year N is based on MAGI from Year N-2.
+  // So the "lookback row" is the row where H.Age = current H.Age - 2.
+  const ageToRow = {};
+  rows.forEach(r => { ageToRow[r.age] = r; });
+  rows.forEach(r => {
+    if (r.age >= 65) {
+      const lookbackRow = ageToRow[r.age - 2];
+      const irmaaMAGI   = lookbackRow ? lookbackRow.agi : r.agi; // fallback to own AGI if no lookback
+      const bracket     = getIRMAA(irmaaMAGI);
+      r.irmaaLookbackAge  = r.age - 2;
+      r.irmaaLookbackYear = lookbackRow ? lookbackRow.year : r.year - 2;
+      r.irmaaMAGI         = irmaaMAGI;
+      r.irmaaTier         = bracket.tier;
+      r.irmaaLabel        = bracket.label;
+      r.irmaaPartB_yr     = bracket.partB_mo * 12 * 2; // × 2 persons
+      r.irmaaPartD_yr     = bracket.partD_mo * 12 * 2;
+      r.irmaaTotal_yr     = r.irmaaPartB_yr + r.irmaaPartD_yr;
+      r.irmaaFlag         = bracket.tier > 0;
+    } else {
+      r.irmaaMAGI = null; r.irmaaTier = 0; r.irmaaLabel = '—';
+      r.irmaaPartB_yr = 0; r.irmaaPartD_yr = 0; r.irmaaTotal_yr = 0;
+      r.irmaaFlag = false;
+    }
+  });
+  // ─────────────────────────────────────────────────────────────────────────
   globalRows=rows;
 
   document.getElementById('c-retire').textContent=fz(retPort);
@@ -687,15 +894,16 @@ function calculate(){
 <th style="color:#60a5fa">Brokerage</th>
 <th style="color:#4ade80">HSA</th>
 <th style="color:#fb923c">Bonds</th>
-<th style="color:var(--accent)">Fed AGI</th>
-<th style="color:#000000">Total Portfolio</th>
+<th style="color:#ffffff">Fed AGI</th>
+<th style="color:#CFA442">Total Portfolio</th>
 <th style="color:#fb7185">Total SS</th>
 <th style="color:#38bdf8">RMD</th>
 <th style="color:#f472b6">Fed Tax</th>
 <th style="color:#94a3b8">CA Tax</th>
 <th style="color:var(--danger)">Total Tax</th>
 <th style="color:#22c55e">Spending</th>      
-<th style="color:#facc15">Total Amt reqd</th>    
+<th style="color:#facc15">Total Amt reqd</th>
+<th style="color:#fb923c" class="c">IRMAA</th>
 `,
     r=>`<tr class="${rc(r)}">${ycr(r)}
 <td>${fz(r.e4)}</td>
@@ -703,21 +911,51 @@ function calculate(){
 <td>${fz(r.eB)}</td>
 <td>${fz(r.eH)}</td>
 <td>${fz(r.eBn)}</td>
-<td class="hl" style="color:var(--accent)">${fz(r.agi)}</td>
+<td class="hl" style="color:#000000">${fz(r.agi)}</td>
 <td class="hl">${fz(r.total)}</td>
 <td>${r.totalSS_yr?fz(r.totalSS_yr):'—'}</td>
 <td>${r.rmd?fz(r.rmd):'—'}</td>
 <td class="neg">${r.fedTax?fz(r.fedTax):'—'}</td>
 <td class="neg">${r.caTax?fz(r.caTax):'—'}</td>
 <td class="neg hl">${r.totalTax_yr?fz(r.totalTax_yr):'—'}</td>
-
 <td class="hl">${fz(r.spendTotal)}</td>
 <td class="hl">${fz(r.totalTax_yr + r.spendTotal)}</td>
-
+<td class="c">${r.age>=65 ? (r.irmaaFlag ? irmaaTag(r.irmaaTier) : '<span style="color:#4ade80;font-size:10px">✓ Std</span>') : '—'}</td>
 </tr>`,rows);
 
-  const sA=document.getElementById('sliderA');
-  const sB=document.getElementById('sliderB');
+  // ── IRMAA Projection Table ────────────────────────────────────────────────
+  const irmaaRows = rows.filter(r => r.age >= 65);
+  fill('tirmaa',
+    `${YH}
+     <th style="color:#fb923c">Medicare Year</th>
+     <th style="color:#fbbf24">MAGI Lookback Age</th>
+     <th style="color:#fbbf24">MAGI Lookback Year</th>
+     <th style="color:#fbbf24">MAGI Used for IRMAA</th>
+     <th style="color:#fb923c" class="c">IRMAA Tier</th>
+     <th style="color:#f87171">Part B /yr (couple)</th>
+     <th style="color:#f87171">Part D /yr (couple)</th>
+     <th style="color:#f87171">Total IRMAA /yr</th>
+     <th style="color:#fb923c" class="c">Flag</th>`,
+    r => {
+      const tierColor = ['#4ade80','#fbbf24','#fb923c','#f87171','#e879f9','#f472b6'][r.irmaaTier] || '#4ade80';
+      return `<tr class="${rc(r)}">
+        ${ycr(r)}
+        <td>${r.year}</td>
+        <td class="c">Age ${r.irmaaLookbackAge}</td>
+        <td class="c">${r.irmaaLookbackYear}</td>
+        <td class="hl" style="color:${r.irmaaFlag?'#fb923c':'#4ade80'}">${fz(r.irmaaMAGI)}</td>
+        <td class="c" style="color:${tierColor};font-weight:600">${r.irmaaLabel}</td>
+        <td class="${r.irmaaPartB_yr>4440?'neg':''}">${fz(r.irmaaPartB_yr)}</td>
+        <td class="${r.irmaaPartD_yr>0?'neg':''}">${r.irmaaPartD_yr?fz(r.irmaaPartD_yr):'—'}</td>
+        <td class="hl ${r.irmaaFlag?'neg':''}">${fz(r.irmaaTotal_yr)}</td>
+        <td class="c">${r.irmaaFlag ? irmaaTag(r.irmaaTier) : '<span style="color:#4ade80;font-size:11px">✓ Std</span>'}</td>
+      </tr>`;
+    },
+    irmaaRows
+  );
+  // ─────────────────────────────────────────────────────────────────────────
+
+  const sA=document.getElementById('sliderA');  const sB=document.getElementById('sliderB');
   sA.min=hAge0; sA.max=endAge;
   sB.min=hAge0; sB.max=endAge;
   if(parseInt(sA.value)<hAge0)sA.value=Math.min(70,endAge);
@@ -727,6 +965,105 @@ function calculate(){
   renderSubCharts(rows);
   updateSliders();
 }
+
+// ── Portfolio Tracker Sync ────────────────────────────────────────────────────
+// Reads pre-computed balances saved directly by the Portfolio Tracker dashboard.
+// No account matching needed — values come straight from the "Balances required
+// for Retirement Calculator" section which uses the same calcRow() logic.
+const PT_RETIRE_KEY = 'portfolio_retire_balances_v1';
+
+const PT_FIELD_MAP = {
+  b401k: '401k Balance',
+  bRoth: 'Roth IRA Balance',
+  bBrok: 'Brokerage Balance',
+  bHSA:  'HSA Balance',
+  bBonds:'Bonds Balance'
+};
+const PT_COLORS = { b401k:'#4ade80', bRoth:'#a78bfa', bBrok:'#60a5fa', bHSA:'#4ade80', bBonds:'#fb923c' };
+const PT_LABELS = { b401k:'lbl401k', bRoth:'lblRoth', bBrok:'lblBrok', bHSA:'lblHSA', bBonds:'lblBonds' };
+
+function ptSetStatus(msg, type) {
+  const el = document.getElementById('ptSyncStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = type === 'ok' ? '#4ade80' : type === 'warn' ? '#fb923c' : '#f87171';
+}
+
+function syncFromPortfolioTracker() {
+  try {
+    const raw = localStorage.getItem(PT_RETIRE_KEY);
+    if (!raw) {
+      ptSetStatus('⚠ No data found. Open Portfolio Tracker — balances will save automatically.', 'warn');
+      return;
+    }
+    const balances = JSON.parse(raw);
+
+    const fmt = n => '$' + Math.round(n).toLocaleString();
+    let anyPopulated = false;
+    const detailLines = [];
+
+    for (const [fid, label] of Object.entries(PT_FIELD_MAP)) {
+      const val = balances[label] || 0;
+      const el  = document.getElementById(fid);
+      if (!el) continue;
+      el.value = val;
+      el.style.borderColor = val > 0 ? PT_COLORS[fid] : '#555';
+      el.style.boxShadow   = val > 0 ? `0 0 0 1px ${PT_COLORS[fid]}44` : '';
+      el.title = `Synced from Portfolio Tracker: ${label}`;
+      const lbl = document.getElementById(PT_LABELS[fid]);
+      if (lbl) {
+        lbl.style.display = val > 0 ? 'inline' : 'none';
+        lbl.style.color   = PT_COLORS[fid];
+        lbl.textContent   = val > 0 ? `✓ ${fmt(val)}` : '';
+      }
+      if (val > 0) anyPopulated = true;
+      const icon = val > 0 ? '✅' : '⚠️';
+      detailLines.push(`<div style="color:${val>0?'#4ade80':'#fb923c'}">${icon} ${label}: ${fmt(val)}</div>`);
+    }
+
+    const ts  = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    const savedAt = balances.updatedAt ? new Date(balances.updatedAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '?';
+    const total = Object.values(PT_FIELD_MAP).reduce((s, label) => s + (balances[label]||0), 0);
+
+    ptSetStatus(
+      anyPopulated
+        ? `✓ Synced at ${ts}  ·  Portfolio snapshot: ${savedAt}  ·  Total: ${fmt(total)}`
+        : `⚠ Balances found but all zero — check Portfolio Tracker`,
+      anyPopulated ? 'ok' : 'warn'
+    );
+
+    const detailEl = document.getElementById('ptSyncDetail');
+    if (detailEl) {
+      detailEl.style.display = 'block';
+      detailEl.innerHTML = detailLines.join('');
+    }
+
+  } catch (e) {
+    ptSetStatus('✗ Error reading portfolio: ' + e.message, 'err');
+    return;
+  }
+
+  try { calculate(); } catch(e) { /* calculation errors handled separately */ }
+}
+
+// Auto-sync on page load
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem(PT_RETIRE_KEY)) {
+    syncFromPortfolioTracker();
+  } else {
+    ptSetStatus('Open Portfolio Tracker first — balances sync automatically.', 'warn');
+  }
+});
+
+// Auto-sync whenever Portfolio Tracker updates the balance snapshot
+window.addEventListener('storage', (e) => {
+  if (e.key === PT_RETIRE_KEY && e.newValue) {
+    syncFromPortfolioTracker();
+    const el = document.getElementById('ptSyncStatus');
+    if (el) { el.style.fontWeight = 'bold'; setTimeout(() => { el.style.fontWeight = 'normal'; }, 2000); }
+  }
+});
+// ─────────────────────────────────────────────────────────────────────────────
 
 calculate();
 
@@ -742,7 +1079,8 @@ function exportToCSV() {
         "Fed AGI","Total Portfolio",
         "Total SS","RMD",
         "Fed Tax","CA Tax","Total Tax",
-        "Spending","Total Amt"
+        "Spending","Total Amt",
+        "IRMAA Lookback Age","IRMAA MAGI","IRMAA Tier","IRMAA PartB/yr","IRMAA PartD/yr","IRMAA Total/yr"
     ];
 
     let csvRows = [headers.join(",")];
@@ -770,7 +1108,14 @@ function exportToCSV() {
             Math.round(row.totalTax_yr || 0),
 
             Math.round(row.spendTotal || 0),
-            Math.round((row.totalTax_yr || 0) + (row.spendTotal || 0))
+            Math.round((row.totalTax_yr || 0) + (row.spendTotal || 0)),
+
+            row.irmaaLookbackAge || '',
+            Math.round(row.irmaaMAGI || 0),
+            row.irmaaLabel || '',
+            Math.round(row.irmaaPartB_yr || 0),
+            Math.round(row.irmaaPartD_yr || 0),
+            Math.round(row.irmaaTotal_yr || 0)
         ].join(","));
     });
 
@@ -784,4 +1129,35 @@ function exportToCSV() {
 }
 </script>
 </body>
+
+</body>
+  <!-- 
+    
+	Look for this block in the <script> section — it's clearly commented:
+	// ── IRMAA Brackets 2025 (MFJ) ────────────────────────────────────────────────
+const IRMAA_MFJ = [
+  { tier:0, label:'Standard',   magiLo:0,      magiHi:212000, partB_mo:185.00, partD_mo:0     },
+  { tier:1, label:'Tier 1',     magiLo:212001, magiHi:266000, partB_mo:259.00, partD_mo:12.90 },
+  { tier:2, label:'Tier 2',     magiLo:266001, magiHi:334000, partB_mo:370.00, partD_mo:33.30 },
+  { tier:3, label:'Tier 3',     magiLo:334001, magiHi:402000, partB_mo:480.90, partD_mo:53.80 },
+  { tier:4, label:'Tier 4',     magiLo:402001, magiHi:750000, partB_mo:591.90, partD_mo:74.20 },
+  { tier:5, label:'Tier 5',     magiLo:750001, magiHi:1e18,   partB_mo:628.90, partD_mo:81.00 },
+];
+
+Two things to update each year:
+1. The magiHi/magiLo values — these are the income thresholds that shift with CPI. For example, if the Tier 1 floor moves from $212,000 to $220,000, you'd change magiHi:212000 on the Standard row and magiLo:212001 on Tier 1 accordingly. Every boundary between tiers needs both sides updated.
+2. The partB_mo and partD_mo values — the actual dollar premiums CMS announces each fall for the coming year.
+You'd also want to update the static reference table in the HTML panel (the <div class="irmaa-ref"> section) to keep the displayed bracket numbers in sync with the JavaScript — otherwise the table and the calculations will show different numbers.
+CMS typically announces the new year's IRMAA brackets in November, so that's the natural time to do a quick update before year-end planning.
+	
+	CHANGE LOG (information in this section are completely invisible to the browser and do not affect rendering or performance)
+    ==========
+    2025-05-04 — Added IRMAA Medicare tab with 2-year lookback logic
+                 2025 MFJ brackets: Standard ≤$212k, T1 $212-266k, T2 $266-334k, 
+                 T3 $334-402k, T4 $402-750k, T5 >$750k
+                 Update IRMAA_MFJ array + reference table each November when CMS announces new rates.
+
+    2025-XX-XX — Your next change here
+  -->
+
 </html>

@@ -90,7 +90,7 @@
 
         /* ── Intro ── */
         .intro-p {
-            color: var(--gold-dark);
+            color: #000000;
             font-style: italic;
             font-size: 14px;
             padding: 12px 30px 16px;
@@ -109,8 +109,8 @@
         .acc-item {
             border-radius: 8px;
             overflow: hidden;
-			color: #95C1ED
-            border: 1.5px solid #000;
+			color: #ECED95
+            border: 3px solid #000;
         }
 
         .acc-header {
@@ -141,7 +141,10 @@
 			font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 2px;
+            margin-bottom: 6px;
+			background: #ffffff;        /* ← add this */
+    padding: 2px 6px;           /* ← and this for spacing */
+   
         }
 
         .acc-title {
@@ -168,7 +171,7 @@
             font-size: 14px;
             line-height: 1.65;
             color: var(--text-mid);
-            background: #f8f9fa;
+            background: #ecf09c;
         }
 
         .acc-body.open {
@@ -414,7 +417,7 @@
             <button class="acc-header" onclick="toggle(this)">
                 <div>
                     <div class="acc-step">Step 6</div>
-                    <div class="acc-title">Retirement Confidence &amp; Monte Carlo Simulations</div>
+                    <div class="acc-title">Retirement Confidence &amp; Monte Carlo Simulations - "Will my money last?"</div>
                 </div>
                 <span class="acc-icon">+</span>
             </button>

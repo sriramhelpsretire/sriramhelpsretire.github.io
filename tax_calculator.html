@@ -3,139 +3,289 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>"What If" Retirement Plan Tax Calculator (CA + Fed)</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Consolas:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>"What If" Retirement Tax Planner (CA + Fed)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
+/* ── Variables ─────────────────────────────────────────────────────────── */
 :root {
-  --bg: #C0DEF0;
-  --surface: #161b22;
-  --surface2: #1e2530;
-  --border: #30363d;
-  --accent: #e8c84a;
-  --neon-green: #39FF14;
-  --neon-blue: #60a5fa;
-  --neon-purple: #a78bfa;
-  --neon-orange: #fb923c;
-  --neon-pink: #fb7185;
-  --neon-slate: #94a3b8;
-  --danger: #f87171;
-  --text: #e6edf3;
-  --muted: #7d8590;
-  --label: #ffffff;
+  --bg:#C0DEF0; --surface:#161b22; --surface2:#1e2530; --border:#30363d;
+  --accent:#e8c84a; --green:#4ade80; --blue:#60a5fa; --purple:#a78bfa;
+  --orange:#fb923c; --red:#f87171; --pink:#fb7185;
+  --text:#e6edf3; --muted:#7d8590; --label:#ffffff;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;}
 
-header { background: linear-gradient(135deg, #0d1117, #1a2235); border-bottom: 1px solid var(--border); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px; }
-.header-left { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-header h1 { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--accent); }
-header span { color: #DE3163; font-size: 16px; font-family: 'Consolas', monospace; }
-.home-btn { display: flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid #FFCE1B; color: #FFCE1B; padding: 7px 14px; border-radius: 7px; text-decoration: none; font-size: 16px; font-weight: 600; transition: all .15s; }
-.home-btn:hover { border-color: #FFCE1B; color: #A35614; }
-.home-btn svg { width: 14px; height: 14px; }
+/* ── Header ──────────────────────────────────────────────────────────────── */
+header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px solid var(--border);
+  padding:14px 20px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px;}
+.header-left{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+header h1{font-family:'DM Serif Display',serif;font-size:24px;color:var(--accent);}
+header span{color:#DE3163;font-size:14px;font-family:'DM Mono',monospace;}
+.hdr-btns{display:flex;gap:8px;align-items:center;}
+.home-btn,.print-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:7px;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;border:none;}
+.home-btn{background:var(--surface2);border:1px solid #FFCE1B;color:#FFCE1B;}
+.home-btn:hover{color:#A35614;}
+.print-btn{background:#1e3a5f;border:1px solid var(--blue);color:var(--blue);}
+.print-btn:hover{background:#2563eb;color:#fff;}
 
-.container { max-width: 1300px; margin: 20px auto; padding: 0 15px; }
-.main-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: #000000; margin-bottom: 20px; text-align: center; }
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+.container{max-width:1420px;margin:18px auto;padding:0 14px;}
+.main-title{font-family:'DM Serif Display',serif;font-size:24px;color:#000;margin-bottom:16px;text-align:center;}
 
-.input-wrapper { position: relative; display: inline-block; width: 100%; }
-.input-wrapper::before { content: "$"; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--neon-green); font-family: 'Consolas', monospace; font-size: 1.1rem; pointer-events: none; z-index: 1; }
+/* ── Global params bar ───────────────────────────────────────────────────── */
+.global-bar{background:var(--surface);border:2px solid var(--border);border-radius:10px;
+  padding:12px 18px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;}
+.global-bar label{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;
+  text-transform:uppercase;letter-spacing:.8px;margin-right:6px;}
+.global-bar input{background:#494949;border:1px solid var(--border);border-radius:5px;
+  padding:5px 9px;color:var(--green);font-family:'DM Mono',monospace;font-size:13px;
+  outline:none;width:100px;}
+.global-bar input:focus{border-color:var(--accent);}
+.global-note{font-size:10px;color:#64748b;font-family:'DM Mono',monospace;}
 
-.scenario-flex-container { display: flex; flex-direction: column; gap: 20px; margin-bottom: 25px; }
-.scenario-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+/* ── Calc button ─────────────────────────────────────────────────────────── */
+.calc-btn-container{text-align:center;margin-bottom:18px;}
+.calc-btn{background:var(--accent);color:#0d1117;border:none;border-radius:8px;
+  padding:11px 28px;max-width:380px;width:100%;font-family:'DM Sans',sans-serif;
+  font-weight:700;font-size:15px;cursor:pointer;transition:.15s;}
+.calc-btn:hover{background:#693909;color:#fff;transform:translateY(-1px);}
 
-.scenario-box { background: var(--surface); border: 5px solid #E8C84A; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: border-color 0.2s; display: flex; flex-direction: column; }
-.scenario-box:hover { border-color: #A35614; }
-.scenario-box h2 { font-family: 'Consolas', monospace; font-size: 16px; color: var(--accent); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; }
+/* ── Input prefix $ ─────────────────────────────────────────────────────── */
+.input-wrapper{position:relative;display:inline-block;width:100%;}
+.input-wrapper::before{content:"$";position:absolute;left:9px;top:50%;transform:translateY(-50%);
+  color:var(--green);font-family:'DM Mono',monospace;pointer-events:none;z-index:1;}
 
-.inputs { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-.inputs-divider { border: none; border-top: 1px dashed var(--border); margin: 4px 0; }
+/* ── Scenario grid ───────────────────────────────────────────────────────── */
+.scenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(305px,1fr));gap:18px;margin-bottom:20px;}
+.scenario-box{background:var(--surface);border:4px solid #E8C84A;border-radius:12px;
+  padding:18px;box-shadow:0 4px 6px rgba(0,0,0,.3);display:flex;flex-direction:column;}
+.scenario-box h2{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);
+  margin-bottom:14px;text-transform:uppercase;letter-spacing:1px;}
 
-.input-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: center; gap: 10px; }
-.input-row label { font-size: 13px; color: var(--label); font-weight: 500; font-family: 'DM Sans', sans-serif; text-align: left; }
-.input-row input { background: #494949; border: 1px solid var(--border); border-radius: 6px; padding: 10px; padding-left: 28px; color: var(--neon-green); font-family: 'Consolas', monospace; font-size: 1.1rem; outline: none; transition: border-color .15s; width: 100%; text-align: right; }
-.input-row input:focus { border-color: var(--accent); }
-.input-row input[type=number]::-webkit-inner-spin-button { opacity: .4; }
+/* ── Inputs ──────────────────────────────────────────────────────────────── */
+.inputs{display:flex;flex-direction:column;gap:9px;margin-bottom:14px;}
+.inputs-divider{border:none;border-top:1px dashed var(--border);margin:3px 0;}
+.input-row{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:8px;}
+.input-row label{font-size:11px;color:var(--label);font-weight:500;}
+.input-row input{background:#494949;border:1px solid var(--border);border-radius:6px;
+  padding:8px;padding-left:26px;color:var(--green);font-family:'DM Mono',monospace;
+  font-size:.95rem;outline:none;transition:border-color .15s;width:100%;text-align:right;}
+.input-row input:focus{border-color:var(--accent);}
+.input-row input[type=number]::-webkit-inner-spin-button{opacity:.4;}
 
-/* Results */
-.results { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
-.res-row-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
-.res-section-label { font-size: 9px; font-family: 'Consolas', monospace; color: #E8C84A; text-transform: uppercase; letter-spacing: 2px; padding: 6px 0 2px; border-bottom: 1px solid var(--border); margin-top: 4px; }
+/* ── Results ─────────────────────────────────────────────────────────────── */
+.results{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
+.res-row-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;}
+.res-section-label{font-size:9px;font-family:'DM Mono',monospace;color:#E8C84A;
+  text-transform:uppercase;letter-spacing:2px;padding:5px 0 2px;
+  border-bottom:1px solid var(--border);margin-top:4px;}
+.res-item{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:6px 8px;}
+.res-lbl{font-size:9px;color:#C3E84A;text-transform:uppercase;letter-spacing:1px;font-family:'DM Mono',monospace;}
+.res-val{font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);}
+.res-val.sm{font-size:12px;}
+.res-val.neg{color:var(--red);}
+.res-val.gold{color:var(--accent);}
 
-.res-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; }
-.res-lbl { font-size: 10px; color: #C3E84A; text-transform: uppercase; letter-spacing: 1px; font-family: 'Consolas', monospace; }
-.res-val { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--text); }
-.res-val.sm { font-size: 14px; }
-.res-val.neg { color: var(--danger); }
-.res-val.gold { color: var(--accent); }
+.total-tax-box{background:var(--surface);border:2px solid var(--accent);
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;
+  padding:11px 14px;border-radius:10px;margin-top:10px;}
+.total-tax-box .half{display:flex;flex-direction:column;align-items:center;}
+.total-tax-box .res-lbl{color:var(--muted);}
+.total-tax-box .big{font-family:'DM Serif Display',serif;font-size:24px;color:var(--accent);}
+.total-tax-box .net{font-family:'DM Serif Display',serif;font-size:20px;color:var(--green);}
+.total-tax-box .eff{font-family:'DM Mono',monospace;font-size:10px;color:var(--orange);margin-top:3px;}
 
-.total-tax-box { background: var(--surface); border: 2px solid var(--accent); display: flex; flex-direction: column; align-items: center; padding: 12px; border-radius: 10px; box-shadow: 0 4px 10px rgba(232,200,74,0.15); margin-top: 10px; }
-.total-tax-box .res-lbl { color: var(--muted); }
-.total-tax-box .res-val { color: var(--accent); font-size: 28px; }
+/* ── IRMAA lookback badge ────────────────────────────────────────────────── */
+.irmaa-lookback-badge{font-family:'DM Mono',monospace;font-size:10px;background:#1e3a5f;
+  border:1px solid var(--blue);border-radius:5px;padding:3px 8px;color:var(--blue);display:inline-block;margin-top:4px;}
 
-.calc-btn-container { text-align: center; margin-bottom: 25px; padding: 0 10px; }
-.calc-btn { background: var(--accent); color: #0d1117; border: 2px solid var(--border); border-radius: 8px; padding: 12px 30px; width: 100%; max-width: 400px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 16px; cursor: pointer; transition: opacity .15s, transform .1s; }
-.calc-btn:hover { background: #693909; }
-.calc-btn:active { transform: scale(.98); }
-.calc-btn:hover { background: #693909; color: #fff; opacity: 1; transform: translateY(-1px); }
+/* ── Section boxes (optimizer, break-even) ───────────────────────────────── */
+.section-box{background:var(--surface);border:4px solid #C3E84A;border-radius:12px;
+  padding:20px;box-shadow:0 4px 6px rgba(0,0,0,.3);margin-bottom:20px;}
+.section-box h2{font-family:'DM Mono',monospace;font-size:13px;color:var(--accent);
+  margin-bottom:16px;text-transform:uppercase;letter-spacing:1px;}
+.section-grid{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start;}
+.section-inputs{display:flex;flex-direction:column;gap:9px;}
+.chart-wrap{position:relative;height:300px;}
+.opt-slider-row{display:flex;align-items:center;gap:12px;margin-top:8px;}
+.opt-slider-row label{font-size:11px;color:var(--label);white-space:nowrap;}
+.opt-slider-row input[type=range]{flex:1;accent-color:var(--accent);}
+.opt-slider-val{font-family:'DM Mono',monospace;font-size:14px;color:var(--accent);min-width:90px;text-align:right;}
 
-.main-chart-section { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; }
-.chart-box { background: var(--surface); border: 5px solid #C3E84A; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); width: 100%; }
-.chart-title { font-family: 'Consolas', monospace; font-size: 16px; color: var(--accent); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
-.chart-canvas-wrap { position: relative; height: 350px; width: 100%; }
+/* ── Optimizer result pills ──────────────────────────────────────────────── */
+.opt-results{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.opt-pill{background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  padding:7px 11px;font-family:'DM Mono',monospace;font-size:11px;}
+.opt-pill .pk{color:var(--muted);}
+.opt-pill .pv{color:var(--accent);font-weight:600;}
+.opt-pill .pv.grn{color:var(--green);}
+.opt-pill .pv.red{color:var(--red);}
+.opt-pill .pv.ora{color:var(--orange);}
+.opt-pill .pv.blu{color:var(--blue);}
 
-.parameters-section { display: flex; flex-direction: column; gap: 20px; }
-.deductions-box { width: 100%; }
-.ded-inputs { display: flex; flex-direction: column; gap: 10px; }
-.ded-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 6px; flex-wrap: wrap; gap: 5px; }
-.ded-lbl { font-size: 11px; font-family: 'Consolas', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-.ded-input input { background: transparent; border: none; color: var(--neon-blue); font-family: 'Consolas', monospace; font-size: 1rem; text-align: right; outline: none; width: 100px; padding: 2px 4px; border-radius: 4px; border: 1px solid transparent; }
-.ded-input input:focus { border: 3px solid var(--border); background: var(--surface2); }
-.tag { font-family: 'Consolas', monospace; font-size: 10px; color: var(--neon-green); text-transform: uppercase; margin-top: 5px; text-align: center; display: block; }
+/* ── Break-even result ───────────────────────────────────────────────────── */
+.bev-callout{background:#0d2b1a;border:1px solid #1a4731;border-radius:8px;
+  padding:12px 16px;margin-top:14px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.8;}
+.bev-callout .bev-key{color:var(--muted);}
+.bev-callout .bev-val{color:var(--green);font-weight:600;}
+.bev-callout .bev-val.bad{color:var(--orange);}
 
-@media (max-width: 768px) {
-  header { justify-content: center; text-align: center; }
-  .header-left { flex-direction: column; align-items: center; gap: 5px; }
-  .input-row { grid-template-columns: 1fr; text-align: center; }
-  .input-row label { text-align: center; }
-  .res-val { font-size: 16px; }
+/* ── Chart boxes ─────────────────────────────────────────────────────────── */
+.chart-box{background:var(--surface);border:4px solid #C3E84A;border-radius:12px;
+  padding:18px;box-shadow:0 4px 6px rgba(0,0,0,.3);margin-bottom:20px;}
+.chart-title{font-family:'DM Mono',monospace;font-size:13px;color:var(--accent);
+  margin-bottom:14px;text-transform:uppercase;letter-spacing:1px;text-align:center;}
+.chart-canvas-wrap{position:relative;height:320px;width:100%;}
+
+/* ── Tax engine notes ────────────────────────────────────────────────────── */
+.notes-box{background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  padding:14px 18px;font-family:'DM Mono',monospace;font-size:10px;color:#ffffff;line-height:1.9;}
+.notes-box .nt{color:#CFA442;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:6px;display:block;}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PRINT STYLES
+   ══════════════════════════════════════════════════════════════════════════ */
+@media print {
+  @page { size: A4 landscape; margin: 1.2cm; }
+
+  body { background: #fff !important; color: #000 !important; font-size: 11px; }
+
+  header, .calc-btn-container, .print-btn, .home-btn,
+  #optimizerSection, #breakevenSection, .notes-box,
+  footer { display: none !important; }
+
+  .container { max-width: 100%; margin: 0; padding: 0; }
+  .main-title { color: #000 !important; font-size: 18px; margin-bottom: 10px; }
+
+  .global-bar { background: #f8f8f8 !important; border-color: #ccc !important;
+    color: #000 !important; padding: 6px 12px; margin-bottom: 10px; }
+  .global-bar label, .global-bar input { color: #000 !important; }
+  .global-bar input { background: transparent !important; border: none !important; font-weight: 600; }
+
+  .scenario-grid { grid-template-columns: 1fr 1fr; gap: 10px; page-break-inside: avoid; }
+  .scenario-box { background: #fff !important; border: 1.5px solid #333 !important;
+    padding: 10px; box-shadow: none !important; border-radius: 6px; break-inside: avoid; }
+  .scenario-box h2 { color: #1a2235 !important; font-size: 10px; margin-bottom: 8px; }
+
+  .input-wrapper::before { display: none; }
+  .input-row input { background: transparent !important; border: none !important;
+    color: #000 !important; padding: 2px 0; font-size: 11px; padding-left: 0 !important; }
+  .input-row label { color: #333 !important; font-size: 10px; }
+
+  .res-section-label { color: #555 !important; border-color: #bbb !important; font-size: 8px; }
+  .res-item { background: #f5f5f5 !important; border-color: #ddd !important; padding: 4px 6px; }
+  .res-lbl { color: #555 !important; font-size: 8px; }
+  .res-val { color: #000 !important; font-size: 12px; }
+  .res-val.neg { color: #c00 !important; }
+  .res-val.gold { color: #8b6914 !important; }
+  .res-val.sm { font-size: 10px; }
+
+  .total-tax-box { background: #f0f0f0 !important; border-color: #8b6914 !important;
+    padding: 8px 12px; }
+  .total-tax-box .big { color: #8b6914 !important; font-size: 18px; }
+  .total-tax-box .net { color: #2e7d32 !important; font-size: 16px; }
+  .total-tax-box .eff { color: #c04000 !important; }
+  .total-tax-box .res-lbl { color: #555 !important; }
+
+  .chart-box { break-inside: avoid; border-color: #888 !important;
+    background: #fff !important; box-shadow: none !important; }
+  .chart-canvas-wrap { height: 240px !important; }
+  .chart-title { color: #1a2235 !important; }
+
+  .irmaa-lookback-badge { background: #e8f0fe !important; border-color: #1a6fa8 !important;
+    color: #1a6fa8 !important; }
+
+  .print-page-title {
+    display: block !important;
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: #1a2235;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .print-subtitle {
+    display: block !important;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #555;
+    text-align: center;
+    margin-bottom: 14px;
+  }
 }
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* Hide print-only elements on screen */
+.print-page-title, .print-subtitle { display: none; }
 </style>
 </head>
 <body>
+
 <header>
-<div class="header-left">
-<h1>"What If" Tax Planner</h1>
-<span>Decumulation Scenarios (CA + Fed)</span>
-</div>
-<a href="index.html" class="home-btn">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-HOME
-</a>
+  <div class="header-left">
+    <h1>"What If" Tax Planner</h1>
+    <span>Decumulation Scenarios — CA + Fed</span>
+  </div>
+  <div class="hdr-btns">
+    <button class="print-btn" onclick="window.print()">🖨 Print / PDF</button>
+    <a href="index.html" class="home-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      HOME
+    </a>
+  </div>
 </header>
 
 <div class="container">
-<h1 class="main-title">Compare Retirement "What If" Scenarios</h1>
-<div class="calc-btn-container"><button class="calc-btn" onclick="calculateAll()">▶ Calculate All Scenarios</button></div>
 
-<div class="scenario-flex-container">
+<!-- Print-only header -->
+<span class="print-page-title">Retirement "What If" Tax Planner — CA + Federal</span>
+<span class="print-subtitle">Scenarios compared: Just-retired / 1-SS / 2-SS Pre-RMD / RMD Phase &nbsp;|&nbsp; MFJ Filing Status &nbsp;|&nbsp; California Resident</span>
+
+<h1 class="main-title">Retirement "What If" Scenarios - Enter approx values of incomes and see how taxes work out</h1>
+
+<!-- Global parameters bar -->
+<div class="global-bar">
+  <div>
+    <label>Tax Year</label>
+    <input type="number" id="taxYear" value="2026" style="width:80px">
+    <div class="global-note">IRMAA impact = Tax Year + 2</div>
+  </div>
+  <div>
+    <label>CA Personal Exempt Credit</label>
+    <input type="number" id="caExInput" value="306">
+  </div>
+  <div class="global-note" style="max-width:340px;line-height:1.6;">
+    ⓘ SS excluded from CA income &nbsp;·&nbsp; LTCG at ordinary CA rates<br>
+    ⓘ IRMAA uses 2-yr lookback — this year's AGI affects premiums in Tax Year + 2
+  </div>
+</div>
+
+<div class="calc-btn-container">
+  <button class="calc-btn" onclick="calculateAll()">▶ Calculate All Scenarios</button>
+</div>
+
+<!-- ════════════════════════ 4 SCENARIO BOXES ════════════════════════ -->
 <div class="scenario-grid">
 
-<!-- ═══════════════════════════════ SCENARIO 1 ═══════════════════════════════ -->
+<!-- ── Scenario 1 ── -->
 <div class="scenario-box">
-<h2><u>Scenario 1</u>: Roth Conversion + 401k withdrawal</h2>
+<h2>Scenario 1 · Roth Conversion + 401k Withdrawal</h2>
 <div class="inputs">
-  <div class="input-row"><label>Roth Conversion:</label><div class="input-wrapper"><input type="number" class="roth" value="100000"></div></div>
-  <div class="input-row"><label>401(k) Withdrawal:</label><div class="input-wrapper"><input type="number" class="w401" value="20000"></div></div>
-  <div class="input-row"><label>SS Annual Income:</label><div class="input-wrapper"><input type="number" class="ss" value="0"></div></div>
-  <div class="input-row"><label>RMD Amount:</label><div class="input-wrapper"><input type="number" class="rmd" value="0"></div></div>
-  <div class="input-row"><label>Other Income:</label><div class="input-wrapper"><input type="number" class="other" value="0"></div></div>
-  <div class="input-row"><label>LT Capital Gains:</label><div class="input-wrapper"><input type="number" class="ltcg" value="0"></div></div>
+  <div class="input-row"><label>Roth Conversion</label><div class="input-wrapper"><input type="number" class="roth"  value="100000"></div></div>
+  <div class="input-row"><label>401(k) Withdrawal</label><div class="input-wrapper"><input type="number" class="w401"  value="20000"></div></div>
+  <div class="input-row"><label>SS Annual Income</label><div class="input-wrapper"><input type="number" class="ss"    value="0"></div></div>
+  <div class="input-row"><label>RMD Amount</label><div class="input-wrapper"><input type="number" class="rmd"   value="0"></div></div>
+  <div class="input-row"><label>Other Income</label><div class="input-wrapper"><input type="number" class="other" value="0"></div></div>
+  <div class="input-row"><label>LT Capital Gains</label><div class="input-wrapper"><input type="number" class="ltcg"  value="0"></div></div>
   <hr class="inputs-divider">
-  <div class="input-row"><label>Federal Standard Deduction:</label><div class="input-wrapper"><input type="number" class="scenFedDed" value="32200"></div></div>
-  <div class="input-row"><label>CA Itemized Deduction:</label><div class="input-wrapper"><input type="number" class="scenCaDed" value="28486"></div></div>
+  <div class="input-row"><label>Fed Std Deduction</label><div class="input-wrapper"><input type="number" class="scenFedDed" value="32200"></div></div>
+  <div class="input-row"><label>CA Itemized Ded</label><div class="input-wrapper"><input type="number" class="scenCaDed"  value="28486"></div></div>
 </div>
 <div class="results">
   <div class="res-section-label">— Income Summary —</div>
@@ -147,17 +297,25 @@ HOME
   <div class="res-section-label">— Federal —</div>
   <div class="res-row-group">
     <div class="res-item"><div class="res-lbl">Federal AGI</div><div class="res-val gold fedAgi">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Std Deduction</div><div class="res-val sm fedDedOut">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Ordinary Inc</div><div class="res-val fedOrdInc">—</div></div>
+    <div class="res-item"><div class="res-lbl">Std Deduction</div><div class="res-val sm fedDedOut">—</div></div>
+    <div class="res-item"><div class="res-lbl">Ord Taxable Inc</div><div class="res-val fedOrdInc">—</div></div>
   </div>
   <div class="res-row-group">
     <div class="res-item"><div class="res-lbl">Fed Ordinary Tax</div><div class="res-val neg fedTaxOrd">—</div></div>
     <div class="res-item"><div class="res-lbl">Fed LTCG Tax</div><div class="res-val neg fedTaxLtcg">—</div></div>
+    <div class="res-item"><div class="res-lbl">NIIT (3.8%)</div><div class="res-val neg fedNiit">—</div></div>
     <div class="res-item"><div class="res-lbl">Fed Total Tax</div><div class="res-val neg fedTax">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">Max Fed Bracket</div><div class="res-val sm maxBracket">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Effective Rate</div><div class="res-val sm fedEff">—</div></div>
+    <div class="res-item"><div class="res-lbl">Marginal Bracket</div><div class="res-val sm maxBracket">—</div></div>
+    <div class="res-item"><div class="res-lbl">Headroom → Next</div><div class="res-val sm fedHeadroom">—</div></div>
+    <div class="res-item"><div class="res-lbl">Fed Eff Rate</div><div class="res-val sm fedEff">—</div></div>
+  </div>
+  <div class="res-section-label">— IRMAA (Medicare) —</div>
+  <div class="res-row-group">
+    <div class="res-item"><div class="res-lbl">IRMAA Tier</div><div class="res-val sm irmaaLabel">—</div></div>
+    <div class="res-item"><div class="res-lbl">Surcharge/yr</div><div class="res-val sm irmaaCost">—</div></div>
+    <div class="res-item"><div class="res-lbl">IRMAA Applies In</div><div class="irmaa-lookback-badge irmaaYear">—</div></div>
   </div>
   <div class="res-section-label">— California —</div>
   <div class="res-row-group">
@@ -166,30 +324,34 @@ HOME
     <div class="res-item"><div class="res-lbl">CA Taxable Inc</div><div class="res-val caTaxableInc">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">CA Tax (Before Credit)</div><div class="res-val neg caTaxRaw">—</div></div>
-    <div class="res-item"><div class="res-lbl">CA Exempt Credit</div><div class="res-val sm caExOut">—</div></div>
-    <div class="res-item"><div class="res-lbl">CA Tax (After Credit)</div><div class="res-val neg caTax">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Tax (Gross)</div><div class="res-val neg caTaxRaw">—</div></div>
+    <div class="res-item"><div class="res-lbl">Exempt Credit</div><div class="res-val sm caExOut">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Tax (Net)</div><div class="res-val neg caTax">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">CA Effective Rate</div><div class="res-val sm caEff">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Marginal</div><div class="res-val sm caMarginal">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Eff Rate</div><div class="res-val sm caEff">—</div></div>
   </div>
 </div>
-<div class="total-tax-box"><div class="res-lbl">Total Annual Tax (Fed + CA)</div><div class="res-val neg totalTax">—</div></div>
+<div class="total-tax-box">
+  <div class="half"><div class="res-lbl">Total Tax (Fed + CA)</div><div class="big totalTax">—</div><div class="eff totalEff">—</div></div>
+  <div class="half"><div class="res-lbl">Net Take-Home</div><div class="net netIncome">—</div></div>
 </div>
+</div><!-- /s1 -->
 
-<!-- ═══════════════════════════════ SCENARIO 2 ═══════════════════════════════ -->
+<!-- ── Scenario 2 ── -->
 <div class="scenario-box">
-<h2><u>Scenario 2</u>: Roth Conversion + 1 social security income</h2>
+<h2>Scenario 2 · Roth Conversion + 1 SS Income</h2>
 <div class="inputs">
-  <div class="input-row"><label>Roth Conversion:</label><div class="input-wrapper"><input type="number" class="roth" value="100000"></div></div>
-  <div class="input-row"><label>401(k) Withdrawal:</label><div class="input-wrapper"><input type="number" class="w401" value="0"></div></div>
-  <div class="input-row"><label>SS Annual Income:</label><div class="input-wrapper"><input type="number" class="ss" value="48000"></div></div>
-  <div class="input-row"><label>RMD Amount:</label><div class="input-wrapper"><input type="number" class="rmd" value="0"></div></div>
-  <div class="input-row"><label>Other Income:</label><div class="input-wrapper"><input type="number" class="other" value="0"></div></div>
-  <div class="input-row"><label>LT Capital Gains:</label><div class="input-wrapper"><input type="number" class="ltcg" value="0"></div></div>
+  <div class="input-row"><label>Roth Conversion</label><div class="input-wrapper"><input type="number" class="roth"  value="100000"></div></div>
+  <div class="input-row"><label>401(k) Withdrawal</label><div class="input-wrapper"><input type="number" class="w401"  value="0"></div></div>
+  <div class="input-row"><label>SS Annual Income</label><div class="input-wrapper"><input type="number" class="ss"    value="48000"></div></div>
+  <div class="input-row"><label>RMD Amount</label><div class="input-wrapper"><input type="number" class="rmd"   value="0"></div></div>
+  <div class="input-row"><label>Other Income</label><div class="input-wrapper"><input type="number" class="other" value="0"></div></div>
+  <div class="input-row"><label>LT Capital Gains</label><div class="input-wrapper"><input type="number" class="ltcg"  value="0"></div></div>
   <hr class="inputs-divider">
-  <div class="input-row"><label>Federal Standard Deduction:</label><div class="input-wrapper"><input type="number" class="scenFedDed" value="32200"></div></div>
-  <div class="input-row"><label>CA Itemized Deduction:</label><div class="input-wrapper"><input type="number" class="scenCaDed" value="28486"></div></div>
+  <div class="input-row"><label>Fed Std Deduction</label><div class="input-wrapper"><input type="number" class="scenFedDed" value="32200"></div></div>
+  <div class="input-row"><label>CA Itemized Ded</label><div class="input-wrapper"><input type="number" class="scenCaDed"  value="28486"></div></div>
 </div>
 <div class="results">
   <div class="res-section-label">— Income Summary —</div>
@@ -201,17 +363,25 @@ HOME
   <div class="res-section-label">— Federal —</div>
   <div class="res-row-group">
     <div class="res-item"><div class="res-lbl">Federal AGI</div><div class="res-val gold fedAgi">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Std Deduction</div><div class="res-val sm fedDedOut">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Ordinary Inc</div><div class="res-val fedOrdInc">—</div></div>
+    <div class="res-item"><div class="res-lbl">Std Deduction</div><div class="res-val sm fedDedOut">—</div></div>
+    <div class="res-item"><div class="res-lbl">Ord Taxable Inc</div><div class="res-val fedOrdInc">—</div></div>
   </div>
   <div class="res-row-group">
     <div class="res-item"><div class="res-lbl">Fed Ordinary Tax</div><div class="res-val neg fedTaxOrd">—</div></div>
     <div class="res-item"><div class="res-lbl">Fed LTCG Tax</div><div class="res-val neg fedTaxLtcg">—</div></div>
+    <div class="res-item"><div class="res-lbl">NIIT (3.8%)</div><div class="res-val neg fedNiit">—</div></div>
     <div class="res-item"><div class="res-lbl">Fed Total Tax</div><div class="res-val neg fedTax">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">Max Fed Bracket</div><div class="res-val sm maxBracket">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Effective Rate</div><div class="res-val sm fedEff">—</div></div>
+    <div class="res-item"><div class="res-lbl">Marginal Bracket</div><div class="res-val sm maxBracket">—</div></div>
+    <div class="res-item"><div class="res-lbl">Headroom → Next</div><div class="res-val sm fedHeadroom">—</div></div>
+    <div class="res-item"><div class="res-lbl">Fed Eff Rate</div><div class="res-val sm fedEff">—</div></div>
+  </div>
+  <div class="res-section-label">— IRMAA (Medicare) —</div>
+  <div class="res-row-group">
+    <div class="res-item"><div class="res-lbl">IRMAA Tier</div><div class="res-val sm irmaaLabel">—</div></div>
+    <div class="res-item"><div class="res-lbl">Surcharge/yr</div><div class="res-val sm irmaaCost">—</div></div>
+    <div class="res-item"><div class="res-lbl">IRMAA Applies In</div><div class="irmaa-lookback-badge irmaaYear">—</div></div>
   </div>
   <div class="res-section-label">— California —</div>
   <div class="res-row-group">
@@ -220,30 +390,34 @@ HOME
     <div class="res-item"><div class="res-lbl">CA Taxable Inc</div><div class="res-val caTaxableInc">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">CA Tax (Before Credit)</div><div class="res-val neg caTaxRaw">—</div></div>
-    <div class="res-item"><div class="res-lbl">CA Exempt Credit</div><div class="res-val sm caExOut">—</div></div>
-    <div class="res-item"><div class="res-lbl">CA Tax (After Credit)</div><div class="res-val neg caTax">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Tax (Gross)</div><div class="res-val neg caTaxRaw">—</div></div>
+    <div class="res-item"><div class="res-lbl">Exempt Credit</div><div class="res-val sm caExOut">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Tax (Net)</div><div class="res-val neg caTax">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">CA Effective Rate</div><div class="res-val sm caEff">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Marginal</div><div class="res-val sm caMarginal">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Eff Rate</div><div class="res-val sm caEff">—</div></div>
   </div>
 </div>
-<div class="total-tax-box"><div class="res-lbl">Total Annual Tax (Fed + CA)</div><div class="res-val neg totalTax">—</div></div>
+<div class="total-tax-box">
+  <div class="half"><div class="res-lbl">Total Tax (Fed + CA)</div><div class="big totalTax">—</div><div class="eff totalEff">—</div></div>
+  <div class="half"><div class="res-lbl">Net Take-Home</div><div class="net netIncome">—</div></div>
 </div>
+</div><!-- /s2 -->
 
-<!-- ═══════════════════════════════ SCENARIO 3 ═══════════════════════════════ -->
+<!-- ── Scenario 3 ── -->
 <div class="scenario-box">
-<h2><u>Scenario 3</u>: Roth Conversion + 2 social security incomes</h2>
+<h2>Scenario 3 · Roth Conversion + 2 SS (Pre-RMD)</h2>
 <div class="inputs">
-  <div class="input-row"><label>Roth Conversion:</label><div class="input-wrapper"><input type="number" class="roth" value="100000"></div></div>
-  <div class="input-row"><label>401(k) Withdrawal:</label><div class="input-wrapper"><input type="number" class="w401" value="0"></div></div>
-  <div class="input-row"><label>SS Annual Income:</label><div class="input-wrapper"><input type="number" class="ss" value="75957"></div></div>
-  <div class="input-row"><label>RMD Amount:</label><div class="input-wrapper"><input type="number" class="rmd" value="0"></div></div>
-  <div class="input-row"><label>Other Income:</label><div class="input-wrapper"><input type="number" class="other" value="0"></div></div>
-  <div class="input-row"><label>LT Capital Gains:</label><div class="input-wrapper"><input type="number" class="ltcg" value="0"></div></div>
+  <div class="input-row"><label>Roth Conversion</label><div class="input-wrapper"><input type="number" class="roth"  value="100000"></div></div>
+  <div class="input-row"><label>401(k) Withdrawal</label><div class="input-wrapper"><input type="number" class="w401"  value="0"></div></div>
+  <div class="input-row"><label>SS Annual Income</label><div class="input-wrapper"><input type="number" class="ss"    value="75957"></div></div>
+  <div class="input-row"><label>RMD Amount</label><div class="input-wrapper"><input type="number" class="rmd"   value="0"></div></div>
+  <div class="input-row"><label>Other Income</label><div class="input-wrapper"><input type="number" class="other" value="0"></div></div>
+  <div class="input-row"><label>LT Capital Gains</label><div class="input-wrapper"><input type="number" class="ltcg"  value="0"></div></div>
   <hr class="inputs-divider">
-  <div class="input-row"><label>Federal Standard Deduction:</label><div class="input-wrapper"><input type="number" class="scenFedDed" value="32200"></div></div>
-  <div class="input-row"><label>CA Itemized Deduction:</label><div class="input-wrapper"><input type="number" class="scenCaDed" value="28486"></div></div>
+  <div class="input-row"><label>Fed Std Deduction</label><div class="input-wrapper"><input type="number" class="scenFedDed" value="32200"></div></div>
+  <div class="input-row"><label>CA Itemized Ded</label><div class="input-wrapper"><input type="number" class="scenCaDed"  value="28486"></div></div>
 </div>
 <div class="results">
   <div class="res-section-label">— Income Summary —</div>
@@ -255,17 +429,25 @@ HOME
   <div class="res-section-label">— Federal —</div>
   <div class="res-row-group">
     <div class="res-item"><div class="res-lbl">Federal AGI</div><div class="res-val gold fedAgi">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Std Deduction</div><div class="res-val sm fedDedOut">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Ordinary Inc</div><div class="res-val fedOrdInc">—</div></div>
+    <div class="res-item"><div class="res-lbl">Std Deduction</div><div class="res-val sm fedDedOut">—</div></div>
+    <div class="res-item"><div class="res-lbl">Ord Taxable Inc</div><div class="res-val fedOrdInc">—</div></div>
   </div>
   <div class="res-row-group">
     <div class="res-item"><div class="res-lbl">Fed Ordinary Tax</div><div class="res-val neg fedTaxOrd">—</div></div>
     <div class="res-item"><div class="res-lbl">Fed LTCG Tax</div><div class="res-val neg fedTaxLtcg">—</div></div>
+    <div class="res-item"><div class="res-lbl">NIIT (3.8%)</div><div class="res-val neg fedNiit">—</div></div>
     <div class="res-item"><div class="res-lbl">Fed Total Tax</div><div class="res-val neg fedTax">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">Max Fed Bracket</div><div class="res-val sm maxBracket">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Effective Rate</div><div class="res-val sm fedEff">—</div></div>
+    <div class="res-item"><div class="res-lbl">Marginal Bracket</div><div class="res-val sm maxBracket">—</div></div>
+    <div class="res-item"><div class="res-lbl">Headroom → Next</div><div class="res-val sm fedHeadroom">—</div></div>
+    <div class="res-item"><div class="res-lbl">Fed Eff Rate</div><div class="res-val sm fedEff">—</div></div>
+  </div>
+  <div class="res-section-label">— IRMAA (Medicare) —</div>
+  <div class="res-row-group">
+    <div class="res-item"><div class="res-lbl">IRMAA Tier</div><div class="res-val sm irmaaLabel">—</div></div>
+    <div class="res-item"><div class="res-lbl">Surcharge/yr</div><div class="res-val sm irmaaCost">—</div></div>
+    <div class="res-item"><div class="res-lbl">IRMAA Applies In</div><div class="irmaa-lookback-badge irmaaYear">—</div></div>
   </div>
   <div class="res-section-label">— California —</div>
   <div class="res-row-group">
@@ -274,30 +456,34 @@ HOME
     <div class="res-item"><div class="res-lbl">CA Taxable Inc</div><div class="res-val caTaxableInc">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">CA Tax (Before Credit)</div><div class="res-val neg caTaxRaw">—</div></div>
-    <div class="res-item"><div class="res-lbl">CA Exempt Credit</div><div class="res-val sm caExOut">—</div></div>
-    <div class="res-item"><div class="res-lbl">CA Tax (After Credit)</div><div class="res-val neg caTax">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Tax (Gross)</div><div class="res-val neg caTaxRaw">—</div></div>
+    <div class="res-item"><div class="res-lbl">Exempt Credit</div><div class="res-val sm caExOut">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Tax (Net)</div><div class="res-val neg caTax">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">CA Effective Rate</div><div class="res-val sm caEff">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Marginal</div><div class="res-val sm caMarginal">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Eff Rate</div><div class="res-val sm caEff">—</div></div>
   </div>
 </div>
-<div class="total-tax-box"><div class="res-lbl">Total Annual Tax (Fed + CA)</div><div class="res-val neg totalTax">—</div></div>
+<div class="total-tax-box">
+  <div class="half"><div class="res-lbl">Total Tax (Fed + CA)</div><div class="big totalTax">—</div><div class="eff totalEff">—</div></div>
+  <div class="half"><div class="res-lbl">Net Take-Home</div><div class="net netIncome">—</div></div>
 </div>
+</div><!-- /s3 -->
 
-<!-- ═══════════════════════════════ SCENARIO 4 ═══════════════════════════════ -->
+<!-- ── Scenario 4 ── -->
 <div class="scenario-box">
-<h2><u>Scenario 4</u>: RMD + 2 Social security incomes</h2>
+<h2>Scenario 4 · RMD + 2 SS Incomes</h2>
 <div class="inputs">
-  <div class="input-row"><label>Roth Conversion:</label><div class="input-wrapper"><input type="number" class="roth" value="0"></div></div>
-  <div class="input-row"><label>401(k) Withdrawal:</label><div class="input-wrapper"><input type="number" class="w401" value="0"></div></div>
-  <div class="input-row"><label>SS Annual Income:</label><div class="input-wrapper"><input type="number" class="ss" value="82218"></div></div>
-  <div class="input-row"><label>RMD Amount:</label><div class="input-wrapper"><input type="number" class="rmd" value="50407"></div></div>
-  <div class="input-row"><label>Other Income:</label><div class="input-wrapper"><input type="number" class="other" value="0"></div></div>
-  <div class="input-row"><label>LT Capital Gains:</label><div class="input-wrapper"><input type="number" class="ltcg" value="0"></div></div>
+  <div class="input-row"><label>Roth Conversion</label><div class="input-wrapper"><input type="number" class="roth"  value="0"></div></div>
+  <div class="input-row"><label>401(k) Withdrawal</label><div class="input-wrapper"><input type="number" class="w401"  value="0"></div></div>
+  <div class="input-row"><label>SS Annual Income</label><div class="input-wrapper"><input type="number" class="ss"    value="82218"></div></div>
+  <div class="input-row"><label>RMD Amount</label><div class="input-wrapper"><input type="number" class="rmd"   value="50407"></div></div>
+  <div class="input-row"><label>Other Income</label><div class="input-wrapper"><input type="number" class="other" value="0"></div></div>
+  <div class="input-row"><label>LT Capital Gains</label><div class="input-wrapper"><input type="number" class="ltcg"  value="0"></div></div>
   <hr class="inputs-divider">
-  <div class="input-row"><label>Federal Standard Deduction:</label><div class="input-wrapper"><input type="number" class="scenFedDed" value="32200"></div></div>
-  <div class="input-row"><label>CA Itemized Deduction:</label><div class="input-wrapper"><input type="number" class="scenCaDed" value="28486"></div></div>
+  <div class="input-row"><label>Fed Std Deduction</label><div class="input-wrapper"><input type="number" class="scenFedDed" value="32200"></div></div>
+  <div class="input-row"><label>CA Itemized Ded</label><div class="input-wrapper"><input type="number" class="scenCaDed"  value="28486"></div></div>
 </div>
 <div class="results">
   <div class="res-section-label">— Income Summary —</div>
@@ -309,17 +495,25 @@ HOME
   <div class="res-section-label">— Federal —</div>
   <div class="res-row-group">
     <div class="res-item"><div class="res-lbl">Federal AGI</div><div class="res-val gold fedAgi">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Std Deduction</div><div class="res-val sm fedDedOut">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Ordinary Inc</div><div class="res-val fedOrdInc">—</div></div>
+    <div class="res-item"><div class="res-lbl">Std Deduction</div><div class="res-val sm fedDedOut">—</div></div>
+    <div class="res-item"><div class="res-lbl">Ord Taxable Inc</div><div class="res-val fedOrdInc">—</div></div>
   </div>
   <div class="res-row-group">
     <div class="res-item"><div class="res-lbl">Fed Ordinary Tax</div><div class="res-val neg fedTaxOrd">—</div></div>
     <div class="res-item"><div class="res-lbl">Fed LTCG Tax</div><div class="res-val neg fedTaxLtcg">—</div></div>
+    <div class="res-item"><div class="res-lbl">NIIT (3.8%)</div><div class="res-val neg fedNiit">—</div></div>
     <div class="res-item"><div class="res-lbl">Fed Total Tax</div><div class="res-val neg fedTax">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">Max Fed Bracket</div><div class="res-val sm maxBracket">—</div></div>
-    <div class="res-item"><div class="res-lbl">Fed Effective Rate</div><div class="res-val sm fedEff">—</div></div>
+    <div class="res-item"><div class="res-lbl">Marginal Bracket</div><div class="res-val sm maxBracket">—</div></div>
+    <div class="res-item"><div class="res-lbl">Headroom → Next</div><div class="res-val sm fedHeadroom">—</div></div>
+    <div class="res-item"><div class="res-lbl">Fed Eff Rate</div><div class="res-val sm fedEff">—</div></div>
+  </div>
+  <div class="res-section-label">— IRMAA (Medicare) —</div>
+  <div class="res-row-group">
+    <div class="res-item"><div class="res-lbl">IRMAA Tier</div><div class="res-val sm irmaaLabel">—</div></div>
+    <div class="res-item"><div class="res-lbl">Surcharge/yr</div><div class="res-val sm irmaaCost">—</div></div>
+    <div class="res-item"><div class="res-lbl">IRMAA Applies In</div><div class="irmaa-lookback-badge irmaaYear">—</div></div>
   </div>
   <div class="res-section-label">— California —</div>
   <div class="res-row-group">
@@ -328,163 +522,670 @@ HOME
     <div class="res-item"><div class="res-lbl">CA Taxable Inc</div><div class="res-val caTaxableInc">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">CA Tax (Before Credit)</div><div class="res-val neg caTaxRaw">—</div></div>
-    <div class="res-item"><div class="res-lbl">CA Exempt Credit</div><div class="res-val sm caExOut">—</div></div>
-    <div class="res-item"><div class="res-lbl">CA Tax (After Credit)</div><div class="res-val neg caTax">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Tax (Gross)</div><div class="res-val neg caTaxRaw">—</div></div>
+    <div class="res-item"><div class="res-lbl">Exempt Credit</div><div class="res-val sm caExOut">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Tax (Net)</div><div class="res-val neg caTax">—</div></div>
   </div>
   <div class="res-row-group">
-    <div class="res-item"><div class="res-lbl">CA Effective Rate</div><div class="res-val sm caEff">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Marginal</div><div class="res-val sm caMarginal">—</div></div>
+    <div class="res-item"><div class="res-lbl">CA Eff Rate</div><div class="res-val sm caEff">—</div></div>
   </div>
 </div>
-<div class="total-tax-box"><div class="res-lbl">Total Annual Tax (Fed + CA)</div><div class="res-val neg totalTax">—</div></div>
+<div class="total-tax-box">
+  <div class="half"><div class="res-lbl">Total Tax (Fed + CA)</div><div class="big totalTax">—</div><div class="eff totalEff">—</div></div>
+  <div class="half"><div class="res-lbl">Net Take-Home</div><div class="net netIncome">—</div></div>
 </div>
+</div><!-- /s4 -->
+</div><!-- /scenario-grid -->
 
-</div><!-- end scenario-grid -->
-</div><!-- end scenario-flex-container -->
-
-<div class="main-chart-section">
+<!-- ── Scenario comparison chart ── -->
 <div class="chart-box">
-<div class="chart-title">Tax Contribution Breakdown by Scenario</div>
-<div class="chart-canvas-wrap"><canvas id="chartTaxBreakdown"></canvas></div>
+  <div class="chart-title">Tax Breakdown by Scenario</div>
+  <div class="chart-canvas-wrap"><canvas id="chartTaxBreakdown"></canvas></div>
 </div>
 
-<div class="parameters-section">
-<div class="scenario-box deductions-box">
-<h2>Parameters: Global Defaults</h2>
-<span class="tag">CA Personal Exempt Credit applies to all scenarios</span>
-<div class="ded-inputs inputs">
-  <div class="ded-row input-row"><label class="ded-lbl">CA Personal Exempt Credit:</label><div class="ded-input"><input type="number" id="caExInput" value="306"></div></div>
-</div>
-</div>
-</div>
-</div>
-</div><!-- end container -->
+<!-- ════════════════════════════════════════════════════════════════════════
+     FEATURE 1 — ROTH CONVERSION OPTIMIZER
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="section-box" id="optimizerSection">
+  <h2>🔍 Roth Conversion Optimizer — Find the Sweet Spot</h2>
+  <div class="section-grid">
+    <div>
+      <div class="section-inputs">
+        <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Base Income (non-conversion sources)</div>
+        <div class="input-row"><label>SS Income</label><div class="input-wrapper"><input type="number" id="opt_ss" value="0"></div></div>
+        <div class="input-row"><label>RMD</label><div class="input-wrapper"><input type="number" id="opt_rmd" value="0"></div></div>
+        <div class="input-row"><label>401(k) Withdrawal</label><div class="input-wrapper"><input type="number" id="opt_w401" value="0"></div></div>
+        <div class="input-row"><label>Other Income</label><div class="input-wrapper"><input type="number" id="opt_other" value="0"></div></div>
+        <div class="input-row"><label>LT Capital Gains</label><div class="input-wrapper"><input type="number" id="opt_ltcg" value="0"></div></div>
+        <div class="input-row"><label>Fed Std Deduction</label><div class="input-wrapper"><input type="number" id="opt_fedDed" value="32200"></div></div>
+        <div class="input-row"><label>CA Itemized Ded</label><div class="input-wrapper"><input type="number" id="opt_caDed" value="28486"></div></div>
+        <hr class="inputs-divider" style="margin:8px 0;">
+        <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">Conversion Range</div>
+        <div class="input-row"><label>Max Conversion ($)</label><div class="input-wrapper"><input type="number" id="opt_max" value="300000" oninput="runOptimizer()"></div></div>
+      </div>
 
-<script src="js/tax_engine.js"></script>
+      <div class="opt-slider-row" style="margin-top:14px;">
+        <label>Conversion →</label>
+        <input type="range" id="opt_slider" min="0" max="300000" step="5000" value="100000" oninput="updateSliderLabel();runOptimizer()">
+        <span class="opt-slider-val" id="opt_slider_val">$100,000</span>
+      </div>
+
+      <div class="opt-results" id="optResults" style="margin-top:14px;"></div>
+    </div>
+
+    <div>
+      <div class="chart-wrap"><canvas id="optChart"></canvas></div>
+      <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:8px;line-height:1.7;">
+        ⓘ Vertical dashed lines = federal bracket boundaries &amp; IRMAA thresholds<br>
+        ⓘ Gold line = total tax (Fed+CA). Blue line = IRMAA annual surcharge (couple).<br>
+        ⓘ Optimal conversion fills your current bracket without crossing into the next.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     FEATURE 4 — BREAK-EVEN ROTH ANALYSIS
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="section-box" id="breakevenSection">
+  <h2>⚖️ Break-Even Roth Conversion Analysis</h2>
+  <div class="section-grid">
+    <div>
+      <div class="section-inputs">
+        <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Conversion Parameters</div>
+        <div class="input-row"><label>Conversion Amount ($)</label><div class="input-wrapper"><input type="number" id="bev_conv" value="100000" oninput="runBreakeven()"></div></div>
+        <div class="input-row"><label>Tax Rate Paid Now (%)</label><div class="input-wrapper" style=""><input type="number" id="bev_rateNow" value="22" step="0.1" oninput="runBreakeven()" style="padding-left:10px;"></div></div>
+        <div class="input-row"><label>Future RMD Rate (%)</label><div class="input-wrapper" style=""><input type="number" id="bev_rateFuture" value="24" step="0.1" oninput="runBreakeven()" style="padding-left:10px;"></div></div>
+        <div class="input-row"><label>Investment Return (%)</label><div class="input-wrapper" style=""><input type="number" id="bev_return" value="7" step="0.1" oninput="runBreakeven()" style="padding-left:10px;"></div></div>
+        <div class="input-row"><label>Taxable Acct Return (%)</label><div class="input-wrapper" style=""><input type="number" id="bev_taxableReturn" value="5.5" step="0.1" oninput="runBreakeven()" style="padding-left:10px;"></div></div>
+        <div class="input-row"><label>Project Years</label><div class="input-wrapper" style=""><input type="number" id="bev_years" value="30" oninput="runBreakeven()" style="padding-left:10px;"></div></div>
+      </div>
+      <div class="bev-callout" id="bevCallout" style="margin-top:14px;">Run calculation…</div>
+    </div>
+    <div>
+      <div class="chart-wrap"><canvas id="bevChart"></canvas></div>
+      <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:8px;line-height:1.7;">
+        ⓘ Green = cumulative Roth advantage (after upfront tax opportunity cost).<br>
+        ⓘ Break-even = year the line crosses zero. Positive = Roth ahead, Negative = traditional still better.<br>
+        ⓘ Opportunity cost = upfront tax amount invested in taxable account at "Taxable Acct Return".
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Tax engine notes ── -->
+<div class="notes-box" style="margin-bottom:20px;">
+  <span class="nt">Tax Engine — Key Rules</span>
+  ✓ Federal brackets: 2026 MFJ projected &nbsp;·&nbsp; SS taxability: full IRS two-tier worksheet ($32k/$44k PI thresholds) &nbsp;·&nbsp;
+  LTCG: preferential rates (0/15/20%) stacked on ordinary taxable income &nbsp;·&nbsp;
+  NIIT: 3.8% on investment income when MAGI &gt; $250k (MFJ) &nbsp;·&nbsp;
+  IRMAA: 2025 MFJ brackets, 2-year lookback (this year's AGI → Medicare premiums in Tax Year + 2) &nbsp;·&nbsp;
+  California: SS fully excluded · LTCG at ordinary CA rates · 10 CA brackets · effective rates on AGI
+</div>
+
+</div><!-- /container -->
+
+<footer style="display:flex;justify-content:center;padding:20px 0 30px;">
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    HOME
+  </a>
+</footer>
+
 <script>
-// FED_BRACKETS, CA_BRACKETS, taxCalc, calculateTax, computeTax — all from js/tax_engine.js
+// ══════════════════════════════════════════════════════════════════════════════
+// INLINE TAX ENGINE  —  self-contained, no external dependency
+// Brackets: 2026 MFJ projected. Update arrays each November.
+// ══════════════════════════════════════════════════════════════════════════════
 
-Chart.defaults.color='#7d8590';
-Chart.defaults.borderColor='#30363d';
-Chart.defaults.font.family="'Consolas', monospace";
-Chart.defaults.font.size=12;
+const FED_MFJ = [
+  { lo:0,       hi:24800,   r:0.10 },
+  { lo:24800,   hi:100800,  r:0.12 },
+  { lo:100800,  hi:211400,  r:0.22 },
+  { lo:211400,  hi:403550,  r:0.24 },
+  { lo:403550,  hi:512450,  r:0.32 },
+  { lo:512450,  hi:768700,  r:0.35 },
+  { lo:768700,  hi:1e18,    r:0.37 }
+];
 
-let myChart;
-function renderChart(data){
-  const el=document.getElementById('chartTaxBreakdown');
-  if(myChart)myChart.destroy();
-  myChart=new Chart(el,{type:'bar',data:{
-    labels:['Scenario 1','Scenario 2','Scenario 3','Scenario 4'],
-    datasets:[
-      {label:'Fed Tax',data:data.map(d=>d.fed),backgroundColor:'#fb7185cc',borderWidth:0},
-      {label:'CA Tax', data:data.map(d=>d.ca), backgroundColor:'#94a3b8cc',borderWidth:0}
-    ]},options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:true,position:'bottom'}},
-      scales:{
-        x:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590'}},
-        y:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>'$'+(v/1000).toFixed(0)+'K'}}
+const LTCG_MFJ = [
+  { lo:0,       hi:98700,   r:0.00 },
+  { lo:98700,   hi:596000,  r:0.15 },
+  { lo:596000,  hi:1e18,    r:0.20 }
+];
+
+const CA_MFJ = [
+  { lo:0,        hi:22158,   r:0.010 },
+  { lo:22158,    hi:52528,   r:0.020 },
+  { lo:52528,    hi:82904,   r:0.040 },
+  { lo:82904,    hi:115084,  r:0.060 },
+  { lo:115084,   hi:145448,  r:0.080 },
+  { lo:145448,   hi:742958,  r:0.093 },
+  { lo:742958,   hi:891542,  r:0.103 },
+  { lo:891542,   hi:1485906, r:0.113 },
+  { lo:1485906,  hi:1e18,    r:0.123 }
+];
+
+const IRMAA_MFJ = [
+  { tier:0, label:'Standard',      magiHi:212000,  partB_mo:185.00, partD_mo:0     },
+  { tier:1, label:'Tier 1 ⚑',     magiHi:266000,  partB_mo:259.00, partD_mo:12.90 },
+  { tier:2, label:'Tier 2 ⚑⚑',    magiHi:334000,  partB_mo:370.00, partD_mo:33.30 },
+  { tier:3, label:'Tier 3 ⚑⚑⚑',   magiHi:402000,  partB_mo:480.90, partD_mo:53.80 },
+  { tier:4, label:'Tier 4 ⚑⚑⚑⚑',  magiHi:750000,  partB_mo:591.90, partD_mo:74.20 },
+  { tier:5, label:'Tier 5 ⚑⚑⚑⚑⚑', magiHi:1e18,    partB_mo:628.90, partD_mo:81.00 }
+];
+const NIIT_THRESHOLD = 250000;
+
+// ── Core helpers ──────────────────────────────────────────────────────────────
+function applyBrackets(inc, br) {
+  if (inc <= 0) return 0;
+  let t = 0;
+  for (const b of br) {
+    if (inc <= b.lo) break;
+    t += (Math.min(inc, b.hi) - b.lo) * b.r;
+  }
+  return Math.round(t);
+}
+
+function calcTaxableSS(ss, pi) {
+  // Full IRS two-tier worksheet — MFJ thresholds $32k / $44k
+  if (ss <= 0 || pi <= 32000) return 0;
+  if (pi <= 44000) return Math.round(Math.min(ss * 0.5, (pi - 32000) * 0.5));
+  const lowerTier = Math.min(ss * 0.5, 6000);
+  const upperTier = 0.85 * (pi - 44000);
+  return Math.round(Math.min(ss * 0.85, lowerTier + upperTier));
+}
+
+function calcLtcgTax(ordTaxable, ltcgAmt) {
+  // LTCG stacked on top of ordinary taxable income
+  if (ltcgAmt <= 0) return 0;
+  let tax = 0, rem = ltcgAmt;
+  for (const b of LTCG_MFJ) {
+    const lo = Math.max(b.lo, ordTaxable);
+    if (lo >= b.hi) continue;
+    const slice = Math.min(rem, b.hi - lo);
+    if (slice <= 0) continue;
+    tax += slice * b.r;
+    rem -= slice;
+    if (rem <= 0) break;
+  }
+  return Math.round(tax);
+}
+
+function getBracketInfo(taxable, br) {
+  for (let i = 0; i < br.length; i++) {
+    if (taxable >= br[i].lo && taxable < br[i].hi) {
+      return { rate: br[i].r, headroom: br[i].hi - taxable,
+               nextRate: i + 1 < br.length ? br[i+1].r : br[i].r };
+    }
+  }
+  return { rate: br[br.length-1].r, headroom: 0, nextRate: br[br.length-1].r };
+}
+
+function getIRMAA(magi) {
+  for (const b of IRMAA_MFJ) { if (magi <= b.magiHi) return b; }
+  return IRMAA_MFJ[IRMAA_MFJ.length - 1];
+}
+
+// ── Master tax computation ────────────────────────────────────────────────────
+function computeAllTax({ roth, w401, rmd, ss, ltcg, other, fedDed, caDed, caEx }) {
+  const ordIncome  = roth + w401 + rmd + other;
+  const pi         = ordIncome + ltcg + ss * 0.5;
+  const taxSS      = calcTaxableSS(ss, pi);
+  const fedAgiOrd  = ordIncome + taxSS;
+  const fedAgi     = fedAgiOrd + ltcg;
+
+  const totalTaxable = Math.max(0, fedAgi    - fedDed);
+  const ordTaxable   = Math.max(0, fedAgiOrd - fedDed);
+  const ltcgTaxable  = Math.max(0, Math.min(ltcg, totalTaxable - ordTaxable));
+
+  const fedOrdTax  = applyBrackets(ordTaxable, FED_MFJ);
+  const fedLtcgTax = calcLtcgTax(ordTaxable, ltcgTaxable);
+  const niit       = fedAgi > NIIT_THRESHOLD
+    ? Math.round(Math.min(ltcg, fedAgi - NIIT_THRESHOLD) * 0.038) : 0;
+  const fedTaxTotal = fedOrdTax + fedLtcgTax + niit;
+
+  const fedBrk      = getBracketInfo(ordTaxable, FED_MFJ);
+  const fedEffOnAgi = fedAgi > 0 ? fedTaxTotal / fedAgi * 100 : 0;
+
+  const irmaa        = getIRMAA(fedAgi);
+  const irmaaCost_yr = (irmaa.partB_mo + irmaa.partD_mo) * 12 * 2;
+
+  const caAgi     = ordIncome + ltcg;
+  const caTaxable = Math.max(0, caAgi - caDed);
+  const caTaxRaw  = applyBrackets(caTaxable, CA_MFJ);
+  const caTax     = Math.max(0, caTaxRaw - caEx);
+  const caBrk     = getBracketInfo(caTaxable, CA_MFJ);
+  const caEffOnAgi = caAgi > 0 ? caTax / caAgi * 100 : 0;
+
+  const totalIncome      = roth + w401 + rmd + ss + ltcg + other;
+  const totalTax         = fedTaxTotal + caTax;
+  const netIncome        = totalIncome - totalTax;
+  const totalEffOnIncome = totalIncome > 0 ? totalTax / totalIncome * 100 : 0;
+
+  return {
+    ordIncome, totalIncome, pi, taxSS,
+    fedAgiOrd, fedAgi, ordTaxable, ltcgTaxable,
+    fedOrdTax, fedLtcgTax, niit, fedTaxTotal,
+    fedBrk, fedEffOnAgi,
+    irmaa, irmaaCost_yr,
+    caAgi, caTaxable, caTaxRaw, caTax, caBrk, caEffOnAgi,
+    totalTax, netIncome, totalEffOnIncome
+  };
+}
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── Formatters ────────────────────────────────────────────────────────────────
+const fz    = n => '$' + Math.round(n).toLocaleString();
+const fpct  = n => n.toFixed(2) + '%';
+const frate = r => (r * 100).toFixed(1) + '%';
+const IRMAA_COLORS = ['#4ade80','#fbbf24','#fb923c','#f87171','#e879f9','#f472b6'];
+
+// ── Scenario runner ───────────────────────────────────────────────────────────
+function calculateScenario(idx) {
+  const box   = document.querySelectorAll('.scenario-grid .scenario-box')[idx];
+  const getIn = cls => parseFloat(box.querySelector('.' + cls)?.value) || 0;
+
+  const inputs = {
+    roth:   getIn('roth'),   w401: getIn('w401'),
+    ss:     getIn('ss'),     rmd:  getIn('rmd'),
+    other:  getIn('other'),  ltcg: getIn('ltcg'),
+    fedDed: parseFloat(box.querySelector('.scenFedDed')?.value) || 0,
+    caDed:  parseFloat(box.querySelector('.scenCaDed')?.value)  || 0,
+    caEx:   parseFloat(document.getElementById('caExInput').value) || 0
+  };
+
+  const tx = computeAllTax(inputs);
+
+  const set = (cls, val, color) => {
+    const el = box.querySelector('.' + cls);
+    if (!el) return;
+    el.innerText = val;
+    if (color) el.style.color = color;
+  };
+
+  // Income
+  set('totalIncome', fz(tx.totalIncome));
+  set('provInc',     fz(tx.pi));
+  set('taxSs',       fz(tx.taxSS));
+
+  // Federal
+  set('fedAgi',     fz(tx.fedAgi));
+  set('fedDedOut',  fz(inputs.fedDed));
+  set('fedOrdInc',  fz(tx.ordTaxable));
+  set('fedTaxOrd',  fz(tx.fedOrdTax));
+  set('fedTaxLtcg', tx.fedLtcgTax > 0 ? fz(tx.fedLtcgTax) : '—');
+  set('fedNiit',    tx.niit > 0        ? fz(tx.niit)       : '—');
+  set('fedTax',     fz(tx.fedTaxTotal));
+  set('maxBracket', frate(tx.fedBrk.rate));
+  set('fedHeadroom', tx.fedBrk.headroom > 0
+    ? fz(tx.fedBrk.headroom) + ' → ' + frate(tx.fedBrk.nextRate) : 'Top bracket');
+  set('fedEff', fpct(tx.fedEffOnAgi));
+
+  // IRMAA + lookback year
+  const iCol = IRMAA_COLORS[tx.irmaa.tier] || '#4ade80';
+  set('irmaaLabel', tx.irmaa.label, iCol);
+  set('irmaaCost',
+    tx.irmaa.tier > 0 ? fz(tx.irmaaCost_yr) + '/yr couple' : 'Standard ($185/mo)',
+    tx.irmaa.tier > 0 ? '#fb923c' : '#4ade80');
+  // ── IRMAA lookback: Medicare in (Tax Year + 2) ──
+  const taxYear = parseInt(document.getElementById('taxYear').value) || 2026;
+  const irmaaYearEl = box.querySelector('.irmaaYear');
+  if (irmaaYearEl) {
+    irmaaYearEl.innerText = `Medicare Year ${taxYear + 2}`;
+    irmaaYearEl.style.borderColor = iCol;
+    irmaaYearEl.style.color = iCol;
+    irmaaYearEl.style.background = iCol + '18';
+  }
+
+  // California
+  set('caAgi',        fz(tx.caAgi));
+  set('caDedOut',     fz(inputs.caDed));
+  set('caTaxableInc', fz(tx.caTaxable));
+  set('caTaxRaw',     fz(tx.caTaxRaw));
+  set('caExOut',      fz(inputs.caEx));
+  set('caTax',        fz(tx.caTax));
+  set('caMarginal',   frate(tx.caBrk.rate));
+  set('caEff',        fpct(tx.caEffOnAgi));
+
+  // Summary
+  set('totalTax',  fz(tx.totalTax));
+  set('totalEff',  fpct(tx.totalEffOnIncome) + ' of total income');
+  set('netIncome', fz(tx.netIncome));
+
+  return { fedOrd: tx.fedOrdTax, fedLtcg: tx.fedLtcgTax + tx.niit, ca: tx.caTax };
+}
+
+// ── Scenario comparison chart ─────────────────────────────────────────────────
+let chartScenarios = null;
+function renderScenariosChart(data) {
+  const el = document.getElementById('chartTaxBreakdown');
+  if (chartScenarios) chartScenarios.destroy();
+  chartScenarios = new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: ['Scenario 1','Scenario 2','Scenario 3','Scenario 4'],
+      datasets: [
+        { label:'Fed Ordinary',  data:data.map(d=>d.fedOrd),  backgroundColor:'#fb7185cc', borderWidth:0 },
+        { label:'Fed LTCG+NIIT', data:data.map(d=>d.fedLtcg), backgroundColor:'#fb923ccc', borderWidth:0 },
+        { label:'CA Tax',        data:data.map(d=>d.ca),       backgroundColor:'#94a3b8cc', borderWidth:0 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins: {
+        legend:{ display:true, position:'bottom', labels:{ color:'#7d8590', font:{family:'DM Mono',size:11} } },
+        tooltip:{ callbacks:{ footer: items => 'Total: $'+Math.round(items.reduce((s,i)=>s+i.raw,0)).toLocaleString() } }
+      },
+      scales: {
+        x:{ stacked:true, grid:{color:'rgba(48,54,61,.5)'}, ticks:{color:'#7d8590'} },
+        y:{ stacked:true, grid:{color:'rgba(48,54,61,.5)'}, ticks:{color:'#7d8590', callback:v=>'$'+(v/1000).toFixed(0)+'K'} }
       }
     }
   });
 }
 
-function getMaxBracket(inc, br){
-  if(inc<=0) return '0%';
-  let rate=br[0].r;
-  for(const b of br){
-    if(inc<=b.lo) break;
-    rate=b.r;
-  }
-  return (rate*100).toFixed(0)+'%';
+function calculateAll() {
+  const results = [];
+  for (let i = 0; i < 4; i++) results.push(calculateScenario(i));
+  renderScenariosChart(results);
+  runOptimizer();
+  runBreakeven();
 }
 
-function fz(n){ return '$'+Math.round(n).toLocaleString(); }
-function fpct(n){ return n.toFixed(2)+'%'; }
+// ══════════════════════════════════════════════════════════════════════════════
+// FEATURE 1 — ROTH CONVERSION OPTIMIZER
+// Sweeps conversion from $0 → max, computes total tax at each point.
+// Plots total tax curve + IRMAA surcharge. Marks bracket & IRMAA cliff lines.
+// ══════════════════════════════════════════════════════════════════════════════
+let optChart = null;
 
-function calculateScenario(idx){
-  const box=document.querySelectorAll('.scenario-grid .scenario-box')[idx];
-  const getIn=cls=>parseFloat(box.querySelector('.'+cls).value)||0;
+function gi(id)  { return parseFloat(document.getElementById(id)?.value) || 0; }
+function gii(id) { return parseInt(document.getElementById(id)?.value)   || 0; }
 
-  // ── Inputs ───────────────────────────────────────────────────────────
-  const roth  = getIn('roth');
-  const w401  = getIn('w401');
-  const ss    = getIn('ss');
-  const rmd   = getIn('rmd');
-  const other = getIn('other');
-  const ltcg  = getIn('ltcg');
+function updateSliderLabel() {
+  const v = document.getElementById('opt_slider').value;
+  document.getElementById('opt_slider_val').innerText = '$' + parseInt(v).toLocaleString();
+  // sync slider max
+  const mx = gii('opt_max') || 300000;
+  document.getElementById('opt_slider').max = mx;
+}
 
-  const fedDed = parseFloat(box.querySelector('.scenFedDed').value)||0;
-  const caDed  = parseFloat(box.querySelector('.scenCaDed').value)||0;
-  const caEx   = parseFloat(document.getElementById('caExInput').value)||0;
+function runOptimizer() {
+  const base = {
+    ss: gi('opt_ss'), rmd: gi('opt_rmd'), w401: gi('opt_w401'),
+    other: gi('opt_other'), ltcg: gi('opt_ltcg'),
+    fedDed: gi('opt_fedDed'), caDed: gi('opt_caDed'),
+    caEx: gi('caExInput')
+  };
+  const maxConv = Math.max(10000, gii('opt_max') || 300000);
+  const step    = Math.max(5000, Math.round(maxConv / 60 / 5000) * 5000);
+  const curConv = parseInt(document.getElementById('opt_slider').value) || 0;
 
-  // ── Total Income (display only — includes all sources) ───────────────
-  const totalIncome = roth + w401 + ss + rmd + other + ltcg;
+  // Update slider max
+  document.getElementById('opt_slider').max = maxConv;
+  document.getElementById('opt_slider_val').innerText = '$' + curConv.toLocaleString();
 
-  // ── Tax via shared engine ─────────────────────────────────────────────
-  // Note: tax_calculator treats other + ltcg as part of non-SS income.
-  // computeTax() conv+w401 maps to roth+w401+other+ltcg here.
-  const tx = computeTax({
-    conv:       roth + other + ltcg,  // all non-SS, non-RMD ordinary income
-    w401:       w401,
-    rmd:        rmd,
-    totalSS_yr: ss,
-    fedDed,
-    caDed,
-    caEx,
-    isRetired:  true                  // tax_calculator always computes tax
+  const labels = [], totalTaxes = [], irmaaCosts = [];
+  let prevIRMAATier = -1;
+  const cliffLines = []; // {x, label, color}
+
+  // Add federal bracket boundaries as reference lines (in terms of ordTaxable = roth + base_ord_agi - fedDed)
+  // We'll mark them on the chart as annotations via vertical lines
+  const fedBracketAmts = FED_MFJ.map(b => b.hi).filter(h => h < 1e15);
+  const irmaaBracketAmts = IRMAA_MFJ.map(b => b.magiHi).filter(h => h < 1e15);
+
+  for (let conv = 0; conv <= maxConv; conv += step) {
+    const tx = computeAllTax({ ...base, roth: conv });
+    labels.push('$' + (conv/1000).toFixed(0) + 'k');
+    totalTaxes.push(Math.round(tx.totalTax));
+    irmaaCosts.push(Math.round(tx.irmaaCost_yr));
+
+    // Detect IRMAA tier change
+    if (tx.irmaa.tier !== prevIRMAATier && prevIRMAATier >= 0) {
+      cliffLines.push({ xIdx: labels.length - 1, label: 'IRMAA ' + tx.irmaa.label, color: '#fb923c' });
+    }
+    prevIRMAATier = tx.irmaa.tier;
+  }
+
+  // Current conversion result
+  const curTx = computeAllTax({ ...base, roth: curConv });
+  const brk   = curTx.fedBrk;
+
+  // Update pills
+  const pillHTML = `
+    <div class="opt-pill"><div class="pk">Conv Amount</div><div class="pv">${fz(curConv)}</div></div>
+    <div class="opt-pill"><div class="pk">Federal AGI</div><div class="pv blu">${fz(curTx.fedAgi)}</div></div>
+    <div class="opt-pill"><div class="pk">Total Tax (Fed+CA)</div><div class="pv red">${fz(curTx.totalTax)}</div></div>
+    <div class="opt-pill"><div class="pk">Net Take-Home</div><div class="pv grn">${fz(curTx.netIncome)}</div></div>
+    <div class="opt-pill"><div class="pk">Marginal Bracket</div><div class="pv ora">${frate(brk.rate)}</div></div>
+    <div class="opt-pill"><div class="pk">Headroom → Next Bracket</div><div class="pv">${brk.headroom > 0 ? fz(brk.headroom) + ' → ' + frate(brk.nextRate) : 'Top bracket'}</div></div>
+    <div class="opt-pill"><div class="pk">IRMAA Tier</div><div class="pv" style="color:${IRMAA_COLORS[curTx.irmaa.tier]}">${curTx.irmaa.label}</div></div>
+    <div class="opt-pill"><div class="pk">IRMAA Surcharge/yr</div><div class="pv ora">${curTx.irmaa.tier > 0 ? fz(curTx.irmaaCost_yr) : 'Standard'}</div></div>
+    <div class="opt-pill"><div class="pk">Fill to Bracket Boundary</div><div class="pv grn">${brk.headroom > 0 ? fz(brk.headroom) + ' more' : '—'}</div></div>
+  `;
+  document.getElementById('optResults').innerHTML = pillHTML;
+
+  // Build annotation vertical lines for bracket & IRMAA thresholds
+  // We'll draw them as custom datasets (vertical line trick: null-padded arrays)
+  // Find approximate X indices for key thresholds
+  const annotations = {};
+  const bracketColors = ['#fbbf2466','#fb923c66','#f8717166','#e879f966','#f472b666'];
+  FED_MFJ.filter(b=>b.hi<1e15).forEach((b,i) => {
+    // Estimate which conversion amount puts ordTaxable at this boundary
+    // ordTaxable = (ordIncome_base + taxSS_approx - fedDed) + conv → threshold
+    // rough approximation: find conv where AGI ≈ b.hi + fedDed
+    const targetAGI = b.hi + base.fedDed;
+    const approxConv = Math.max(0, targetAGI - (base.w401 + base.rmd + base.other + base.ss*0.85));
+    if (approxConv <= maxConv) {
+      annotations['fedBrk'+i] = {
+        type:'line', xMin: approxConv/step, xMax: approxConv/step,
+        borderColor: bracketColors[i] || '#ffffff44', borderWidth:1, borderDash:[4,3],
+        label:{ content: frate(FED_MFJ[i+1]?.r||FED_MFJ[i].r)+' starts', display:true, color:'#fbbf24', font:{size:9} }
+      };
+    }
+  });
+  IRMAA_MFJ.filter(b=>b.magiHi<1e15).forEach((b,i) => {
+    const approxConv = Math.max(0, b.magiHi - (base.w401+base.rmd+base.other+base.ss*0.85+base.ltcg));
+    if (approxConv <= maxConv) {
+      annotations['irmaa'+i] = {
+        type:'line', xMin: approxConv/step, xMax: approxConv/step,
+        borderColor:'#fb923c66', borderWidth:1, borderDash:[2,3],
+        label:{ content:'IRMAA T'+(i+1), display:true, color:'#fb923c', font:{size:9} }
+      };
+    }
   });
 
-  // LTCG tax at 15% flat is separate (not in computeTax core)
-  const fedTaxLtcg = Math.round(ltcg * 0.15);
-  const fedTax     = tx.fedTax + fedTaxLtcg;
-  const fedOrdInc  = tx.fedTaxableInc;
-  const maxBracket = getMaxBracket(fedOrdInc, FED_BRACKETS);
-  const fedEffRate = fedOrdInc > 0 ? (fedTax / fedOrdInc * 100) : 0;
-  const caEffRate  = tx.caTaxableInc > 0 ? (tx.caTax / tx.caTaxableInc * 100) : 0;
-
-  // ── Fill results ──────────────────────────────────────────────────────
-  const set=(cls,val)=>{ const el=box.querySelector('.'+cls); if(el) el.innerText=val; };
-
-  set('totalIncome',  fz(totalIncome));
-  set('provInc',      fz(tx.provInc));
-  set('taxSs',        fz(tx.taxSsFed));
-  set('fedAgi',       fz(tx.fedAgi));
-  set('fedDedOut',    fz(fedDed));
-  set('fedOrdInc',    fz(fedOrdInc));
-  set('fedTaxOrd',    fz(tx.fedTax));
-  set('fedTaxLtcg',   fz(fedTaxLtcg));
-  set('fedTax',       fz(fedTax));
-  set('maxBracket',   maxBracket);
-  set('fedEff',       fpct(fedEffRate));
-  set('caAgi',        fz(tx.caAdjInc));
-  set('caDedOut',     fz(caDed));
-  set('caTaxableInc', fz(tx.caTaxableInc));
-  set('caTaxRaw',     fz(tx.caTaxRaw));
-  set('caExOut',      fz(caEx));
-  set('caTax',        fz(tx.caTax));
-  set('caEff',        fpct(caEffRate));
-  set('totalTax',     fz(fedTax + tx.caTax));
-
-  return { fed: fedTax, ca: tx.caTax };
+  // Chart
+  const ctx = document.getElementById('optChart').getContext('2d');
+  if (optChart) optChart.destroy();
+  optChart = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        { label:'Total Tax (Fed+CA)', data:totalTaxes, borderColor:'#e8c84a', backgroundColor:'rgba(232,200,74,.08)', fill:true, tension:.3, borderWidth:2, pointRadius:0 },
+        { label:'IRMAA Surcharge/yr', data:irmaaCosts, borderColor:'#fb923c', backgroundColor:'rgba(251,146,60,.06)', fill:true, tension:.1, borderWidth:1.5, pointRadius:0, borderDash:[4,3] }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{
+        legend:{ labels:{ color:'#7d8590', font:{family:'DM Mono',size:10}, boxWidth:12 } },
+        tooltip:{ callbacks:{ label: c => ' '+ c.dataset.label+': $'+c.raw.toLocaleString() } },
+        annotation: Object.keys(annotations).length ? { annotations } : {}
+      },
+      scales:{
+        x:{ grid:{color:'rgba(48,54,61,.4)'}, ticks:{color:'#7d8590', font:{family:'DM Mono',size:9}, maxTicksLimit:12} },
+        y:{ grid:{color:'rgba(48,54,61,.4)'}, ticks:{color:'#7d8590', font:{family:'DM Mono',size:10}, callback:v=>'$'+(v/1000).toFixed(0)+'K'} }
+      }
+    }
+  });
 }
 
-function calculateAll(){
-  let results=[];
-  for(let i=0;i<4;i++){ results.push(calculateScenario(i)); }
-  renderChart(results);
+// ══════════════════════════════════════════════════════════════════════════════
+// FEATURE 4 — BREAK-EVEN ROTH ANALYSIS
+//
+// Model:
+//   - You convert $X today and pay tax_now = X × rateNow
+//   - Roth path: X grows at r for N years → X*(1+r)^N, fully tax-free at withdrawal
+//   - Traditional path: X grows at r for N years → X*(1+r)^N, taxed at rateFuture
+//     → after-tax = X*(1+r)^N*(1-rateFuture)
+//   - Opportunity cost of upfront tax: tax_now invested in taxable account at r_taxable
+//     → grows to tax_now*(1+r_taxable)^N
+//   - Net Roth advantage at year N:
+//       [Roth value] − [Trad after-tax value] − [Opportunity cost]
+//       = X*(1+r)^N − X*(1+r)^N*(1-rateFuture) − tax_now*(1+r_taxable)^N
+//       = X*(1+r)^N * rateFuture − tax_now*(1+r_taxable)^N
+//   - Break-even: when Net Roth Advantage = 0
+// ══════════════════════════════════════════════════════════════════════════════
+let bevChart = null;
+
+function runBreakeven() {
+  const conv        = gi('bev_conv')         || 100000;
+  const rateNow     = gi('bev_rateNow')      / 100;
+  const rateFuture  = gi('bev_rateFuture')   / 100;
+  const r           = gi('bev_return')       / 100;
+  const rTaxable    = gi('bev_taxableReturn')/ 100;
+  const years       = gii('bev_years')       || 30;
+
+  const taxNow  = conv * rateNow;   // upfront tax cost
+  const labels  = [], netAdv = [];
+  let breakEvenYr = null;
+
+  for (let yr = 0; yr <= years; yr++) {
+    const rothVal      = conv * Math.pow(1 + r, yr);           // Roth grows tax-free
+    const tradAfterTax = rothVal * (1 - rateFuture);           // Traditional, pay tax at withdrawal
+    const oppCost      = taxNow * Math.pow(1 + rTaxable, yr);  // Opportunity cost of upfront tax
+    const advantage    = rothVal - tradAfterTax - oppCost;     // Net Roth advantage
+    labels.push('Yr ' + yr);
+    netAdv.push(Math.round(advantage));
+    if (breakEvenYr === null && advantage >= 0) breakEvenYr = yr;
+  }
+
+  // Callout
+  const finalAdv = netAdv[netAdv.length - 1];
+  const callout = document.getElementById('bevCallout');
+  const isBetter = rateNow <= rateFuture;
+  let html = `<span class="bev-key">Conversion Amount: </span><span class="bev-val">${fz(conv)}</span><br>
+    <span class="bev-key">Tax Paid Now: </span><span class="bev-val">${fz(taxNow)} (${(rateNow*100).toFixed(1)}% marginal)</span><br>
+    <span class="bev-key">Future Withdrawal Rate: </span><span class="bev-val">${(rateFuture*100).toFixed(1)}%</span><br>
+    <span class="bev-key">Investment Return: </span><span class="bev-val">${(r*100).toFixed(1)}% gross / ${(rTaxable*100).toFixed(1)}% taxable</span><br>
+    `;
+
+  if (breakEvenYr === 0) {
+    html += `<span class="bev-key">Break-Even: </span><span class="bev-val">Immediate — Roth wins from day 1</span><br>`;
+    html += `<span class="bev-key">Why: </span><span class="bev-val">Current rate (${(rateNow*100).toFixed(1)}%) ≤ future rate (${(rateFuture*100).toFixed(1)}%). Convert aggressively.</span>`;
+  } else if (breakEvenYr !== null) {
+    html += `<span class="bev-key">Break-Even Year: </span><span class="bev-val">Year ${breakEvenYr}</span><br>`;
+    html += `<span class="bev-key">Net Roth Advantage at Year ${years}: </span><span class="bev-val">${fz(finalAdv)}</span><br>`;
+    html += `<span class="bev-key">Verdict: </span><span class="bev-val">Roth ahead after Year ${breakEvenYr}. Worth converting if horizon &gt; ${breakEvenYr} yrs.</span>`;
+  } else {
+    html += `<span class="bev-key">Break-Even: </span><span class="bev-val bad">Not reached within ${years} years</span><br>`;
+    html += `<span class="bev-key">Net Roth Advantage at Year ${years}: </span><span class="bev-val bad">${fz(finalAdv)}</span><br>`;
+    html += `<span class="bev-key">Verdict: </span><span class="bev-val bad">Paying ${(rateNow*100).toFixed(1)}% now to avoid ${(rateFuture*100).toFixed(1)}% later doesn't break even in ${years} yrs. Reconsider size of conversion.</span>`;
+  }
+  callout.innerHTML = html;
+
+  // Chart
+  const ctx2 = document.getElementById('bevChart').getContext('2d');
+  if (bevChart) bevChart.destroy();
+
+  // Colour areas: green above zero, red below
+  const positiveData = netAdv.map(v => Math.max(v, 0));
+  const negativeData = netAdv.map(v => Math.min(v, 0));
+
+  bevChart = new Chart(ctx2, {
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        { label:'Roth Advantage (positive)', data:positiveData, backgroundColor:'rgba(74,222,128,.55)', borderColor:'#4ade80', borderWidth:0 },
+        { label:'Roth Advantage (negative)', data:negativeData, backgroundColor:'rgba(248,113,113,.55)', borderColor:'#f87171', borderWidth:0 },
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ labels:{ color:'#7d8590', font:{family:'DM Mono',size:10}, boxWidth:12 } },
+        tooltip:{ callbacks:{
+          label: c => ' Net Roth Advantage: $' + (positiveData[c.dataIndex] + negativeData[c.dataIndex]).toLocaleString()
+        }},
+        annotation: breakEvenYr != null && breakEvenYr > 0 ? {
+          annotations:{
+            bev:{ type:'line', xMin:breakEvenYr, xMax:breakEvenYr,
+              borderColor:'#e8c84a', borderWidth:2, borderDash:[5,3],
+              label:{ content:'Break-even Yr '+breakEvenYr, display:true, color:'#e8c84a', font:{size:10}, position:'start' } }
+          }
+        } : {}
+      },
+      scales:{
+        x:{ stacked:true, grid:{color:'rgba(48,54,61,.4)'}, ticks:{color:'#7d8590', font:{family:'DM Mono',size:9}, maxTicksLimit:16} },
+        y:{ stacked:true, grid:{color:'rgba(48,54,61,.4)'}, ticks:{color:'#7d8590', font:{family:'DM Mono',size:10}, callback:v=>'$'+(v/1000).toFixed(0)+'K'} }
+      }
+    }
+  });
 }
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+Chart.defaults.color        = '#7d8590';
+Chart.defaults.borderColor  = '#30363d';
+Chart.defaults.font.family  = "'DM Mono', monospace";
+Chart.defaults.font.size    = 12;
 
 calculateAll();
-
-
 </script>
 
-<footer style="display:flex; justify-content:center; padding: 24px 0 32px;">
-  <a href="index.html" class="home-btn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    HOME
-	
-  </a>
-</footer>
+<!--
+  CHANGE LOG
+  ==========
+  Original  — 4-scenario "what if" tax calculator with external js/tax_engine.js dependency.
+
+  2026-05-05 Rev 1 — Full tax engine rewrite (self-contained):
+    ✓ LTCG double-tax fixed
+    ✓ LTCG preferential stacked rates (0/15/20%)
+    ✓ SS taxability: full IRS two-tier worksheet
+    ✓ NIIT 3.8% when MAGI > $250k
+    ✓ Effective rates on AGI
+    ✓ Bracket headroom, IRMAA tier, net take-home added
+
+  2026-05-05 Rev 2 — New features:
+    ✓ FEATURE 1: Roth Conversion Optimizer
+        - Base income inputs (SS, RMD, 401k, other, LTCG, deductions)
+        - Slider sweeps conversion $0 → user-defined max
+        - Line chart: total tax curve + IRMAA surcharge curve
+        - Bracket boundary & IRMAA threshold vertical markers
+        - Live pills: AGI, total tax, net take-home, headroom, IRMAA tier
+    ✓ FEATURE 2: IRMAA Lookback Year
+        - Global "Tax Year" input (default 2026)
+        - Each scenario shows "IRMAA Applies In: Medicare Year [Tax Year + 2]"
+        - Badge color-coded to IRMAA tier
+    ✓ FEATURE 4: Break-Even Roth Analysis
+        - Inputs: conversion amount, current marginal rate, future RMD rate,
+          investment return, taxable account return, projection years
+        - Full opportunity-cost model:
+            Net Roth Advantage = Roth value − Trad after-tax − Opportunity cost
+        - Stacked bar chart: green (positive) / red (negative) by year
+        - Break-even year marker line
+        - Plain-language verdict in callout box
+    ✓ FEATURE 5: Print / PDF Export
+        - Print button in header (→ browser Print → Save as PDF)
+        - @media print stylesheet:
+            · Landscape A4, 1.2cm margins
+            · 2×2 scenario grid, compact padding
+            · Charts preserved with reduced height
+            · Optimizer / break-even / notes sections hidden
+            · Colors converted to print-safe equivalents
+            · Print-only title + subtitle block shown
+
+  ANNUAL MAINTENANCE:
+    — FED_MFJ: update each November (IRS Rev Proc)
+    — LTCG_MFJ: update with FED_MFJ
+    — CA_MFJ: update when CA FTB announces new brackets
+    — IRMAA_MFJ: update each November when CMS announces rates
+    — NIIT_THRESHOLD ($250k MFJ): does not adjust for inflation
+-->
 </body>
 </html>

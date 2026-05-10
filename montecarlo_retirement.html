@@ -511,19 +511,19 @@ body::after {
   <!-- Social Security -->
   <div class="sxn-title">Social Security</div>
   <div class="field"><label>Husband SS Start Age</label><input type="number" id="ss1Age" value="67"></div>
-  <div class="field"><label>Husband Annual SS ($)</label><input type="number" id="ss1Income" value="40000"></div>
+  <div class="field"><label>Husband Annual SS ($)</label><input type="number" id="ss1Income" value="48000"></div>
   <p class="note">Wife SS starts at her age 67 (FRA), at 50% of husband's amount. Both grow with COLA (= inflation rate) each year.</p>
 
   <!-- Tax -->
   <div class="sxn-title">Tax Rate</div>
-  <div class="field"><label>Effective Tax Rate — Post Retirement (%)</label><input type="number" id="taxRate" value="22" step="0.5"></div>
+  <div class="field"><label>Effective Tax Rate — Post Retirement (%)</label><input type="number" id="taxRate" value="20" step="0.5"></div>
   <p class="note">Applied to taxable SS (85%) + RMD in Phase 3. Applied to taxable SS (85%) in Phase 2. No tax on brokerage draws (after-tax money).</p>
 
   <!-- Market & Simulation -->
   <div class="sxn-title">Market Assumptions</div>
-  <div class="field"><label>Avg Stock Return (%)</label><input type="number" id="stockReturn" value="8" step="0.1"></div>
+  <div class="field"><label>Avg Stock Return (%)</label><input type="number" id="stockReturn" value="6.5" step="0.1"></div>
   <div class="field"><label>Stock Volatility / Std Dev (%)</label><input type="number" id="stockStd" value="15" step="0.1"></div>
-  <div class="field"><label>Avg Bond Return (%)</label><input type="number" id="bondReturn" value="4" step="0.1"></div>
+  <div class="field"><label>Avg Bond Return (%)</label><input type="number" id="bondReturn" value="3.5" step="0.1"></div>
   <div class="field"><label>Bond Volatility / Std Dev (%)</label><input type="number" id="bondStd" value="5" step="0.1"></div>
   <div class="field"><label>Avg Inflation (%)</label><input type="number" id="inflation" value="3" step="0.1"></div>
   <div class="field"><label>Number of Simulations</label><input type="number" id="simCount" value="10000"></div>
@@ -602,7 +602,7 @@ body::after {
 
   <!-- ── REVERSE CALCULATOR ── -->
   <div class="reverse-box">
-    <div class="reverse-title">🔍 What spending gives me 90% or 95% confidence?</div>
+    <div class="reverse-title">🔍 How much money can I spend with 90% or 95% confidence and still have it last?</div>
     <p class="reverse-sub">
       Using your current inputs, this finds the maximum annual withdrawal that still
       achieves your chosen confidence target — using binary search over 500 quick simulations per step. Input 90 or 95 to
