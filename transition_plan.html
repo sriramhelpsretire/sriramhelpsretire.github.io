@@ -528,7 +528,43 @@ const rows = [
     retire: {
       title: 'Income Streams',
       sub: 'Social Security, pension, withdrawals',
-      body: `<p class="placeholder">[ Add content here — e.g. Social Security timing, pension options, brokerage withdrawals, the role of dividends and interest income in retirement ]</p>`
+      body: `
+        <span class="sub-label">Social Security — The Foundation of Retirement Income</span>
+        <ul>
+          <li>Social Security is inflation-adjusted, guaranteed for life, and backed by the federal government — it is the most valuable income stream most retirees have</li>
+          <li><strong>Full Retirement Age (FRA):</strong> Age 67 for those born in 1960 or later — claiming at FRA gives you 100% of your earned benefit</li>
+          <li><strong>Delay to age 70:</strong> Benefits grow 8% per year beyond FRA — delaying from 67 to 70 permanently increases your monthly benefit by 24% for life, plus all future COLA increases apply to the higher base</li>
+          <li><strong>Claim early at 62:</strong> Benefit is permanently reduced by up to 30% — only appropriate if health is poor or financial need is urgent</li>
+          <li><strong>Spousal strategy:</strong> The lower-earning spouse can claim up to 50% of the higher earner's FRA benefit | Survivor benefit: a surviving spouse receives the higher of the two benefits — this makes delaying the higher earner's claim to 70 a powerful longevity hedge</li>
+          <li>Check your estimated benefit at ssa.gov — verify your earnings record for accuracy, as errors are not uncommon</li>
+        </ul>
+
+        <span class="sub-label">Pension Income (If Applicable)</span>
+        <ul>
+          <li>Defined benefit pensions provide a fixed monthly income for life — increasingly rare in the private sector but common in government, education, and some unions</li>
+          <li><strong>Key decisions at retirement:</strong> Single life annuity (higher monthly payment, ends at your death) vs. joint and survivor annuity (lower monthly payment, continues for your spouse's life) — the right choice depends on spouse age, health, and other income sources</li>
+          <li>Understand your plan's COLA provision — some pensions are fixed with no inflation adjustment; a $4,000/month pension today could have the purchasing power of $2,400 in 20 years at 2.5% inflation</li>
+          <li>Know your pension's funded status — underfunded public pensions carry real risk; understand the protections (PBGC for private, state guarantees for public)</li>
+        </ul>
+
+        <span class="sub-label">Portfolio Withdrawals — Drawing From Your Investments</span>
+        <ul>
+          <li><strong>The 4% Rule:</strong> A widely cited guideline suggesting you can withdraw 4% of your portfolio in year one and adjust for inflation annually with a high probability of lasting 30 years — not a guarantee, but a useful starting reference</li>
+          <li>For longer retirements (35+ years) or lower risk tolerance, consider 3.0%–3.5% as a more conservative withdrawal rate</li>
+          <li>Withdrawal order matters enormously for tax efficiency — see the Withdrawal Strategy card for the recommended sequence</li>
+          <li>Bucket strategy: segment your portfolio into short-term (cash/bonds, 1–3 years of expenses), medium-term (balanced), and long-term (equities) — the short-term bucket insulates you from selling equities in a downturn</li>
+        </ul>
+
+        <span class="sub-label">Dividends, Interest, and Passive Income</span>
+        <ul>
+          <li>Dividend income from a well-constructed equity portfolio can provide meaningful cash flow without requiring you to sell shares — qualified dividends are taxed at favorable capital gains rates</li>
+          <li>Bond interest, CD ladders, and Treasury income provide predictable fixed income — particularly valuable in the early retirement years</li>
+          <li>Rental income, royalties, or business income can supplement portfolio withdrawals and reduce the draw on invested assets</li>
+          <li>The goal is to construct a retirement income floor (Social Security + pension + dividends/interest) that covers essential expenses — so portfolio withdrawals fund lifestyle, not necessities</li>
+        </ul>
+
+        <p>Retirement income planning is not about picking a single source — it is about layering multiple streams so that no single risk (market crash, low interest rates, inflation) can derail your financial security. Build the floor first, then let investments provide the flexibility above it.</p>
+      `
     }
   },
   {
@@ -575,7 +611,43 @@ const rows = [
     retire: {
       title: 'Healthcare Coverage',
       sub: 'Medicare, supplemental, long-term care',
-      body: `<p class="placeholder">[ Add content here — e.g. Medicare Parts A/B/D, Medigap, Medicare Advantage, LTC insurance, IRMAA, the gap years before age 65 ]</p>`
+      body: `
+        <span class="sub-label">The Gap Years — Before Medicare at 65</span>
+        <ul>
+          <li>If you retire before 65, you lose employer-sponsored health insurance and must bridge the gap — this is one of the most underestimated costs of early retirement</li>
+          <li><strong>COBRA:</strong> Continue your employer's plan for up to 18 months — same coverage, same network, but you pay 100% of the premium plus a 2% admin fee; expensive but offers continuity and is ideal if mid-treatment or retiring mid-year</li>
+          <li><strong>ACA Marketplace (Healthcare.gov / Covered California):</strong> Available from retirement to age 65 — income-based subsidies can make premiums very affordable if you manage your MAGI carefully; retiring early with controlled withdrawals can unlock significant subsidy eligibility</li>
+          <li><strong>Smart hybrid:</strong> Use COBRA for a few months to bridge to open enrollment, then switch to ACA for the remaining gap years</li>
+        </ul>
+
+        <span class="sub-label">Medicare — The Four Parts</span>
+        <ul>
+          <li><strong>Part A (Hospital):</strong> Free for most people (if you paid Medicare taxes for 10+ years) — covers inpatient hospital, skilled nursing facility, hospice, and some home health care</li>
+          <li><strong>Part B (Medical):</strong> Covers doctor visits, outpatient care, preventive services, and medical equipment — 2026 standard premium is $185.00/month; higher earners pay IRMAA surcharges on top</li>
+          <li><strong>Part C (Medicare Advantage):</strong> Private plans that bundle A + B + usually D — often include vision, dental, hearing; lower premiums but narrower networks and prior authorization requirements</li>
+          <li><strong>Part D (Prescription Drugs):</strong> Standalone drug coverage — choose based on your specific medications; compare plans annually during open enrollment as formularies change</li>
+          <li><strong>Medigap (Supplemental):</strong> Fills the gaps in Original Medicare (deductibles, coinsurance) — pairs with Part A + B + D; broader network than Medicare Advantage; higher premium but more predictable out-of-pocket costs</li>
+        </ul>
+
+        <span class="sub-label">IRMAA — The Stealth Medicare Surcharge</span>
+        <ul>
+          <li>IRMAA (Income Related Monthly Adjustment Amount) adds surcharges to Part B and Part D premiums based on your MAGI from 2 years prior</li>
+          <li>At income above $212,000 (MFJ), surcharges kick in — a large Roth conversion, RMD, or capital gain in one year can trigger higher Medicare premiums two years later</li>
+          <li>Plan Roth conversions and large withdrawals with IRMAA thresholds in mind — coordination with a CPA is essential in the years approaching and during Medicare eligibility</li>
+          <li>IRMAA is not permanent — it resets each year based on the prior 2-year income; appeal if income drops significantly due to a qualifying life event</li>
+        </ul>
+
+        <span class="sub-label">Long-Term Care — The Largest Unplanned Risk</span>
+        <ul>
+          <li>70% of people turning 65 today will need some form of long-term care — the average duration is 3 years, but 20% need care for 5+ years</li>
+          <li><strong>2025 California costs:</strong> Home health aide ~$75,000/year | Assisted living ~$72,000/year | Memory care ~$90,000+/year | Skilled nursing facility ~$120,000+/year</li>
+          <li>Medicare does NOT cover custodial long-term care (help with daily living activities) — it only covers short-term skilled nursing following a qualifying hospital stay</li>
+          <li><strong>LTC insurance options:</strong> Traditional LTC policy | Hybrid life/LTC policy (death benefit if care not needed) | Self-insuring (requires $500K–$1M+ in dedicated liquid assets) | Medicaid (only after assets are substantially depleted)</li>
+          <li>Best time to buy LTC insurance: ages 55–65 — premiums rise sharply after 65 and insurability can be lost due to health conditions</li>
+        </ul>
+
+        <p>Healthcare is the single largest variable expense in retirement — and the one most people underestimate. A couple retiring at 65 today should budget $300,000–$400,000 in lifetime out-of-pocket healthcare costs, excluding long-term care. Plan for it explicitly, not as an afterthought.</p>
+      `
     }
   },
   
@@ -642,7 +714,50 @@ const rows = [
     retire: {
       title: 'Withdrawal Strategy',
       sub: 'RMDs, sequence of returns, 4% rule',
-      body: `<p class="placeholder">[ Add content here — e.g. withdrawal order (taxable → tax-deferred → Roth), RMD rules, the 4% rule, sequence-of-returns risk, bucket strategy ]</p>`
+      body: `
+        <span class="sub-label">Withdrawal Order — Sequence Matters as Much as Amount</span>
+        <ul>
+          <li>The order in which you draw from your accounts determines how long your money lasts and how much of it goes to taxes — this is one of the most impactful decisions in retirement</li>
+          <li><strong>Standard withdrawal sequence:</strong> (1) Required Minimum Distributions first (no choice) → (2) Taxable brokerage accounts → (3) Tax-deferred accounts (Traditional 401k, IRA) → (4) Roth accounts last (tax-free, no RMDs, best to let grow)</li>
+          <li>This sequence minimizes lifetime taxes by depleting taxable accounts first (favorable capital gains rates), then tax-deferred accounts during lower-income years, and preserving Roth for late retirement or legacy</li>
+          <li>In practice, the optimal sequence is not rigid — it is dynamic; draw from multiple account types in years where bracket management creates an opportunity</li>
+        </ul>
+
+        <span class="sub-label">Required Minimum Distributions (RMDs)</span>
+        <ul>
+          <li>The IRS requires mandatory annual withdrawals from Traditional IRAs and 401(k)s starting at age 73 (rising to 75 in 2033 under SECURE 2.0)</li>
+          <li>RMD amount = account balance ÷ IRS life expectancy factor (published in IRS Uniform Lifetime Table) — recalculated every year as balance and age change</li>
+          <li>Failure to take an RMD triggers a 25% penalty on the amount not withdrawn — this is not optional</li>
+          <li>Large pre-tax balances generate large RMDs that can push you into higher tax brackets, trigger IRMAA surcharges, and increase Social Security taxation — managing pre-tax balance through Roth conversions pre-RMD age is the mitigation strategy</li>
+          <li>Roth IRAs have NO RMDs during the owner's lifetime — another powerful reason to build Roth assets throughout working years</li>
+        </ul>
+
+        <span class="sub-label">The 4% Rule and Safe Withdrawal Rate</span>
+        <ul>
+          <li>The 4% rule (from the 1994 Trinity Study) states: withdraw 4% of your portfolio in year one, adjust annually for inflation — historically this has survived 30-year retirement periods in most scenarios</li>
+          <li>For a $1M portfolio: 4% = $40,000/year | For $2M: $80,000/year | For $3M: $120,000/year — pair this with Social Security to determine total income</li>
+          <li>More conservative guidance suggests 3.0%–3.5% for 35+ year retirements or in low-return environments</li>
+          <li>Flexible withdrawal strategies (e.g., reduce withdrawals in bad market years) can allow slightly higher average withdrawal rates with lower failure risk</li>
+          <li>Your withdrawal rate combined with Social Security and any pension income determines whether your plan is sustainable — this is exactly what the Monte Carlo simulator on this site tests</li>
+        </ul>
+
+        <span class="sub-label">Sequence-of-Returns Risk</span>
+        <ul>
+          <li>The order of market returns matters enormously in retirement — poor returns early in retirement are far more damaging than poor returns late, because you are drawing down assets before they can recover</li>
+          <li>A 30% market drop in year 2 of retirement can permanently impair a portfolio that would have survived the same drop in year 20</li>
+          <li><strong>Mitigation strategies:</strong> Hold 2–3 years of expenses in cash/short-term bonds (bucket strategy) | Reduce withdrawal rate temporarily in bad years | Delay large discretionary spending during downturns | Maintain a rising equity glidepath (start more conservative, increase equity exposure as the sequence-of-returns risk window passes)</li>
+        </ul>
+
+        <span class="sub-label">The Bucket Strategy</span>
+        <ul>
+          <li><strong>Bucket 1 (0–2 years):</strong> Cash and money market — covers near-term expenses without any market exposure; you never have to sell equities in a downturn to pay bills</li>
+          <li><strong>Bucket 2 (2–10 years):</strong> Bonds, CDs, dividend stocks — provides income and moderate growth; replenishes Bucket 1 over time</li>
+          <li><strong>Bucket 3 (10+ years):</strong> Equities — long time horizon allows full market participation; this bucket grows to eventually replenish Bucket 2</li>
+          <li>The psychological benefit is equally important: knowing your next 2 years of income is in cash removes the emotional pressure to react to market volatility</li>
+        </ul>
+
+        <p>Withdrawal strategy is not set once and forgotten — it requires annual review. Tax law changes, market performance, health events, and spending patterns all shift the optimal approach. Revisit your withdrawal plan every year with an eye on brackets, IRMAA thresholds, RMD projections, and account balances.</p>
+      `
     }
   },
   {
@@ -701,7 +816,41 @@ const rows = [
     retire: {
       title: 'Spending & Budgeting',
       sub: 'Fixed vs. discretionary expenses',
-      body: `<p class="placeholder">[ Add content here — e.g. retirement spending smile, fixed vs. discretionary buckets, inflation-adjusting your budget, annual spend forecast methodology ]</p>`
+      body: `
+        <span class="sub-label">The Retirement Spending Reality</span>
+        <ul>
+          <li>Most people overestimate how much they will spend in retirement — studies consistently show retirees spend 20%–30% less than their final working-year budget, particularly in the early years</li>
+          <li>The "retirement spending smile": spending is highest in the active Go-Go years (60s–early 70s), declines in the Slow-Go years (mid-70s–early 80s), and rises again in the No-Go years (80s+) as healthcare costs increase</li>
+          <li>Plan your budget in three phases rather than one flat projection — early retirement lifestyle costs, mid-retirement moderation, and late-retirement healthcare escalation</li>
+          <li>Some working-year costs disappear: payroll taxes, retirement contributions, commuting, work clothing, some childcare — these reductions offset inflation in many cases</li>
+        </ul>
+
+        <span class="sub-label">Building Your Retirement Budget</span>
+        <ul>
+          <li><strong>Fixed expenses (non-negotiable):</strong> Housing (mortgage/rent or HOA/property tax if paid off), utilities, insurance premiums (Medicare, Medigap, LTC), food, transportation, minimum healthcare out-of-pocket</li>
+          <li><strong>Discretionary expenses (lifestyle):</strong> Travel, dining, hobbies, entertainment, gifts, charitable giving — these are the first to flex in a bad market year</li>
+          <li><strong>Irregular/lumpy expenses:</strong> Home maintenance and repairs, car replacement, medical procedures, family milestones — budget 1%–2% of home value annually for maintenance alone</li>
+          <li>Separate your income floor needs (fixed expenses — must be covered reliably) from lifestyle spending (discretionary — can be adjusted) — this distinction is the foundation of a resilient retirement income plan</li>
+        </ul>
+
+        <span class="sub-label">Inflation — The Silent Erosion</span>
+        <ul>
+          <li>At 3% inflation, purchasing power halves in approximately 24 years — a retiree at 65 planning to age 90 faces 25 years of compounding price increases</li>
+          <li>Healthcare inflation typically runs at 5%–7% per year — significantly above general inflation — making healthcare cost projections especially important to stress-test</li>
+          <li>Social Security's annual COLA (Cost of Living Adjustment) partially offsets inflation — but it tracks CPI-W, which may understate the actual cost increases retirees face (particularly for healthcare)</li>
+          <li>Equities are the most reliable long-term inflation hedge — maintaining meaningful equity exposure (even in retirement) is essential for purchasing power preservation over a 25–30 year horizon</li>
+        </ul>
+
+        <span class="sub-label">Annual Spending Review Process</span>
+        <ul>
+          <li>Every year in retirement, run a simple check: actual spending vs. budget | portfolio performance vs. withdrawal rate | account balances vs. projections</li>
+          <li>If spending is running above the planned withdrawal rate, identify which categories are driving it — discretionary categories should be the adjustment lever, not fixed essentials</li>
+          <li>A good rule of thumb: if your portfolio drops more than 20%, consider reducing discretionary spending by 10%–15% for that year — small temporary adjustments can significantly extend portfolio longevity</li>
+          <li>Track actual spending for at least 2–3 years pre-retirement — the most accurate retirement budget comes from your own spending history, not industry averages</li>
+        </ul>
+
+        <p>The biggest budget risk in retirement is not spending too much in a single year — it is the combination of inflation, healthcare cost escalation, and poor sequence-of-returns that compounds over decades. Build your budget conservatively, review it annually, and give yourself permission to spend generously in the early years when health allows it.</p>
+      `
     }
   },
   {
@@ -755,7 +904,48 @@ const rows = [
     retire: {
       title: 'Tax in Retirement',
       sub: 'Roth conversions, bracket management',
-      body: `<p class="placeholder">[ Add content here — e.g. Roth conversion ladders, managing MAGI for IRMAA, Social Security taxation thresholds, capital gains rate optimization ]</p>`
+      body: `
+        <span class="sub-label">The Core Shift — From Accumulation Tax to Distribution Tax</span>
+        <ul>
+          <li>During working years, the tax goal was to reduce taxable income — in retirement, the goal shifts to managing which income is recognized when, and in what amounts, to minimize lifetime taxes</li>
+          <li>Retirement introduces a complex interaction between multiple income sources — Social Security, RMDs, Roth conversions, capital gains, and pension income all compete for space within your tax brackets</li>
+          <li>The window between retirement and age 73 (RMD age) is often the most valuable tax planning opportunity of your life — income may be lower than during working years and lower than it will be once RMDs begin</li>
+        </ul>
+
+        <span class="sub-label">Roth Conversion Strategy</span>
+        <ul>
+          <li>A Roth conversion moves money from a Traditional IRA/401(k) into a Roth IRA — you pay ordinary income tax now; all future growth and qualified withdrawals are tax-free forever</li>
+          <li><strong>The ideal window:</strong> After retirement but before Social Security starts and before RMDs begin — income is often at its lowest, making conversions at 12% or 22% rate highly valuable</li>
+          <li>Convert up to the top of your current bracket each year — fill the 12% bracket, then the 22% bracket — never convert past the threshold that triggers a higher bracket, IRMAA surcharge, or greater Social Security taxation</li>
+          <li>Benefits: reduces future RMD amounts (smaller pre-tax balance = smaller mandatory withdrawals) | Roth has no RMDs | Reduces taxes for heirs inheriting the account | Provides tax-free income to manage MAGI</li>
+          <li>Roth conversions are irreversible — plan carefully with projections before converting; the right amount depends on your full retirement income picture</li>
+        </ul>
+
+        <span class="sub-label">Social Security Taxation</span>
+        <ul>
+          <li>Up to 85% of Social Security benefits can be subject to federal income tax — the percentage depends on your "combined income" (AGI + non-taxable interest + 50% of SS benefit)</li>
+          <li><strong>Thresholds (MFJ):</strong> Combined income below $32,000 — 0% of SS taxed | $32,000–$44,000 — up to 50% taxed | Above $44,000 — up to 85% taxed</li>
+          <li>Roth withdrawals do not count toward combined income — this is a powerful reason to build Roth assets; they give you income without triggering SS taxation</li>
+          <li>Managing MAGI below key thresholds requires coordinating Social Security timing, withdrawal sources, and Roth conversion amounts simultaneously</li>
+        </ul>
+
+        <span class="sub-label">Capital Gains Rate Optimization</span>
+        <ul>
+          <li>Long-term capital gains (assets held over 1 year) are taxed at 0%, 15%, or 20% — far below ordinary income rates for most retirees</li>
+          <li><strong>0% capital gains rate (MFJ 2026):</strong> Taxable income up to approximately $94,050 — if your total income falls below this, you can realize capital gains completely tax-free</li>
+          <li>This creates an opportunity: in lower-income retirement years, strategically harvest gains from your taxable brokerage at 0% — resets your cost basis without any tax cost</li>
+          <li>Coordinate: Roth conversions + capital gain harvesting + SS income + RMDs all interact within the same brackets — model your full income picture before executing any single strategy</li>
+        </ul>
+
+        <span class="sub-label">Managing MAGI for IRMAA</span>
+        <ul>
+          <li>IRMAA surcharges on Medicare Part B and Part D are triggered by MAGI from 2 years prior — a single high-income year (large Roth conversion, asset sale, RMD) can cost thousands in extra Medicare premiums</li>
+          <li>Know the IRMAA thresholds and stay below them when possible — the jump from the base tier to the first surcharge tier (above $212,000 MFJ) adds $840+/year per person</li>
+          <li>IRMAA is reassessed annually — if income drops permanently, premiums return to base; appeal using Form SSA-44 if income dropped due to a qualifying life event</li>
+        </ul>
+
+        <p>Tax planning in retirement is not simpler than during working years — it is more complex because more variables interact simultaneously. Run annual tax projections: model every income source, test conversion amounts against bracket thresholds, and review IRMAA exposure. The retirees who pay the least in lifetime taxes are those who plan proactively, not reactively.</p>
+      `
     }
   },
   {
@@ -812,7 +1002,49 @@ const rows = [
     retire: {
       title: 'Estate & Legacy',
       sub: 'Will, trusts, beneficiaries, gifting',
-      body: `<p class="placeholder">[ Add content here — e.g. will vs. trust, durable power of attorney, beneficiary designations, annual gifting exclusion, Roth as legacy vehicle ]</p>`
+      body: `
+        <span class="sub-label">Why Estate Planning Cannot Wait</span>
+        <ul>
+          <li>Estate planning is not only for the wealthy — anyone with assets, dependents, or wishes about their care needs a plan; without one, the state decides for you</li>
+          <li>The core documents every person needs: Will | Durable Power of Attorney (financial) | Healthcare Power of Attorney / Healthcare Directive | Beneficiary designations on all accounts</li>
+          <li>Review and update these documents after every major life event: marriage, divorce, death of a beneficiary, new child or grandchild, significant change in assets</li>
+          <li>Estate planning is also elder care planning — who makes decisions if you are incapacitated? Who is authorized to act on your behalf financially and medically?</li>
+        </ul>
+
+        <span class="sub-label">Will vs. Trust — Choosing the Right Vehicle</span>
+        <ul>
+          <li><strong>Last Will and Testament:</strong> Directs distribution of assets at death | Goes through probate (court-supervised process — public, time-consuming, potentially costly) | Names guardian for minor children</li>
+          <li><strong>Revocable Living Trust:</strong> Assets in trust transfer directly to beneficiaries at death — bypasses probate entirely | Remains private | Can include incapacity provisions | More complex and costly to establish but highly valuable for significant estates</li>
+          <li>In California, probate applies to estates above $184,500 — a living trust is often worth establishing for homeowners, given California real estate values</li>
+          <li>A trust does not replace a will — you still need a "pour-over will" to capture any assets not transferred into the trust before death</li>
+        </ul>
+
+        <span class="sub-label">Beneficiary Designations — The Most Overlooked Estate Document</span>
+        <ul>
+          <li>Beneficiary designations on IRAs, 401(k)s, life insurance, and annuities override your will entirely — the account goes to whoever is named, regardless of what your will says</li>
+          <li>Review beneficiary designations on every account immediately — and every 3–5 years or after any major life event</li>
+          <li>Name both primary and contingent beneficiaries — if the primary predeceases you and no contingent is named, the account may go through probate</li>
+          <li>Inherited IRA rules (post-SECURE Act 2.0): most non-spouse beneficiaries must fully withdraw inherited IRA funds within 10 years — this can create significant tax events for heirs; structuring the inheritance thoughtfully matters</li>
+          <li>Consider naming a trust as IRA beneficiary only with expert guidance — there are complex tax traps that make this inappropriate in many situations</li>
+        </ul>
+
+        <span class="sub-label">Roth IRA as a Legacy Vehicle</span>
+        <ul>
+          <li>Roth IRAs have no RMDs during the owner's lifetime — unlike Traditional IRAs, they can be left to grow untouched, making them ideal assets to pass to heirs</li>
+          <li>Heirs inherit a Roth IRA tax-free and must withdraw within 10 years — but those withdrawals are also tax-free, making a Roth inheritance one of the most valuable gifts you can leave</li>
+          <li>If leaving assets to heirs is a priority, preferentially spend down Traditional (taxable) accounts first and let Roth accounts compound as long as possible</li>
+        </ul>
+
+        <span class="sub-label">Annual Gifting and Charitable Strategies</span>
+        <ul>
+          <li><strong>Annual gift exclusion (2026):</strong> $18,000 per person, per year — gift this amount to any number of people with zero gift tax implications and no filing required</li>
+          <li>Qualified charitable distributions (QCDs): if age 70½ or older, you can donate up to $105,000 directly from your IRA to a qualified charity — satisfies RMD requirement and is excluded from taxable income entirely</li>
+          <li><strong>Donor-Advised Fund (DAF):</strong> Contribute appreciated assets or cash, get an immediate deduction, then grant to charities over time at your own pace</li>
+          <li>529 plan superfunding: contribute up to 5 years of annual gift exclusion amounts ($90,000 per beneficiary) in a single year to a 529 plan — powerful wealth transfer tool for grandchildren's education</li>
+        </ul>
+
+        <p>Estate planning is an act of love and responsibility — it ensures your wishes are honored, your family is protected, and your assets transfer efficiently. The cost of not planning is always higher than the cost of planning well. Work with an estate attorney to get the documents right, and treat it as a living plan that evolves with your life.</p>
+      `
     }
   },
   {
@@ -859,7 +1091,48 @@ const rows = [
     retire: {
       title: 'Purpose & Fulfillment',
       sub: 'Hobbies, volunteering, encore career',
-      body: `<p class="placeholder">[ Add content here — e.g. finding structure and meaning in retirement, part-time consulting, passion projects, volunteering, travel, and personal growth ]</p>`
+      body: `
+        <span class="sub-label">The Purpose Gap — Retirement's Real Challenge</span>
+        <ul>
+          <li>Research consistently shows that the retirees who thrive are not those with the most money — they are those with a clear sense of purpose, meaningful relationships, and an active engagement with life</li>
+          <li>The first 6–12 months of retirement often feel like an extended vacation — energizing and free; it is in months 12–24 that the purpose gap can emerge if nothing has been intentionally built to fill it</li>
+          <li>Purpose in retirement is not automatically granted — it is designed, built, and sustained through deliberate choices about how you spend your time and who you spend it with</li>
+        </ul>
+
+        <span class="sub-label">Encore Career and Part-Time Work</span>
+        <ul>
+          <li>An encore career is not about financial necessity — it is about meaningful engagement; many retirees find that 10–15 hours per week of purposeful work is the perfect balance of structure and freedom</li>
+          <li>Consulting in your former field: lower hours, flexibility, and significantly higher hourly rate than full-time employment — you bring decades of expertise that commands premium compensation</li>
+          <li>Monetizing a passion: writing, teaching, coaching, craft, photography, music — even modest income from something you love adds profound meaning beyond the dollars</li>
+          <li>Part-time income has a powerful financial benefit: even $20,000–$30,000/year from part-time work dramatically reduces portfolio withdrawal pressure in the critical early years of retirement when sequence-of-returns risk is highest</li>
+        </ul>
+
+        <span class="sub-label">Passion Projects and Learning</span>
+        <ul>
+          <li>Retirement is the first time in life you control your own curriculum — pursue the subjects, skills, and interests that decades of work never allowed</li>
+          <li>Enroll in courses: universities often offer free or low-cost auditing for seniors | Online platforms (Coursera, edX, MasterClass) make world-class instruction accessible from anywhere</li>
+          <li>Creative pursuits — writing, painting, music, woodworking, gardening — provide a combination of craft, flow state, and tangible output that is deeply satisfying</li>
+          <li>Set a learning goal each year: a new language, a new instrument, a new skill — continuous learning is one of the strongest predictors of cognitive health in older adults</li>
+        </ul>
+
+        <span class="sub-label">Volunteering and Giving Back</span>
+        <ul>
+          <li>Volunteering provides what careers provide: structure, community, a sense of contribution, and a reason to show up — without the pressure of performance reviews or office politics</li>
+          <li>The most fulfilling volunteer roles align with your expertise — a retired engineer advising nonprofits, a former executive mentoring young entrepreneurs, a teacher tutoring underserved students</li>
+          <li>Consider board service for nonprofits, local government commissions, or community organizations — leadership roles that apply your experience to meaningful causes</li>
+          <li>Mentoring the next generation — formally or informally — is one of the most reported sources of deep satisfaction among retirees</li>
+        </ul>
+
+        <span class="sub-label">Travel and Experiences</span>
+        <ul>
+          <li>Travel is consistently among the top retirement priorities — and the early Go-Go years (60s–early 70s) are the ideal time to prioritize it while health and energy are strong</li>
+          <li>Plan the bucket-list trips first, not last — do not defer major experiences to "when we're ready"; health is unpredictable and the window for active travel is finite</li>
+          <li>Consider slow travel: spending weeks or months in a single location rather than rushing through — often more affordable, more meaningful, and more culturally immersive than traditional tourism</li>
+          <li>Travel with purpose: language immersion programs, cultural exchange, volunteer travel, or visiting family — adds dimension beyond sightseeing</li>
+        </ul>
+
+        <p>The most successful retirements share a common thread: intention. The people who design their retirement with the same energy they brought to their careers — setting goals, building structure, pursuing growth, and investing in relationships — are the ones who look back at retirement as the richest chapter of their lives.</p>
+      `
     }
   },
   {
@@ -906,7 +1179,49 @@ const rows = [
     retire: {
       title: 'Social & Community',
       sub: 'Relationships, community, family roles',
-      body: `<p class="placeholder">[ Add content here — e.g. maintaining friendships, community involvement, grandparenting, spouse adjustment, combating isolation in retirement ]</p>`
+      body: `
+        <span class="sub-label">The Loneliness Risk — Retirement's Hidden Health Threat</span>
+        <ul>
+          <li>Social isolation is one of the most significant health risks in retirement — studies link chronic loneliness to cognitive decline, depression, cardiovascular disease, and shorter lifespan</li>
+          <li>Retirement removes the built-in social structure of the workplace — the daily interactions, collaborative problem-solving, and sense of belonging that most people take for granted while employed</li>
+          <li>Rebuilding a rich social life in retirement requires the same intentionality you brought to building a career — it does not happen automatically</li>
+          <li>Aim for a social portfolio: a mix of close friendships, community ties, family relationships, and casual acquaintanceships — each serves a different emotional and social function</li>
+        </ul>
+
+        <span class="sub-label">Maintaining and Deepening Friendships</span>
+        <ul>
+          <li>Friendships require scheduling in retirement — without the accidental proximity of work, you must be deliberate about staying connected</li>
+          <li>Invest in friendships with people at similar life stages — shared context (retirement, grandparenting, health, aging parents) creates natural depth and mutual support</li>
+          <li>Be the initiator: organize the dinners, plan the trips, create the standing lunch date — friendships deepen with the person who shows up consistently</li>
+          <li>Accept that some work friendships will naturally fade — and that retirement is an opportunity to prioritize the relationships that are truly reciprocal and nourishing</li>
+        </ul>
+
+        <span class="sub-label">Community Involvement</span>
+        <ul>
+          <li>Community ties — faith communities, neighborhood associations, civic organizations, hobby clubs — provide belonging, structure, and a sense of contribution</li>
+          <li>Join groups organized around shared activities rather than shared demographics — a hiking club, a book group, a choir, a pickleball league — activity-based connection is more durable than proximity alone</li>
+          <li>If you relocate in retirement, building community from scratch requires extra intentionality — join before you need it; social capital takes time to develop</li>
+          <li>Local government involvement, school board participation, library volunteering, neighborhood groups — these roles keep you embedded in a place and invested in its future</li>
+        </ul>
+
+        <span class="sub-label">Grandparenting and Family Roles</span>
+        <ul>
+          <li>For many retirees, grandparenting is among the most joyful and meaningful aspects of retirement — a relationship without the daily pressure of parenting, rich in love and play</li>
+          <li>Be intentional about the grandparent role you want to play: present and involved vs. available when needed — align with your adult children's parenting approach and boundaries</li>
+          <li>Practical grandparenting (childcare, school pickups, after-school activities) can be deeply meaningful — and can also provide structure and routine to your own week</li>
+          <li>Avoid over-investing financial or emotional resources in adult children at the expense of your own retirement security — you cannot help them from a position of financial fragility</li>
+        </ul>
+
+        <span class="sub-label">Spousal and Partner Adjustment</span>
+        <ul>
+          <li>Retirement changes the couple dynamic profoundly — suddenly you are together 24/7 after decades of daytime separation; this requires renegotiation of space, rhythm, independence, and shared activities</li>
+          <li>Discuss your vision for retirement openly and repeatedly: How much time together vs. apart? Who manages what? What do you do as a couple vs. individually? What does a good week look like for each of you?</li>
+          <li>Maintain individual friendships and pursuits — a healthy retirement partnership includes both togetherness and independence</li>
+          <li>If one spouse retires before the other, the working spouse's schedule still sets the rhythm — the retired spouse needs structure that is not entirely dependent on the working partner's availability</li>
+        </ul>
+
+        <p>Connection is not a luxury in retirement — it is a health imperative. The quality of your relationships is one of the strongest predictors of wellbeing, cognitive longevity, and life satisfaction in older adulthood. Invest in your social life with the same discipline you invested in your financial life.</p>
+      `
     }
   }
 ];
@@ -915,17 +1230,146 @@ const shared = [
   {
     title: 'Health & Wellness',
     sub: 'Physical, mental, preventive care',
-    body: `<p class="placeholder">[ Add content here — e.g. staying physically active, mental health in both phases, preventive care habits, the link between health and financial security ]</p>`
+    body: `
+        <span class="sub-label">Health Is the Prerequisite for Everything Else</span>
+        <ul>
+          <li>Financial security enables retirement — physical and mental health determines whether you can actually enjoy it; no amount of money compensates for poor health in your 70s and 80s</li>
+          <li>Every health investment made during working years has a compounding return: fewer medications, lower healthcare costs, higher energy, longer independence, and better cognitive function in retirement</li>
+          <li>The habits built before retirement — exercise, sleep, nutrition, stress management, preventive care — become the infrastructure of your retirement quality of life</li>
+        </ul>
+
+        <span class="sub-label">Physical Activity — The Single Most Powerful Investment</span>
+        <ul>
+          <li>Regular physical activity is the most evidence-backed intervention for longevity, cognitive health, mood, energy, and functional independence — more impactful than any supplement or medication</li>
+          <li><strong>Minimum effective dose:</strong> 150 minutes of moderate aerobic activity per week (brisk walking, cycling, swimming) + 2 strength training sessions — this alone dramatically reduces risk of heart disease, diabetes, cognitive decline, and fall-related injury</li>
+          <li>Strength training becomes increasingly critical after 50 — muscle mass declines at 3%–5% per decade without resistance exercise; preserving it maintains metabolism, bone density, and functional independence</li>
+          <li>Find activities you genuinely enjoy and can sustain for life: swimming, pickleball, hiking, yoga, cycling, dancing — adherence over decades matters more than intensity in any single session</li>
+          <li>In retirement, exercise can become a social activity — group fitness classes, walking clubs, team sports provide connection alongside physical benefit</li>
+        </ul>
+
+        <span class="sub-label">Preventive Care — The ROI of Staying Ahead</span>
+        <ul>
+          <li>Annual physicals, regular bloodwork, and preventive screenings catch problems when they are cheapest and most treatable — skipping them is a false economy</li>
+          <li>Key screenings to stay current on: colonoscopy, mammogram/PSA, bone density (DEXA), skin cancer, vision and hearing, cardiovascular markers (lipid panel, blood pressure, A1C)</li>
+          <li>Hearing loss is one of the most undertreated health issues among retirees — and one of the strongest modifiable risk factors for cognitive decline; address it promptly</li>
+          <li>Dental health is directly linked to cardiovascular and systemic health — maintain dental care even when Medicare does not cover it (Medicare Advantage plans often do)</li>
+          <li>Medication management: review all prescriptions annually with your doctor — polypharmacy (multiple medications) increases interaction risk and is common in older adults</li>
+        </ul>
+
+        <span class="sub-label">Mental and Cognitive Health</span>
+        <ul>
+          <li>Mental health requires the same proactive attention as physical health — depression and anxiety are common in retirement but significantly underdiagnosed and undertreated among older adults</li>
+          <li>Cognitive engagement — learning new skills, reading, puzzles, music, social interaction — builds cognitive reserve and reduces dementia risk; the brain responds to challenge at any age</li>
+          <li>Sleep is foundational: 7–9 hours of quality sleep per night affects memory consolidation, immune function, mood regulation, metabolic health, and Alzheimer's risk — prioritize it as seriously as diet and exercise</li>
+          <li>Purpose and social connection are themselves protective against cognitive decline — the retirement lifestyle choices discussed throughout this guide are also brain health choices</li>
+          <li>If you or your partner notices memory changes, word-finding difficulty, or behavioral shifts — seek evaluation promptly; early intervention in cognitive decline matters enormously</li>
+        </ul>
+
+        <span class="sub-label">The Financial Connection</span>
+        <ul>
+          <li>Good health directly reduces healthcare costs — the difference in lifetime medical spending between a healthy retiree and one with multiple chronic conditions can exceed $300,000</li>
+          <li>Physical function determines how long you can live independently — every year of independence avoided in assisted living saves $72,000–$90,000+ annually</li>
+          <li>Health crises are also the most common trigger of early retirement — building resilience now reduces the probability of being forced out of work before you are financially ready</li>
+        </ul>
+
+        <p>Health and wealth are not separate domains in retirement — they are deeply intertwined. The lifestyle habits you build now are simultaneously your greatest financial investment and your greatest life investment. Protect both with equal seriousness.</p>
+      `
   },
   {
     title: 'Housing & Lifestyle',
     sub: 'Location, downsizing, aging in place',
-    body: `<p class="placeholder">[ Add content here — e.g. when to downsize, reverse mortgage considerations, aging-in-place modifications, relocating for tax or lifestyle reasons ]</p>`
+    body: `
+        <span class="sub-label">Housing Is Your Largest Asset and Your Largest Fixed Cost</span>
+        <ul>
+          <li>For most Americans, the home is the largest single asset on the balance sheet — and housing costs (mortgage, property tax, maintenance, insurance) are the largest fixed expense in retirement</li>
+          <li>The housing decision in retirement has profound implications for cash flow, tax exposure, lifestyle, social connection, and physical wellbeing — it deserves deep analysis, not a default assumption</li>
+          <li>Ask honestly: Does your current home still serve your needs? Is it the right size, the right location, the right physical layout for aging? Is the cost-to-benefit ratio still appropriate?</li>
+        </ul>
+
+        <span class="sub-label">Staying in Place — Aging in Place Planning</span>
+        <ul>
+          <li>Most people prefer to remain in their home as long as possible — successful aging in place requires proactive modifications before they become urgent</li>
+          <li><strong>Key modifications:</strong> Walk-in shower with grab bars | Single-floor living capability | Wider doorways for mobility aids | Better lighting | Non-slip flooring | Lever-style door handles and faucets</li>
+          <li>A one-time accessibility audit by an occupational therapist can identify needed modifications before a health event makes them urgent — typical modifications cost $5,000–$20,000; far less than a facility</li>
+          <li>Consider whether your neighborhood supports aging: walkability, proximity to healthcare, access to transportation if driving becomes difficult</li>
+          <li>Annual home maintenance budget: 1%–2% of home value per year — a $1.5M California home requires $15,000–$30,000/year in maintenance reserves; this is a real retirement expense often underestimated</li>
+        </ul>
+
+        <span class="sub-label">Downsizing — When and Why It Makes Sense</span>
+        <ul>
+          <li>Downsizing is not just about reducing space — it can free significant capital, reduce ongoing expenses, simplify daily life, and relocate you to a community or climate better suited to retirement</li>
+          <li><strong>Financial case for downsizing:</strong> Selling a $1.5M home and buying a $900K home or renting releases $600K in equity — invested conservatively, this generates $24,000+/year in additional income</li>
+          <li><strong>California tax consideration:</strong> Prop 19 allows homeowners 55+ to transfer their property tax base to a new home anywhere in California — a significant financial benefit for longtime homeowners with low assessed values</li>
+          <li><strong>Capital gains exclusion:</strong> $500,000 gain exclusion (MFJ) on the sale of a primary residence — plan the timing of a sale to stay within this exclusion if your gain exceeds it</li>
+          <li>The right time to downsize: while you still have the energy to sort through possessions and manage a move — waiting until a health crisis forces the decision is far more stressful and less financially optimal</li>
+        </ul>
+
+        <span class="sub-label">Relocating in Retirement</span>
+        <ul>
+          <li>Some retirees relocate for climate, cost of living, proximity to family, or lifestyle — each reason is valid but each requires careful analysis before committing</li>
+          <li><strong>State income tax:</strong> California taxes all income (including retirement income and capital gains) at up to 13.3% — states like Nevada, Texas, Florida, Washington have no state income tax; relocation can save meaningful amounts for high-income retirees</li>
+          <li>Before relocating, rent in the target location for 3–6 months across different seasons — what seems idyllic in October may feel isolating in February</li>
+          <li>Factor in: distance from existing friends and family, quality and proximity of healthcare, cost of living beyond taxes (housing, utilities, insurance), and whether the community has the amenities and culture that suit your lifestyle</li>
+        </ul>
+
+        <span class="sub-label">Reverse Mortgage — A Tool, Not a Last Resort</span>
+        <ul>
+          <li>A Home Equity Conversion Mortgage (HECM) — the federally insured reverse mortgage — allows homeowners 62+ to access home equity without monthly payments; the loan is repaid when the home is sold or the owner moves out or passes</li>
+          <li>Modern use of reverse mortgages: as a standby line of credit that grows over time, accessed only in market downturns to avoid selling assets at depressed prices — a sophisticated sequence-of-returns risk buffer</li>
+          <li>Not appropriate if you plan to move in the near term, if family inheritance of the home is a priority, or if heirs would not be able to repay the loan to keep the home</li>
+          <li>Requires HUD-approved counseling before proceeding — always work with a fee-only financial advisor to evaluate whether it fits your plan</li>
+        </ul>
+
+        <p>The housing decision may be the most consequential financial decision of your retirement. It affects your cash flow, your tax situation, your social environment, and your physical wellbeing simultaneously. Revisit it with fresh eyes every 5 years — the right answer at 65 may be very different at 75 or 85.</p>
+      `
   },
   {
     title: 'Family & Relationships',
     sub: 'Supporting kids, parents, spouse',
-    body: `<p class="placeholder">[ Add content here — e.g. supporting adult children, sandwich generation pressures, spousal alignment on retirement vision, caregiving responsibilities ]</p>`
+    body: `
+        <span class="sub-label">Spousal Alignment — The Most Important Retirement Conversation</span>
+        <ul>
+          <li>Retirement is a shared life decision — yet many couples arrive at it without ever having a deep, honest conversation about what each person envisions, needs, and fears</li>
+          <li>Align on: retirement timing (synchronized vs. staggered) | lifestyle expectations (travel-heavy vs. home-centered) | geographic preferences | daily structure | financial risk tolerance | role of family obligations</li>
+          <li>Money conversations matter: both spouses should understand the full financial picture — accounts, income sources, withdrawal plans, insurance policies, estate documents — not just one partner</li>
+          <li>Health and caregiving: discuss openly what you each want if health declines — home care preferences, facility preferences, who makes decisions if you cannot — before a crisis makes these conversations impossible</li>
+        </ul>
+
+        <span class="sub-label">Supporting Adult Children — With Boundaries</span>
+        <ul>
+          <li>The desire to help adult children financially is natural and common — but it is one of the most cited threats to retirement financial security</li>
+          <li><strong>The cardinal rule:</strong> You can borrow for education and a home — you cannot borrow for retirement; your financial security must come first, always</li>
+          <li>Financial help to adult children is most sustainable when it is planned, budgeted, and time-limited — not open-ended and reactive to each new need</li>
+          <li>Non-financial support (childcare, guidance, emotional presence) is often more valuable than money — and it does not deplete your retirement portfolio</li>
+          <li>If making substantial gifts to children, do so with tax efficiency: use the annual gift exclusion ($18,000/person/year), 529 superfunding for grandchildren, or direct payment to educational institutions and medical providers (which are exempt from gift tax entirely)</li>
+        </ul>
+
+        <span class="sub-label">The Sandwich Generation — Caught Between Generations</span>
+        <ul>
+          <li>Many pre-retirees and early retirees simultaneously support aging parents and adult children — the "sandwich generation" pressure can be emotionally and financially significant</li>
+          <li><strong>Aging parent caregiving costs:</strong> If you become a primary caregiver, account for the real financial impact — reduced income if you reduce work hours, direct care expenses, and the opportunity cost on your own retirement savings</li>
+          <li>Have proactive conversations with aging parents about their financial situation, healthcare wishes, estate documents, and long-term care plans — uncomfortable but essential; surprises in elder care are almost always costly</li>
+          <li>Know the resources available: Area Agency on Aging (local), PACE programs, Medicaid-funded home care, veteran's benefits if applicable — being informed reduces crisis-driven decisions</li>
+          <li>Establish your own caregiving limits honestly — guilt is not a financial plan; protect your own health and retirement while supporting family with what you genuinely can give</li>
+        </ul>
+
+        <span class="sub-label">Family Dynamics Around Money and Inheritance</span>
+        <ul>
+          <li>Be transparent (age-appropriately) with family about your estate plan — surprises at death cause far more conflict than candid conversations during life</li>
+          <li>Equal vs. equitable: dividing assets equally among heirs is simple but not always fair; consider differences in need, prior gifts, caregiving contributions, and the nature of specific assets</li>
+          <li>If one child receives the family business or real estate, plan for equalization — life insurance, cash bequests, or other assets to other heirs — to avoid resentment</li>
+          <li>Document your wishes for non-financial assets (heirlooms, sentimental items, furniture) — these often cause more family conflict than financial assets</li>
+        </ul>
+
+        <span class="sub-label">Building Intergenerational Connection</span>
+        <ul>
+          <li>Some of the most meaningful retirement relationships span generations — mentoring younger colleagues, engaging grandchildren, connecting with community youth organizations</li>
+          <li>Share your story: family history, career lessons, life experiences — these are irreplaceable gifts that compound in value over time; consider writing them down or recording them</li>
+          <li>The financial wisdom you have accumulated — budgeting, investing, navigating major life decisions — is deeply valuable to younger family members who have yet to learn it; share it generously</li>
+        </ul>
+
+        <p>Family relationships are the deepest source of meaning and the most complex source of stress in retirement. Approach them with the same intentionality as your financial plan — with honest conversations, clear boundaries, generous love, and the wisdom to know the difference between helping and enabling. The families that thrive in retirement are those that communicate early, plan together, and support each other without sacrificing individual wellbeing.</p>
+      `
   }
 ];
 
