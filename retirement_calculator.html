@@ -465,6 +465,154 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </div>
 </div>
 
+
+
+<!-- Floating Feedback Button with Text -->
+<button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
+  style="
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    height: 54px;
+    padding: 0 18px;
+    border-radius: 28px;
+    background: #d4af37;
+    border: 2px solid #000;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    z-index: 9999;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #000;
+  "
+  onmouseover="this.style.background='#693909'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
+  onmouseout="this.style.background='#d4af37'; this.style.color='#000'; this.style.transform='scale(1)';">
+
+  <span style="font-size:22px;">💬</span>
+  <span>Share feedback</span>
+
+</button>
+
+<!-- Modal Overlay -->
+<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
+  style="
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+  ">
+
+  <!-- Modal Box -->
+  <div style="
+    background: #fff;
+    border: 2px solid #000;
+    border-top: 6px solid #d4af37;
+    border-radius: 12px;
+    padding: 30px 28px 24px;
+    width: 92%;
+    max-width: 460px;
+    position: relative;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  ">
+
+    <!-- Close X -->
+    <button onclick="closeFeedback()" style="
+      position: absolute; top: 12px; right: 14px;
+      background: none; border: none; font-size: 22px;
+      cursor: pointer; color: #555; line-height: 1;
+    ">✕</button>
+
+    <!-- Title -->
+    <div style="font-size: 19px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;">
+      Share Your Feedback
+    </div>
+    <div style="font-size: 13px; color: #666; margin-bottom: 20px;">
+      We read every response — thank you for taking the time!
+    </div>
+
+    <!-- Star Rating -->
+    <div style="margin-bottom: 16px;">
+      <div style="font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px;">
+        How helpful was this page?
+      </div>
+      <div id="star-row" style="display: flex; gap: 8px; font-size: 28px; cursor: pointer;">
+        <span class="star" data-val="1" onclick="setRating(1)">☆</span>
+        <span class="star" data-val="2" onclick="setRating(2)">☆</span>
+        <span class="star" data-val="3" onclick="setRating(3)">☆</span>
+        <span class="star" data-val="4" onclick="setRating(4)">☆</span>
+        <span class="star" data-val="5" onclick="setRating(5)">☆</span>
+      </div>
+    </div>
+
+    <!-- Name -->
+    <div style="margin-bottom: 12px;">
+      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
+        Name <span style="color:#999; font-weight:400;">(optional)</span>
+      </label>
+      <input id="fb-name" type="text" placeholder="Your name"
+        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
+               font-size:14px; box-sizing:border-box; outline:none;"
+        onfocus="this.style.borderColor='#d4af37';"
+        onblur="this.style.borderColor='#ccc';">
+    </div>
+
+    <!-- Email -->
+    <div style="margin-bottom: 12px;">
+      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
+        Email <span style="color:#999; font-weight:400;">(optional)</span>
+      </label>
+      <input id="fb-email" type="email" placeholder="your@email.com"
+        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
+               font-size:14px; box-sizing:border-box; outline:none;"
+        onfocus="this.style.borderColor='#d4af37';"
+        onblur="this.style.borderColor='#ccc';">
+    </div>
+
+    <!-- Message -->
+    <div style="margin-bottom: 18px;">
+      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
+        Your feedback <span style="color:#a82222;">*</span>
+      </label>
+      <textarea id="fb-message" rows="4" placeholder="What did you find helpful? What can we improve?"
+        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
+               font-size:14px; box-sizing:border-box; resize:vertical; outline:none;
+               font-family: inherit;"
+        onfocus="this.style.borderColor='#d4af37';"
+        onblur="this.style.borderColor='#ccc';"></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button id="fb-submit" onclick="submitFeedback()"
+      style="
+        width: 100%;
+        background: #d4af37;
+        color: #000;
+        border: 2px solid #000;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+      "
+      onmouseover="this.style.background='#693909'; this.style.color='#fff';"
+      onmouseout="this.style.background='#d4af37'; this.style.color='#000';">
+      Send Feedback
+    </button>
+
+    <!-- Status message -->
+    <div id="fb-status" style="margin-top: 12px; font-size: 13px; text-align: center; min-height: 18px;"></div>
+
+  </div>
+
 <script>
 // ── tax_engine.js (inlined) ───────────────────────────────────────────────────
 const FED_BRACKETS = [
@@ -1129,6 +1277,93 @@ function exportToCSV() {
 }
 </script>
 </body>
+
+<script>
+  // ── Config ────────────────────────────────────────────────────
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
+  const PAGE_NAME  = document.title || window.location.pathname;
+
+  // ── Rating ────────────────────────────────────────────────────
+  let selectedRating = 0;
+
+  function setRating(val) {
+    selectedRating = val;
+    document.querySelectorAll(".star").forEach(s => {
+      s.textContent = parseInt(s.dataset.val) <= val ? "★" : "☆";
+      s.style.color  = parseInt(s.dataset.val) <= val ? "#d4af37" : "#aaa";
+    });
+  }
+
+  // ── Open / Close ──────────────────────────────────────────────
+  function openFeedback() {
+    const overlay = document.getElementById("feedback-overlay");
+    overlay.style.display = "flex";
+    document.getElementById("fb-status").textContent = "";
+  }
+
+  function closeFeedback() {
+    document.getElementById("feedback-overlay").style.display = "none";
+  }
+
+  function closeFeedbackOutside(e) {
+    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
+  }
+
+  // ── Submit ────────────────────────────────────────────────────
+  function submitFeedback() {
+    const message = document.getElementById("fb-message").value.trim();
+    const status  = document.getElementById("fb-status");
+    const btn     = document.getElementById("fb-submit");
+
+    if (!message) {
+      status.style.color = "#a82222";
+      status.textContent = "Please enter your feedback before sending.";
+      return;
+    }
+
+    btn.disabled     = true;
+    btn.textContent  = "Sending…";
+    status.textContent = "";
+
+    const payload = {
+      page:    PAGE_NAME,
+      rating:  selectedRating ? selectedRating + " ★" : "Not rated",
+      name:    document.getElementById("fb-name").value.trim(),
+      email:   document.getElementById("fb-email").value.trim(),
+      message: message
+    };
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode:   "no-cors",         // required for Apps Script
+      headers: { "Content-Type": "application/json" },
+      body:   JSON.stringify(payload)
+    })
+    .then(() => {
+      status.style.color = "#2a7a2a";
+      status.textContent = "✅ Thank you! Your feedback has been received.";
+      btn.textContent    = "Send Feedback";
+      btn.disabled       = false;
+      // Reset form
+      document.getElementById("fb-name").value    = "";
+      document.getElementById("fb-email").value   = "";
+      document.getElementById("fb-message").value = "";
+      setRating(0);
+      setTimeout(closeFeedback, 2500);
+    })
+    .catch(() => {
+      status.style.color = "#a82222";
+      status.textContent = "Something went wrong — please try again.";
+      btn.textContent    = "Send Feedback";
+      btn.disabled       = false;
+    });
+  }
+
+  // ── Keyboard: Escape to close ─────────────────────────────────
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeFeedback();
+  });
+</script>
 
 </body>
   <!-- 

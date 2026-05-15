@@ -673,28 +673,34 @@ header p.subtitle {
      ============================================================ -->
 
 <!-- Floating Button -->
+<!-- Floating Feedback Button with Text -->
 <button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
   style="
     position: fixed;
     bottom: 28px;
     right: 28px;
-    width: 54px;
     height: 54px;
-    border-radius: 50%;
+    padding: 0 18px;
+    border-radius: 28px;
     background: #d4af37;
     border: 2px solid #000;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 16px;
+    font-weight: 700;
     box-shadow: 0 4px 14px rgba(0,0,0,0.35);
     z-index: 9999;
     transition: background 0.2s, transform 0.2s;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 10px;
+    color: #000;
   "
-  onmouseover="this.style.background='#693909'; this.style.transform='scale(1.1)';"
-  onmouseout="this.style.background='#d4af37'; this.style.transform='scale(1)';">
-  💬
+  onmouseover="this.style.background='#693909'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
+  onmouseout="this.style.background='#d4af37'; this.style.color='#000'; this.style.transform='scale(1)';">
+
+  <span style="font-size:22px;">💬</span>
+  <span>Share feedback</span>
+
 </button>
 
 <!-- Modal Overlay -->
