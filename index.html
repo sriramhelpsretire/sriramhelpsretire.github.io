@@ -326,6 +326,33 @@
             .getting-started { grid-template-columns: 1fr; }
             .health-pad { grid-template-columns: 1fr 1fr; }
         }
+		
+		
+		.welcome-list {
+    text-align: left;
+    margin: 20px auto 25px;
+    max-width: 900px;
+    list-style: none;
+}
+
+.welcome-list li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    font-size: 19px;
+}
+
+.welcome-list li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent-gold);
+    font-weight: bold;
+}
+		
+		
+		
+		
     </style>
 </head>
 <body>
@@ -371,7 +398,24 @@
             
             <p>Retirement Planner – A Pocket Guide is a compendium of information and calculations that will help plan your retirement. Retirement is not all about finance, however, once you secure your finance you can plan all the good things you want to get into.</p>
             
-            <p>Calculators are getting added based on usefulness and trials. They will help understand the situation, project for years to come and help in the decision making process</p>
+            
+			<ul class="welcome-list">
+    <li>Understand the "Three-Account" system for tax-efficient withdrawals.</li>
+    <li>Navigate the transition from employer coverage to ACA or Medicare.</li>
+    <li>Project your portfolio's longevity using historical market data.</li>
+</ul>
+			
+			
+			
+			
+			<ul style="text-align: left; margin: 0 0 20px 40px; list-style-type: disc; font-size: 18px; color: #333;">
+    <li><strong>Educational Insights:</strong> Simplified breakdowns of complex topics like Social Security and Medicare.</li>
+    <li><strong>Interactive Tools:</strong> Hands-on calculators to model your specific financial future.</li>
+    <li><strong>Step-by-Step Guidance:</strong> A logical roadmap to transition from your working years into a purposeful retirement.</li>
+</ul>
+			
+			
+			<p>Calculators are getting added based on usefulness and trials. They will help understand the situation, project for years to come and help in the decision making process</p>
         </div>
 
         <!-- ── Getting Started ── -->
