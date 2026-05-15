@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future You — Start Early, Retire Happy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300;400;600;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #050d1a;
+      --navy-mid: #0c1a30;
+      --navy-card: #0f2040;
+      --green: #00e676;
+      --green-dim: #00b85c;
+      --green-glow: rgba(0, 230, 118, 0.18);
+      --amber: #ffab00;
+      --coral: #ff6b6b;
+      --white: #f0f4ff;
+      --muted: #7a8eaa;
+      --border: rgba(0,230,118,0.15);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'Nunito', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(5, 13, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: var(--white); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--green); }
+
+    .nav-cta {
+      background: var(--green);
+      color: var(--navy) !important;
+      padding: 0.45rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 900 !important;
+    }
+
+    .nav-cta:hover { background: #00ff8a !important; color: var(--navy) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 70% 40%, rgba(0,230,118,0.07) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 50% at 20% 80%, rgba(0,80,200,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,230,118,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,230,118,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green-glow);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 7vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero-headline .accent { color: var(--green); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--muted);
+      max-width: 480px;
+      margin: 1.5rem 0 2.5rem;
+      font-weight: 400;
+      line-height: 1.7;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding: 0.85rem 2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,230,118,0.3); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.85rem 2rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── HERO RIGHT: Compound preview ── */
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    .compound-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .compound-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle, rgba(0,230,118,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .compound-card-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .compound-card-amount {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      letter-spacing: 0.02em;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .compound-card-detail {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .compound-rows { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .compound-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .compound-row-label { font-size: 0.82rem; color: var(--muted); font-weight: 600; }
+
+    .compound-row-value {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .v-green { color: var(--green); }
+    .v-amber { color: var(--amber); }
+    .v-coral { color: var(--coral); }
+
+    .bar-container {
+      margin-top: 1.5rem;
+    }
+
+    .bar-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .bar-track {
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--green-dim), var(--green));
+      width: 0%;
+      transition: width 2s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 1.5rem 3rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.01);
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .trust-icon { font-size: 1.1rem; }
+
+    /* ── SECTION ── */
+    section { padding: 6rem 3rem; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ── WHY NOW ── */
+    .why-now {
+      background: var(--navy-mid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-now::before {
+      content: '';
+      position: absolute;
+      left: -200px; top: -200px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,230,118,0.05) 0%, transparent 70%);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .why-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,230,118,0.08);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover::after { transform: scaleX(1); }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .why-points { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .why-point {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.25rem;
+      background: rgba(255,255,255,0.02);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: border-color 0.2s;
+    }
+
+    .why-point:hover { border-color: var(--border); }
+
+    .why-icon {
+      width: 40px; height: 40px;
+      background: var(--green-glow);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .why-text h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .why-text p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── TOOLS ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .tool-card {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      transition: all 0.3s;
+      group: true;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--green);
+      box-shadow: 0 20px 60px rgba(0,230,118,0.1);
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,230,118,0.06) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tool-card:hover::before { opacity: 1; }
+
+    .tool-number {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.25rem;
+    }
+
+    .tool-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .tool-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      color: var(--white);
+    }
+
+    .tool-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-glow);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+    }
+
+    .tool-arrow {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.05em;
+      transition: gap 0.2s;
+    }
+
+    .tool-card:hover .tool-arrow { gap: 0.7rem; }
+
+    /* ── PHASE GUIDE ── */
+    .phase-guide {
+      background: var(--navy-mid);
+    }
+
+    .phases {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .phase {
+      padding: 2rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .phase:last-child { border-right: none; }
+
+    .phase-num {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: rgba(0,230,118,0.08);
+      line-height: 1;
+      position: absolute;
+      top: 1rem; right: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .phase-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+
+    .phase-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .phase-items { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .phase-items li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .phase-items li::before {
+      content: '→';
+      color: var(--green);
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    /* ── MINI CALC TEASER ── */
+    .teaser-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .teaser-section::before {
+      content: '';
+      position: absolute;
+      right: -200px; top: 50%;
+      transform: translateY(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,230,118,0.04) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .teaser-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .mini-calc {
+      background: var(--navy-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      order: 2;
+    }
+
+    .mini-calc-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .calc-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .calc-row label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .calc-row input, .calc-row select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .calc-row input:focus, .calc-row select:focus { border-color: var(--green); }
+
+    .calc-result {
+      background: var(--green-glow);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .calc-result-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+
+    .calc-result-amount {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      color: var(--green);
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin: 0.25rem 0 0.15rem;
+    }
+
+    .calc-result-sub { font-size: 0.78rem; color: var(--muted); }
+
+    .teaser-content { order: 1; }
+
+    .teaser-points { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+
+    .teaser-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .tp-dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-top: 7px;
+      flex-shrink: 0;
+      box-shadow: 0 0 8px var(--green);
+    }
+
+    .tp-text { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .tp-text strong { color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #020810;
+      border-top: 1px solid var(--border);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-brand-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    .footer-col h5 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .footer-col ul a {
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--white); }
+
+    .footer-bottom {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-bottom a { color: var(--green); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
+      .hero-right { align-items: flex-start; margin-top: 2rem; }
+      section { padding: 4rem 1.5rem; }
+      .why-grid, .teaser-grid, .tools-grid { grid-template-columns: 1fr; }
+      .phases { grid-template-columns: 1fr; }
+      .phase { border-right: none; border-bottom: 1px solid var(--border); }
+      .phase:last-child { border-bottom: none; }
+      footer { grid-template-columns: 1fr; gap: 2rem; }
+      .why-stats { grid-template-columns: 1fr 1fr; }
+      .teaser-content { order: 2; }
+      .mini-calc { order: 1; }
+      .trust-strip { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">FUTURE<span>YOU</span></a>
+    <ul class="nav-links">
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#why-now">Why Now</a></li>
+      <li><a href="#guide">The Plan</a></li>
+      <li><a href="https://sriramhelpsretire.github.io" target="_blank">Retire Wise ↗</a></li>
+      <li><a href="401k.html" class="nav-cta">Try Calculator</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="grid-bg"></div>
+    <div class="hero-left">
+      <div class="hero-tag">For Ages 22–35 · Accumulation Phase</div>
+      <h1 class="hero-headline">
+        GROW<br>
+        EARLY.<br>
+        <span class="accent">RETIRE</span><br>
+        BIG.
+      </h1>
+      <p class="hero-sub">
+        The single biggest advantage you have over every older investor is <strong>time</strong>.
+        Learn how to save smarter, invest wisely, and watch compounding do the heavy lifting.
+      </p>
+      <div class="hero-buttons">
+        <a href="401k.html" class="btn-primary">See Your Future →</a>
+        <a href="#tools" class="btn-ghost">Explore Tools</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="compound-card">
+        <div class="compound-card-label">If You Start at 25 vs 35</div>
+        <div class="compound-card-amount" id="hero-counter">$0</div>
+        <div class="compound-card-detail">Projected 401(k) at age 65 · $500/mo · 7% avg return</div>
+        <div class="compound-rows">
+          <div class="compound-row">
+            <span class="compound-row-label">💚 Start at 25 (40 yrs)</span>
+            <span class="compound-row-value v-green">$1,311,000</span>
+          </div>
+          <div class="compound-row">
+            <span class="compound-row-label">🟡 Start at 35 (30 yrs)</span>
+            <span class="compound-row-value v-amber">$567,000</span>
+          </div>
+          <div class="compound-row">
+            <span class="compound-row-label">⚡ 10-year cost of waiting</span>
+            <span class="compound-row-value v-coral">-$744,000</span>
+          </div>
+        </div>
+        <div class="bar-container">
+          <div class="bar-label">Your growth potential</div>
+          <div class="bar-track">
+            <div class="bar-fill" id="hero-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item"><span class="trust-icon">📊</span> Free Calculators</div>
+    <div class="trust-item"><span class="trust-icon">🔒</span> No Data Collected</div>
+    <div class="trust-item"><span class="trust-icon">🎓</span> Education-First</div>
+    <div class="trust-item"><span class="trust-icon">🧮</span> IRS 2024–25 Limits Built-In</div>
+    <div class="trust-item"><span class="trust-icon">🏦</span> Covers 401k · IRA · Roth</div>
+  </div>
+
+  <!-- TOOLS -->
+  <section id="tools">
+    <p class="section-label reveal">Your Toolkit</p>
+    <h2 class="section-title reveal">THREE TOOLS.<br>ONE MISSION.</h2>
+    <p class="section-sub reveal">Interactive calculators built for the accumulation phase — no sign-up, no ads, just math.</p>
+
+    <div class="tools-grid">
+      <a href="401k.html" class="tool-card reveal">
+        <div class="tool-number">01 / CALCULATOR</div>
+        <span class="tool-icon">📈</span>
+        <h3 class="tool-title">COMPOUND GROWTH ENGINE</h3>
+        <p class="tool-desc">
+          Model your 401(k) with employer match, annual step-ups, and catch-up contributions.
+          See exactly how much waiting costs you — in dollars.
+        </p>
+        <div class="tool-tags">
+          <span class="tool-tag">401(k)</span>
+          <span class="tool-tag">IRA</span>
+          <span class="tool-tag">Roth</span>
+          <span class="tool-tag">Employer Match</span>
+        </div>
+        <div class="tool-arrow">Launch Calculator <span>→</span></div>
+      </a>
+
+      <a href="portfolio.html" class="tool-card reveal">
+        <div class="tool-number">02 / BUILDER</div>
+        <span class="tool-icon">🎯</span>
+        <h3 class="tool-title">PORTFOLIO BUILDER</h3>
+        <p class="tool-desc">
+          Build your first allocation from scratch. Understand index funds, asset classes,
+          rebalancing rules, and how risk changes with your timeline.
+        </p>
+        <div class="tool-tags">
+          <span class="tool-tag">Stocks</span>
+          <span class="tool-tag">Bonds</span>
+          <span class="tool-tag">Rebalancing</span>
+          <span class="tool-tag">Risk Score</span>
+        </div>
+        <div class="tool-arrow">Build Portfolio <span>→</span></div>
+      </a>
+
+      <a href="projection.html" class="tool-card reveal">
+        <div class="tool-number">03 / PROJECTOR</div>
+        <span class="tool-icon">🔭</span>
+        <h3 class="tool-title">RETIREMENT PROJECTOR</h3>
+        <p class="tool-desc">
+          Map your full accumulation arc to retirement. Track milestone ages, income needs,
+          and whether your current savings rate is on target.
+        </p>
+        <div class="tool-tags">
+          <span class="tool-tag">Timeline</span>
+          <span class="tool-tag">Social Security</span>
+          <span class="tool-tag">Milestones</span>
+          <span class="tool-tag">Savings Rate</span>
+        </div>
+        <div class="tool-arrow">Run Projection <span>→</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- WHY NOW -->
+  <section class="why-now" id="why-now">
+    <div class="why-grid">
+      <div>
+        <p class="section-label reveal">The Math Doesn't Lie</p>
+        <h2 class="section-title reveal">WHY YOUR 20s ARE WORTH MORE THAN YOU THINK</h2>
+        <p class="section-sub reveal">Compounding is exponential. That means the first dollar you invest at 25 is worth many times more than a dollar invested at 40. Here's the proof.</p>
+
+        <div class="why-points" style="margin-top:2rem;">
+          <div class="why-point reveal">
+            <div class="why-icon">⏳</div>
+            <div class="why-text">
+              <h4>Time Is Your Unfair Advantage</h4>
+              <p>Every decade of delay roughly halves your ending balance. You can't buy back time — but you can start using it now.</p>
+            </div>
+          </div>
+          <div class="why-point reveal">
+            <div class="why-icon">🏢</div>
+            <div class="why-text">
+              <h4>Free Money: Capture Your Employer Match</h4>
+              <p>A 4% employer match on a $70k salary is $2,800/year — 100% instant return. Not capturing it is leaving salary on the table.</p>
+            </div>
+          </div>
+          <div class="why-point reveal">
+            <div class="why-icon">🛡️</div>
+            <div class="why-text">
+              <h4>Tax Shelter at Peak Efficiency</h4>
+              <p>Pre-tax 401(k) contributions reduce your taxable income today. Roth accounts lock in today's lower tax rate for tax-free growth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-stats reveal">
+        <div class="stat-card">
+          <div class="stat-number v-green">$744K</div>
+          <div class="stat-desc">The cost of waiting 10 years to start investing $500/month at 7% return</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number v-amber">100%</div>
+          <div class="stat-desc">Instant return on every employer match dollar — always contribute enough to capture it</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number v-green">$23,500</div>
+          <div class="stat-desc">2025 annual 401(k) contribution limit — max this and watch compounding accelerate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number v-coral">15%</div>
+          <div class="stat-desc">Recommended savings rate of gross income to stay on track for a comfortable retirement</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINI CALC TEASER -->
+  <section class="teaser-section" id="teaser">
+    <div class="teaser-grid">
+      <div class="teaser-content">
+        <p class="section-label reveal">Quick Peek</p>
+        <h2 class="section-title reveal">RUN YOUR OWN NUMBERS</h2>
+        <p class="section-sub reveal">This is just a preview. The full 401(k) calculator includes employer match, contribution step-ups, Roth vs traditional comparison, and a year-by-year growth chart.</p>
+        <div class="teaser-points">
+          <div class="teaser-point reveal">
+            <div class="tp-dot"></div>
+            <div class="tp-text"><strong>Pre-tax vs Roth comparison</strong> — model both scenarios side-by-side with your marginal tax rate</div>
+          </div>
+          <div class="teaser-point reveal">
+            <div class="tp-dot"></div>
+            <div class="tp-text"><strong>Annual step-up modeling</strong> — see the impact of increasing contributions by 1% each year</div>
+          </div>
+          <div class="teaser-point reveal">
+            <div class="tp-dot"></div>
+            <div class="tp-text"><strong>Employer match optimizer</strong> — find the exact contribution % to never leave free money behind</div>
+          </div>
+          <div class="teaser-point reveal">
+            <div class="tp-dot"></div>
+            <div class="tp-text"><strong>IRS 2025 limits built-in</strong> — $23,500 401(k), $7,000 IRA, catch-up rules auto-applied</div>
+          </div>
+        </div>
+        <div style="margin-top:2rem;" class="reveal">
+          <a href="401k.html" class="btn-primary">Open Full Calculator →</a>
+        </div>
+      </div>
+
+      <div class="mini-calc reveal">
+        <div class="mini-calc-title">⚡ Quick Estimate</div>
+        <div class="calc-row">
+          <label>Monthly Contribution ($)</label>
+          <input type="number" id="mc-contrib" value="500" min="0" max="5000" />
+        </div>
+        <div class="calc-row">
+          <label>Current Age</label>
+          <input type="number" id="mc-age" value="27" min="18" max="65" />
+        </div>
+        <div class="calc-row">
+          <label>Expected Annual Return (%)</label>
+          <input type="number" id="mc-return" value="7" min="1" max="15" step="0.5" />
+        </div>
+        <div class="calc-result">
+          <div class="calc-result-label">At Age 65 You'll Have</div>
+          <div class="calc-result-amount" id="mc-result">$0</div>
+          <div class="calc-result-sub" id="mc-sub">including compounding</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE GUIDE -->
+  <section class="phase-guide" id="guide">
+    <p class="section-label reveal">The Accumulation Roadmap</p>
+    <h2 class="section-title reveal">SAVE WELL. INVEST WELL. MONITOR ALWAYS.</h2>
+    <p class="section-sub reveal">A simple three-focus framework for your first two decades of wealth building.</p>
+
+    <div class="phases">
+      <div class="phase reveal">
+        <div class="phase-num">01</div>
+        <div class="phase-label">Focus One</div>
+        <h3 class="phase-title">SAVE WELL</h3>
+        <ul class="phase-items">
+          <li>Automate contributions — pay yourself first</li>
+          <li>Hit at least the full employer match</li>
+          <li>Build 3–6 months emergency fund first</li>
+          <li>Increase contribution rate by 1% every raise</li>
+          <li>Know your IRS limits: 401(k), IRA, HSA</li>
+          <li>Minimize high-interest debt before investing</li>
+        </ul>
+      </div>
+      <div class="phase reveal">
+        <div class="phase-num">02</div>
+        <div class="phase-label">Focus Two</div>
+        <h3 class="phase-title">INVEST WELL</h3>
+        <ul class="phase-items">
+          <li>Start with low-cost index funds (total market)</li>
+          <li>Set an age-appropriate asset allocation</li>
+          <li>Diversify: US, international, bonds, REITs</li>
+          <li>Avoid market timing — stay invested</li>
+          <li>Understand Roth vs Traditional trade-offs</li>
+          <li>Explore Mega Backdoor Roth if eligible</li>
+        </ul>
+      </div>
+      <div class="phase reveal">
+        <div class="phase-num">03</div>
+        <div class="phase-label">Focus Three</div>
+        <h3 class="phase-title">MONITOR ALWAYS</h3>
+        <ul class="phase-items">
+          <li>Rebalance annually (or after large drifts)</li>
+          <li>Track your savings rate quarterly</li>
+          <li>Reassess allocation each decade</li>
+          <li>Watch expense ratios — even 0.5% matters</li>
+          <li>Benchmark: 1x salary saved by 30, 3x by 40</li>
+          <li>Run retirement projections every few years</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-brand">FUTURE YOU</div>
+      <p class="footer-brand-sub">A companion to <a href="https://sriramhelpsretire.github.io" style="color:var(--green);">Retire Wise and Live Happy</a> — built for young professionals starting their wealth-building journey.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Tools</h5>
+      <ul>
+        <li><a href="401k.html">401(k) Compound Calculator</a></li>
+        <li><a href="portfolio.html">Portfolio Builder</a></li>
+        <li><a href="projection.html">Retirement Projector</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Learn More</h5>
+      <ul>
+        <li><a href="https://sriramhelpsretire.github.io" target="_blank">Retire Wise — Main Site ↗</a></li>
+        <li><a href="#why-now">Why Start Now</a></li>
+        <li><a href="#guide">The Accumulation Plan</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom" style="grid-column:1/-1;">
+      <span>© 2025 Future You · Educational purposes only · Not financial advice</span>
+      <span>Built with ❤️ to help the next generation retire well</span>
+    </div>
+  </footer>
+
+  <script>
+    // ── Intersection Observer for reveal ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          e.target.style.transitionDelay = `${i * 0.05}s`;
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Hero counter animation ──
+    function animateCounter(el, target, duration = 2200) {
+      const start = Date.now();
+      const fmt = v => '$' + Math.round(v).toLocaleString();
+      const tick = () => {
+        const elapsed = Date.now() - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 4);
+        el.textContent = fmt(target * ease);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    setTimeout(() => {
+      animateCounter(document.getElementById('hero-counter'), 1311000);
+      document.getElementById('hero-bar').style.width = '88%';
+    }, 400);
+
+    // ── Mini calculator ──
+    function calcResult() {
+      const contrib = parseFloat(document.getElementById('mc-contrib').value) || 0;
+      const age     = parseFloat(document.getElementById('mc-age').value)     || 25;
+      const ret     = parseFloat(document.getElementById('mc-return').value)  || 7;
+      const years   = Math.max(0, 65 - age);
+      const r       = ret / 100 / 12;
+      const n       = years * 12;
+      const fv      = r > 0 ? contrib * ((Math.pow(1+r, n) - 1) / r) : contrib * n;
+      const totalContrib = contrib * n;
+      const growth  = fv - totalContrib;
+
+      document.getElementById('mc-result').textContent = '$' + Math.round(fv).toLocaleString();
+      document.getElementById('mc-sub').textContent =
+        `$${Math.round(totalContrib).toLocaleString()} contributed · $${Math.round(growth).toLocaleString()} in growth`;
+    }
+
+    ['mc-contrib','mc-age','mc-return'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calcResult);
+    });
+    calcResult();
+  </script>
+</body>
+</html>
