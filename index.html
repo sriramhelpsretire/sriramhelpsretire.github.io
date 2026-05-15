@@ -6,7 +6,7 @@
     <title>Retire Wise and Live Happy</title>
     <style>
         :root {
-            --bg-page:      #f9f8f4;
+            --bg-page:      #E3F1FA;
             --accent-gold:  #d4af37;
             --text-dark:    #2c2c2c;
             --bar-dark:     #1a1a1a;
@@ -164,6 +164,168 @@
             font-size: 14px; 
             line-height: 1.8;
         }
+
+        /* ── Section Headings ── */
+        .section-heading {
+            width: 100%;
+            text-align: left;
+            font-size: 1.25em;
+            font-weight: 700;
+            color: var(--text-dark);
+            border-left: 5px solid var(--accent-gold);
+            padding-left: 12px;
+            margin: 28px 0 16px 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── Getting Started Steps ── */
+        .getting-started {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .step-card {
+            background: #fff;
+            border: 2px solid var(--accent-gold);
+            border-radius: 14px;
+            padding: 20px 18px;
+            text-align: left;
+        }
+
+        .step-num {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: #000;
+            font-weight: 800;
+            font-size: 1.1em;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 34px;
+            margin-bottom: 10px;
+        }
+
+        .step-card h3 {
+            font-size: 1em;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #0A0A47;
+        }
+
+        .step-card p {
+            font-size: 0.92em;
+            line-height: 1.5;
+            color: #444;
+            margin: 0;
+        }
+
+        /* ── Healthcare Pad ── */
+        .health-pad {
+            background: #0d3b2e;
+            border: 2px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .health-btn {
+            background-color: var(--accent-gold);
+            color: #000;
+            text-decoration: none;
+            padding: 16px 18px;
+            border-radius: 14px;
+            font-weight: bold;
+            border: 1px solid #000;
+            text-align: center;
+            font-size: 0.95em;
+        }
+        .health-btn:hover { background: #693909; color: #fff; }
+
+        /* ── Retirement Readiness Checklist ── */
+        .checklist-box {
+            background: #fff;
+            border: 2px solid var(--accent-gold);
+            border-radius: 16px;
+            padding: 24px 24px 20px;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .checklist-progress-wrap {
+            margin-bottom: 20px;
+        }
+
+        .checklist-progress-label {
+            font-size: 0.92em;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .checklist-bar-bg {
+            background: #e0e0e0;
+            border-radius: 8px;
+            height: 12px;
+            width: 100%;
+        }
+
+        .checklist-bar-fill {
+            background: #0A0A47;
+            height: 12px;
+            border-radius: 8px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .checklist-category {
+            margin-bottom: 18px;
+        }
+
+        .checklist-category h4 {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: #0A0A47;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 0.93em;
+            line-height: 1.45;
+            cursor: pointer;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-top: 2px;
+            accent-color: #0A0A47;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .checklist-item.checked span {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        @media (max-width: 600px) {
+            .getting-started { grid-template-columns: 1fr; }
+            .health-pad { grid-template-columns: 1fr 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -210,25 +372,121 @@
             <p>Retirement Planner – A Pocket Guide is a compendium of information and calculations that will help plan your retirement. Retirement is not all about finance, however, once you secure your finance you can plan all the good things you want to get into.</p>
             
             <p>Calculators are getting added based on usefulness and trials. They will help understand the situation, project for years to come and help in the decision making process</p>
+        </div>
+
+        <!-- ── Getting Started ── -->
+        <h2 class="section-heading">🚀 How to Use This Site</h2>
+        <div class="getting-started">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h3>Learn the Concepts</h3>
+                <p>Start with <em>Retirement Made Easy</em> and <em>Steps in Retirement</em> to build your foundational understanding — timelines, buckets, Social Security, and more.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h3>Run the Numbers</h3>
+                <p>Use the calculators to project your portfolio, stress-test it with Monte Carlo simulation, and model your tax burden across different withdrawal strategies.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h3>Plan for Healthcare</h3>
+                <p>Healthcare is often the biggest surprise cost in early retirement. Explore the Medicare and ACA pages to understand your options before and after age 65.</p>
+            </div>
+        </div>
+
+        <!-- ── Calculator Descriptions ── -->
+        <h2 class="section-heading">🧮 Financial Calculators</h2>
+        <div class="content-text" style="margin-top:0;">
+			<p class="calc-desc"><strong>Portfolio Manager</strong> - helps build a portfolio and maintain it</p>           
+
+		   <p class="calc-desc"><strong>Retirement Calculator</strong> - helps project our portfolio based on where we are today and certain market assumptions</p>
             
-            <p class="calc-desc"><strong>Portfolio Manager</strong> - helps create a portfolio and track it over time</p>
-			
-			<p class="calc-desc"><strong>Retirement Calculator</strong> - helps project our portfolio based on where we are today and certain market assumptions</p>
+            <p class="calc-desc"><strong>Retirement Confidence Calculator</strong> - this is a true stress tester of your portfolio and will tell you "Whether your money will last till your times?"</p>
             
-            <p class="calc-desc"><strong>Retirement Confidence Calculator</strong> - this is a true stress tester of your portfolio and will answer your question "Will my money last?"</p>
-            
-            <p class="calc-desc"><strong>401k Compounding Calculator</strong> - helps us undertand the power of compounding. Start investment early and stay consistent</p>
+            <p class="calc-desc"><strong>401k Compounding Calculator</strong> - helps young adults undertand the power of compounding. How does investment started early and done consistently pays off huge returns in retirement?</p>
             
             <p class="calc-desc"><strong>Income Tax Calculator</strong> - one page review of 4 tax situations that we will come across during our retirement. Quick calculations to help us prepare for the question "How do I pay for the taxes?"</p>
             
             
+        </div>
 
+        <!-- ── Healthcare Highlight ── -->
+        <h2 class="section-heading">🏥 Healthcare Planning</h2>
+        <p style="text-align:left; width:100%; font-size:0.97em; margin-bottom:14px; color:#444;">
+            Healthcare in retirement is a two-chapter story: <strong>before 65</strong> (ACA marketplace or COBRA bridging the gap) and <strong>after 65</strong> (Medicare Parts A, B, D and supplemental Medigap). Getting this wrong is costly — plan early.
+        </p>
+        <div class="health-pad">
+            <a href="medicare_aca.html" class="health-btn">🏥 Medicare Hub</a>
+            <a href="healthcare_medicare.html" class="health-btn">Medicare Deep Dive</a>
+            <a href="healthcare_aca.html" class="health-btn">ACA Marketplace</a>
+            <a href="aca_vs_cobra.html" class="health-btn">ACA vs COBRA</a>
+            <a href="medicare_flowchart.html" class="health-btn">Medicare Flowchart</a>
+            <a href="long_term_care.html" class="health-btn">Long Term Care</a>
+        </div>
+
+        <!-- ── Retirement Readiness Checklist ── -->
+        <h2 class="section-heading">✅ Retirement Readiness Checklist</h2>
+        <p style="text-align:left; width:100%; font-size:0.97em; margin-bottom:14px; color:#444;">
+            Use this self-assessment to see where you stand. Check off items as you complete them — your progress is saved in this session.
+        </p>
+        <div class="checklist-box">
+            <div class="checklist-progress-wrap">
+                <div class="checklist-progress-label" id="progress-label">0 of 14 items completed</div>
+                <div class="checklist-bar-bg"><div class="checklist-bar-fill" id="progress-bar"></div></div>
+            </div>
+
+            <div class="checklist-category">
+                <h4>💰 Financial Foundation</h4>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I know my estimated monthly retirement expenses</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have 12 months of expenses in an emergency fund</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a plan to pay off high-interest debt before retiring</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've estimated my Social Security benefit at ssa.gov</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've calculated my portfolio withdrawal rate (target ≤ 4%)</span></label>
+            </div>
+
+            <div class="checklist-category">
+                <h4>🏥 Healthcare</h4>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I know when I become eligible for Medicare (age 65)</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a plan for coverage if retiring before 65 (ACA or COBRA)</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've considered long-term care insurance or a self-funding strategy</span></label>
+            </div>
+
+            <div class="checklist-category">
+                <h4>📊 Tax Planning</h4>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I understand how 401k, IRA, and Roth withdrawals are taxed differently</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've explored Roth conversion opportunities before RMDs begin at 73</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a withdrawal sequencing strategy (taxable → tax-deferred → Roth)</span></label>
+            </div>
+
+            <div class="checklist-category">
+                <h4>🌱 Life Planning</h4>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a clear vision of how I'll spend my time in retirement</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've discussed retirement plans with my spouse/partner</span></label>
+                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have an up-to-date will, trust, and healthcare directive</span></label>
+            </div>
+        </div>
+
+        <script>
+            function updateProgress(cb) {
+                const label = cb.closest('.checklist-item');
+                label.classList.toggle('checked', cb.checked);
+                const all = document.querySelectorAll('.checklist-box input[type="checkbox"]');
+                const checked = document.querySelectorAll('.checklist-box input[type="checkbox"]:checked');
+                document.getElementById('progress-label').textContent =
+                    checked.length + ' of ' + all.length + ' items completed';
+                document.getElementById('progress-bar').style.width =
+                    Math.round(checked.length / all.length * 100) + '%';
+            }
+        </script>
+
+        <h2 class="section-heading">📚 Core Planning Pages</h2>
         <div class="top-buttons">
             <a href="transition_plan.html" class="btn">Retirement Made Easy</a>
             <a href="website.html" class="btn">Web Sites</a>
             <a href="terms.html" class="btn">Terms Used</a>
         </div>
 
+        <h2 class="section-heading">🧮 Jump to a Calculator</h2>
         <div class="calc-pad">
             <a href="Portfolio_Tracker_Generic.html" class="pad-btn">Portfolio Manager</a>
             <a href="retirement_calculator.html" class="pad-btn">Retirement Calculator</a>
@@ -237,8 +495,9 @@
             <a href="tax_calculator.html" class="pad-btn">Income Tax Calculator</a>
         </div>
 		
-		<p style="font-style: italic; font-size: 16px; margin-top: 10px;"><u>Disclaimer: I am working continuously on the content; please excuse if you find repetition. Repetitive information will be removed and logically flowing web pages will be retained. More information is also getting added as appropriate</u></p>
-        </div>
+		<p style="font-style: italic; font-size: 16px; margin-top: 10px; width:100%; text-align:left;">
+    <u>Disclaimer: I am working on the content; please excuse if you find repetition. Repetitive information will be removed and logically flowing web pages will be retained. More information is also getting added as appropriate</u>
+</p>
 		
 		
     </div>
