@@ -11,6 +11,13 @@
 
   <!-- Core Planning Pages -->
   <url>
+    <loc>https://wise-retiree.com/retirement_plan.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
     <loc>https://wise-retiree.com/transition_plan.html</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
