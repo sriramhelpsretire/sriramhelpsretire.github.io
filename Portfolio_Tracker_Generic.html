@@ -129,6 +129,51 @@
         transition: background 0.2s, color 0.2s;
     }
     .footer-home a:hover { background: #693909; color: #fff; }
+  
+  
+  /* ... existing styles on your page ... */
+        
+        /* ── Tooltip Style for Wise Thoughts ── */
+        .tooltip-container {
+            position: relative;
+        }
+        .tooltip-container .tooltip-text {
+            visibility: hidden;
+            width: 160px;
+            background-color: #000000;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 6px 0;
+            position: absolute;
+            z-index: 10001;
+            bottom: 125%;
+            right: 10%;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid var(--accent-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .tooltip-container .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 85%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #000000 transparent transparent transparent;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+  
+  
+  
+  
   </style>
 </head>
 <body>
@@ -1371,6 +1416,40 @@ document.getElementById('stockForm').addEventListener('submit', e => {
   
   
   <!-- Floating Feedback Button with Text -->
+
+<a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
+  style="
+    position: fixed;
+    bottom: 96px; /* Stacks perfectly above feedback button */
+    right: 28px;
+    height: 54px;
+    padding: 0 18px;
+    border-radius: 28px;
+    background: #d4af37;
+    border: 2px solid #000;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    z-index: 9999;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #000;
+    text-decoration: none;
+  "
+  onmouseover="this.style.background='#693909'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
+  onmouseout="this.style.background='#d4af37'; this.style.color='#000'; this.style.transform='scale(1)';">
+
+  <span style="font-size:22px;">✍️</span>
+  <span>Wise Thoughts</span>
+  <span class="tooltip-text">Subscribe on Substack</span>
+</a>
+
+
+
+
 <button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
   style="
     position: fixed;
