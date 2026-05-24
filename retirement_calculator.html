@@ -3,26 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retirement Portfolio Calculator | Retire Wise and Live Happy</title>
-
-<!-- Primary SEO -->
-<meta name="description" content="Free retirement portfolio calculator — project your nest egg, model withdrawal strategies, Social Security income, tax buckets, and whether your portfolio lasts through retirement." />
-<meta name="keywords" content="retirement calculator, retirement portfolio calculator, retirement income calculator, safe withdrawal rate calculator, 4% rule calculator, retirement nest egg, Social Security calculator, retirement projection" />
-<meta name="author" content="Sriram Gopalaratnam" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://wise-retiree.com/retirement_calculator.html" />
-
-<!-- Open Graph -->
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://wise-retiree.com/retirement_calculator.html" />
-<meta property="og:title" content="Retirement Portfolio Calculator | Retire Wise and Live Happy" />
-<meta property="og:description" content="Project your retirement income, model withdrawals, Social Security, and see if your portfolio lasts. Free interactive calculator." />
-<meta property="og:site_name" content="Retire Wise and Live Happy" />
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Retirement Portfolio Calculator | Retire Wise and Live Happy" />
-<meta name="twitter:description" content="Free retirement calculator — project nest egg, withdrawals, Social Security income and portfolio longevity." />
+<title>Retirement Portfolio Calculator</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -189,48 +170,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-
-/* ... existing styles on your page ... */
-        
-        /* ── Tooltip Style for Wise Thoughts ── */
-        .tooltip-container {
-            position: relative;
-        }
-        .tooltip-container .tooltip-text {
-            visibility: hidden;
-            width: 160px;
-            background-color: #000000;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 6px 0;
-            position: absolute;
-            z-index: 10001;
-            bottom: 125%;
-            right: 10%;
-            opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .tooltip-container .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 85%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #000000 transparent transparent transparent;
-        }
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-
 </style>
 </head>
 <body>
@@ -326,6 +265,24 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="field"><label>CA Itemized Deduction</label><input type="number" id="caDed" value="20000"></div>
     <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306"></div>
   </div>
+  <div class="sxn"><h3>🎯 Readiness Goals</h3>
+    <div class="field"><label>Target Retirement Age</label><input type="number" id="r-target-age" value="65"></div>
+    <div class="field"><label>Monthly Income Needed ($)</label><input type="number" id="r-monthly-need" value="8000"></div>
+    <div class="field"><label>Stocks/RSU/Equity ($/mo)</label><input type="number" id="r-stocks" value="0"></div>
+    <div class="field"><label>Other Income ($/mo)</label><input type="number" id="r-other-inc" value="0"></div>
+    <div style="margin-top:6px;">
+      <div style="font-size:10px;color:#5a7a6a;margin-bottom:4px;font-family:'DM Mono',monospace;">SWR — Portfolio Withdrawal Rate</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;" id="rr-wd-row">
+        <button class="rr-wd" data-val="0"   onclick="setRRWD(0,this)"   style="padding:4px 2px;border-radius:4px;border:1px solid #bbb;background:#fff;font-size:10px;font-weight:700;cursor:pointer;color:#3d5166;">0%</button>
+        <button class="rr-wd" data-val="4"   onclick="setRRWD(4,this)"   style="padding:4px 2px;border-radius:4px;border:1px solid var(--gold);background:var(--gold);font-size:10px;font-weight:700;cursor:pointer;color:#fff;">4%</button>
+        <button class="rr-wd" data-val="3.5" onclick="setRRWD(3.5,this)" style="padding:4px 2px;border-radius:4px;border:1px solid #bbb;background:#fff;font-size:10px;font-weight:700;cursor:pointer;color:#3d5166;">3.5%</button>
+        <button class="rr-wd" data-val="3"   onclick="setRRWD(3,this)"   style="padding:4px 2px;border-radius:4px;border:1px solid #bbb;background:#fff;font-size:10px;font-weight:700;cursor:pointer;color:#3d5166;">3%</button>
+      </div>
+      <input type="number" id="rr-wd-custom" placeholder="Custom %" min="0" max="10" step="0.1"
+        style="width:100%;margin-top:4px;background:#fff;border:1px solid #bbb;border-radius:4px;padding:4px 7px;font-family:'DM Mono',monospace;font-size:12px;color:#000;outline:none;"
+        oninput="setRRWDCustom(this)" />
+    </div>
+  </div>
   <button class="calc-btn" onclick="calculate()">▶ Calculate Projection</button>
   <a href="montecarlo_retirement.html" class="save-btn" style="text-decoration: none; display: block; text-align: center;">🎲RETIREMENT CONFIDENCE </a>
   <button class="save-btn" onclick="exportToCSV()">💾 Save Summary to CSV</button>
@@ -354,6 +311,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="tab" style="--tc:#94a3b8" data-tab="pca"><span class="dot" style="--tc:#94a3b8"></span>CA Tax</div>
     <div class="tab" style="--tc:#fbbf24" data-tab="psum"><span class="dot" style="--tc:#fbbf24"></span>Full Summary</div>
     <div class="tab" style="--tc:#fb923c" data-tab="pirmaa"><span class="dot" style="--tc:#fb923c"></span>IRMAA Medicare</div>
+    <div class="tab" style="--tc:#4ade80" data-tab="preadiness"><span class="dot" style="--tc:#4ade80"></span>✅ Readiness</div>
   </div>
 
   <div class="table-area">
@@ -446,6 +404,82 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <!-- IRMAA Projection Table -->
       <div class="table-wrap"><table id="tirmaa"></table></div>
     </div>
+
+    <!-- ══ READINESS TAB ══ -->
+    <div class="tab-panel" id="preadiness">
+      <div class="panel-title"><span class="pdot" style="background:#4ade80"></span>✅ Retirement Readiness</div>
+
+      <!-- Answer Cards -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">
+        <div style="background:#082E6E;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)"></div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.14em;color:#94a3b8;margin-bottom:4px;">💰 How Much Do I Need?</div>
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#e8c84a;line-height:1;margin-bottom:3px;" id="rr-target">$—</div>
+          <div style="font-size:10px;color:#94a3b8;" id="rr-target-sub">target portfolio</div>
+        </div>
+        <div style="background:#082E6E;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#4ade80"></div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.14em;color:#94a3b8;margin-bottom:4px;">📅 On Track?</div>
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#4ade80;line-height:1;margin-bottom:3px;" id="rr-status-val">—</div>
+          <div style="font-size:10px;color:#94a3b8;" id="rr-status-sub">vs target</div>
+        </div>
+        <div style="background:#082E6E;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#60a5fa"></div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.14em;color:#94a3b8;margin-bottom:4px;">💵 Monthly Income</div>
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#60a5fa;line-height:1;margin-bottom:3px;" id="rr-monthly">$—</div>
+          <div style="font-size:10px;color:#94a3b8;" id="rr-monthly-sub">at retirement</div>
+        </div>
+        <div style="background:#082E6E;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#fb923c"></div>
+          <div style="font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.14em;color:#94a3b8;margin-bottom:4px;">📊 Target in Today's $</div>
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#fb923c;line-height:1;margin-bottom:3px;" id="rr-real">$—</div>
+          <div style="font-size:10px;color:#94a3b8;" id="rr-real-sub">inflation-adjusted</div>
+        </div>
+      </div>
+
+      <!-- Income Breakdown Table -->
+      <div style="background:#0d1a26;border:1px solid #1e3a5f;border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-family:'DM Serif Display',serif;font-size:15px;color:#e8c84a;margin-bottom:10px;">Monthly Income Breakdown at Retirement</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:'DM Mono',monospace;">
+          <thead>
+            <tr>
+              <th style="background:#082E6E;padding:8px 10px;text-align:left;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">Income Source</th>
+              <th style="background:#082E6E;padding:8px 10px;text-align:right;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">Monthly</th>
+              <th style="background:#082E6E;padding:8px 10px;text-align:right;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">Annual</th>
+              <th style="background:#082E6E;padding:8px 10px;text-align:right;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">% of Total</th>
+              <th style="background:#082E6E;padding:8px 10px;text-align:left;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">Notes</th>
+            </tr>
+          </thead>
+          <tbody id="rr-income-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Annual Table -->
+      <div style="background:#0d1a26;border:1px solid #1e3a5f;border-radius:10px;padding:14px;">
+        <div style="font-family:'DM Serif Display',serif;font-size:15px;color:#e8c84a;margin-bottom:4px;">Annual Retirement Income — Year by Year</div>
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:10px;">⭐ Retirement year &nbsp;|&nbsp; 🏛️ SS starts &nbsp;|&nbsp; 📋 RMD begins &nbsp;|&nbsp; All amounts nominal (future dollars). SS grows at COLA rate.</div>
+        <div style="overflow:auto;max-height:420px;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:'DM Mono',monospace;">
+            <thead>
+              <tr>
+                <th style="background:#082E6E;padding:7px 8px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Age H/W</th>
+                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Portfolio Balance</th>
+                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Withdrawal/mo</th>
+                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">SS Husband/mo</th>
+                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#a78bfa;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">SS Wife/mo</th>
+                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Stocks/RSU/mo</th>
+                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--orange);border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Other/mo</th>
+                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#4ade80;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Total/mo</th>
+                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#4ade80;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Total/yr</th>
+              </tr>
+            </thead>
+            <tbody id="rr-annual-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- ══ END READINESS TAB ══ -->
+
   </div>
 
   <div class="chart-section">
@@ -529,38 +563,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 
 
 <!-- Floating Feedback Button with Text -->
-
-<a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
-  style="
-    position: fixed;
-    bottom: 96px; /* Stacks perfectly above feedback button */
-    right: 28px;
-    height: 54px;
-    padding: 0 18px;
-    border-radius: 28px;
-    background: #d4af37;
-    border: 2px solid #000;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-    z-index: 9999;
-    transition: background 0.2s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #000;
-    text-decoration: none;
-  "
-  onmouseover="this.style.background='#693909'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
-  onmouseout="this.style.background='#d4af37'; this.style.color='#000'; this.style.transform='scale(1)';">
-
-  <span style="font-size:22px;">✍️</span>
-  <span>Wise Thoughts</span>
-  <span class="tooltip-text">Subscribe on Substack</span>
-</a>
-
-
 <button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
   style="
     position: fixed;
@@ -1097,6 +1099,28 @@ function calculate(){
   document.getElementById('c-ss').textContent=fz(totalSS);
   document.getElementById('c-tax').textContent=fz(totalTax);
 
+  // ── Write to localStorage so Retirement Readiness Calculator can sync ──
+  try {
+    const lsMap = {
+      'rc_401k':     gi('b401k'),
+      'rc_roth':     gi('bRoth'),
+      'rc_brokerage':gi('bBrok'),
+      'rc_hsa':      gi('bHSA'),
+      'rc_bonds':    gi('bBonds'),
+      'rc_portfolio_at_retirement': retPort,
+      'rc_h_age':    hAge0,
+      'rc_w_age':    wAge00,
+      'rc_retire_age': retireAge,
+      'rc_rmd_age':  rmdAge,
+      'rc_life_exp': endAge,
+      'rc_growth1':  gi('gr1'),
+      'rc_inflation':gi('inflation'),
+      'rc_ss_husband':ssH0,
+      'rc_ss_wife':  ssW0,
+    };
+    Object.entries(lsMap).forEach(([k,v])=>localStorage.setItem(k, v));
+  } catch(e){ /* localStorage not available */ }
+
   const ra=retireAge,ma=rmdAge;
   const rc=r=>rowCls(r,ra,ma),ycr=r=>yc(r,ra,ma);
   const gr1v=gi('gr1'),gr2v=gi('gr2');
@@ -1456,6 +1480,181 @@ function exportToCSV() {
   document.addEventListener("keydown", e => {
     if (e.key === "Escape") closeFeedback();
   });
+
+// ═══════════════════════════════════════════════════════
+// RETIREMENT READINESS — integrated
+// ═══════════════════════════════════════════════════════
+let rrWD = 4;
+
+function setRRWD(val, btn){
+  rrWD = val;
+  document.querySelectorAll('.rr-wd').forEach(b=>{
+    b.style.background = b===btn ? 'var(--gold)' : '#fff';
+    b.style.borderColor= b===btn ? 'var(--gold)' : '#bbb';
+    b.style.color      = b===btn ? '#fff' : '#3d5166';
+  });
+  document.getElementById('rr-wd-custom').value = '';
+  renderReadiness();
+}
+function setRRWDCustom(el){
+  const v = parseFloat(el.value);
+  if(!isNaN(v) && v >= 0 && v <= 10){
+    rrWD = v;
+    document.querySelectorAll('.rr-wd').forEach(b=>{ b.style.background='#fff'; b.style.borderColor='#bbb'; b.style.color='#3d5166'; });
+    renderReadiness();
+  }
+}
+
+function fmtRR(v){ return '$' + Math.round(Math.max(0,v)).toLocaleString(); }
+
+function renderReadiness(){
+  // Read from existing calculator inputs
+  const hAge       = gi('hAge');
+  const wAge0      = gi('wAge0');
+  const retireAge  = +(document.getElementById('r-target-age').value)||65;
+  const endAge     = gi('endAge');
+  const rmdAge     = gi('rmdAge');
+  const ssStartH   = gi('ssStartH');
+  const ssStartW   = gi('ssStartW');
+  const ssHAnnual  = gi('ssH');
+  const ssWAnnual  = gi('ssW');
+  const ssCola     = gi('ssCola')/100;
+  const infl       = gi('inflation')/100;
+  const retPost    = gi('gr1')/100; // use same growth rate post-retire (conservative)
+  const monthlyNeed= +(document.getElementById('r-monthly-need').value)||8000;
+  const stocks     = +(document.getElementById('r-stocks').value)||0;
+  const otherInc   = +(document.getElementById('r-other-inc').value)||0;
+
+  // Portfolio at retirement — use the card value if already calculated
+  const retPortEl = document.getElementById('c-retire');
+  const retPortText = retPortEl ? retPortEl.textContent.replace(/[^0-9.]/g,'') : '0';
+  const retPortVal  = parseFloat(retPortText)*1000 || 0;
+  // Fallback: sum current balances
+  const currentTotal = gi('b401k')+gi('bRoth')+gi('bBrok')+gi('bHSA')+gi('bBonds');
+  const yearsToRetire= Math.max(0, retireAge - hAge);
+  const projBal      = retPortVal > 0 ? retPortVal
+                       : currentTotal * Math.pow(1+gi('gr1')/100, yearsToRetire);
+
+  // Target: how big must portfolio be
+  const annualNeed = monthlyNeed * 12;
+  const ssHatRet   = retireAge >= ssStartH ? ssHAnnual : 0;
+  const ssWatRet   = retireAge >= ssStartW ? ssWAnnual : 0;
+  const nonPort    = ssHatRet + ssWatRet + stocks*12 + otherInc*12;
+  const portFund   = Math.max(0, annualNeed - nonPort);
+  const target     = rrWD > 0 ? portFund / (rrWD/100) : 0;
+  const targetReal = target / Math.pow(1+infl, yearsToRetire);
+
+  // Monthly income at retirement
+  const portMo   = rrWD > 0 ? projBal * (rrWD/100) / 12 : 0;
+  const ssHmo    = retireAge >= ssStartH ? ssHAnnual/12 : 0;
+  const ssWmo    = retireAge >= ssStartW ? ssWAnnual/12 : 0;
+  const totalMo  = portMo + ssHmo + ssWmo + stocks + otherInc;
+
+  // Gap
+  const gap   = projBal - target;
+  const pct   = target > 0 ? projBal/target : 1;
+
+  // ── Answer cards ──
+  document.getElementById('rr-target').textContent = fmtRR(target);
+  document.getElementById('rr-target-sub').textContent =
+    rrWD > 0 ? `$${Math.round(monthlyNeed*12).toLocaleString()}/yr ÷ ${rrWD}% SWR, after SS+other`
+              : 'No portfolio withdrawal set';
+
+  document.getElementById('rr-status-val').textContent =
+    gap >= 0 ? '✅ ON TRACK' : pct >= 0.75 ? '⚠️ CLOSE' : '🔴 BEHIND';
+  document.getElementById('rr-status-val').style.color =
+    gap >= 0 ? '#4ade80' : pct >= 0.75 ? '#fb923c' : '#f87171';
+  document.getElementById('rr-status-sub').textContent =
+    gap >= 0 ? `Surplus ${fmtRR(gap)}` : `Shortfall ${fmtRR(Math.abs(gap))}`;
+
+  document.getElementById('rr-monthly').textContent = fmtRR(totalMo);
+  document.getElementById('rr-monthly-sub').textContent =
+    `Port ${fmtRR(portMo)} + SS-H ${fmtRR(ssHmo)} + SS-W ${fmtRR(ssWmo)} + Eq ${fmtRR(stocks)} + Other ${fmtRR(otherInc)}`;
+
+  document.getElementById('rr-real').textContent = fmtRR(targetReal);
+  document.getElementById('rr-real-sub').textContent = `In today's $ (${gi('inflation')}% infl, ${yearsToRetire} yrs)`;
+
+  // ── Income Breakdown ──
+  const incRows = [
+    { src:`Portfolio Withdrawal (${rrWD}% SWR)`, mo:portMo, color:'#4ade80',
+      note: rrWD===0 ? 'Disabled' : `From ${fmtRR(projBal)} portfolio` },
+    { src:'SS — Husband',  mo:ssHmo, color:'#60a5fa',
+      note: retireAge>=ssStartH ? `Starts age ${ssStartH}, grows ${gi('ssCola')}% COLA` : `Starts age ${ssStartH}` },
+    { src:'SS — Wife',     mo:ssWmo, color:'#a78bfa',
+      note: retireAge>=ssStartW ? `Starts age ${ssStartW}, grows ${gi('ssCola')}% COLA` : `Starts age ${ssStartW}` },
+    { src:'Stocks/RSU/Equity', mo:stocks,   color:'#e8c84a', note:'Equity income' },
+    { src:'Other Income',      mo:otherInc, color:'#fb923c', note:'Pension, rental, etc.' },
+  ];
+  const totalInc = incRows.reduce((s,r)=>s+r.mo,0);
+
+  document.getElementById('rr-income-body').innerHTML =
+    [...incRows, {src:'TOTAL', mo:totalInc, color:'#4ade80', note: gap>=0?`✅ Surplus ${fmtRR(gap/12)}/mo`:`⚠️ Shortfall ${fmtRR(Math.abs(gap)/12)}/mo`, total:true}]
+    .map(r=>{
+      const pctStr = totalInc>0 ? Math.round(r.mo/totalInc*100)+'%' : '—';
+      return `<tr style="${r.total?'background:rgba(74,222,128,0.1);font-weight:700;border-top:2px solid #4ade80;':'border-bottom:1px solid #1e3a5f;'}">
+        <td style="padding:7px 10px;text-align:left;color:${r.color};font-weight:${r.total?700:500};">${r.src}</td>
+        <td style="padding:7px 10px;text-align:right;color:${r.color};">${fmtRR(r.mo)}</td>
+        <td style="padding:7px 10px;text-align:right;">${fmtRR(r.mo*12)}</td>
+        <td style="padding:7px 10px;text-align:right;">${r.total?'—':pctStr}</td>
+        <td style="padding:7px 10px;text-align:left;font-size:11px;color:#94a3b8;">${r.note}</td>
+      </tr>`;
+    }).join('');
+
+  // ── Annual Table ──
+  const retireYears = Math.max(1, endAge - retireAge + 1);
+  const wDelta = wAge0 - hAge;
+  let bal = projBal;
+  let html = '';
+
+  for(let i=0; i<retireYears; i++){
+    const hA = retireAge + i;
+    const wA = hA + wDelta;
+    const inflF = Math.pow(1+infl, i);
+    const colaF = Math.pow(1+ssCola, i);
+
+    const portW  = rrWD > 0 ? portMo * 12 * inflF : 0;
+    const ssH    = hA >= ssStartH ? ssHAnnual * colaF : 0;
+    const ssW    = hA >= ssStartW ? ssWAnnual * colaF : 0;
+    const stk    = stocks   * 12 * inflF;
+    const oth    = otherInc * 12 * inflF;
+    const totAnn = portW + ssH + ssW + stk + oth;
+
+    bal = bal * (1 + retPost) - portW;
+    const dep = bal <= 0;
+    if(dep) bal = 0;
+
+    const isRet = i===0, isSS = hA===ssStartH||hA===ssStartW, isRMD = hA===rmdAge;
+    const lbl = `${hA}${isRet?' ⭐':''}${isSS?' 🏛️':''}${isRMD?' 📋':''} / ${wA}`;
+    const rowStyle = dep ? 'background:rgba(248,113,113,0.15);' : isRet ? 'background:rgba(74,222,128,0.08);font-weight:700;' : isSS ? 'background:rgba(96,165,250,0.06);' : isRMD ? 'background:rgba(251,146,60,0.06);' : '';
+
+    html += `<tr style="${rowStyle}border-bottom:1px solid #1e3a5f;">
+      <td style="padding:6px 8px;text-align:left;white-space:nowrap;">${lbl}</td>
+      <td style="padding:6px 8px;text-align:right;color:${dep?'#f87171':'#e6edf3'};">${dep?'DEPLETED':fmtRR(bal)}</td>
+      <td style="padding:6px 8px;text-align:right;color:${portW>0?'#4ade80':'#94a3b8'};">${portW>0?fmtRR(portW/12)+'':'—'}</td>
+      <td style="padding:6px 8px;text-align:right;color:${ssH>0?'#60a5fa':'#94a3b8'};">${ssH>0?fmtRR(ssH/12):`<span style='font-size:10px;color:#555;'>Starts ${ssStartH}</span>`}</td>
+      <td style="padding:6px 8px;text-align:right;color:${ssW>0?'#a78bfa':'#94a3b8'};">${ssW>0?fmtRR(ssW/12):`<span style='font-size:10px;color:#555;'>Starts ${ssStartW}</span>`}</td>
+      <td style="padding:6px 8px;text-align:right;color:${stk>0?'#e8c84a':'#94a3b8'};">${stk>0?fmtRR(stk/12):'—'}</td>
+      <td style="padding:6px 8px;text-align:right;color:${oth>0?'#fb923c':'#94a3b8'};">${oth>0?fmtRR(oth/12):'—'}</td>
+      <td style="padding:6px 8px;text-align:right;font-weight:700;color:#4ade80;">${fmtRR(totAnn/12)}</td>
+      <td style="padding:6px 8px;text-align:right;font-weight:700;">${fmtRR(totAnn)}</td>
+    </tr>`;
+    if(dep) break;
+  }
+  document.getElementById('rr-annual-body').innerHTML = html;
+}
+
+// Hook renderReadiness into calculate() output
+const _origCalc = calculate;
+function calculate(){
+  _origCalc.apply(this, arguments);
+  renderReadiness();
+}
+
+// Also re-render when readiness inputs change
+['r-target-age','r-monthly-need','r-stocks','r-other-inc'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('input', renderReadiness);
+});
 </script>
 
 </body>
