@@ -361,7 +361,7 @@
       </div>
       <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
         <span>1.</span><span>Download the <strong>CSV Template</strong> using the button at the top right.</span>
-        <span>2.</span><span>Fill in your portfolio holdings and save the file.</span>
+        <span>2.</span><span>Fill in your portfolio holdings and save the file. Just fill the Ticker Symbol, the software will add the names automatically.</span>
         <span>3.</span><span>Click <strong>Import CSV File</strong> to load your portfolio into the tracker.</span>
         <span>4.</span><span>Alternatively, add or modify entries directly on this page, then click <strong>Export CSV</strong> — use that file as your starting point next time.</span>
       </div>
@@ -503,7 +503,8 @@
   </select>
 
   <!-- Investment fields -->
-  <input id="ticker" placeholder="Ticker" required />
+  <input id="ticker" placeholder="Ticker" required
+       onblur="populateCompanyName()" />
   <input id="name" placeholder="Investment Name" required />
   <input id="quantity" type="number" step="0.0001" placeholder="Quantity" required />
   <input id="purchasePrice" type="number" step="0.01" placeholder="Price Per Share" required />
@@ -638,7 +639,28 @@
     return '';
   }
 }
+// PASTE NEW FUNCTION HERE
+async function populateCompanyName() {
+  const tickerInput = document.getElementById('ticker');
+  const nameInput = document.getElementById('name');
 
+  const ticker = tickerInput.value.trim().toUpperCase();
+
+  if (!ticker) return;
+
+  // Do not overwrite if user already entered a name
+  if (nameInput.value.trim() !== '') return;
+
+  nameInput.placeholder = 'Looking up company name...';
+
+  const companyName = await fetchCompanyName(ticker);
+
+  if (companyName) {
+    nameInput.value = companyName;
+  }
+
+  nameInput.placeholder = 'Investment Name';
+}
 
 
     function calcRow(row) {
@@ -1210,10 +1232,18 @@ document.getElementById('stockForm').addEventListener('submit', e => {
       for (let i = 1; i < lines.length; i++) {
         const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, ''));
         const obj = Object.fromEntries(headers.map((h, idx) => [h, cols[idx]]));
-        portfolio.push({
-          account:       obj.account || '',
-          ticker:        (obj.ticker || '').toUpperCase(),
-          name:          obj.name || '',
+        const ticker = (obj.ticker || '').toUpperCase();
+
+let companyName = obj.name || '';
+
+if (!companyName && ticker && ticker !== 'CASH') {
+  companyName = await fetchCompanyName(ticker);
+}
+
+portfolio.push({
+  account:       obj.account || '',
+  ticker:        ticker,
+  name:          companyName,
           quantity:      parseFloat(obj.quantity || '0'),
           purchasePrice: parseFloat(obj.purchasePrice || '0'),
           purchaseDate:  obj.purchaseDate || '',
