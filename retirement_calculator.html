@@ -14,20 +14,37 @@
   --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#000000;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;padding-top:72px}
 
-header{background:#f9f8f4;border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
-.header-left{display:flex;align-items:baseline;gap:12px}
-header h1{font-family:'DM Serif Display',serif;font-size:26px;color:#000000}
-header span{color:#09349E;font-size:16px;font-family:'DM Mono',monospace}
-.home-btn{display:flex;align-items:center;gap:6px;background:var(--accent);border:1px solid var(--border);color:#0d1117;padding:7px 14px;border-radius:7px;text-decoration:none;font-size:12px;font-weight:600;transition:all .15s}
-.home-btn:hover{background: #693909;opacity:.88}
-.home-btn svg{width:14px;height:14px}
+header{display:none}
 
-.layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 65px)}
+/* ── Top Nav — Hover Dropdown Style ── */
+.top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
+.nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
+.nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
+.nav-item{position:relative;}
+.nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
+.nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
+.nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
+.nav-item:hover>a .chevron{transform:rotate(180deg);}
+.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
+.nav-dropdown.two-col{min-width:260px;}
+.nav-item:hover .nav-dropdown,.nav-item:hover .nav-dropdown.two-col{display:block;}
+.nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
+.nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
+.nav-dropdown a .dd-icon{font-size:17px;width:24px;text-align:center;flex-shrink:0;margin-top:1px;}
+.nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
+.nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
+.nav-dropdown a:hover .dd-text span{color:#b8922e;}
+.nav-item:last-child .nav-dropdown,.nav-item:nth-last-child(2) .nav-dropdown{right:0;left:auto;}
+.nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
+.nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
+@media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
+
+.layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 72px)}
 
 /* SIDEBAR */
-.sidebar{background:#cef2e5;border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 65px);position:sticky;top:0}
+.sidebar{background:#cef2e5;border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 72px);position:sticky;top:72px}
 .sxn{margin-bottom:18px}
 .sxn h3{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#000000;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 .field{margin-bottom:7px}
@@ -168,47 +185,150 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     background: #693909;
 }
 
+
+/* ── Sidebar Sliders ── */
+.sl-wrap{margin-top:4px;}
+.sl-wrap input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:4px;border-radius:2px;outline:none;cursor:pointer;
+  background:linear-gradient(to right,#e8c84a 0%,#e8c84a var(--fill,0%),rgba(0,0,0,.15) var(--fill,0%),rgba(0,0,0,.15) 100%);
+}
+.sl-wrap input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:13px;height:13px;
+  background:#e8c84a;border-radius:50%;cursor:pointer;
+  box-shadow:0 0 4px rgba(232,200,74,.5);transition:transform .12s;
+}
+.sl-wrap input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.25);}
+.sl-wrap input[type=range]::-moz-range-thumb{
+  width:13px;height:13px;background:#e8c84a;border-radius:50%;
+  border:none;cursor:pointer;box-shadow:0 0 4px rgba(232,200,74,.5);
+}
+
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 </style>
 </head>
 <body>
 
+<nav class="top-nav">
+  <div class="nav-brand">
+    <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
+    Retire Wise and Live Happy
+  </div>
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a href="transition_plan.html">Planning <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="transition_plan.html"><span class="dd-icon">📌</span><div class="dd-text"><strong>Retirement Made Easy</strong><span>Working years → retirement transition</span></div></a>
+        <a href="steps_retirement.html"><span class="dd-icon">🪜</span><div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div></a>
+        <a href="financial_plan.html"><span class="dd-icon">💼</span><div class="dd-text"><strong>Financial Plan</strong><span>The 6 pillars of financial planning</span></div></a>
+        <div class="nav-dd-divider"></div>
+        <a href="terms.html"><span class="dd-icon">📖</span><div class="dd-text"><strong>Terms Used</strong><span>Retirement glossary</span></div></a>
+        <a href="website.html"><span class="dd-icon">🔗</span><div class="dd-text"><strong>Web Sites</strong><span>Curated external resources</span></div></a>
+        <a href="https://futureyou.wise-retiree.com"><span class="dd-icon">💡</span><div class="dd-text"><strong>Early Age Planning</strong><span>Future You</span></div></a>
+        <a href="faq.html"><span class="dd-icon">✨</span><div class="dd-text"><strong>FAQ</strong><span>Frequently Asked Questions</span></div></a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#calculators"><span style="color:#d4af37">🧮</span> Calculators <span class="chevron">▾</span></a>
+      <div class="nav-dropdown two-col">
+        <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track holdings, live prices</span></div></a>
+        <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Project portfolio growth</span></div></a>
+        <a href="montecarlo_retirement.html"><span class="dd-icon">🎲</span><div class="dd-text"><strong>Retirement Confidence</strong><span>Monte Carlo stress test</span></div></a>
+        <a href="401k_compounding.html"><span class="dd-icon">⚡</span><div class="dd-text"><strong>401k Compounding</strong><span>Power of starting early</span></div></a>
+        <a href="tax_calculator.html"><span class="dd-icon">💰</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>4 retirement tax scenarios</span></div></a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="medicare_aca.html"><span style="color:#d4af37">🩺</span> Healthcare <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="medicare_aca.html"><span class="dd-icon">🏥</span><div class="dd-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div></a>
+        <a href="healthcare_medicare.html"><span class="dd-icon">💊</span><div class="dd-text"><strong>Healthcare – Medicare</strong><span>IRMAA, enrollment windows</span></div></a>
+        <a href="healthcare_aca.html"><span class="dd-icon">🛡️</span><div class="dd-text"><strong>Healthcare – ACA</strong><span>Marketplace, subsidies, Covered CA</span></div></a>
+        <div class="nav-dd-divider"></div>
+        <a href="aca_vs_cobra.html"><span class="dd-icon">⚖️</span><div class="dd-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div></a>
+        <a href="medicare_flowchart.html"><span class="dd-icon">🗺️</span><div class="dd-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div></a>
+        <a href="long_term_care.html"><span class="dd-icon">🏠</span><div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
+      </div>
+    </li>
+  </ul>
+  <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
+    <option value="">Explore Topics</option>
+    <optgroup label="Core Planning">
+      <option value="transition_plan.html">📌 Retirement Made Easy</option>
+      <option value="steps_retirement.html">📌 Steps in Retirement</option>
+      <option value="financial_plan.html">📌 Financial Plan</option>
+      <option value="terms.html">📌 Terms Used</option>
+      <option value="website.html">📌 Web Sites</option>
+      <option value="faq.html">📌 FAQ</option>
+    </optgroup>
+    <optgroup label="Calculators">
+      <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
+      <option value="retirement_calculator.html">📌 Retirement Calculator</option>
+      <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
+      <option value="401k_compounding.html">📌 401k Compounding</option>
+      <option value="tax_calculator.html">📌 Income Tax Calculator</option>
+    </optgroup>
+    <optgroup label="Healthcare">
+      <option value="medicare_aca.html">📌 Medicare Hub</option>
+      <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
+      <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
+      <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
+      <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
+      <option value="long_term_care.html">📌 Long Term Care</option>
+    </optgroup>
+    <optgroup label="Go Back">
+      <option value="index.html">🏠 HOME</option>
+    </optgroup>
+  </select>
+</nav>
+
 <header>
   <div class="header-left">
     <h1>Retirement Portfolio Calculator</h1>
-    <span><p><u> Couples Financial Projection(CA)</u> | <u>Enter Data, Calculate Projection,</u> <br><u>Save summary to CSV  </u></p></span>
+    <span><p><u>Couples Financial Projection (CA)</u> | <u>Enter Data, Calculate Projection,</u><br><u>Save summary to CSV</u></p></span>
   </div>
-  <a href="index.html" class="home-btn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-	
-    Home
-  </a>
 </header>
 
 <div class="layout">
 <aside class="sidebar">
   <div class="sxn"><h3>General</h3>
-    <div class="field"><label>Start Year</label><input type="number" id="startYear" value="2026"></div>
-    <div class="field"><label>Husband Current Age</label><input type="number" id="hAge" value="60"></div>
-    <div class="field"><label>Wife Current Age</label><input type="number" id="wAge0" value="56"></div>
-    <div class="field"><label>Retirement Age</label><input type="number" id="retireAge" value="65"></div>
-    <div class="field"><label>RMD Start Age</label><input type="number" id="rmdAge" value="75"></div>
-    <div class="field"><label>Project Through Age</label><input type="number" id="endAge" value="90"></div>
+    <div class="field"><label>Start Year</label><input type="number" id="startYear" value="2026">
+      <div class="sl-wrap"><input type="range" id="startYear_s" min="2020" max="2035" step="1" oninput="sliderSync('startYear')"></div></div>
+    <div class="field"><label>Husband Current Age</label><input type="number" id="hAge" value="60">
+      <div class="sl-wrap"><input type="range" id="hAge_s" min="40" max="80" step="1" oninput="sliderSync('hAge')"></div></div>
+    <div class="field"><label>Wife Current Age</label><input type="number" id="wAge0" value="56">
+      <div class="sl-wrap"><input type="range" id="wAge0_s" min="40" max="80" step="1" oninput="sliderSync('wAge0')"></div></div>
+    <div class="field"><label>Retirement Age</label><input type="number" id="retireAge" value="65">
+      <div class="sl-wrap"><input type="range" id="retireAge_s" min="50" max="80" step="1" oninput="sliderSync('retireAge')"></div></div>
+    <div class="field"><label>RMD Start Age</label><input type="number" id="rmdAge" value="75">
+      <div class="sl-wrap"><input type="range" id="rmdAge_s" min="70" max="85" step="1" oninput="sliderSync('rmdAge')"></div></div>
+    <div class="field"><label>Project Through Age</label><input type="number" id="endAge" value="90">
+      <div class="sl-wrap"><input type="range" id="endAge_s" min="75" max="100" step="1" oninput="sliderSync('endAge')"></div></div>
   </div>
   <div class="sxn"><h3>Growth &amp; Rates</h3>
-    <div class="field"><label>Growth Rate 1 — 401k / Roth / Brokerage / HSA (%)</label><input type="number" id="gr1" value="6.00" step="0.01"></div>
-    <div class="field"><label>Growth Rate 2 — Bonds (%)</label><input type="number" id="gr2" value="4.00" step="0.01"></div>
-    <div class="field"><label>Inflation Rate (%)</label><input type="number" id="inflation" value="2.58" step="0.01"></div>
-    <div class="field"><label>SS COLA (%)</label><input type="number" id="ssCola" value="2.00" step="0.01"></div>
+    <div class="field"><label>Growth Rate 1 — 401k / Roth / Brokerage / HSA (%)</label><input type="number" id="gr1" value="6.00" step="0.01">
+      <div class="sl-wrap"><input type="range" id="gr1_s" min="1" max="15" step="0.1" oninput="sliderSync('gr1')"></div></div>
+    <div class="field"><label>Growth Rate 2 — Bonds (%)</label><input type="number" id="gr2" value="4.00" step="0.01">
+      <div class="sl-wrap"><input type="range" id="gr2_s" min="1" max="12" step="0.1" oninput="sliderSync('gr2')"></div></div>
+    <div class="field"><label>Inflation Rate (%)</label><input type="number" id="inflation" value="2.58" step="0.01">
+      <div class="sl-wrap"><input type="range" id="inflation_s" min="1" max="8" step="0.01" oninput="sliderSync('inflation')"></div></div>
+    <div class="field"><label>SS COLA (%)</label><input type="number" id="ssCola" value="2.00" step="0.01">
+      <div class="sl-wrap"><input type="range" id="ssCola_s" min="0" max="5" step="0.01" oninput="sliderSync('ssCola')"></div></div>
   </div>
   <div class="sxn"><h3>Contributions &amp; Spending</h3>
-    <div class="field"><label>Annual Spending</label><input type="number" id="spend" value="60000"></div>
-    <div class="field"><label>401k Employee Contribution</label><input type="number" id="c401k" value="16000"></div>
-    <div class="field"><label>401k Employer Match</label><input type="number" id="m401k" value="0"></div>
-    <div class="field"><label>HSA Contribution (pre-retire)</label><input type="number" id="cHSA" value="8000"></div>
-    <div class="field"><label>Roth Conversion (age 65–74)</label><input type="number" id="rothConv" value="100000"></div>
-    <div class="field"><label>401k Withdrawal (post-retire)</label><input type="number" id="w401k" value="0"></div>
+    <div class="field"><label>Annual Spending</label><input type="number" id="spend" value="60000">
+      <div class="sl-wrap"><input type="range" id="spend_s" min="10000" max="300000" step="1000" oninput="sliderSync('spend')"></div></div>
+    <div class="field"><label>401k Employee Contribution</label><input type="number" id="c401k" value="16000">
+      <div class="sl-wrap"><input type="range" id="c401k_s" min="0" max="35000" step="500" oninput="sliderSync('c401k')"></div></div>
+    <div class="field"><label>401k Employer Match</label><input type="number" id="m401k" value="0">
+      <div class="sl-wrap"><input type="range" id="m401k_s" min="0" max="20000" step="500" oninput="sliderSync('m401k')"></div></div>
+    <div class="field"><label>HSA Contribution (pre-retire)</label><input type="number" id="cHSA" value="8000">
+      <div class="sl-wrap"><input type="range" id="cHSA_s" min="0" max="10000" step="500" oninput="sliderSync('cHSA')"></div></div>
+    <div class="field"><label>Roth Conversion (age 65–74)</label><input type="number" id="rothConv" value="100000">
+      <div class="sl-wrap"><input type="range" id="rothConv_s" min="0" max="500000" step="5000" oninput="sliderSync('rothConv')"></div></div>
+    <div class="field"><label>401k Withdrawal (post-retire)</label><input type="number" id="w401k" value="0">
+      <div class="sl-wrap"><input type="range" id="w401k_s" min="0" max="100000" step="1000" oninput="sliderSync('w401k')"></div></div>
   </div>
   <div class="sxn">
     <h3>Starting Balances</h3>
@@ -224,6 +344,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">BrokerageLink HPE · HPE 401k · Rollover IRA</div>
       <input type="number" id="b401k" value="500000">
+      <div class="sl-wrap"><input type="range" id="b401k_s" min="0" max="3000000" step="10000" oninput="sliderSync('b401k')"></div>
     </div>
     <div class="field">
       <label>Roth IRA Balance
@@ -231,6 +352,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Roth IRA</div>
       <input type="number" id="bRoth" value="50000">
+      <div class="sl-wrap"><input type="range" id="bRoth_s" min="0" max="1000000" step="5000" oninput="sliderSync('bRoth')"></div>
     </div>
     <div class="field">
       <label>Brokerage Balance
@@ -238,6 +360,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Individual Brokerage · Merril · Robinhood</div>
       <input type="number" id="bBrok" value="50000">
+      <div class="sl-wrap"><input type="range" id="bBrok_s" min="0" max="1000000" step="5000" oninput="sliderSync('bBrok')"></div>
     </div>
     <div class="field">
       <label>HSA Balance
@@ -245,6 +368,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Health Savings Account</div>
       <input type="number" id="bHSA" value="50000">
+      <div class="sl-wrap"><input type="range" id="bHSA_s" min="0" max="200000" step="1000" oninput="sliderSync('bHSA')"></div>
     </div>
     <div class="field">
       <label>Bonds Balance
@@ -252,24 +376,36 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Treasury Direct</div>
       <input type="number" id="bBonds" value="50000">
+      <div class="sl-wrap"><input type="range" id="bBonds_s" min="0" max="1000000" step="5000" oninput="sliderSync('bBonds')"></div>
     </div>
   </div>
   <div class="sxn"><h3>Social Security</h3>
-    <div class="field"><label>SS Start Age — Husband</label><input type="number" id="ssStartH" value="67"></div>
-    <div class="field"><label>SS Start Age — Wife</label><input type="number" id="ssStartW" value="67"></div>
-    <div class="field"><label>SS Annual — Husband</label><input type="number" id="ssH" value="48000"></div>
-    <div class="field"><label>SS Annual — Wife</label><input type="number" id="ssW" value="24000"></div>
+    <div class="field"><label>SS Start Age — Husband</label><input type="number" id="ssStartH" value="67">
+      <div class="sl-wrap"><input type="range" id="ssStartH_s" min="62" max="70" step="1" oninput="sliderSync('ssStartH')"></div></div>
+    <div class="field"><label>SS Start Age — Wife</label><input type="number" id="ssStartW" value="67">
+      <div class="sl-wrap"><input type="range" id="ssStartW_s" min="62" max="70" step="1" oninput="sliderSync('ssStartW')"></div></div>
+    <div class="field"><label>SS Annual — Husband</label><input type="number" id="ssH" value="48000">
+      <div class="sl-wrap"><input type="range" id="ssH_s" min="0" max="100000" step="1000" oninput="sliderSync('ssH')"></div></div>
+    <div class="field"><label>SS Annual — Wife</label><input type="number" id="ssW" value="24000">
+      <div class="sl-wrap"><input type="range" id="ssW_s" min="0" max="100000" step="1000" oninput="sliderSync('ssW')"></div></div>
   </div>
   <div class="sxn"><h3>Tax Parameters</h3>
-    <div class="field"><label>Federal Std Deduction (MFJ)</label><input type="number" id="fedDed" value="32200"></div>
-    <div class="field"><label>CA Itemized Deduction</label><input type="number" id="caDed" value="20000"></div>
-    <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306"></div>
+    <div class="field"><label>Federal Std Deduction (MFJ)</label><input type="number" id="fedDed" value="32200">
+      <div class="sl-wrap"><input type="range" id="fedDed_s" min="25000" max="50000" step="100" oninput="sliderSync('fedDed')"></div></div>
+    <div class="field"><label>CA Itemized Deduction</label><input type="number" id="caDed" value="20000">
+      <div class="sl-wrap"><input type="range" id="caDed_s" min="5000" max="50000" step="500" oninput="sliderSync('caDed')"></div></div>
+    <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306">
+      <div class="sl-wrap"><input type="range" id="caExempt_s" min="100" max="1000" step="10" oninput="sliderSync('caExempt')"></div></div>
   </div>
   <div class="sxn"><h3>🎯 Readiness Goals</h3>
-    <div class="field"><label>Target Retirement Age</label><input type="number" id="r-target-age" value="65"></div>
-    <div class="field"><label>Monthly Income Needed ($)</label><input type="number" id="r-monthly-need" value="8000"></div>
-    <div class="field"><label>Stocks/RSU/Equity ($/mo)</label><input type="number" id="r-stocks" value="0"></div>
-    <div class="field"><label>Other Income ($/mo)</label><input type="number" id="r-other-inc" value="0"></div>
+    <div class="field"><label>Target Retirement Age</label><input type="number" id="r-target-age" value="65">
+      <div class="sl-wrap"><input type="range" id="r-target-age_s" min="50" max="80" step="1" oninput="sliderSync('r-target-age')"></div></div>
+    <div class="field"><label>Monthly Income Needed ($)</label><input type="number" id="r-monthly-need" value="8000">
+      <div class="sl-wrap"><input type="range" id="r-monthly-need_s" min="1000" max="30000" step="500" oninput="sliderSync('r-monthly-need')"></div></div>
+    <div class="field"><label>Stocks/RSU/Equity ($/mo)</label><input type="number" id="r-stocks" value="0">
+      <div class="sl-wrap"><input type="range" id="r-stocks_s" min="0" max="20000" step="500" oninput="sliderSync('r-stocks')"></div></div>
+    <div class="field"><label>Other Income ($/mo)</label><input type="number" id="r-other-inc" value="0">
+      <div class="sl-wrap"><input type="range" id="r-other-inc_s" min="0" max="20000" step="500" oninput="sliderSync('r-other-inc')"></div></div>
     <div style="margin-top:6px;">
       <div style="font-size:10px;color:#5a7a6a;margin-bottom:4px;font-family:'DM Mono',monospace;">SWR — Portfolio Withdrawal Rate</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;" id="rr-wd-row">
@@ -1642,6 +1778,70 @@ function renderReadiness(){
   }
   document.getElementById('rr-annual-body').innerHTML = html;
 }
+
+
+// ── Sidebar Slider Sync ───────────────────────────────────────────────────────
+const SL_CFG = {
+  startYear:      {min:2020, max:2035,   step:1},
+  hAge:           {min:40,   max:80,     step:1},
+  wAge0:          {min:40,   max:80,     step:1},
+  retireAge:      {min:50,   max:80,     step:1},
+  rmdAge:         {min:70,   max:85,     step:1},
+  endAge:         {min:75,   max:100,    step:1},
+  gr1:            {min:1,    max:15,     step:0.1},
+  gr2:            {min:1,    max:12,     step:0.1},
+  inflation:      {min:1,    max:8,      step:0.01},
+  ssCola:         {min:0,    max:5,      step:0.01},
+  spend:          {min:10000,max:300000, step:1000},
+  c401k:          {min:0,    max:35000,  step:500},
+  m401k:          {min:0,    max:20000,  step:500},
+  cHSA:           {min:0,    max:10000,  step:500},
+  rothConv:       {min:0,    max:500000, step:5000},
+  w401k:          {min:0,    max:100000, step:1000},
+  b401k:          {min:0,    max:3000000,step:10000},
+  bRoth:          {min:0,    max:1000000,step:5000},
+  bBrok:          {min:0,    max:1000000,step:5000},
+  bHSA:           {min:0,    max:200000, step:1000},
+  bBonds:         {min:0,    max:1000000,step:5000},
+  ssStartH:       {min:62,   max:70,     step:1},
+  ssStartW:       {min:62,   max:70,     step:1},
+  ssH:            {min:0,    max:100000, step:1000},
+  ssW:            {min:0,    max:100000, step:1000},
+  fedDed:         {min:25000,max:50000,  step:100},
+  caDed:          {min:5000, max:50000,  step:500},
+  caExempt:       {min:100,  max:1000,   step:10},
+  'r-target-age': {min:50,   max:80,     step:1},
+  'r-monthly-need':{min:1000,max:30000,  step:500},
+  'r-stocks':     {min:0,    max:20000,  step:500},
+  'r-other-inc':  {min:0,    max:20000,  step:500},
+};
+
+function slFill(id) {
+  const sl = document.getElementById(id + '_s');
+  if (!sl) return;
+  const cfg = SL_CFG[id];
+  const pct = ((parseFloat(sl.value) - cfg.min) / (cfg.max - cfg.min)) * 100;
+  sl.style.setProperty('--fill', Math.min(100, Math.max(0, pct)).toFixed(2) + '%');
+}
+
+function sliderSync(id) {
+  const sl  = document.getElementById(id + '_s');
+  const inp = document.getElementById(id);
+  if (sl && inp) { inp.value = sl.value; slFill(id); }
+}
+
+// Sync input → slider on manual typing
+function initSidebarSliders() {
+  Object.keys(SL_CFG).forEach(id => {
+    const inp = document.getElementById(id);
+    const sl  = document.getElementById(id + '_s');
+    if (!inp || !sl) return;
+    sl.value = inp.value;
+    slFill(id);
+    inp.addEventListener('input', () => { sl.value = inp.value; slFill(id); });
+  });
+}
+document.addEventListener('DOMContentLoaded', initSidebarSliders);
 
 // Hook renderReadiness into calculate() output
 const _origCalc = calculate;
