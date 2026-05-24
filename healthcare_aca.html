@@ -43,29 +43,31 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 72px;
 }
 
 /* Top Nav */
-.top-nav {
-    width: 100%;
-    background-color: #000;
-    padding: 14px 20px;
-    border-bottom: 4px solid var(--red-accent);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.top-nav h1 {
-    color: #ffffff;
-    font-size: clamp(18px, 3vw, 24px);
-}
-
-.top-nav select {
-    padding: 8px;
-    border-radius: 6px;
-    font-weight: bold;
-}
+.top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
+.nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
+.nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
+.nav-item{position:relative;}
+.nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
+.nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
+.nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
+.nav-item:hover>a .chevron{transform:rotate(180deg);}
+.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
+.nav-dropdown.two-col{min-width:260px;}
+.nav-item:hover .nav-dropdown,.nav-item:hover .nav-dropdown.two-col{display:block;}
+.nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
+.nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
+.nav-dropdown a .dd-icon{font-size:17px;width:24px;text-align:center;flex-shrink:0;margin-top:1px;}
+.nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
+.nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
+.nav-dropdown a:hover .dd-text span{color:#b8922e;}
+.nav-item:last-child .nav-dropdown,.nav-item:nth-last-child(2) .nav-dropdown{right:0;left:auto;}
+.nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
+.nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
+@media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
 
 /* Page Wrapper */
 .page-wrapper {
@@ -187,39 +189,78 @@ header h1 {
 
 <body>
 
-<div class="top-nav">
-    <h1>Retire Wise and Live Happy</h1>
-
-    <select onchange="if(this.value) window.location.href=this.value;">
-            <option value="">Explore Topics</option>
-            <optgroup label="Core Planning">
-                <option value="transition_plan.html">📌 Retirement Made Easy</option>
-                <option value="steps_retirement.html">📌 Steps in Retirement</option>
-                <option value="financial_plan.html">📌 Financial Plan</option>
-                <option value="terms.html">📌 Terms Used</option>
-                <option value="website.html">📌 Web Sites</option>
-				<option value="faq.html">📌 FAQ</option>
-            </optgroup>
-            <optgroup label="Calculators">
-                <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
-                <option value="retirement_calculator.html">📌 Retirement Calculator</option>
-                <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
-                <option value="401k_compounding.html">📌 401k Compounding</option>
-                <option value="tax_calculator.html">📌 Income Tax Calculator</option>
-            </optgroup>
-            <optgroup label="Healthcare">
-                <option value="medicare_aca.html">📌 Medicare Hub</option>
-                <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
-                <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
-                <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
-                <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
-                <option value="long_term_care.html">📌 Long Term Care</option>
-            </optgroup>
-            <optgroup label="Go Back">
-                <option value="index.html">🏠 HOME</option>
-            </optgroup>
-        </select>
-</div>
+<nav class="top-nav">
+  <div class="nav-brand">
+    <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
+    Retire Wise and Live Happy
+  </div>
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a href="transition_plan.html">Planning <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="transition_plan.html"><span class="dd-icon">📌</span><div class="dd-text"><strong>Retirement Made Easy</strong><span>Working years → retirement transition</span></div></a>
+        <a href="steps_retirement.html"><span class="dd-icon">🪜</span><div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div></a>
+        <a href="financial_plan.html"><span class="dd-icon">💼</span><div class="dd-text"><strong>Financial Plan</strong><span>The 6 pillars of financial planning</span></div></a>
+        <div class="nav-dd-divider"></div>
+        <a href="terms.html"><span class="dd-icon">📖</span><div class="dd-text"><strong>Terms Used</strong><span>Retirement glossary</span></div></a>
+        <a href="website.html"><span class="dd-icon">🔗</span><div class="dd-text"><strong>Web Sites</strong><span>Curated external resources</span></div></a>
+        <a href="https://futureyou.wise-retiree.com"><span class="dd-icon">💡</span><div class="dd-text"><strong>Early Age Planning</strong><span>Future You</span></div></a>
+        <a href="faq.html"><span class="dd-icon">✨</span><div class="dd-text"><strong>FAQ</strong><span>Frequently Asked Questions</span></div></a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#calculators"><span style="color:#d4af37">🧮</span> Calculators <span class="chevron">▾</span></a>
+      <div class="nav-dropdown two-col">
+        <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track holdings, live prices</span></div></a>
+        <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Project portfolio growth</span></div></a>
+        <a href="montecarlo_retirement.html"><span class="dd-icon">🎲</span><div class="dd-text"><strong>Retirement Confidence</strong><span>Monte Carlo stress test</span></div></a>
+        <a href="401k_compounding.html"><span class="dd-icon">⚡</span><div class="dd-text"><strong>401k Compounding</strong><span>Power of starting early</span></div></a>
+        <a href="tax_calculator.html"><span class="dd-icon">💰</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>4 retirement tax scenarios</span></div></a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="medicare_aca.html"><span style="color:#d4af37">🩺</span> Healthcare <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="medicare_aca.html"><span class="dd-icon">🏥</span><div class="dd-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div></a>
+        <a href="healthcare_medicare.html"><span class="dd-icon">💊</span><div class="dd-text"><strong>Healthcare – Medicare</strong><span>IRMAA, enrollment windows</span></div></a>
+        <a href="healthcare_aca.html"><span class="dd-icon">🛡️</span><div class="dd-text"><strong>Healthcare – ACA</strong><span>Marketplace, subsidies, Covered CA</span></div></a>
+        <div class="nav-dd-divider"></div>
+        <a href="aca_vs_cobra.html"><span class="dd-icon">⚖️</span><div class="dd-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div></a>
+        <a href="medicare_flowchart.html"><span class="dd-icon">🗺️</span><div class="dd-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div></a>
+        <a href="long_term_care.html"><span class="dd-icon">🏠</span><div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
+      </div>
+    </li>
+  </ul>
+  <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
+    <option value="">Explore Topics</option>
+    <optgroup label="Core Planning">
+      <option value="transition_plan.html">📌 Retirement Made Easy</option>
+      <option value="steps_retirement.html">📌 Steps in Retirement</option>
+      <option value="financial_plan.html">📌 Financial Plan</option>
+      <option value="terms.html">📌 Terms Used</option>
+      <option value="website.html">📌 Web Sites</option>
+      <option value="faq.html">📌 FAQ</option>
+    </optgroup>
+    <optgroup label="Calculators">
+      <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
+      <option value="retirement_calculator.html">📌 Retirement Calculator</option>
+      <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
+      <option value="401k_compounding.html">📌 401k Compounding</option>
+      <option value="tax_calculator.html">📌 Income Tax Calculator</option>
+    </optgroup>
+    <optgroup label="Healthcare">
+      <option value="medicare_aca.html">📌 Medicare Hub</option>
+      <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
+      <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
+      <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
+      <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
+      <option value="long_term_care.html">📌 Long Term Care</option>
+    </optgroup>
+    <optgroup label="Go Back">
+      <option value="index.html">🏠 HOME</option>
+    </optgroup>
+  </select>
+</nav>
 
 <div class="page-wrapper">
 
