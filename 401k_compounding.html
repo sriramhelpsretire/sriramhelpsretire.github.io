@@ -106,6 +106,32 @@
 
   ::-webkit-scrollbar { width:5px; }
   ::-webkit-scrollbar-thumb { background:#ccc; border-radius:3px; }
+
+  /* ── Sliders ─────────────────────────────────────────────────────── */
+  .slider-wrap { margin-top:5px; }
+  input[type=range] {
+    -webkit-appearance:none; appearance:none;
+    width:100%; height:4px; border-radius:2px; outline:none; cursor:pointer;
+    background: linear-gradient(
+      to right,
+      #c9933a 0%, #c9933a var(--fill,0%),
+      rgba(255,255,255,.12) var(--fill,0%), rgba(255,255,255,.12) 100%
+    );
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance:none; width:14px; height:14px;
+    background:#e8c84a; border-radius:50%; cursor:pointer;
+    box-shadow:0 0 4px rgba(232,200,74,.5);
+    transition:transform .12s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform:scale(1.25); }
+  input[type=range]::-moz-range-thumb {
+    width:14px; height:14px; background:#e8c84a; border-radius:50%;
+    border:none; cursor:pointer; box-shadow:0 0 4px rgba(232,200,74,.5);
+  }
+  input[type=range]::-moz-range-track {
+    height:4px; border-radius:2px; background:rgba(255,255,255,.12);
+  }
 </style>
 </head>
 <body>
@@ -122,6 +148,7 @@
       <option value="steps_retirement.html">📌 Steps in Retirement</option>
       <option value="terms.html">📌 Terms Used</option>
       <option value="website.html">📌 Web Sites</option>
+	  <option value="faq.html">📌 FAQ</option>
     </optgroup>
     <optgroup label="Calculators">
       <option value="retirement_calculator.html">📌 Retirement Calculator</option>
@@ -147,16 +174,19 @@
     <h3>Your Situation</h3>
     <div class="field">
       <label>Current Age</label>
-      <input type="number" id="startAge" value="25" oninput="checkLimit()">
+      <input type="number" id="startAge" value="25" oninput="fieldChange('startAge')">
+      <div class="slider-wrap"><input type="range" id="startAge_s" min="18" max="75" step="1" value="25" oninput="sliderChange('startAge')"></div>
     </div>
     <div class="field">
       <label>Starting Balance ($)</label>
-      <input type="number" id="startBal" value="0">
+      <input type="number" id="startBal" value="0" oninput="fieldChange('startBal')">
+      <div class="slider-wrap"><input type="range" id="startBal_s" min="0" max="500000" step="1000" value="0" oninput="sliderChange('startBal')"></div>
       <div class="field-note">Existing 401k / rollover balance</div>
     </div>
     <div class="field">
       <label>Retirement Age</label>
-      <input type="number" id="endAge" value="65">
+      <input type="number" id="endAge" value="65" oninput="fieldChange('endAge')">
+      <div class="slider-wrap"><input type="range" id="endAge_s" min="40" max="80" step="1" value="65" oninput="sliderChange('endAge')"></div>
     </div>
   </div>
 
@@ -164,18 +194,21 @@
     <h3>Contributions</h3>
     <div class="field">
       <label>Your Annual Contribution ($)</label>
-      <input type="number" id="annualCont" value="23500" oninput="checkLimit()">
+      <input type="number" id="annualCont" value="23500" oninput="fieldChange('annualCont')">
+      <div class="slider-wrap"><input type="range" id="annualCont_s" min="0" max="35000" step="500" value="23500" oninput="sliderChange('annualCont')"></div>
       <div id="limitWarn" class="limit-warn"></div>
       <div id="limitOk"   class="limit-ok"></div>
     </div>
     <div class="field">
       <label>Employer Match ($)</label>
-      <input type="number" id="empMatch" value="5000">
+      <input type="number" id="empMatch" value="5000" oninput="fieldChange('empMatch')">
+      <div class="slider-wrap"><input type="range" id="empMatch_s" min="0" max="20000" step="500" value="5000" oninput="sliderChange('empMatch')"></div>
       <div class="field-note">Fixed annual match</div>
     </div>
     <div class="field">
       <label>Contribution Increase ($/yr)</label>
-      <input type="number" id="contInc" value="500">
+      <input type="number" id="contInc" value="500" oninput="fieldChange('contInc')">
+      <div class="slider-wrap"><input type="range" id="contInc_s" min="0" max="3000" step="100" value="500" oninput="sliderChange('contInc')"></div>
       <div class="field-note">Step-up each year (raise, habit)</div>
     </div>
   </div>
@@ -184,16 +217,19 @@
     <h3>Growth &amp; Costs</h3>
     <div class="field">
       <label>Expected Gross Return (%)</label>
-      <input type="number" id="grossRate" value="7" step="0.1">
+      <input type="number" id="grossRate" value="7" step="0.1" oninput="fieldChange('grossRate')">
+      <div class="slider-wrap"><input type="range" id="grossRate_s" min="1" max="15" step="0.1" value="7" oninput="sliderChange('grossRate')"></div>
     </div>
     <div class="field">
       <label>Fund Expense Ratio (%)</label>
-      <input type="number" id="expRatio" value="0.10" step="0.01">
+      <input type="number" id="expRatio" value="0.10" step="0.01" oninput="fieldChange('expRatio')">
+      <div class="slider-wrap"><input type="range" id="expRatio_s" min="0" max="2" step="0.01" value="0.10" oninput="sliderChange('expRatio')"></div>
       <div class="field-note">Index fund typical: 0.03–0.20%</div>
     </div>
     <div class="field">
       <label>Inflation Rate (%)</label>
-      <input type="number" id="inflation" value="3.0" step="0.1">
+      <input type="number" id="inflation" value="3.0" step="0.1" oninput="fieldChange('inflation')">
+      <div class="slider-wrap"><input type="range" id="inflation_s" min="1" max="8" step="0.1" value="3.0" oninput="sliderChange('inflation')"></div>
       <div class="field-note">Used to show real (today's $) values</div>
     </div>
   </div>
@@ -202,8 +238,16 @@
     <h3>Delay Comparison</h3>
     <div class="field-note" style="color:#c8c4b4;margin-bottom:8px;">What if you waited?</div>
     <div class="delay-row">
-      <div class="field"><label>Delay 1 (yrs)</label><input type="number" id="delay1" value="5" min="1" max="30"></div>
-      <div class="field"><label>Delay 2 (yrs)</label><input type="number" id="delay2" value="10" min="1" max="30"></div>
+      <div class="field">
+        <label>Delay 1 (yrs)</label>
+        <input type="number" id="delay1" value="5" min="1" max="20" oninput="fieldChange('delay1')">
+        <div class="slider-wrap"><input type="range" id="delay1_s" min="1" max="20" step="1" value="5" oninput="sliderChange('delay1')"></div>
+      </div>
+      <div class="field">
+        <label>Delay 2 (yrs)</label>
+        <input type="number" id="delay2" value="10" min="1" max="20" oninput="fieldChange('delay2')">
+        <div class="slider-wrap"><input type="range" id="delay2_s" min="1" max="20" step="1" value="10" oninput="sliderChange('delay2')"></div>
+      </div>
     </div>
   </div>
 
@@ -211,7 +255,8 @@
     <h3>Withdrawal Preview</h3>
     <div class="field">
       <label>Safe Withdrawal Rate (%)</label>
-      <input type="number" id="swr" value="4.0" step="0.1">
+      <input type="number" id="swr" value="4.0" step="0.1" oninput="fieldChange('swr')">
+      <div class="slider-wrap"><input type="range" id="swr_s" min="2" max="8" step="0.1" value="4.0" oninput="sliderChange('swr')"></div>
       <div class="field-note">4% rule (Bengen). Adjust to taste.</div>
     </div>
   </div>
@@ -340,6 +385,51 @@ function simulate(startAge, endAge, startBal, contBase, match, contInc, netRate,
     cont += contInc;
   }
   return results;
+}
+
+// ── Slider configuration ──────────────────────────────────────────────────
+const SLIDER_CFG = {
+  startAge:   { min:18,  max:75,     step:1    },
+  startBal:   { min:0,   max:500000, step:1000 },
+  endAge:     { min:40,  max:80,     step:1    },
+  annualCont: { min:0,   max:35000,  step:500  },
+  empMatch:   { min:0,   max:20000,  step:500  },
+  contInc:    { min:0,   max:3000,   step:100  },
+  grossRate:  { min:1,   max:15,     step:0.1  },
+  expRatio:   { min:0,   max:2,      step:0.01 },
+  inflation:  { min:1,   max:8,      step:0.1  },
+  delay1:     { min:1,   max:20,     step:1    },
+  delay2:     { min:1,   max:20,     step:1    },
+  swr:        { min:2,   max:8,      step:0.1  },
+};
+
+function updateFill(id) {
+  const sl  = document.getElementById(id + '_s');
+  if (!sl) return;
+  const cfg = SLIDER_CFG[id];
+  const pct = ((parseFloat(sl.value) - cfg.min) / (cfg.max - cfg.min)) * 100;
+  sl.style.setProperty('--fill', Math.min(100, Math.max(0, pct)).toFixed(2) + '%');
+}
+
+function sliderChange(id) {
+  const sl  = document.getElementById(id + '_s');
+  const inp = document.getElementById(id);
+  inp.value = sl.value;
+  updateFill(id);
+  checkLimit();
+  run();
+}
+
+function fieldChange(id) {
+  const inp = document.getElementById(id);
+  const sl  = document.getElementById(id + '_s');
+  if (sl) { sl.value = inp.value; updateFill(id); }
+  checkLimit();
+  run();
+}
+
+function initSliders() {
+  Object.keys(SLIDER_CFG).forEach(id => updateFill(id));
 }
 
 let chartLine = null, chartStack = null;
@@ -499,6 +589,7 @@ function run() {
   });
 }
 
+initSliders();
 run();
 checkLimit();
 </script>
