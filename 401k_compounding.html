@@ -5,21 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>401k Compounding Calculator | Retire Wise and Live Happy</title>
 
-<!-- Primary SEO -->
 <meta name="description" content="Free 401k compounding calculator — model employer match, contribution step-ups, Roth vs Traditional comparison, and the true cost of waiting to invest. See how compound interest grows your retirement savings." />
 <meta name="keywords" content="401k calculator, compound interest calculator, 401k growth calculator, employer match calculator, Roth vs Traditional 401k, cost of waiting calculator, 401k contribution calculator, retirement compounding" />
 <meta name="author" content="Sriram Gopalaratnam" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://wise-retiree.com/401k_compounding.html" />
 
-<!-- Open Graph -->
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://wise-retiree.com/401k_compounding.html" />
 <meta property="og:title" content="401k Compounding Calculator | Retire Wise and Live Happy" />
 <meta property="og:description" content="See how your 401k grows with employer match, annual step-ups and compound interest. Compare Roth vs Traditional and the real cost of waiting." />
 <meta property="og:site_name" content="Retire Wise and Live Happy" />
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="401k Compounding Calculator | Retire Wise and Live Happy" />
 <meta name="twitter:description" content="Free 401k calculator with employer match, Roth vs Traditional comparison and cost of waiting. See compound growth in action." />
@@ -121,6 +118,16 @@
   .tag-cu    { background:rgba(124,58,237,.15); color:#7c3aed; font-size:8px; padding:1px 4px; border-radius:3px; margin-left:3px; }
   .tag-super { background:rgba(220,38,38,.15);  color:#dc2626; font-size:8px; padding:1px 4px; border-radius:3px; margin-left:3px; }
 
+  /* Definitions Styling */
+  .definitions-wrap { margin-top: 30px; background: #fff; border: 1.5px solid #000; border-radius: 10px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,.07); color: var(--text); }
+  .definitions-wrap h2 { font-family: 'DM Serif Display', serif; font-size: 22px; color: #1a2a3a; margin-bottom: 20px; border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
+  .definitions-wrap h3 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: #1a2a3a; margin-top: 18px; margin-bottom: 6px; }
+  .definitions-wrap p { font-family: 'DM Sans', sans-serif; font-size: 13.5px; line-height: 1.5; color: var(--muted); margin-bottom: 12px; }
+  .definitions-wrap ul { margin-left: 20px; margin-bottom: 14px; list-style-type: disc; }
+  .definitions-wrap li { font-family: 'DM Sans', sans-serif; font-size: 13.5px; line-height: 1.5; color: var(--muted); margin-bottom: 6px; }
+  .definitions-wrap .example-box { background: #f8fafc; border-left: 4px solid var(--blue); padding: 12px 16px; margin: 10px 0; border-radius: 0 6px 6px 0; }
+  .definitions-wrap .note-box { background: #fef3c7; border-left: 4px solid #d97706; padding: 12px 16px; margin-top: 20px; border-radius: 0 6px 6px 0; }
+
   ::-webkit-scrollbar { width:5px; }
   ::-webkit-scrollbar-thumb { background:#ccc; border-radius:3px; }
 
@@ -156,7 +163,7 @@
 <nav class="top-nav">
   <div class="nav-brand">
     <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
-    Retire Wise and Live Happy
+    Retire Wise and Live Happy&trade; -                   Power of Compounding. Learn how much your investment reaches at your retirement age.
   </div>
   <ul class="nav-links">
     <li class="nav-item">
@@ -330,13 +337,11 @@
   <div class="btn-group">
     <button class="action-btn calc-btn" onclick="run()">CALCULATE GROWTH</button>
     <a href="index.html" class="action-btn home-btn">HOME</a>
-    <button class="action-btn" onclick="openFeedback()" style="background:#d4af37;color:#000;border:2px solid #000;">&#x1F4EC; Feedback</button>
   </div>
 </aside>
 
 <main class="main">
 
-  <!-- Summary cards -->
   <div class="cards">
     <div class="card c-green">
       <div class="clabel">Balance at Age <span id="dRetAge">65</span></div>
@@ -365,7 +370,6 @@
     </div>
   </div>
 
-  <!-- Insight bar -->
   <div class="insight-bar">
     <div class="ii"><span class="ik">Net return (after fees): </span><span class="iv" id="iNet">—</span></div>
     <div class="ii"><span class="ik">Years of compounding: </span><span class="iv" id="iYrs">—</span></div>
@@ -374,7 +378,6 @@
     <div class="ii"><span class="ik">SECURE 2.0 super catch-up (60–63): </span><span class="iv" id="iSCU">—</span></div>
   </div>
 
-  <!-- Charts -->
   <div class="charts-row">
     <div class="chart-box">
       <h4>📈 Balance Growth — Start Now vs. Waiting</h4>
@@ -386,7 +389,6 @@
     </div>
   </div>
 
-  <!-- Detail table -->
   <div class="table-wrap">
     <table>
       <thead>
@@ -405,6 +407,76 @@
       </thead>
       <tbody id="tbody"></tbody>
     </table>
+  </div>
+
+  <div class="definitions-wrap">
+    <h2>401(k) Calculator Definitions</h2>
+    
+    <h3>Percent to Contribute</h3>
+    <p>This is the percentage of your annual salary that you choose to contribute to your 401(k) each year. Your yearly contribution is subject to IRS contribution limits.</p>
+    <p>For 2026:</p>
+    <ul>
+      <li>Maximum employee contribution: $24,500</li>
+      <li>Age 50+ catch-up contribution: additional $8,000</li>
+      <li>Ages 60–63 enhanced catch-up contribution under SECURE 2.0: additional $11,250</li>
+    </ul>
+    <p>If your income exceeds certain IRS thresholds, catch-up contributions may be required to go into a Roth (after-tax) 401(k).</p>
+    <p>Employer contributions are separate and do not count toward your personal IRS contribution limit.</p>
+    <p>Employees considered “Highly Compensated Employees (HCE)” may face additional contribution restrictions depending on their company’s plan rules. If your salary is expected to be $160,000 or more in 2026 (or was $160,000+ in 2025), check with your employer’s benefits department for any plan-specific limitations.</p>
+
+    <h3>Annual Salary</h3>
+    <p>This is your gross annual salary from your employer before taxes, deductions, or benefits. Only include compensation paid by your employer. Do not include rental income, investment income, pensions, Social Security, or other outside sources.</p>
+
+    <h3>Current Age</h3>
+    <p>Your age today.</p>
+
+    <h3>Age at Retirement</h3>
+    <p>The age you expect to retire. This calculator assumes that contributions stop during the year you retire. For example, if you plan to retire at age 65, your final full year of contributions will occur while you are age 64.</p>
+
+    <h3>Current 401(k) Balance</h3>
+    <p>The total amount currently invested in your 401(k) account. This serves as the starting point for future growth calculations.</p>
+
+    <h3>Annual Rate of Return</h3>
+    <p>This is the estimated annual investment growth rate for your 401(k). The calculator assumes:</p>
+    <ul>
+      <li>investment returns compound annually</li>
+      <li>contributions are made monthly</li>
+    </ul>
+    <p>Actual investment performance will vary depending on your investment choices and market conditions. Historically, long-term stock market returns have averaged around 10–11% annually, although returns can vary significantly from year to year. Higher expected returns generally come with higher levels of risk and volatility. Past performance does not guarantee future results, and investments can lose value, including principal.</p>
+
+    <h3>Annual Salary Increase</h3>
+    <p>This is the estimated percentage your salary increases each year. The calculator assumes your salary continues to grow at this rate until retirement.</p>
+
+    <h3>Employer Match</h3>
+    <p>This is the percentage of your contributions your employer matches. Many employers match only up to a certain percentage of your salary. See “Employer Maximum” below for details.</p>
+    <p>Employer matching contributions:</p>
+    <ul>
+      <li>are an additional retirement benefit</li>
+      <li>do not count toward your IRS employee contribution limit</li>
+      <li>may be subject to a vesting schedule based on years of service</li>
+    </ul>
+    <p>Check your company’s 401(k) plan documents for specific rules.</p>
+
+    <h3>Employer Maximum</h3>
+    <p>This is the maximum portion of your salary eligible for employer matching.</p>
+
+    <div class="example-box">
+      <strong>Example</strong>
+      <p style="margin-top: 6px; margin-bottom: 4px;">Suppose:</p>
+      <ul>
+        <li>Your salary is $100,000</li>
+        <li>Your employer matches 50% of contributions</li>
+        <li>The match applies only to the first 6% of salary contributed</li>
+      </ul>
+      <p><strong>If you contribute 6%</strong><br>Your contribution: $6,000 | Employer contribution: $3,000 | Total annual contribution: $9,000</p>
+      <p><strong>If you contribute 3%</strong><br>Your contribution: $3,000 | Employer contribution: $1,500 | Total annual contribution: $4,500</p>
+      <p style="margin-bottom: 0;"><strong>If you contribute 10%</strong><br>Your contribution: $10,000 | Employer contribution remains capped at $3,000 | Total annual contribution: $13,000<br><span style="font-size: 12.5px; font-style: italic; color: #64748b;">Even though you contributed more, the employer match stopped at the first 6% of salary based on the company’s matching policy.</span></p>
+    </div>
+
+    <div class="note-box">
+      <strong>Important Note</strong>
+      <p style="margin-bottom: 0; margin-top: 4px;">This calculator is designed for educational and planning purposes only. It uses hypothetical assumptions and cannot predict future market performance, inflation, tax law changes, or investment outcomes. Always consult your financial advisor, tax professional, or retirement plan administrator before making major retirement planning decisions.</p>
+    </div>
   </div>
 
 </main>
@@ -661,254 +733,7 @@ run();
 checkLimit();
 </script>
 
-<!--
-  CHANGE LOG
-  ==========
-  Original  — Basic 401k compounding: age, contribution, match, growth, step-up, retirement age.
-
-  2026-05-04 — Major update. All suggestions implemented:
-    + Starting balance field (for existing 401k / rollovers)
-    + Fund expense ratio → net return = gross return − expense ratio
-    + Inflation rate → real (today's $) shown in cards and table column
-    + IRS 2026 limit guard: warns if contribution exceeds limit for age
-    + Contributions auto-capped at IRS limit per year during calculation
-    + Age-aware catch-up ($31,000 at 50+) and SECURE 2.0 super catch-up ($34,750 at 60–63)
-    + Catch-up / SUPER tags on age rows in table
-    + Delay comparison: two configurable "what if I waited N years" scenarios
-    + Line chart updated: 3 lines (Start Now, Delay 1, Delay 2)
-    + Stacked bar chart: Your Money (green) vs. Compounding Growth (gold)
-    + Safe withdrawal rate → monthly income preview card
-    + Cards: final nominal, final real, cumul contrib %, cumul growth %, SWR, delay cost
-    + Insight bar: net return, years, IRS limit, catch-up eligibility flags
-    + Table: real value col, cumul contrib, cumul growth, delay 1 & 2 balances
-
-  Update IRS object each November when IRS announces next-year limits.
--->
-<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
-  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
-         z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
-
-  <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
-              border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
-              position:relative;font-family:'Segoe UI',Arial,sans-serif;
-              box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
-
-    <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;
-      background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
-
-    <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
-    <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
-
-    <div style="margin-bottom:14px;">
-      <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
-      <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
-        <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
-        <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
-        <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
-        <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
-        <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
-      </div>
-      <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
-    </div>
-
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
-        What topic brought you here today?
-      </div>
-      <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
-        <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
-        <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
-        <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
-        <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
-        <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
-        <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
-        <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
-        <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
-      </div>
-    </div>
-
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
-        Rate your experience
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
-        <thead><tr>
-          <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
-        </tr></thead>
-        <tbody>
-          <tr style="border-top:1px solid #f0f0f0;">
-            <td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td>
-            <td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-            <td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-            <td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-          </tr>
-          <tr style="border-top:1px solid #f0f0f0;">
-            <td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td>
-            <td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-            <td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-            <td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-          </tr>
-          <tr style="border-top:1px solid #f0f0f0;">
-            <td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td>
-            <td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-            <td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-            <td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-          </tr>
-          <tr style="border-top:1px solid #f0f0f0;">
-            <td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td>
-            <td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-            <td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-            <td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;cursor:pointer;"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
-        Your thoughts
-      </div>
-      <div style="margin-bottom:10px;">
-        <label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label>
-        <input id="fb-useful" type="text" placeholder="e.g. the Medicare comparison table, the calculator&#x2026;"
-          style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;"
-          onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'">
-      </div>
-      <div style="margin-bottom:10px;">
-        <label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area of the site needs the most improvement?</label>
-        <select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;"
-          onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'">
-          <option value="">&#x2014; Select an area &#x2014;</option>
-          <option value="Medicare / ACA content">Medicare / ACA content</option>
-          <option value="Social Security guidance">Social Security guidance</option>
-          <option value="Tax planning content">Tax planning content</option>
-          <option value="Retirement calculators">Retirement calculators</option>
-          <option value="Portfolio / investment content">Portfolio / investment content</option>
-          <option value="Withdrawal strategy content">Withdrawal strategy content</option>
-          <option value="401k / savings content">401k / savings content</option>
-          <option value="Long term care content">Long term care content</option>
-          <option value="Site navigation / layout">Site navigation / layout</option>
-          <option value="Mobile experience">Mobile experience</option>
-          <option value="Something not listed">Something not listed</option>
-        </select>
-      </div>
-      <div style="margin-bottom:10px;">
-        <label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">
-          How can we make that area better? <span style="color:#a82222;">*</span>
-        </label>
-        <textarea id="fb-improve" rows="3" placeholder="Be as specific as you like &#x2014; what would make it more useful or clearer?"
-          style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;"
-          onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea>
-        <div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div>
-      </div>
-      <div style="margin-bottom:4px;">
-        <label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label>
-        <input id="fb-add" type="text" placeholder="e.g. a topic, calculator, or example I&#39;d love to see&#x2026;"
-          style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;"
-          onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'">
-      </div>
-    </div>
-
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
-        About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div>
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label>
-          <input id="fb-name" type="text" placeholder="Your name"
-            style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;"
-            onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'">
-        </div>
-        <div>
-          <label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label>
-          <input id="fb-email" type="email" placeholder="your@email.com"
-            style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;"
-            onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'">
-        </div>
-      </div>
-    </div>
-
-    <button id="fb-submit" onclick="submitFeedback()"
-      style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;
-             padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;
-             transition:background .2s,color .2s;"
-      onmouseover="this.style.background='#693909';this.style.color='#fff';"
-      onmouseout="this.style.background='#d4af37';this.style.color='#000';">
-      Send Feedback
-    </button>
-    <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
-
-  </div>
-</div>
-<script>
-  (function() {
-    var style = document.createElement('style');
-    style.textContent = '.fb-chk{display:flex;align-items:center;gap:7px;font-size:13px;color:#333;cursor:pointer;padding:6px 8px;border-radius:6px;border:1.5px solid #e0e0e0;transition:border-color .15s,background .15s;}.fb-chk:hover{border-color:#d4af37;background:#fffbf0;}.fb-chk input[type=checkbox]{accent-color:#d4af37;width:15px;height:15px;cursor:pointer;}.fb-chk.checked{border-color:#d4af37;background:#fffbf0;}';
-    document.head.appendChild(style);
-    document.querySelectorAll('.fb-chk').forEach(function(lbl){
-      lbl.querySelector('input').addEventListener('change',function(){lbl.classList.toggle('checked',this.checked);});
-    });
-    var pageMap={'medicare_aca':['Medicare / ACA'],'healthcare_medicare':['Medicare / ACA'],'healthcare_aca':['Medicare / ACA'],'aca_vs_cobra':['Medicare / ACA'],'medicare_flowchart':['Medicare / ACA'],'long_term_care':['Long term care'],'tax_calculator':['Tax planning'],'retirement_calculator':['Withdrawal strategy','Investment / Portfolio'],'montecarlo':['Withdrawal strategy','Investment / Portfolio'],'401k':['401k / Savings'],'portfolio':['Investment / Portfolio'],'transition_plan':['Withdrawal strategy'],'financial_plan':['Investment / Portfolio']};
-    var page=window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
-    Object.keys(pageMap).forEach(function(key){if(page.includes(key)){pageMap[key].forEach(function(topic){document.querySelectorAll('.fb-chk input').forEach(function(inp){if(inp.value===topic){inp.checked=true;inp.closest('.fb-chk').classList.add('checked');}});});}});
-  })();
-
-  const SCRIPT_URL="https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-  const PAGE_NAME=document.title||window.location.pathname;
-  let selectedRating=0;
-  const starLabels=['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
-
-  function setRating(val){
-    selectedRating=val;
-    document.querySelectorAll(".star").forEach(s=>{const v=parseInt(s.dataset.val);s.textContent=v<=val?"★":"☆";s.style.color=v<=val?"#d4af37":"#aaa";});
-    const lbl=document.getElementById("star-label");if(lbl)lbl.textContent=starLabels[val]||"";
-  }
-
-  function openFeedback(){
-    document.getElementById("feedback-overlay").style.display="flex";
-    document.getElementById("fb-status").textContent="";
-  }
-  function closeFeedback(){document.getElementById("feedback-overlay").style.display="none";}
-  function closeFeedbackOutside(e){if(e.target===document.getElementById("feedback-overlay"))closeFeedback();}
-
-  function submitFeedback(){
-    const improve=document.getElementById("fb-improve").value.trim();
-    const status=document.getElementById("fb-status");
-    const btn=document.getElementById("fb-submit");
-    if(!improve){status.style.color="#a82222";status.textContent="Please share how we can improve — that field is required.";return;}
-    const topics=[...document.querySelectorAll('.fb-chk input:checked')].map(i=>i.value).join(', ');
-    const payload={page:PAGE_NAME,rating:selectedRating?selectedRating+" ★":"Not rated",topics,
-      q_easy:document.querySelector('input[name="q1"]:checked')?.value||'',
-      q_found:document.querySelector('input[name="q2"]:checked')?.value||'',
-      q_calculators:document.querySelector('input[name="q3"]:checked')?.value||'',
-      q_recommend:document.querySelector('input[name="q4"]:checked')?.value||'',
-      useful:document.getElementById("fb-useful").value.trim(),
-      area:document.getElementById("fb-area").value,improve,
-      add:document.getElementById("fb-add").value.trim(),
-      name:document.getElementById("fb-name").value.trim(),
-      email:document.getElementById("fb-email").value.trim()};
-    btn.disabled=true;btn.textContent="Sending…";status.textContent="";
-    fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
-    .then(()=>{
-      status.style.color="#2a7a2a";status.textContent="✅ Thank you! Your feedback has been received.";
-      btn.textContent="Send Feedback";btn.disabled=false;
-      document.querySelectorAll('.fb-chk input').forEach(i=>{i.checked=false;i.closest('.fb-chk').classList.remove('checked');});
-      ['q1','q2','q3','q4'].forEach(n=>{const r=document.querySelector(`input[name="${n}"]:checked`);if(r)r.checked=false;});
-      ['fb-useful','fb-area','fb-improve','fb-add','fb-name','fb-email'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-      setRating(0);setTimeout(closeFeedback,2500);
-    })
-    .catch(()=>{status.style.color="#a82222";status.textContent="Something went wrong — please try again.";btn.textContent="Send Feedback";btn.disabled=false;});
-  }
-
-  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeFeedback();});
-</script>
 </body>
 </html>
+
+```
