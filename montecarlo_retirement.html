@@ -939,120 +939,7 @@ body::after {
 </button>
 
 <!-- Modal Overlay -->
-<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
-  style="
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 10000;
-    align-items: center;
-    justify-content: center;
-  ">
 
-  <!-- Modal Box -->
-  <div style="
-    background: #fff;
-    border: 2px solid #000;
-    border-top: 6px solid #d4af37;
-    border-radius: 12px;
-    padding: 30px 28px 24px;
-    width: 92%;
-    max-width: 460px;
-    position: relative;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  ">
-
-    <!-- Close X -->
-    <button onclick="closeFeedback()" style="
-      position: absolute; top: 12px; right: 14px;
-      background: none; border: none; font-size: 22px;
-      cursor: pointer; color: #555; line-height: 1;
-    ">✕</button>
-
-    <!-- Title -->
-    <div style="font-size: 19px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;">
-      Share Your Feedback
-    </div>
-    <div style="font-size: 13px; color: #666; margin-bottom: 20px;">
-      We read every response — thank you for taking the time!
-    </div>
-
-    <!-- Star Rating -->
-    <div style="margin-bottom: 16px;">
-      <div style="font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px;">
-        How helpful was this page?
-      </div>
-      <div id="star-row" style="display: flex; gap: 8px; font-size: 28px; cursor: pointer;">
-        <span class="star" data-val="1" onclick="setRating(1)">☆</span>
-        <span class="star" data-val="2" onclick="setRating(2)">☆</span>
-        <span class="star" data-val="3" onclick="setRating(3)">☆</span>
-        <span class="star" data-val="4" onclick="setRating(4)">☆</span>
-        <span class="star" data-val="5" onclick="setRating(5)">☆</span>
-      </div>
-    </div>
-
-    <!-- Name -->
-    <div style="margin-bottom: 12px;">
-      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
-        Name <span style="color:#999; font-weight:400;">(optional)</span>
-      </label>
-      <input id="fb-name" type="text" placeholder="Your name"
-        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
-               font-size:14px; box-sizing:border-box; outline:none;"
-        onfocus="this.style.borderColor='#d4af37';"
-        onblur="this.style.borderColor='#ccc';">
-    </div>
-
-    <!-- Email -->
-    <div style="margin-bottom: 12px;">
-      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
-        Email <span style="color:#999; font-weight:400;">(optional)</span>
-      </label>
-      <input id="fb-email" type="email" placeholder="your@email.com"
-        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
-               font-size:14px; box-sizing:border-box; outline:none;"
-        onfocus="this.style.borderColor='#d4af37';"
-        onblur="this.style.borderColor='#ccc';">
-    </div>
-
-    <!-- Message -->
-    <div style="margin-bottom: 18px;">
-      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
-        Your feedback <span style="color:#a82222;">*</span>
-      </label>
-      <textarea id="fb-message" rows="4" placeholder="What did you find helpful? What can we improve?"
-        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
-               font-size:14px; box-sizing:border-box; resize:vertical; outline:none;
-               font-family: inherit;"
-        onfocus="this.style.borderColor='#d4af37';"
-        onblur="this.style.borderColor='#ccc';"></textarea>
-    </div>
-
-    <!-- Submit Button -->
-    <button id="fb-submit" onclick="submitFeedback()"
-      style="
-        width: 100%;
-        background: #d4af37;
-        color: #000;
-        border: 2px solid #000;
-        border-radius: 8px;
-        padding: 12px;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-      "
-      onmouseover="this.style.background='#693909'; this.style.color='#fff';"
-      onmouseout="this.style.background='#d4af37'; this.style.color='#000';">
-      Send Feedback
-    </button>
-
-    <!-- Status message -->
-    <div id="fb-status" style="margin-top: 12px; font-size: 13px; text-align: center; min-height: 18px;"></div>
-
-  </div>
 
 
 
@@ -1457,93 +1344,201 @@ window.addEventListener('storage', (e) => {
 
 
 <script>
-  // ── Config ────────────────────────────────────────────────────
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-  const PAGE_NAME  = document.title || window.location.pathname;
+// ── Star rating ──────────────────────────────────────────────────────────────
+let selectedRating = 0;
+const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
 
-  // ── Rating ────────────────────────────────────────────────────
-  let selectedRating = 0;
+function setRating(val) {
+  selectedRating = val;
+  document.querySelectorAll('.star').forEach(s => {
+    s.classList.toggle('lit', +s.dataset.val <= val);
+    s.textContent = +s.dataset.val <= val ? '★' : '☆';
+  });
+  document.getElementById('star-label').textContent = starLabels[val] || '';
+}
 
-  function setRating(val) {
-    selectedRating = val;
-    document.querySelectorAll(".star").forEach(s => {
-      s.textContent = parseInt(s.dataset.val) <= val ? "★" : "☆";
-      s.style.color  = parseInt(s.dataset.val) <= val ? "#d4af37" : "#aaa";
+// ── Checkbox highlight ───────────────────────────────────────────────────────
+document.querySelectorAll('.fb-checks label').forEach(lbl => {
+  lbl.querySelector('input').addEventListener('change', function() {
+    lbl.classList.toggle('checked', this.checked);
+  });
+});
+
+// ── Page-aware auto-check ────────────────────────────────────────────────────
+const pageMap = {
+  'medicare': ['Medicare / ACA'],
+  'healthcare_medicare': ['Medicare / ACA'],
+  'healthcare_aca': ['Medicare / ACA'],
+  'aca_vs_cobra': ['Medicare / ACA'],
+  'medicare_flowchart': ['Medicare / ACA'],
+  'long_term_care': ['Long term care'],
+  'tax_calculator': ['Tax planning'],
+  'retirement_calculator': ['Withdrawal strategy','Investment / Portfolio'],
+  'montecarlo': ['Withdrawal strategy','Investment / Portfolio'],
+  '401k': ['401k / Savings'],
+  'portfolio': ['Investment / Portfolio'],
+  'transition_plan': ['Withdrawal strategy'],
+  'financial_plan': ['Investment / Portfolio'],
+};
+const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
+Object.keys(pageMap).forEach(key => {
+  if (page.includes(key)) {
+    pageMap[key].forEach(topic => {
+      document.querySelectorAll('.fb-checks input').forEach(inp => {
+        if (inp.value === topic) {
+          inp.checked = true;
+          inp.closest('label').classList.add('checked');
+        }
+      });
     });
   }
+});
 
-  // ── Open / Close ──────────────────────────────────────────────
-  function openFeedback() {
-    const overlay = document.getElementById("feedback-overlay");
-    overlay.style.display = "flex";
-    document.getElementById("fb-status").textContent = "";
+// ── Submit ───────────────────────────────────────────────────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
+
+function submitFeedback() {
+  const improve = document.getElementById('fb-improve').value.trim();
+  const status  = document.getElementById('fb-status');
+  const btn     = document.getElementById('fb-submit');
+
+  if (!improve) {
+    status.style.color = '#a82222';
+    status.textContent = 'Please share how we can improve — that field is required.';
+    return;
   }
 
-  function closeFeedback() {
-    document.getElementById("feedback-overlay").style.display = "none";
-  }
+  const topics = [...document.querySelectorAll('.fb-checks input:checked')].map(i => i.value).join(', ');
+  const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
+  const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
+  const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
+  const q4 = document.querySelector('input[name="q4"]:checked')?.value || '';
 
-  function closeFeedbackOutside(e) {
-    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
-  }
+  const payload = {
+    page:    window.location.pathname.split('/').pop() || 'unknown',
+    rating:  selectedRating ? selectedRating + ' ★' : 'Not rated',
+    topics,
+    q_easy:        q1,
+    q_found:       q2,
+    q_calculators: q3,
+    q_recommend:   q4,
+    useful:  document.getElementById('fb-useful').value.trim(),
+    area:    document.getElementById('fb-area').value,
+    improve,
+    add:     document.getElementById('fb-add').value.trim(),
+    name:    document.getElementById('fb-name').value.trim(),
+    email:   document.getElementById('fb-email').value.trim(),
+  };
 
-  // ── Submit ────────────────────────────────────────────────────
-  function submitFeedback() {
-    const message = document.getElementById("fb-message").value.trim();
-    const status  = document.getElementById("fb-status");
-    const btn     = document.getElementById("fb-submit");
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  status.style.color = '#555';
+  status.textContent = '';
 
-    if (!message) {
-      status.style.color = "#a82222";
-      status.textContent = "Please enter your feedback before sending.";
-      return;
-    }
-
-    btn.disabled     = true;
-    btn.textContent  = "Sending…";
-    status.textContent = "";
-
-    const payload = {
-      page:    PAGE_NAME,
-      rating:  selectedRating ? selectedRating + " ★" : "Not rated",
-      name:    document.getElementById("fb-name").value.trim(),
-      email:   document.getElementById("fb-email").value.trim(),
-      message: message
-    };
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode:   "no-cors",         // required for Apps Script
-      headers: { "Content-Type": "application/json" },
-      body:   JSON.stringify(payload)
-    })
+  fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
     .then(() => {
-      status.style.color = "#2a7a2a";
-      status.textContent = "✅ Thank you! Your feedback has been received.";
-      btn.textContent    = "Send Feedback";
-      btn.disabled       = false;
-      // Reset form
-      document.getElementById("fb-name").value    = "";
-      document.getElementById("fb-email").value   = "";
-      document.getElementById("fb-message").value = "";
-      setRating(0);
-      setTimeout(closeFeedback, 2500);
+      status.style.color = '#2e7d32';
+      status.textContent = '✅ Thank you! Your feedback has been received.';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
     })
     .catch(() => {
-      status.style.color = "#a82222";
-      status.textContent = "Something went wrong — please try again.";
-      btn.textContent    = "Send Feedback";
-      btn.disabled       = false;
+      status.style.color = '#a82222';
+      status.textContent = '⚠️ Could not send — please try again.';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
     });
-  }
-
-  // ── Keyboard: Escape to close ─────────────────────────────────
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeFeedback();
-  });
+}
 </script>
 
 
 
+
+
+
+
+
+
+<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+         z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
+  <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
+              border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
+              position:relative;font-family:'Segoe UI',Arial,sans-serif;
+              box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
+    <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
+    <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
+    <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
+      <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
+        <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
+        <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
+        <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
+        <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
+        <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
+      </div>
+      <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
+        What topic brought you here today?
+      </div>
+      <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
+        <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
+        <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
+        <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
+        <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
+        <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
+        <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
+        <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
+        <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
+      </div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
+        Rate your experience
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+        <thead><tr>
+          <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td><td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td><td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td><td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td><td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
+        Your thoughts
+      </div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label><input id="fb-useful" type="text" placeholder="e.g. the comparison table, the calculator..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area needs the most improvement?</label><select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"><option value="">&#x2014; Select an area &#x2014;</option><option>Medicare / ACA content</option><option>Social Security guidance</option><option>Tax planning content</option><option>Retirement calculators</option><option>Portfolio / investment content</option><option>Withdrawal strategy content</option><option>401k / savings content</option><option>Long term care content</option><option>Site navigation / layout</option><option>Mobile experience</option><option>Something not listed</option></select></div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">How can we make that area better? <span style="color:#a82222;">*</span></label><textarea id="fb-improve" rows="3" placeholder="Be as specific as you like..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea><div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div></div>
+      <div style="margin-bottom:4px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label><input id="fb-add" type="text" placeholder="e.g. a topic or calculator I'd love to see..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
+        About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label><input id="fb-name" type="text" placeholder="Your name" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label><input id="fb-email" type="email" placeholder="your@email.com" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+      </div>
+    </div>
+    <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
+    <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
+  </div>
+</div>
 </body>
 </html>

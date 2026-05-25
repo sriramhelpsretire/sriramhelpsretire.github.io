@@ -729,547 +729,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </button>
 
 <!-- Modal Overlay -->
-<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
-  style="
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 10000;
-    align-items: center;
-    justify-content: center;
-  ">
 
-  <!-- Modal Box -->
-  <div style="
-    background: #fff;
-    border: 2px solid #000;
-    border-top: 6px solid #d4af37;
-    border-radius: 12px;
-    padding: 30px 28px 24px;
-    width: 92%;
-    max-width: 460px;
-    position: relative;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  ">
-
-    <!-- Close X -->
-    <button onclick="closeFeedback()" style="
-      position: absolute; top: 12px; right: 14px;
-      background: none; border: none; font-size: 22px;
-      cursor: pointer; color: #555; line-height: 1;
-    ">✕</button>
-
-    <!-- Title -->
-    <div style="font-size: 19px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;">
-      Share Your Feedback
-    </div>
-    <div style="font-size: 13px; color: #666; margin-bottom: 20px;">
-      We read every response — thank you for taking the time!
-    </div>
-
-    <!-- Star Rating -->
-    <div style="margin-bottom: 16px;">
-      <div style="font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px;">
-        How helpful was this page?
-      </div>
-      <div id="star-row" style="display: flex; gap: 8px; font-size: 28px; cursor: pointer;">
-        <span class="star" data-val="1" onclick="setRating(1)">☆</span>
-        <span class="star" data-val="2" onclick="setRating(2)">☆</span>
-        <span class="star" data-val="3" onclick="setRating(3)">☆</span>
-        <span class="star" data-val="4" onclick="setRating(4)">☆</span>
-        <span class="star" data-val="5" onclick="setRating(5)">☆</span>
-      </div>
-    </div>
-
-    <!-- Name -->
-    <div style="margin-bottom: 12px;">
-      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
-        Name <span style="color:#999; font-weight:400;">(optional)</span>
-      </label>
-      <input id="fb-name" type="text" placeholder="Your name"
-        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
-               font-size:14px; box-sizing:border-box; outline:none;"
-        onfocus="this.style.borderColor='#d4af37';"
-        onblur="this.style.borderColor='#ccc';">
-    </div>
-
-    <!-- Email -->
-    <div style="margin-bottom: 12px;">
-      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
-        Email <span style="color:#999; font-weight:400;">(optional)</span>
-      </label>
-      <input id="fb-email" type="email" placeholder="your@email.com"
-        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
-               font-size:14px; box-sizing:border-box; outline:none;"
-        onfocus="this.style.borderColor='#d4af37';"
-        onblur="this.style.borderColor='#ccc';">
-    </div>
-
-    <!-- Message -->
-    <div style="margin-bottom: 18px;">
-      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
-        Your feedback <span style="color:#a82222;">*</span>
-      </label>
-      <textarea id="fb-message" rows="4" placeholder="What did you find helpful? What can we improve?"
-        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
-               font-size:14px; box-sizing:border-box; resize:vertical; outline:none;
-               font-family: inherit;"
-        onfocus="this.style.borderColor='#d4af37';"
-        onblur="this.style.borderColor='#ccc';"></textarea>
-    </div>
-
-    <!-- Submit Button -->
-    <button id="fb-submit" onclick="submitFeedback()"
-      style="
-        width: 100%;
-        background: #d4af37;
-        color: #000;
-        border: 2px solid #000;
-        border-radius: 8px;
-        padding: 12px;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-      "
-      onmouseover="this.style.background='#693909'; this.style.color='#fff';"
-      onmouseout="this.style.background='#d4af37'; this.style.color='#000';">
-      Send Feedback
-    </button>
-
-    <!-- Status message -->
-    <div id="fb-status" style="margin-top: 12px; font-size: 13px; text-align: center; min-height: 18px;"></div>
-
-  </div>
-
-<script>
-// ── tax_engine.js (inlined) ───────────────────────────────────────────────────
-const FED_BRACKETS = [
-  { lo: 0,       hi: 24800,   r: 0.10 },
-  { lo: 24800,   hi: 100800,  r: 0.12 },
-  { lo: 100800,  hi: 211400,  r: 0.22 },
-  { lo: 211400,  hi: 403550,  r: 0.24 },
-  { lo: 403550,  hi: 512450,  r: 0.32 },
-  { lo: 512450,  hi: 768700,  r: 0.35 },
-  { lo: 768700,  hi: 1e18,    r: 0.37 }
-];
-const CA_BRACKETS = [
-  { lo: 0,        hi: 22158,   r: 0.010 },
-  { lo: 22158,    hi: 52528,   r: 0.020 },
-  { lo: 52528,    hi: 82904,   r: 0.040 },
-  { lo: 82904,    hi: 115084,  r: 0.060 },
-  { lo: 115084,   hi: 145448,  r: 0.080 },
-  { lo: 145448,   hi: 742958,  r: 0.093 },
-  { lo: 742958,   hi: 891542,  r: 0.103 },
-  { lo: 891542,   hi: 1485906, r: 0.113 },
-  { lo: 1485906,  hi: 1e18,    r: 0.123 }
-];
-const FED = FED_BRACKETS;
-const CA  = CA_BRACKETS;
-
-function taxCalc(inc, br) {
-  if (inc <= 0) return 0;
-  let t = 0;
-  for (const b of br) {
-    if (inc <= b.lo) break;
-    t += (Math.min(inc, b.hi) - b.lo) * b.r;
-  }
-  return Math.round(t);
-}
-const calculateTax = taxCalc;
-
-function computeTax({ conv, w401, rmd, totalSS_yr, fedDed, caDed, caEx, isRetired }) {
-  const nonSsInc = (isRetired ? (conv + w401) : 0) + rmd;
-  const provInc  = nonSsInc + (totalSS_yr * 0.5);
-  let taxSsFed = 0;
-  if (provInc > 44000)      taxSsFed = Math.round(totalSS_yr * 0.85);
-  else if (provInc > 32000) taxSsFed = Math.round(Math.min(totalSS_yr * 0.5, (provInc - 32000) * 0.5));
-  const fedAgi        = nonSsInc + taxSsFed;
-  const fedTaxableInc = Math.max(0, fedAgi - fedDed);
-  const fedTax        = isRetired ? taxCalc(fedTaxableInc, FED_BRACKETS) : 0;
-  const caAdjInc      = nonSsInc;
-  const caTaxableInc  = Math.max(0, caAdjInc - caDed);
-  const caTaxRaw      = isRetired ? taxCalc(caTaxableInc, CA_BRACKETS) : 0;
-  const caTax         = Math.max(0, caTaxRaw - caEx);
-  const totalTax_yr   = fedTax + caTax;
-  return { nonSsInc, provInc, taxSsFed, fedAgi, fedTaxableInc, fedTax,
-           caAdjInc, caTaxableInc, caTaxRaw, caTax, totalTax_yr };
-}
-// ─────────────────────────────────────────────────────────────────────────────
-</script>
-<script>
-// FED, CA, FED_BRACKETS, CA_BRACKETS, taxCalc, computeTax — all from js/tax_engine.js
-
-const RMD_F={75:24.6,76:23.7,77:22.9,78:22,79:21.1,80:20.2,81:19.4,82:18.5,83:17.7,84:16.8,85:16,86:15.2,87:14.4,88:13.7,89:12.9,90:12.2};
-
-// ── IRMAA Brackets 2025 (MFJ) ────────────────────────────────────────────────
-// Source: CMS 2025. Part B monthly per person. 2-year MAGI lookback.
-const IRMAA_MFJ = [
-  { tier:0, label:'Standard',   magiLo:0,      magiHi:212000, partB_mo:185.00, partD_mo:0     },
-  { tier:1, label:'Tier 1',     magiLo:212001, magiHi:266000, partB_mo:259.00, partD_mo:12.90 },
-  { tier:2, label:'Tier 2',     magiLo:266001, magiHi:334000, partB_mo:370.00, partD_mo:33.30 },
-  { tier:3, label:'Tier 3',     magiLo:334001, magiHi:402000, partB_mo:480.90, partD_mo:53.80 },
-  { tier:4, label:'Tier 4',     magiLo:402001, magiHi:750000, partB_mo:591.90, partD_mo:74.20 },
-  { tier:5, label:'Tier 5',     magiLo:750001, magiHi:1e18,   partB_mo:628.90, partD_mo:81.00 },
-];
-function getIRMAA(magi) {
-  for (const b of IRMAA_MFJ) { if (magi <= b.magiHi) return b; }
-  return IRMAA_MFJ[IRMAA_MFJ.length - 1];
-}
-// IRMAA flag tiers: 0 = none, 1-2 = warning (orange), 3-5 = high (red)
-function irmaaTag(tier) {
-  if (tier === 0) return '';
-  const flags = '⚑'.repeat(tier);
-  const cls = tier <= 2 ? 'tag-irmaa' : 'tag-irmaa-hi';
-  return `<span class="tag ${cls}">IRMAA ${flags}</span>`;
-}
-// ─────────────────────────────────────────────────────────────────────────────
-function gi(id){return parseFloat(document.getElementById(id).value)||0}
-function f(n) {
-    if (n === null || n === undefined || isNaN(n)) return '—';
-    return '$' + Math.round(n).toLocaleString();
-}
-function fz(n) {
-    if (n === null || n === undefined || isNaN(n)) return '—';
-    return '$' + Math.round(n).toLocaleString();
-}
-function fm(n){if(n>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(0)+'K';return '$'+Math.round(n);}
-
-document.querySelectorAll('.tab').forEach(t=>{
-  t.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById(t.dataset.tab).classList.add('active');
-  });
-});
-
-function rowCls(r,ra,ma){return r.age===ra?'r-row':r.age>=ma?'m-row':'';}
-function yc(r,ra,ma){
-  let tag=r.age===ra?'<span class="tag tag-r">RETIRE</span>':r.age===ma?'<span class="tag tag-m">RMD</span>':'';
-  return `<td class="c hl">${r.year}${tag}</td><td class="c">${r.age}</td><td class="c">${r.wAge}</td>`;
-}
-const YH=`<th class="c" style="color:var(--accent)">Year</th><th class="c" style="color:var(--accent)">H.Age</th><th class="c" style="color:var(--accent)">W.Age</th>`;
-function fill(id,head,rowFn,rows){document.getElementById(id).innerHTML=`<thead><tr>${head}</tr></thead><tbody>${rows.map(rowFn).join('')}</tbody>`;}
-
-Chart.defaults.color='#7d8590';
-Chart.defaults.borderColor='#30363d';
-Chart.defaults.font.family="'DM Mono', monospace";
-Chart.defaults.font.size=14;
-
-let charts={};
-let globalRows=[];
-let currentView='portfolio';
-
-function mkChart(id,type,labels,datasets,opts={}){
-  const el=document.getElementById(id);
-  if(!el)return null;
-  if(charts[id])charts[id].destroy();
-  charts[id]=new Chart(el,{type,data:{labels,datasets},options:{
-    responsive:true,maintainAspectRatio:false,
-    onClick: (event, elements, chart) => {
-        if (elements.length > 0) {
-          const i = elements[0].index;
-          const label = chart.data.labels[i];
-          const value = chart.data.datasets[elements[0].datasetIndex].data[i];
-          const dataName = chart.data.datasets[elements[0].datasetIndex].label;
-          alert(`${dataName} at Age ${label}: ${fz(value)}`);
-        }
-      },
-    plugins:{legend:{display:opts.legend!==false,labels:{boxWidth:10,padding:12,color:'#a8b3bf'}},tooltip:{callbacks:{label:ctx=>{const v=ctx.raw;return ' '+fm(v);}}}},
-    scales:{
-      x:{grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:12}},
-      y:{grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}
-    },
-    ...opts
-  }});
-  return charts[id];
-}
-
-function lineDS(label,data,color,fill=false){
-  return{label,data,borderColor:color,backgroundColor:fill?color.replace(')',',0.15)').replace('rgb','rgba'):color+'22',borderWidth:2,pointRadius:0,pointHoverRadius:4,tension:.4,fill};
-}
-
-function switchView(view,btn){
-  currentView=view;
-  document.querySelectorAll('.ctbtn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderMainChart(globalRows);
-}
-
-function renderMainChart(rows){
-  if(!rows.length)return;
-  const ages=rows.map(r=>r.age);
-  const titles={portfolio:'Total Portfolio Growth by Age',accounts:'Portfolio by Account',tax:'Annual Tax Bill (Federal + CA)',income:'Social Security & RMD Income'};
-  document.getElementById('mainChartTitle').textContent=titles[currentView]||'';
-
-  if(currentView==='portfolio'){
-    mkChart('mainChart','line',ages,[lineDS('Total Portfolio',rows.map(r=>r.total),'rgb(232,200,74)',true)],{legend:false});
-  } else if(currentView==='accounts'){
-    mkChart('mainChart','line',ages,[
-      lineDS('401(k)',rows.map(r=>r.e4),'#e8c84a'),
-      lineDS('Roth IRA',rows.map(r=>r.eR),'#a78bfa'),
-      lineDS('Brokerage',rows.map(r=>r.eB),'#60a5fa'),
-      lineDS('HSA',rows.map(r=>r.eH),'#4ade80'),
-      lineDS('Bonds',rows.map(r=>r.eBn),'#fb923c'),
-    ]);
-  } else if(currentView==='tax'){
-    mkChart('mainChart','bar',ages,[
-      {label:'Federal Tax',data:rows.map(r=>r.fedTax),backgroundColor:'rgba(244,114,182,0.7)',borderWidth:0},
-      {label:'CA Tax',data:rows.map(r=>r.caTax),backgroundColor:'rgba(148,163,184,0.7)',borderWidth:0},
-    ],{scales:{x:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:12}},y:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}}});
-  } else if(currentView==='income'){
-    mkChart('mainChart','line',ages,[
-      lineDS('SS Income',rows.map(r=>r.totalSS_yr),'#fb7185'),
-      lineDS('RMD',rows.map(r=>r.rmd),'#38bdf8'),
-    ]);
-  }
-}
-
-function renderSubCharts(rows){
-  const ages=rows.map(r=>r.age);
-  const mini=(id,data,color)=>mkChart(id,'line',ages,[lineDS('',data,color,true)],{legend:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fm(ctx.raw)}}}});
-  mini('chart401k',rows.map(r=>r.e4),'#e8c84a');
-  mini('chartRoth',rows.map(r=>r.eR),'#a78bfa');
-  mini('chartHSA',rows.map(r=>r.eH),'#4ade80');
-  mini('chartBonds',rows.map(r=>r.eBn),'#fb923c');
-  mini('chartBrok',rows.map(r=>r.eB),'#60a5fa');
-  if(charts['chartTax'])charts['chartTax'].destroy();
-  charts['chartTax']=new Chart(document.getElementById('chartTax'),{type:'bar',data:{labels:ages,datasets:[
-    {label:'Federal',data:rows.map(r=>r.fedTax),backgroundColor:'rgba(244,114,182,0.7)',borderWidth:0},
-    {label:'CA',data:rows.map(r=>r.caTax),backgroundColor:'rgba(148,163,184,0.7)',borderWidth:0},
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:8,padding:10,color:'#a8b3bf'}}},scales:{x:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:10}},y:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}}}});
-}
-
-function updateSliders(){
-  const hAge0=gi('hAge'), endAge=gi('endAge');
-  const sA=parseInt(document.getElementById('sliderA').value);
-  const sB=parseInt(document.getElementById('sliderB').value);
-  document.getElementById('sliderAVal').textContent=sA;
-  document.getElementById('sliderBVal').textContent=sB;
-  document.getElementById('col-a-head').textContent='Age '+sA;
-  document.getElementById('col-b-head').textContent='Age '+sB;
-  document.getElementById('sliderA').min=hAge0; document.getElementById('sliderA').max=endAge;
-  document.getElementById('sliderB').min=hAge0; document.getElementById('sliderB').max=endAge;
-
-  const rA=globalRows.find(r=>r.age===sA)||globalRows[0];
-  const rB=globalRows.find(r=>r.age===sB)||globalRows[globalRows.length-1];
-  if(!rA||!rB)return;
-
-  const metrics=[
-    ['401(k)', r=>r.e4],
-    ['Roth IRA', r=>r.eR],
-    ['Brokerage', r=>r.eB],
-    ['HSA', r=>r.eH],
-    ['Bonds', r=>r.eBn],
-    ['AGI', r=>r.agi],
-    ['Annual SS Income', r=>r.totalSS_yr],
-    ['Annual RMD', r=>r.rmd],
-    ['Federal Tax', r=>r.fedTax],
-    ['CA Tax', r=>r.caTax],
-    ['Total Tax', r=>r.totalTax_yr],
-    ['SD+RMD Reinvested', r=>r.reinvested],
-    ['Total Portfolio', r=>r.total],
-  ];
-
-  const isLast=(i)=>i===metrics.length-1;
-  document.getElementById('compareBody').innerHTML=metrics.map(([label,fn],i)=>{
-    const vA=fn(rA), vB=fn(rB);
-    return `<tr>
-      <td${isLast(i)?' style="font-weight:700"':''}>${label}</td>
-      <td class="col-a"${isLast(i)?' style="font-weight:700"':''}>${vA?fz(vA):'—'}</td>
-      <td class="col-b"${isLast(i)?' style="font-weight:700"':''}>${vB?fz(vB):'—'}</td>
-    </tr>`;
-  }).join('');
-
-  if(charts['mainChart']){
-    renderMainChart(globalRows);
-    const chart=charts['mainChart'];
-    chart._ageMarkers=[sA,sB];
-  }
-}
-
-const ageMarkerPlugin={
-  id:'ageMarker',
-  afterDraw(chart){
-    const markers=chart._ageMarkers;
-    if(!markers||!markers.length)return;
-    const{ctx,scales:{x,y}}=chart;
-    const colors=['#e8c84a','#38bdf8'];
-    markers.forEach((age,i)=>{
-      const xPos=x.getPixelForValue(age);
-      if(!xPos)return;
-      ctx.save();
-      ctx.setLineDash([5,4]);
-      ctx.strokeStyle=colors[i];
-      ctx.lineWidth=1.5;
-      ctx.globalAlpha=.7;
-      ctx.beginPath();
-      ctx.moveTo(xPos,y.top);
-      ctx.lineTo(xPos,y.bottom);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle=colors[i];
-      ctx.font='bold 11px DM Sans, sans-serif';
-      ctx.fillText('Age '+age,xPos+4,y.top+14);
-      ctx.restore();
-    });
-  }
-};
-Chart.register(ageMarkerPlugin);
-
-function calculate(){
-  const startYear=parseInt(document.getElementById('startYear').value);
-  const hAge0=gi('hAge'),wAge00=gi('wAge0'),retireAge=gi('retireAge'),rmdAge=gi('rmdAge'),endAge=gi('endAge');
-  const r1=gi('gr1')/100,r2=gi('gr2')/100,ssCola=gi('ssCola')/100, infl=gi('inflation')/100;
-  const rothConv=gi('rothConv'),w401=gi('w401k'),c401=gi('c401k')+gi('m401k'),cHSA=gi('cHSA'), spend_inp=gi('spend');
-  const fedDed=gi('fedDed'),caDed=gi('caDed'),caEx=gi('caExempt');
-  const ssStartH=gi('ssStartH'),ssStartW=gi('ssStartW'),ssH0=gi('ssH'),ssW0=gi('ssW');
-
-  let prev={a:gi('b401k'),b:gi('bRoth'),c:gi('bBrok'),d:gi('bHSA'),e:gi('bBonds')};
-  let ssHB=ssH0,ssWB=ssW0,ssHS=false,ssWS=false;
-  let totalSS=0,totalTax=0,peak=0,peakAge=hAge0,retPort=0,finPort=0;
-  let rows=[];
-
-  for(let age=hAge0;age<=endAge;age++){
-    const year=startYear+(age-hAge0),wAge=wAge00+(age-hAge0);
-    const ret=age>=retireAge,rmdOn=age>=rmdAge;
-    
-    // Inflate spending
-    const spendTotal = spend_inp * Math.pow(1 + infl, age - hAge0);
-
-    const s4=prev.a,g4=s4*r1,c4=ret?0:c401,w4=ret?w401:0;
-    const conv=(ret&&age<75)?rothConv:0;
-    const e4=s4+g4+c4-w4-conv;
-    
-    const sR=prev.b,gR=sR*r1,eR=sR+gR+conv;
-    
-    const sB=prev.c,gB=sB*r1; 
-    // Brokerage is handled below after reinvestment calculation
-
-    const sH=prev.d,gH=sH*r1,cH=ret?0:cHSA,eH=sH+gH+cH;
-    const sBn=prev.e,gBn=sBn*r2,eBn=sBn+gBn;
-
-    let ssH=0,ssW=0;
-    if(age>=ssStartH){if(!ssHS){ssHS=true;ssHB=ssH0;}else ssHB*=(1+ssCola);ssH=ssHB;}
-    if(wAge>=ssStartW){if(!ssWS){ssWS=true;ssWB=ssW0;}else ssWB*=(1+ssCola);ssW=ssWB;}
-    const totalSS_yr=ssH+ssW;
-
-    const rmd=rmdOn&&RMD_F[age]?Math.round(e4/RMD_F[age]):0;
-    const rmdFactor=RMD_F[age]||null;
-    const totalInc = (ret?(conv+w4):0) + totalSS_yr + rmd;
-    
-    // ── Tax calculation via shared tax_engine.js ──────────────────
-    const tx = computeTax({
-      conv, w401: w4, rmd,
-      totalSS_yr,
-      fedDed, caDed, caEx,
-      isRetired: ret
-    });
-    const taxSsFed      = tx.taxSsFed;
-    const fedAgi        = tx.fedAgi;
-    const fedTaxableInc = tx.fedTaxableInc;
-    const fedTax        = tx.fedTax;
-    const caAdjInc      = tx.caAdjInc;
-    const caTaxableInc  = tx.caTaxableInc;
-    const caTaxRaw      = tx.caTaxRaw;
-    const caTax         = tx.caTax;
-    const totalTax_yr   = tx.totalTax_yr;
-
-    // --- RMD+SS Reinvested Logic ---
-    let reinvested = (rmd + totalSS_yr) - (spendTotal + totalTax_yr);
-    reinvested = Math.max(0, reinvested);
-    const eB = sB + gB + reinvested; // Surplus flows into Brokerage
-
-    const total=e4+eR+eB+eH+eBn;
-    totalSS+=totalSS_yr;totalTax+=totalTax_yr;
-    if(total>peak){peak=total;peakAge=age;}
-    if(age===retireAge)retPort=total;
-    if(age===endAge)finPort=total;
-
-    rows.push({
-  year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,agi:fedAgi,
-  ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc:totalInc,taxSS:taxSsFed,fedTaxable:fedTaxableInc,fedTax,fedEff:'',
-  caAdj:caAdjInc,caTaxRaw,caTax,caEff:'',
-  totalTax_yr,
-  spendTotal,              // ✅ ADDED
-  ret,rmdOn, reinvested
-});
-    prev={a:e4,b:eR,c:eB,d:eH,e:eBn};
-  }
-
-  // ── IRMAA Post-Processing (2-year lookback) ──────────────────────────────
-  // Medicare starts at 65. IRMAA for Year N is based on MAGI from Year N-2.
-  // So the "lookback row" is the row where H.Age = current H.Age - 2.
-  const ageToRow = {};
-  rows.forEach(r => { ageToRow[r.age] = r; });
-  rows.forEach(r => {
-    if (r.age >= 65) {
-      const lookbackRow = ageToRow[r.age - 2];
-      const irmaaMAGI   = lookbackRow ? lookbackRow.agi : r.agi; // fallback to own AGI if no lookback
-      const bracket     = getIRMAA(irmaaMAGI);
-      r.irmaaLookbackAge  = r.age - 2;
-      r.irmaaLookbackYear = lookbackRow ? lookbackRow.year : r.year - 2;
-      r.irmaaMAGI         = irmaaMAGI;
-      r.irmaaTier         = bracket.tier;
-      r.irmaaLabel        = bracket.label;
-      r.irmaaPartB_yr     = bracket.partB_mo * 12 * 2; // × 2 persons
-      r.irmaaPartD_yr     = bracket.partD_mo * 12 * 2;
-      r.irmaaTotal_yr     = r.irmaaPartB_yr + r.irmaaPartD_yr;
-      r.irmaaFlag         = bracket.tier > 0;
-    } else {
-      r.irmaaMAGI = null; r.irmaaTier = 0; r.irmaaLabel = '—';
-      r.irmaaPartB_yr = 0; r.irmaaPartD_yr = 0; r.irmaaTotal_yr = 0;
-      r.irmaaFlag = false;
-    }
-  });
-  // ─────────────────────────────────────────────────────────────────────────
-  globalRows=rows;
-
-  document.getElementById('c-retire').textContent=fz(retPort);
-  document.getElementById('c-retire-s').textContent=`at age ${retireAge}`;
-  document.getElementById('c-peak').textContent=fz(peak);
-  document.getElementById('c-peak-s').textContent=`at age ${peakAge}`;
-  document.getElementById('c-ss').textContent=fz(totalSS);
-  document.getElementById('c-tax').textContent=fz(totalTax);
-
-  // ── Write to localStorage so Retirement Readiness Calculator can sync ──
-  try {
-    const lsMap = {
-      'rc_401k':     gi('b401k'),
-      'rc_roth':     gi('bRoth'),
-      'rc_brokerage':gi('bBrok'),
-      'rc_hsa':      gi('bHSA'),
-      'rc_bonds':    gi('bBonds'),
-      'rc_portfolio_at_retirement': retPort,
-      'rc_h_age':    hAge0,
-      'rc_w_age':    wAge00,
-      'rc_retire_age': retireAge,
-      'rc_rmd_age':  rmdAge,
-      'rc_life_exp': endAge,
-      'rc_growth1':  gi('gr1'),
-      'rc_inflation':gi('inflation'),
-      'rc_ss_husband':ssH0,
-      'rc_ss_wife':  ssW0,
-    };
-    Object.entries(lsMap).forEach(([k,v])=>localStorage.setItem(k, v));
-  } catch(e){ /* localStorage not available */ }
-
-  const ra=retireAge,ma=rmdAge;
-  const rc=r=>rowCls(r,ra,ma),ycr=r=>yc(r,ra,ma);
-  const gr1v=gi('gr1'),gr2v=gi('gr2');
-
-  fill('t401k',`${YH}<th style="color:#e8c84a">Start</th><th style="color:#e8c84a">Growth (${gr1v}%)</th><th style="color:#e8c84a">Contribution</th><th style="color:#e8c84a">Withdrawal</th><th style="color:#e8c84a">Roth Conv Out</th><th style="color:#e8c84a">Projected Balance</th>
-<th style="color:#22c55e">Actual Balance</th>`,
-    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.s4)}</td><td class="pos">${fz(r.g4)}</td><td class="pos">${r.c4?fz(r.c4):'—'}</td><td class="neg">${r.w4?fz(r.w4):'—'}</td><td class="neg">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.e4)}</td>
-<td>
-  <div style="display:flex; align-items:center; gap:1px;">
-    <span style="color:#000000;">$</span>
-    <input type="number"
-           style="width:100px; background:#ffffff; color:#000000; border:1px solid #30363d; border-radius:5px; padding:4px; font-family:'DM Mono',monospace;">
-  </div>
 </td></tr>`,rows);
   fill('troth',`${YH}<th style="color:#a78bfa">Start</th><th style="color:#a78bfa">Growth (${gr1v}%)</th><th style="color:#a78bfa">Roth Conv In</th><th style="color:#a78bfa">End Balance</th>`,
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sR)}</td><td class="pos">${fz(r.gR)}</td><td class="pos">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.eR)}</td></tr>`,rows);
@@ -1529,334 +989,287 @@ function exportToCSV() {
     document.body.removeChild(link);
 }
 </script>
+
+
+
+<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+         z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
+  <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
+              border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
+              position:relative;font-family:'Segoe UI',Arial,sans-serif;
+              box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
+    <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
+    <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
+    <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
+      <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
+        <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
+        <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
+        <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
+        <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
+        <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
+      </div>
+      <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
+        What topic brought you here today?
+      </div>
+      <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
+        <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
+        <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
+        <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
+        <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
+        <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
+        <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
+        <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
+        <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
+      </div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
+        Rate your experience
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+        <thead><tr>
+          <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td><td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td><td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td><td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td><td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
+        Your thoughts
+      </div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label><input id="fb-useful" type="text" placeholder="e.g. the comparison table, the calculator..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area needs the most improvement?</label><select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"><option value="">&#x2014; Select an area &#x2014;</option><option>Medicare / ACA content</option><option>Social Security guidance</option><option>Tax planning content</option><option>Retirement calculators</option><option>Portfolio / investment content</option><option>Withdrawal strategy content</option><option>401k / savings content</option><option>Long term care content</option><option>Site navigation / layout</option><option>Mobile experience</option><option>Something not listed</option></select></div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">How can we make that area better? <span style="color:#a82222;">*</span></label><textarea id="fb-improve" rows="3" placeholder="Be as specific as you like..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea><div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div></div>
+      <div style="margin-bottom:4px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label><input id="fb-add" type="text" placeholder="e.g. a topic or calculator I'd love to see..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
+        About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label><input id="fb-name" type="text" placeholder="Your name" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label><input id="fb-email" type="email" placeholder="your@email.com" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+      </div>
+    </div>
+    <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
+    <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
+  </div>
+</div>
 </body>
 
 <script>
-  // ── Config ────────────────────────────────────────────────────
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-  const PAGE_NAME  = document.title || window.location.pathname;
+// ── Star rating ──────────────────────────────────────────────────────────────
+let selectedRating = 0;
+const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
 
-  // ── Rating ────────────────────────────────────────────────────
-  let selectedRating = 0;
+function setRating(val) {
+  selectedRating = val;
+  document.querySelectorAll('.star').forEach(s => {
+    s.classList.toggle('lit', +s.dataset.val <= val);
+    s.textContent = +s.dataset.val <= val ? '★' : '☆';
+  });
+  document.getElementById('star-label').textContent = starLabels[val] || '';
+}
 
-  function setRating(val) {
-    selectedRating = val;
-    document.querySelectorAll(".star").forEach(s => {
-      s.textContent = parseInt(s.dataset.val) <= val ? "★" : "☆";
-      s.style.color  = parseInt(s.dataset.val) <= val ? "#d4af37" : "#aaa";
+// ── Checkbox highlight ───────────────────────────────────────────────────────
+document.querySelectorAll('.fb-checks label').forEach(lbl => {
+  lbl.querySelector('input').addEventListener('change', function() {
+    lbl.classList.toggle('checked', this.checked);
+  });
+});
+
+// ── Page-aware auto-check ────────────────────────────────────────────────────
+const pageMap = {
+  'medicare': ['Medicare / ACA'],
+  'healthcare_medicare': ['Medicare / ACA'],
+  'healthcare_aca': ['Medicare / ACA'],
+  'aca_vs_cobra': ['Medicare / ACA'],
+  'medicare_flowchart': ['Medicare / ACA'],
+  'long_term_care': ['Long term care'],
+  'tax_calculator': ['Tax planning'],
+  'retirement_calculator': ['Withdrawal strategy','Investment / Portfolio'],
+  'montecarlo': ['Withdrawal strategy','Investment / Portfolio'],
+  '401k': ['401k / Savings'],
+  'portfolio': ['Investment / Portfolio'],
+  'transition_plan': ['Withdrawal strategy'],
+  'financial_plan': ['Investment / Portfolio'],
+};
+const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
+Object.keys(pageMap).forEach(key => {
+  if (page.includes(key)) {
+    pageMap[key].forEach(topic => {
+      document.querySelectorAll('.fb-checks input').forEach(inp => {
+        if (inp.value === topic) {
+          inp.checked = true;
+          inp.closest('label').classList.add('checked');
+        }
+      });
     });
   }
+});
 
-  // ── Open / Close ──────────────────────────────────────────────
-  function openFeedback() {
-    const overlay = document.getElementById("feedback-overlay");
-    overlay.style.display = "flex";
-    document.getElementById("fb-status").textContent = "";
+// ── Submit ───────────────────────────────────────────────────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
+
+function submitFeedback() {
+  const improve = document.getElementById('fb-improve').value.trim();
+  const status  = document.getElementById('fb-status');
+  const btn     = document.getElementById('fb-submit');
+
+  if (!improve) {
+    status.style.color = '#a82222';
+    status.textContent = 'Please share how we can improve — that field is required.';
+    return;
   }
 
-  function closeFeedback() {
-    document.getElementById("feedback-overlay").style.display = "none";
-  }
+  const topics = [...document.querySelectorAll('.fb-checks input:checked')].map(i => i.value).join(', ');
+  const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
+  const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
+  const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
+  const q4 = document.querySelector('input[name="q4"]:checked')?.value || '';
 
-  function closeFeedbackOutside(e) {
-    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
-  }
+  const payload = {
+    page:    window.location.pathname.split('/').pop() || 'unknown',
+    rating:  selectedRating ? selectedRating + ' ★' : 'Not rated',
+    topics,
+    q_easy:        q1,
+    q_found:       q2,
+    q_calculators: q3,
+    q_recommend:   q4,
+    useful:  document.getElementById('fb-useful').value.trim(),
+    area:    document.getElementById('fb-area').value,
+    improve,
+    add:     document.getElementById('fb-add').value.trim(),
+    name:    document.getElementById('fb-name').value.trim(),
+    email:   document.getElementById('fb-email').value.trim(),
+  };
 
-  // ── Submit ────────────────────────────────────────────────────
-  function submitFeedback() {
-    const message = document.getElementById("fb-message").value.trim();
-    const status  = document.getElementById("fb-status");
-    const btn     = document.getElementById("fb-submit");
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  status.style.color = '#555';
+  status.textContent = '';
 
-    if (!message) {
-      status.style.color = "#a82222";
-      status.textContent = "Please enter your feedback before sending.";
-      return;
-    }
-
-    btn.disabled     = true;
-    btn.textContent  = "Sending…";
-    status.textContent = "";
-
-    const payload = {
-      page:    PAGE_NAME,
-      rating:  selectedRating ? selectedRating + " ★" : "Not rated",
-      name:    document.getElementById("fb-name").value.trim(),
-      email:   document.getElementById("fb-email").value.trim(),
-      message: message
-    };
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode:   "no-cors",         // required for Apps Script
-      headers: { "Content-Type": "application/json" },
-      body:   JSON.stringify(payload)
-    })
+  fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
     .then(() => {
-      status.style.color = "#2a7a2a";
-      status.textContent = "✅ Thank you! Your feedback has been received.";
-      btn.textContent    = "Send Feedback";
-      btn.disabled       = false;
-      // Reset form
-      document.getElementById("fb-name").value    = "";
-      document.getElementById("fb-email").value   = "";
-      document.getElementById("fb-message").value = "";
-      setRating(0);
-      setTimeout(closeFeedback, 2500);
+      status.style.color = '#2e7d32';
+      status.textContent = '✅ Thank you! Your feedback has been received.';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
     })
     .catch(() => {
-      status.style.color = "#a82222";
-      status.textContent = "Something went wrong — please try again.";
-      btn.textContent    = "Send Feedback";
-      btn.disabled       = false;
+      status.style.color = '#a82222';
+      status.textContent = '⚠️ Could not send — please try again.';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
     });
-  }
-
-  // ── Keyboard: Escape to close ─────────────────────────────────
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeFeedback();
-  });
-
-// ═══════════════════════════════════════════════════════
-// RETIREMENT READINESS — integrated
-// ═══════════════════════════════════════════════════════
-let rrWD = 4;
-
-function setRRWD(val, btn){
-  rrWD = val;
-  document.querySelectorAll('.rr-wd').forEach(b=>{
-    b.style.background = b===btn ? 'var(--gold)' : '#fff';
-    b.style.borderColor= b===btn ? 'var(--gold)' : '#bbb';
-    b.style.color      = b===btn ? '#fff' : '#3d5166';
-  });
-  document.getElementById('rr-wd-custom').value = '';
-  renderReadiness();
 }
-function setRRWDCustom(el){
-  const v = parseFloat(el.value);
-  if(!isNaN(v) && v >= 0 && v <= 10){
-    rrWD = v;
-    document.querySelectorAll('.rr-wd').forEach(b=>{ b.style.background='#fff'; b.style.borderColor='#bbb'; b.style.color='#3d5166'; });
-    renderReadiness();
-  }
-}
-
-function fmtRR(v){ return '$' + Math.round(Math.max(0,v)).toLocaleString(); }
-
-function renderReadiness(){
-  // Read from existing calculator inputs
-  const hAge       = gi('hAge');
-  const wAge0      = gi('wAge0');
-  const retireAge  = +(document.getElementById('r-target-age').value)||65;
-  const endAge     = gi('endAge');
-  const rmdAge     = gi('rmdAge');
-  const ssStartH   = gi('ssStartH');
-  const ssStartW   = gi('ssStartW');
-  const ssHAnnual  = gi('ssH');
-  const ssWAnnual  = gi('ssW');
-  const ssCola     = gi('ssCola')/100;
-  const infl       = gi('inflation')/100;
-  const retPost    = gi('gr1')/100; // use same growth rate post-retire (conservative)
-  const monthlyNeed= +(document.getElementById('r-monthly-need').value)||8000;
-  const stocks     = +(document.getElementById('r-stocks').value)||0;
-  const otherInc   = +(document.getElementById('r-other-inc').value)||0;
-
-  // Portfolio at retirement — use the card value if already calculated
-  const retPortEl = document.getElementById('c-retire');
-  const retPortText = retPortEl ? retPortEl.textContent.replace(/[^0-9.]/g,'') : '0';
-  const retPortVal  = parseFloat(retPortText)*1000 || 0;
-  // Fallback: sum current balances
-  const currentTotal = gi('b401k')+gi('bRoth')+gi('bBrok')+gi('bHSA')+gi('bBonds');
-  const yearsToRetire= Math.max(0, retireAge - hAge);
-  const projBal      = retPortVal > 0 ? retPortVal
-                       : currentTotal * Math.pow(1+gi('gr1')/100, yearsToRetire);
-
-  // Target: how big must portfolio be
-  const annualNeed = monthlyNeed * 12;
-  const ssHatRet   = retireAge >= ssStartH ? ssHAnnual : 0;
-  const ssWatRet   = retireAge >= ssStartW ? ssWAnnual : 0;
-  const nonPort    = ssHatRet + ssWatRet + stocks*12 + otherInc*12;
-  const portFund   = Math.max(0, annualNeed - nonPort);
-  const target     = rrWD > 0 ? portFund / (rrWD/100) : 0;
-  const targetReal = target / Math.pow(1+infl, yearsToRetire);
-
-  // Monthly income at retirement
-  const portMo   = rrWD > 0 ? projBal * (rrWD/100) / 12 : 0;
-  const ssHmo    = retireAge >= ssStartH ? ssHAnnual/12 : 0;
-  const ssWmo    = retireAge >= ssStartW ? ssWAnnual/12 : 0;
-  const totalMo  = portMo + ssHmo + ssWmo + stocks + otherInc;
-
-  // Gap
-  const gap   = projBal - target;
-  const pct   = target > 0 ? projBal/target : 1;
-
-  // ── Answer cards ──
-  document.getElementById('rr-target').textContent = fmtRR(target);
-  document.getElementById('rr-target-sub').textContent =
-    rrWD > 0 ? `$${Math.round(monthlyNeed*12).toLocaleString()}/yr ÷ ${rrWD}% SWR, after SS+other`
-              : 'No portfolio withdrawal set';
-
-  document.getElementById('rr-status-val').textContent =
-    gap >= 0 ? '✅ ON TRACK' : pct >= 0.75 ? '⚠️ CLOSE' : '🔴 BEHIND';
-  document.getElementById('rr-status-val').style.color =
-    gap >= 0 ? '#4ade80' : pct >= 0.75 ? '#fb923c' : '#f87171';
-  document.getElementById('rr-status-sub').textContent =
-    gap >= 0 ? `Surplus ${fmtRR(gap)}` : `Shortfall ${fmtRR(Math.abs(gap))}`;
-
-  document.getElementById('rr-monthly').textContent = fmtRR(totalMo);
-  document.getElementById('rr-monthly-sub').textContent =
-    `Port ${fmtRR(portMo)} + SS-H ${fmtRR(ssHmo)} + SS-W ${fmtRR(ssWmo)} + Eq ${fmtRR(stocks)} + Other ${fmtRR(otherInc)}`;
-
-  document.getElementById('rr-real').textContent = fmtRR(targetReal);
-  document.getElementById('rr-real-sub').textContent = `In today's $ (${gi('inflation')}% infl, ${yearsToRetire} yrs)`;
-
-  // ── Income Breakdown ──
-  const incRows = [
-    { src:`Portfolio Withdrawal (${rrWD}% SWR)`, mo:portMo, color:'#4ade80',
-      note: rrWD===0 ? 'Disabled' : `From ${fmtRR(projBal)} portfolio` },
-    { src:'SS — Husband',  mo:ssHmo, color:'#60a5fa',
-      note: retireAge>=ssStartH ? `Starts age ${ssStartH}, grows ${gi('ssCola')}% COLA` : `Starts age ${ssStartH}` },
-    { src:'SS — Wife',     mo:ssWmo, color:'#a78bfa',
-      note: retireAge>=ssStartW ? `Starts age ${ssStartW}, grows ${gi('ssCola')}% COLA` : `Starts age ${ssStartW}` },
-    { src:'Stocks/RSU/Equity', mo:stocks,   color:'#e8c84a', note:'Equity income' },
-    { src:'Other Income',      mo:otherInc, color:'#fb923c', note:'Pension, rental, etc.' },
-  ];
-  const totalInc = incRows.reduce((s,r)=>s+r.mo,0);
-
-  document.getElementById('rr-income-body').innerHTML =
-    [...incRows, {src:'TOTAL', mo:totalInc, color:'#4ade80', note: gap>=0?`✅ Surplus ${fmtRR(gap/12)}/mo`:`⚠️ Shortfall ${fmtRR(Math.abs(gap)/12)}/mo`, total:true}]
-    .map(r=>{
-      const pctStr = totalInc>0 ? Math.round(r.mo/totalInc*100)+'%' : '—';
-      return `<tr style="${r.total?'background:rgba(74,222,128,0.1);font-weight:700;border-top:2px solid #4ade80;':'border-bottom:1px solid #1e3a5f;'}">
-        <td style="padding:7px 10px;text-align:left;color:${r.color};font-weight:${r.total?700:500};">${r.src}</td>
-        <td style="padding:7px 10px;text-align:right;color:${r.color};">${fmtRR(r.mo)}</td>
-        <td style="padding:7px 10px;text-align:right;">${fmtRR(r.mo*12)}</td>
-        <td style="padding:7px 10px;text-align:right;">${r.total?'—':pctStr}</td>
-        <td style="padding:7px 10px;text-align:left;font-size:11px;color:#94a3b8;">${r.note}</td>
-      </tr>`;
-    }).join('');
-
-  // ── Annual Table ──
-  const retireYears = Math.max(1, endAge - retireAge + 1);
-  const wDelta = wAge0 - hAge;
-  let bal = projBal;
-  let html = '';
-
-  for(let i=0; i<retireYears; i++){
-    const hA = retireAge + i;
-    const wA = hA + wDelta;
-    const inflF = Math.pow(1+infl, i);
-    const colaF = Math.pow(1+ssCola, i);
-
-    const portW  = rrWD > 0 ? portMo * 12 * inflF : 0;
-    const ssH    = hA >= ssStartH ? ssHAnnual * colaF : 0;
-    const ssW    = hA >= ssStartW ? ssWAnnual * colaF : 0;
-    const stk    = stocks   * 12 * inflF;
-    const oth    = otherInc * 12 * inflF;
-    const totAnn = portW + ssH + ssW + stk + oth;
-
-    bal = bal * (1 + retPost) - portW;
-    const dep = bal <= 0;
-    if(dep) bal = 0;
-
-    const isRet = i===0, isSS = hA===ssStartH||hA===ssStartW, isRMD = hA===rmdAge;
-    const lbl = `${hA}${isRet?' ⭐':''}${isSS?' 🏛️':''}${isRMD?' 📋':''} / ${wA}`;
-    const rowStyle = dep ? 'background:rgba(248,113,113,0.15);' : isRet ? 'background:rgba(74,222,128,0.08);font-weight:700;' : isSS ? 'background:rgba(96,165,250,0.06);' : isRMD ? 'background:rgba(251,146,60,0.06);' : '';
-
-    html += `<tr style="${rowStyle}border-bottom:1px solid #1e3a5f;">
-      <td style="padding:6px 8px;text-align:left;white-space:nowrap;">${lbl}</td>
-      <td style="padding:6px 8px;text-align:right;color:${dep?'#f87171':'#e6edf3'};">${dep?'DEPLETED':fmtRR(bal)}</td>
-      <td style="padding:6px 8px;text-align:right;color:${portW>0?'#4ade80':'#94a3b8'};">${portW>0?fmtRR(portW/12)+'':'—'}</td>
-      <td style="padding:6px 8px;text-align:right;color:${ssH>0?'#60a5fa':'#94a3b8'};">${ssH>0?fmtRR(ssH/12):`<span style='font-size:10px;color:#555;'>Starts ${ssStartH}</span>`}</td>
-      <td style="padding:6px 8px;text-align:right;color:${ssW>0?'#a78bfa':'#94a3b8'};">${ssW>0?fmtRR(ssW/12):`<span style='font-size:10px;color:#555;'>Starts ${ssStartW}</span>`}</td>
-      <td style="padding:6px 8px;text-align:right;color:${stk>0?'#e8c84a':'#94a3b8'};">${stk>0?fmtRR(stk/12):'—'}</td>
-      <td style="padding:6px 8px;text-align:right;color:${oth>0?'#fb923c':'#94a3b8'};">${oth>0?fmtRR(oth/12):'—'}</td>
-      <td style="padding:6px 8px;text-align:right;font-weight:700;color:#4ade80;">${fmtRR(totAnn/12)}</td>
-      <td style="padding:6px 8px;text-align:right;font-weight:700;">${fmtRR(totAnn)}</td>
-    </tr>`;
-    if(dep) break;
-  }
-  document.getElementById('rr-annual-body').innerHTML = html;
-}
-
-
-// ── Sidebar Slider Sync ───────────────────────────────────────────────────────
-const SL_CFG = {
-  startYear:      {min:2020, max:2035,   step:1},
-  hAge:           {min:40,   max:80,     step:1},
-  wAge0:          {min:40,   max:80,     step:1},
-  retireAge:      {min:50,   max:80,     step:1},
-  rmdAge:         {min:70,   max:85,     step:1},
-  endAge:         {min:75,   max:100,    step:1},
-  gr1:            {min:1,    max:15,     step:0.1},
-  gr2:            {min:1,    max:12,     step:0.1},
-  inflation:      {min:1,    max:8,      step:0.01},
-  ssCola:         {min:0,    max:5,      step:0.01},
-  spend:          {min:10000,max:300000, step:1000},
-  c401k:          {min:0,    max:35000,  step:500},
-  m401k:          {min:0,    max:20000,  step:500},
-  cHSA:           {min:0,    max:10000,  step:500},
-  rothConv:       {min:0,    max:500000, step:5000},
-  w401k:          {min:0,    max:100000, step:1000},
-  b401k:          {min:0,    max:3000000,step:10000},
-  bRoth:          {min:0,    max:1000000,step:5000},
-  bBrok:          {min:0,    max:1000000,step:5000},
-  bHSA:           {min:0,    max:200000, step:1000},
-  bBonds:         {min:0,    max:1000000,step:5000},
-  ssStartH:       {min:62,   max:70,     step:1},
-  ssStartW:       {min:62,   max:70,     step:1},
-  ssH:            {min:0,    max:100000, step:1000},
-  ssW:            {min:0,    max:100000, step:1000},
-  fedDed:         {min:25000,max:50000,  step:100},
-  caDed:          {min:5000, max:50000,  step:500},
-  caExempt:       {min:100,  max:1000,   step:10},
-  'r-target-age': {min:50,   max:80,     step:1},
-  'r-monthly-need':{min:1000,max:30000,  step:500},
-  'r-stocks':     {min:0,    max:20000,  step:500},
-  'r-other-inc':  {min:0,    max:20000,  step:500},
-};
-
-function slFill(id) {
-  const sl = document.getElementById(id + '_s');
-  if (!sl) return;
-  const cfg = SL_CFG[id];
-  const pct = ((parseFloat(sl.value) - cfg.min) / (cfg.max - cfg.min)) * 100;
-  sl.style.setProperty('--fill', Math.min(100, Math.max(0, pct)).toFixed(2) + '%');
-}
-
-function sliderSync(id) {
-  const sl  = document.getElementById(id + '_s');
-  const inp = document.getElementById(id);
-  if (sl && inp) { inp.value = sl.value; slFill(id); }
-}
-
-// Sync input → slider on manual typing
-function initSidebarSliders() {
-  Object.keys(SL_CFG).forEach(id => {
-    const inp = document.getElementById(id);
-    const sl  = document.getElementById(id + '_s');
-    if (!inp || !sl) return;
-    sl.value = inp.value;
-    slFill(id);
-    inp.addEventListener('input', () => { sl.value = inp.value; slFill(id); });
-  });
-}
-document.addEventListener('DOMContentLoaded', initSidebarSliders);
-
-// Hook renderReadiness into calculate() output
-const _origCalc = calculate;
-function calculate(){
-  _origCalc.apply(this, arguments);
-  renderReadiness();
-}
-
-// Also re-render when readiness inputs change
-['r-target-age','r-monthly-need','r-stocks','r-other-inc'].forEach(id=>{
-  const el = document.getElementById(id);
-  if(el) el.addEventListener('input', renderReadiness);
-});
 </script>
 
+
+
+
+
+
+
+<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+         z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
+  <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
+              border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
+              position:relative;font-family:'Segoe UI',Arial,sans-serif;
+              box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
+    <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
+    <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
+    <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
+    <div style="margin-bottom:14px;">
+      <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
+      <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
+        <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
+        <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
+        <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
+        <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
+        <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
+      </div>
+      <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
+        What topic brought you here today?
+      </div>
+      <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
+        <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
+        <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
+        <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
+        <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
+        <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
+        <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
+        <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
+        <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
+      </div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
+        Rate your experience
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+        <thead><tr>
+          <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
+          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td><td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td><td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td><td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td><td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
+        Your thoughts
+      </div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label><input id="fb-useful" type="text" placeholder="e.g. the comparison table, the calculator..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area needs the most improvement?</label><select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"><option value="">&#x2014; Select an area &#x2014;</option><option>Medicare / ACA content</option><option>Social Security guidance</option><option>Tax planning content</option><option>Retirement calculators</option><option>Portfolio / investment content</option><option>Withdrawal strategy content</option><option>401k / savings content</option><option>Long term care content</option><option>Site navigation / layout</option><option>Mobile experience</option><option>Something not listed</option></select></div>
+      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">How can we make that area better? <span style="color:#a82222;">*</span></label><textarea id="fb-improve" rows="3" placeholder="Be as specific as you like..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea><div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div></div>
+      <div style="margin-bottom:4px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label><input id="fb-add" type="text" placeholder="e.g. a topic or calculator I'd love to see..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+    </div>
+    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
+        About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label><input id="fb-name" type="text" placeholder="Your name" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label><input id="fb-email" type="email" placeholder="your@email.com" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+      </div>
+    </div>
+    <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
+    <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
+  </div>
+</div>
 </body>
   <!-- 
     
