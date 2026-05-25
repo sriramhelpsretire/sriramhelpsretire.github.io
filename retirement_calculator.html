@@ -14,37 +14,20 @@
   --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#000000;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;padding-top:72px}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
 
-header{display:none}
+header{background:#f9f8f4;border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
+.header-left{display:flex;align-items:baseline;gap:12px}
+header h1{font-family:'DM Serif Display',serif;font-size:26px;color:#000000}
+header span{color:#09349E;font-size:16px;font-family:'DM Mono',monospace}
+.home-btn{display:flex;align-items:center;gap:6px;background:var(--accent);border:1px solid var(--border);color:#0d1117;padding:7px 14px;border-radius:7px;text-decoration:none;font-size:12px;font-weight:600;transition:all .15s}
+.home-btn:hover{background: #693909;opacity:.88}
+.home-btn svg{width:14px;height:14px}
 
-/* ── Top Nav — Hover Dropdown Style ── */
-.top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
-.nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
-.nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
-.nav-item{position:relative;}
-.nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
-.nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
-.nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
-.nav-item:hover>a .chevron{transform:rotate(180deg);}
-.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
-.nav-dropdown.two-col{min-width:260px;}
-.nav-item:hover .nav-dropdown,.nav-item:hover .nav-dropdown.two-col{display:block;}
-.nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
-.nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
-.nav-dropdown a .dd-icon{font-size:17px;width:24px;text-align:center;flex-shrink:0;margin-top:1px;}
-.nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
-.nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
-.nav-dropdown a:hover .dd-text span{color:#b8922e;}
-.nav-item:last-child .nav-dropdown,.nav-item:nth-last-child(2) .nav-dropdown{right:0;left:auto;}
-.nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
-.nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
-@media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
-
-.layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 72px)}
+.layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 65px)}
 
 /* SIDEBAR */
-.sidebar{background:#cef2e5;border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 72px);position:sticky;top:72px}
+.sidebar{background:#cef2e5;border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 65px);position:sticky;top:0}
 .sxn{margin-bottom:18px}
 .sxn h3{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#000000;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 .field{margin-bottom:7px}
@@ -185,150 +168,47 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     background: #693909;
 }
 
-
-/* ── Sidebar Sliders ── */
-.sl-wrap{margin-top:4px;}
-.sl-wrap input[type=range]{
-  -webkit-appearance:none;appearance:none;
-  width:100%;height:4px;border-radius:2px;outline:none;cursor:pointer;
-  background:linear-gradient(to right,#e8c84a 0%,#e8c84a var(--fill,0%),rgba(0,0,0,.15) var(--fill,0%),rgba(0,0,0,.15) 100%);
-}
-.sl-wrap input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;width:13px;height:13px;
-  background:#e8c84a;border-radius:50%;cursor:pointer;
-  box-shadow:0 0 4px rgba(232,200,74,.5);transition:transform .12s;
-}
-.sl-wrap input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.25);}
-.sl-wrap input[type=range]::-moz-range-thumb{
-  width:13px;height:13px;background:#e8c84a;border-radius:50%;
-  border:none;cursor:pointer;box-shadow:0 0 4px rgba(232,200,74,.5);
-}
-
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 </style>
 </head>
 <body>
 
-<nav class="top-nav">
-  <div class="nav-brand">
-    <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
-    Retire Wise and Live Happy&trade;
-  </div>
-  <ul class="nav-links">
-    <li class="nav-item">
-      <a href="transition_plan.html">Planning <span class="chevron">▾</span></a>
-      <div class="nav-dropdown">
-        <a href="transition_plan.html"><span class="dd-icon">📌</span><div class="dd-text"><strong>Retirement Made Easy</strong><span>Working years → retirement transition</span></div></a>
-        <a href="steps_retirement.html"><span class="dd-icon">🪜</span><div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div></a>
-        <a href="financial_plan.html"><span class="dd-icon">💼</span><div class="dd-text"><strong>Financial Plan</strong><span>The 6 pillars of financial planning</span></div></a>
-        <div class="nav-dd-divider"></div>
-        <a href="terms.html"><span class="dd-icon">📖</span><div class="dd-text"><strong>Terms Used</strong><span>Retirement glossary</span></div></a>
-        <a href="website.html"><span class="dd-icon">🔗</span><div class="dd-text"><strong>Web Sites</strong><span>Curated external resources</span></div></a>
-        <a href="https://futureyou.wise-retiree.com"><span class="dd-icon">💡</span><div class="dd-text"><strong>Early Age Planning</strong><span>Future You</span></div></a>
-        <a href="faq.html"><span class="dd-icon">✨</span><div class="dd-text"><strong>FAQ</strong><span>Frequently Asked Questions</span></div></a>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a href="#calculators"><span style="color:#d4af37">🧮</span> Calculators <span class="chevron">▾</span></a>
-      <div class="nav-dropdown two-col">
-        <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track holdings, live prices</span></div></a>
-        <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Project portfolio growth</span></div></a>
-        <a href="montecarlo_retirement.html"><span class="dd-icon">🎲</span><div class="dd-text"><strong>Retirement Confidence</strong><span>Monte Carlo stress test</span></div></a>
-        <a href="401k_compounding.html"><span class="dd-icon">⚡</span><div class="dd-text"><strong>401k Compounding</strong><span>Power of starting early</span></div></a>
-        <a href="tax_calculator.html"><span class="dd-icon">💰</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>4 retirement tax scenarios</span></div></a>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a href="medicare_aca.html"><span style="color:#d4af37">🩺</span> Healthcare <span class="chevron">▾</span></a>
-      <div class="nav-dropdown">
-        <a href="medicare_aca.html"><span class="dd-icon">🏥</span><div class="dd-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div></a>
-        <a href="healthcare_medicare.html"><span class="dd-icon">💊</span><div class="dd-text"><strong>Healthcare – Medicare</strong><span>IRMAA, enrollment windows</span></div></a>
-        <a href="healthcare_aca.html"><span class="dd-icon">🛡️</span><div class="dd-text"><strong>Healthcare – ACA</strong><span>Marketplace, subsidies, Covered CA</span></div></a>
-        <div class="nav-dd-divider"></div>
-        <a href="aca_vs_cobra.html"><span class="dd-icon">⚖️</span><div class="dd-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div></a>
-        <a href="medicare_flowchart.html"><span class="dd-icon">🗺️</span><div class="dd-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div></a>
-        <a href="long_term_care.html"><span class="dd-icon">🏠</span><div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
-      </div>
-    </li>
-  </ul>
-  <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
-    <option value="">Explore Topics</option>
-    <optgroup label="Core Planning">
-      <option value="transition_plan.html">📌 Retirement Made Easy</option>
-      <option value="steps_retirement.html">📌 Steps in Retirement</option>
-      <option value="financial_plan.html">📌 Financial Plan</option>
-      <option value="terms.html">📌 Terms Used</option>
-      <option value="website.html">📌 Web Sites</option>
-      <option value="faq.html">📌 FAQ</option>
-    </optgroup>
-    <optgroup label="Calculators">
-      <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
-      <option value="retirement_calculator.html">📌 Retirement Calculator</option>
-      <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
-      <option value="401k_compounding.html">📌 401k Compounding</option>
-      <option value="tax_calculator.html">📌 Income Tax Calculator</option>
-    </optgroup>
-    <optgroup label="Healthcare">
-      <option value="medicare_aca.html">📌 Medicare Hub</option>
-      <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
-      <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
-      <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
-      <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
-      <option value="long_term_care.html">📌 Long Term Care</option>
-    </optgroup>
-    <optgroup label="Go Back">
-      <option value="index.html">🏠 HOME</option>
-    </optgroup>
-  </select>
-</nav>
-
 <header>
   <div class="header-left">
     <h1>Retirement Portfolio Calculator</h1>
-    <span><p><u>Couples Financial Projection (CA)</u> | <u>Enter Data, Calculate Projection,</u><br><u>Save summary to CSV</u></p></span>
+    <span><p><u> Couples Financial Projection(CA)</u> | <u>Enter Data, Calculate Projection,</u> <br><u>Save summary to CSV  </u></p></span>
   </div>
+  <a href="index.html" class="home-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+	
+    Home
+  </a>
 </header>
 
 <div class="layout">
 <aside class="sidebar">
   <div class="sxn"><h3>General</h3>
-    <div class="field"><label>Start Year</label><input type="number" id="startYear" value="2026">
-      <div class="sl-wrap"><input type="range" id="startYear_s" min="2020" max="2035" step="1" oninput="sliderSync('startYear')"></div></div>
-    <div class="field"><label>Husband Current Age</label><input type="number" id="hAge" value="60">
-      <div class="sl-wrap"><input type="range" id="hAge_s" min="40" max="80" step="1" oninput="sliderSync('hAge')"></div></div>
-    <div class="field"><label>Wife Current Age</label><input type="number" id="wAge0" value="56">
-      <div class="sl-wrap"><input type="range" id="wAge0_s" min="40" max="80" step="1" oninput="sliderSync('wAge0')"></div></div>
-    <div class="field"><label>Retirement Age</label><input type="number" id="retireAge" value="65">
-      <div class="sl-wrap"><input type="range" id="retireAge_s" min="50" max="80" step="1" oninput="sliderSync('retireAge')"></div></div>
-    <div class="field"><label>RMD Start Age</label><input type="number" id="rmdAge" value="75">
-      <div class="sl-wrap"><input type="range" id="rmdAge_s" min="70" max="85" step="1" oninput="sliderSync('rmdAge')"></div></div>
-    <div class="field"><label>Project Through Age</label><input type="number" id="endAge" value="90">
-      <div class="sl-wrap"><input type="range" id="endAge_s" min="75" max="100" step="1" oninput="sliderSync('endAge')"></div></div>
+    <div class="field"><label>Start Year</label><input type="number" id="startYear" value="2026"></div>
+    <div class="field"><label>Husband Current Age</label><input type="number" id="hAge" value="60"></div>
+    <div class="field"><label>Wife Current Age</label><input type="number" id="wAge0" value="56"></div>
+    <div class="field"><label>Retirement Age</label><input type="number" id="retireAge" value="65"></div>
+    <div class="field"><label>RMD Start Age</label><input type="number" id="rmdAge" value="75"></div>
+    <div class="field"><label>Project Through Age</label><input type="number" id="endAge" value="90"></div>
   </div>
   <div class="sxn"><h3>Growth &amp; Rates</h3>
-    <div class="field"><label>Growth Rate 1 — 401k / Roth / Brokerage / HSA (%)</label><input type="number" id="gr1" value="6.00" step="0.01">
-      <div class="sl-wrap"><input type="range" id="gr1_s" min="1" max="15" step="0.1" oninput="sliderSync('gr1')"></div></div>
-    <div class="field"><label>Growth Rate 2 — Bonds (%)</label><input type="number" id="gr2" value="4.00" step="0.01">
-      <div class="sl-wrap"><input type="range" id="gr2_s" min="1" max="12" step="0.1" oninput="sliderSync('gr2')"></div></div>
-    <div class="field"><label>Inflation Rate (%)</label><input type="number" id="inflation" value="2.58" step="0.01">
-      <div class="sl-wrap"><input type="range" id="inflation_s" min="1" max="8" step="0.01" oninput="sliderSync('inflation')"></div></div>
-    <div class="field"><label>SS COLA (%)</label><input type="number" id="ssCola" value="2.00" step="0.01">
-      <div class="sl-wrap"><input type="range" id="ssCola_s" min="0" max="5" step="0.01" oninput="sliderSync('ssCola')"></div></div>
+    <div class="field"><label>Growth Rate 1 — 401k / Roth / Brokerage / HSA (%)</label><input type="number" id="gr1" value="6.00" step="0.01"></div>
+    <div class="field"><label>Growth Rate 2 — Bonds (%)</label><input type="number" id="gr2" value="4.00" step="0.01"></div>
+    <div class="field"><label>Inflation Rate (%)</label><input type="number" id="inflation" value="2.58" step="0.01"></div>
+    <div class="field"><label>SS COLA (%)</label><input type="number" id="ssCola" value="2.00" step="0.01"></div>
   </div>
   <div class="sxn"><h3>Contributions &amp; Spending</h3>
-    <div class="field"><label>Annual Spending</label><input type="number" id="spend" value="60000">
-      <div class="sl-wrap"><input type="range" id="spend_s" min="10000" max="300000" step="1000" oninput="sliderSync('spend')"></div></div>
-    <div class="field"><label>401k Employee Contribution</label><input type="number" id="c401k" value="16000">
-      <div class="sl-wrap"><input type="range" id="c401k_s" min="0" max="35000" step="500" oninput="sliderSync('c401k')"></div></div>
-    <div class="field"><label>401k Employer Match</label><input type="number" id="m401k" value="0">
-      <div class="sl-wrap"><input type="range" id="m401k_s" min="0" max="20000" step="500" oninput="sliderSync('m401k')"></div></div>
-    <div class="field"><label>HSA Contribution (pre-retire)</label><input type="number" id="cHSA" value="8000">
-      <div class="sl-wrap"><input type="range" id="cHSA_s" min="0" max="10000" step="500" oninput="sliderSync('cHSA')"></div></div>
-    <div class="field"><label>Roth Conversion (age 65–74)</label><input type="number" id="rothConv" value="100000">
-      <div class="sl-wrap"><input type="range" id="rothConv_s" min="0" max="500000" step="5000" oninput="sliderSync('rothConv')"></div></div>
-    <div class="field"><label>401k Withdrawal (post-retire)</label><input type="number" id="w401k" value="0">
-      <div class="sl-wrap"><input type="range" id="w401k_s" min="0" max="100000" step="1000" oninput="sliderSync('w401k')"></div></div>
+    <div class="field"><label>Annual Spending</label><input type="number" id="spend" value="60000"></div>
+    <div class="field"><label>401k Employee Contribution</label><input type="number" id="c401k" value="16000"></div>
+    <div class="field"><label>401k Employer Match</label><input type="number" id="m401k" value="0"></div>
+    <div class="field"><label>HSA Contribution (pre-retire)</label><input type="number" id="cHSA" value="8000"></div>
+    <div class="field"><label>Roth Conversion (age 65–74)</label><input type="number" id="rothConv" value="100000"></div>
+    <div class="field"><label>401k Withdrawal (post-retire)</label><input type="number" id="w401k" value="0"></div>
   </div>
   <div class="sxn">
     <h3>Starting Balances</h3>
@@ -344,7 +224,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">BrokerageLink HPE · HPE 401k · Rollover IRA</div>
       <input type="number" id="b401k" value="500000">
-      <div class="sl-wrap"><input type="range" id="b401k_s" min="0" max="3000000" step="10000" oninput="sliderSync('b401k')"></div>
     </div>
     <div class="field">
       <label>Roth IRA Balance
@@ -352,7 +231,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Roth IRA</div>
       <input type="number" id="bRoth" value="50000">
-      <div class="sl-wrap"><input type="range" id="bRoth_s" min="0" max="1000000" step="5000" oninput="sliderSync('bRoth')"></div>
     </div>
     <div class="field">
       <label>Brokerage Balance
@@ -360,7 +238,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Individual Brokerage · Merril · Robinhood</div>
       <input type="number" id="bBrok" value="50000">
-      <div class="sl-wrap"><input type="range" id="bBrok_s" min="0" max="1000000" step="5000" oninput="sliderSync('bBrok')"></div>
     </div>
     <div class="field">
       <label>HSA Balance
@@ -368,7 +245,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Health Savings Account</div>
       <input type="number" id="bHSA" value="50000">
-      <div class="sl-wrap"><input type="range" id="bHSA_s" min="0" max="200000" step="1000" oninput="sliderSync('bHSA')"></div>
     </div>
     <div class="field">
       <label>Bonds Balance
@@ -376,48 +252,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       </label>
       <div style="font-size:10px;color:#7d8590;font-family:'DM Mono',monospace;margin-bottom:2px;">Treasury Direct</div>
       <input type="number" id="bBonds" value="50000">
-      <div class="sl-wrap"><input type="range" id="bBonds_s" min="0" max="1000000" step="5000" oninput="sliderSync('bBonds')"></div>
     </div>
   </div>
   <div class="sxn"><h3>Social Security</h3>
-    <div class="field"><label>SS Start Age — Husband</label><input type="number" id="ssStartH" value="67">
-      <div class="sl-wrap"><input type="range" id="ssStartH_s" min="62" max="70" step="1" oninput="sliderSync('ssStartH')"></div></div>
-    <div class="field"><label>SS Start Age — Wife</label><input type="number" id="ssStartW" value="67">
-      <div class="sl-wrap"><input type="range" id="ssStartW_s" min="62" max="70" step="1" oninput="sliderSync('ssStartW')"></div></div>
-    <div class="field"><label>SS Annual — Husband</label><input type="number" id="ssH" value="48000">
-      <div class="sl-wrap"><input type="range" id="ssH_s" min="0" max="100000" step="1000" oninput="sliderSync('ssH')"></div></div>
-    <div class="field"><label>SS Annual — Wife</label><input type="number" id="ssW" value="24000">
-      <div class="sl-wrap"><input type="range" id="ssW_s" min="0" max="100000" step="1000" oninput="sliderSync('ssW')"></div></div>
+    <div class="field"><label>SS Start Age — Husband</label><input type="number" id="ssStartH" value="67"></div>
+    <div class="field"><label>SS Start Age — Wife</label><input type="number" id="ssStartW" value="67"></div>
+    <div class="field"><label>SS Annual — Husband</label><input type="number" id="ssH" value="48000"></div>
+    <div class="field"><label>SS Annual — Wife</label><input type="number" id="ssW" value="24000"></div>
   </div>
   <div class="sxn"><h3>Tax Parameters</h3>
-    <div class="field"><label>Federal Std Deduction (MFJ)</label><input type="number" id="fedDed" value="32200">
-      <div class="sl-wrap"><input type="range" id="fedDed_s" min="25000" max="50000" step="100" oninput="sliderSync('fedDed')"></div></div>
-    <div class="field"><label>CA Itemized Deduction</label><input type="number" id="caDed" value="20000">
-      <div class="sl-wrap"><input type="range" id="caDed_s" min="5000" max="50000" step="500" oninput="sliderSync('caDed')"></div></div>
-    <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306">
-      <div class="sl-wrap"><input type="range" id="caExempt_s" min="100" max="1000" step="10" oninput="sliderSync('caExempt')"></div></div>
-  </div>
-  <div class="sxn"><h3>🎯 Readiness Goals</h3>
-    <div class="field"><label>Target Retirement Age</label><input type="number" id="r-target-age" value="65">
-      <div class="sl-wrap"><input type="range" id="r-target-age_s" min="50" max="80" step="1" oninput="sliderSync('r-target-age')"></div></div>
-    <div class="field"><label>Monthly Income Needed ($)</label><input type="number" id="r-monthly-need" value="8000">
-      <div class="sl-wrap"><input type="range" id="r-monthly-need_s" min="1000" max="30000" step="500" oninput="sliderSync('r-monthly-need')"></div></div>
-    <div class="field"><label>Stocks/RSU/Equity ($/mo)</label><input type="number" id="r-stocks" value="0">
-      <div class="sl-wrap"><input type="range" id="r-stocks_s" min="0" max="20000" step="500" oninput="sliderSync('r-stocks')"></div></div>
-    <div class="field"><label>Other Income ($/mo)</label><input type="number" id="r-other-inc" value="0">
-      <div class="sl-wrap"><input type="range" id="r-other-inc_s" min="0" max="20000" step="500" oninput="sliderSync('r-other-inc')"></div></div>
-    <div style="margin-top:6px;">
-      <div style="font-size:10px;color:#5a7a6a;margin-bottom:4px;font-family:'DM Mono',monospace;">SWR — Portfolio Withdrawal Rate</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;" id="rr-wd-row">
-        <button class="rr-wd" data-val="0"   onclick="setRRWD(0,this)"   style="padding:4px 2px;border-radius:4px;border:1px solid #bbb;background:#fff;font-size:10px;font-weight:700;cursor:pointer;color:#3d5166;">0%</button>
-        <button class="rr-wd" data-val="4"   onclick="setRRWD(4,this)"   style="padding:4px 2px;border-radius:4px;border:1px solid var(--gold);background:var(--gold);font-size:10px;font-weight:700;cursor:pointer;color:#fff;">4%</button>
-        <button class="rr-wd" data-val="3.5" onclick="setRRWD(3.5,this)" style="padding:4px 2px;border-radius:4px;border:1px solid #bbb;background:#fff;font-size:10px;font-weight:700;cursor:pointer;color:#3d5166;">3.5%</button>
-        <button class="rr-wd" data-val="3"   onclick="setRRWD(3,this)"   style="padding:4px 2px;border-radius:4px;border:1px solid #bbb;background:#fff;font-size:10px;font-weight:700;cursor:pointer;color:#3d5166;">3%</button>
-      </div>
-      <input type="number" id="rr-wd-custom" placeholder="Custom %" min="0" max="10" step="0.1"
-        style="width:100%;margin-top:4px;background:#fff;border:1px solid #bbb;border-radius:4px;padding:4px 7px;font-family:'DM Mono',monospace;font-size:12px;color:#000;outline:none;"
-        oninput="setRRWDCustom(this)" />
-    </div>
+    <div class="field"><label>Federal Std Deduction (MFJ)</label><input type="number" id="fedDed" value="32200"></div>
+    <div class="field"><label>CA Itemized Deduction</label><input type="number" id="caDed" value="20000"></div>
+    <div class="field"><label>CA Personal Exempt Credit</label><input type="number" id="caExempt" value="306"></div>
   </div>
   <button class="calc-btn" onclick="calculate()">▶ Calculate Projection</button>
   <a href="montecarlo_retirement.html" class="save-btn" style="text-decoration: none; display: block; text-align: center;">🎲RETIREMENT CONFIDENCE </a>
@@ -447,7 +293,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     <div class="tab" style="--tc:#94a3b8" data-tab="pca"><span class="dot" style="--tc:#94a3b8"></span>CA Tax</div>
     <div class="tab" style="--tc:#fbbf24" data-tab="psum"><span class="dot" style="--tc:#fbbf24"></span>Full Summary</div>
     <div class="tab" style="--tc:#fb923c" data-tab="pirmaa"><span class="dot" style="--tc:#fb923c"></span>IRMAA Medicare</div>
-    <div class="tab" style="--tc:#4ade80" data-tab="preadiness"><span class="dot" style="--tc:#4ade80"></span>✅ Readiness</div>
   </div>
 
   <div class="table-area">
@@ -540,82 +385,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
       <!-- IRMAA Projection Table -->
       <div class="table-wrap"><table id="tirmaa"></table></div>
     </div>
-
-    <!-- ══ READINESS TAB ══ -->
-    <div class="tab-panel" id="preadiness">
-      <div class="panel-title"><span class="pdot" style="background:#4ade80"></span>✅ Retirement Readiness</div>
-
-      <!-- Answer Cards -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">
-        <div style="background:#082E6E;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent)"></div>
-          <div style="font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.14em;color:#94a3b8;margin-bottom:4px;">💰 How Much Do I Need?</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#e8c84a;line-height:1;margin-bottom:3px;" id="rr-target">$—</div>
-          <div style="font-size:10px;color:#94a3b8;" id="rr-target-sub">target portfolio</div>
-        </div>
-        <div style="background:#082E6E;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#4ade80"></div>
-          <div style="font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.14em;color:#94a3b8;margin-bottom:4px;">📅 On Track?</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#4ade80;line-height:1;margin-bottom:3px;" id="rr-status-val">—</div>
-          <div style="font-size:10px;color:#94a3b8;" id="rr-status-sub">vs target</div>
-        </div>
-        <div style="background:#082E6E;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#60a5fa"></div>
-          <div style="font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.14em;color:#94a3b8;margin-bottom:4px;">💵 Monthly Income</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#60a5fa;line-height:1;margin-bottom:3px;" id="rr-monthly">$—</div>
-          <div style="font-size:10px;color:#94a3b8;" id="rr-monthly-sub">at retirement</div>
-        </div>
-        <div style="background:#082E6E;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#fb923c"></div>
-          <div style="font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:0.14em;color:#94a3b8;margin-bottom:4px;">📊 Target in Today's $</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#fb923c;line-height:1;margin-bottom:3px;" id="rr-real">$—</div>
-          <div style="font-size:10px;color:#94a3b8;" id="rr-real-sub">inflation-adjusted</div>
-        </div>
-      </div>
-
-      <!-- Income Breakdown Table -->
-      <div style="background:#0d1a26;border:1px solid #1e3a5f;border-radius:10px;padding:14px;margin-bottom:14px;">
-        <div style="font-family:'DM Serif Display',serif;font-size:15px;color:#e8c84a;margin-bottom:10px;">Monthly Income Breakdown at Retirement</div>
-        <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:'DM Mono',monospace;">
-          <thead>
-            <tr>
-              <th style="background:#082E6E;padding:8px 10px;text-align:left;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">Income Source</th>
-              <th style="background:#082E6E;padding:8px 10px;text-align:right;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">Monthly</th>
-              <th style="background:#082E6E;padding:8px 10px;text-align:right;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">Annual</th>
-              <th style="background:#082E6E;padding:8px 10px;text-align:right;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">% of Total</th>
-              <th style="background:#082E6E;padding:8px 10px;text-align:left;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#94a3b8;border-bottom:1px solid #1e3a5f;">Notes</th>
-            </tr>
-          </thead>
-          <tbody id="rr-income-body"></tbody>
-        </table>
-      </div>
-
-      <!-- Annual Table -->
-      <div style="background:#0d1a26;border:1px solid #1e3a5f;border-radius:10px;padding:14px;">
-        <div style="font-family:'DM Serif Display',serif;font-size:15px;color:#e8c84a;margin-bottom:4px;">Annual Retirement Income — Year by Year</div>
-        <div style="font-size:11px;color:#94a3b8;margin-bottom:10px;">⭐ Retirement year &nbsp;|&nbsp; 🏛️ SS starts &nbsp;|&nbsp; 📋 RMD begins &nbsp;|&nbsp; All amounts nominal (future dollars). SS grows at COLA rate.</div>
-        <div style="overflow:auto;max-height:420px;">
-          <table style="width:100%;border-collapse:collapse;font-size:12px;font-family:'DM Mono',monospace;">
-            <thead>
-              <tr>
-                <th style="background:#082E6E;padding:7px 8px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Age H/W</th>
-                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Portfolio Balance</th>
-                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Withdrawal/mo</th>
-                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">SS Husband/mo</th>
-                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#a78bfa;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">SS Wife/mo</th>
-                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Stocks/RSU/mo</th>
-                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--orange);border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Other/mo</th>
-                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#4ade80;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Total/mo</th>
-                <th style="background:#082E6E;padding:7px 8px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#4ade80;border-bottom:1px solid #1e3a5f;white-space:nowrap;position:sticky;top:0;z-index:2;">Total/yr</th>
-              </tr>
-            </thead>
-            <tbody id="rr-annual-body"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <!-- ══ END READINESS TAB ══ -->
-
   </div>
 
   <div class="chart-section">
@@ -696,40 +465,410 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </div>
 </div>
 
+<script>
+// ── tax_engine.js (inlined) ───────────────────────────────────────────────────
+const FED_BRACKETS = [
+  { lo: 0,       hi: 24800,   r: 0.10 },
+  { lo: 24800,   hi: 100800,  r: 0.12 },
+  { lo: 100800,  hi: 211400,  r: 0.22 },
+  { lo: 211400,  hi: 403550,  r: 0.24 },
+  { lo: 403550,  hi: 512450,  r: 0.32 },
+  { lo: 512450,  hi: 768700,  r: 0.35 },
+  { lo: 768700,  hi: 1e18,    r: 0.37 }
+];
+const CA_BRACKETS = [
+  { lo: 0,        hi: 22158,   r: 0.010 },
+  { lo: 22158,    hi: 52528,   r: 0.020 },
+  { lo: 52528,    hi: 82904,   r: 0.040 },
+  { lo: 82904,    hi: 115084,  r: 0.060 },
+  { lo: 115084,   hi: 145448,  r: 0.080 },
+  { lo: 145448,   hi: 742958,  r: 0.093 },
+  { lo: 742958,   hi: 891542,  r: 0.103 },
+  { lo: 891542,   hi: 1485906, r: 0.113 },
+  { lo: 1485906,  hi: 1e18,    r: 0.123 }
+];
+const FED = FED_BRACKETS;
+const CA  = CA_BRACKETS;
 
+function taxCalc(inc, br) {
+  if (inc <= 0) return 0;
+  let t = 0;
+  for (const b of br) {
+    if (inc <= b.lo) break;
+    t += (Math.min(inc, b.hi) - b.lo) * b.r;
+  }
+  return Math.round(t);
+}
+const calculateTax = taxCalc;
 
-<!-- Floating Feedback Button with Text -->
-<button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
-  style="
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    height: 54px;
-    padding: 0 18px;
-    border-radius: 28px;
-    background: #d4af37;
-    border: 2px solid #000;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-    z-index: 9999;
-    transition: background 0.2s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #000;
-  "
-  onmouseover="this.style.background='#693909'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
-  onmouseout="this.style.background='#d4af37'; this.style.color='#000'; this.style.transform='scale(1)';">
+function computeTax({ conv, w401, rmd, totalSS_yr, fedDed, caDed, caEx, isRetired }) {
+  const nonSsInc = (isRetired ? (conv + w401) : 0) + rmd;
+  const provInc  = nonSsInc + (totalSS_yr * 0.5);
+  let taxSsFed = 0;
+  if (provInc > 44000)      taxSsFed = Math.round(totalSS_yr * 0.85);
+  else if (provInc > 32000) taxSsFed = Math.round(Math.min(totalSS_yr * 0.5, (provInc - 32000) * 0.5));
+  const fedAgi        = nonSsInc + taxSsFed;
+  const fedTaxableInc = Math.max(0, fedAgi - fedDed);
+  const fedTax        = isRetired ? taxCalc(fedTaxableInc, FED_BRACKETS) : 0;
+  const caAdjInc      = nonSsInc;
+  const caTaxableInc  = Math.max(0, caAdjInc - caDed);
+  const caTaxRaw      = isRetired ? taxCalc(caTaxableInc, CA_BRACKETS) : 0;
+  const caTax         = Math.max(0, caTaxRaw - caEx);
+  const totalTax_yr   = fedTax + caTax;
+  return { nonSsInc, provInc, taxSsFed, fedAgi, fedTaxableInc, fedTax,
+           caAdjInc, caTaxableInc, caTaxRaw, caTax, totalTax_yr };
+}
+// ─────────────────────────────────────────────────────────────────────────────
+</script>
+<script>
+// FED, CA, FED_BRACKETS, CA_BRACKETS, taxCalc, computeTax — all from js/tax_engine.js
 
-  <span style="font-size:22px;">💬</span>
-  <span>Share feedback</span>
+const RMD_F={75:24.6,76:23.7,77:22.9,78:22,79:21.1,80:20.2,81:19.4,82:18.5,83:17.7,84:16.8,85:16,86:15.2,87:14.4,88:13.7,89:12.9,90:12.2};
 
-</button>
+// ── IRMAA Brackets 2025 (MFJ) ────────────────────────────────────────────────
+// Source: CMS 2025. Part B monthly per person. 2-year MAGI lookback.
+const IRMAA_MFJ = [
+  { tier:0, label:'Standard',   magiLo:0,      magiHi:212000, partB_mo:185.00, partD_mo:0     },
+  { tier:1, label:'Tier 1',     magiLo:212001, magiHi:266000, partB_mo:259.00, partD_mo:12.90 },
+  { tier:2, label:'Tier 2',     magiLo:266001, magiHi:334000, partB_mo:370.00, partD_mo:33.30 },
+  { tier:3, label:'Tier 3',     magiLo:334001, magiHi:402000, partB_mo:480.90, partD_mo:53.80 },
+  { tier:4, label:'Tier 4',     magiLo:402001, magiHi:750000, partB_mo:591.90, partD_mo:74.20 },
+  { tier:5, label:'Tier 5',     magiLo:750001, magiHi:1e18,   partB_mo:628.90, partD_mo:81.00 },
+];
+function getIRMAA(magi) {
+  for (const b of IRMAA_MFJ) { if (magi <= b.magiHi) return b; }
+  return IRMAA_MFJ[IRMAA_MFJ.length - 1];
+}
+// IRMAA flag tiers: 0 = none, 1-2 = warning (orange), 3-5 = high (red)
+function irmaaTag(tier) {
+  if (tier === 0) return '';
+  const flags = '⚑'.repeat(tier);
+  const cls = tier <= 2 ? 'tag-irmaa' : 'tag-irmaa-hi';
+  return `<span class="tag ${cls}">IRMAA ${flags}</span>`;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+function gi(id){return parseFloat(document.getElementById(id).value)||0}
+function f(n) {
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    return '$' + Math.round(n).toLocaleString();
+}
+function fz(n) {
+    if (n === null || n === undefined || isNaN(n)) return '—';
+    return '$' + Math.round(n).toLocaleString();
+}
+function fm(n){if(n>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(0)+'K';return '$'+Math.round(n);}
 
-<!-- Modal Overlay -->
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.tab).classList.add('active');
+  });
+});
 
+function rowCls(r,ra,ma){return r.age===ra?'r-row':r.age>=ma?'m-row':'';}
+function yc(r,ra,ma){
+  let tag=r.age===ra?'<span class="tag tag-r">RETIRE</span>':r.age===ma?'<span class="tag tag-m">RMD</span>':'';
+  return `<td class="c hl">${r.year}${tag}</td><td class="c">${r.age}</td><td class="c">${r.wAge}</td>`;
+}
+const YH=`<th class="c" style="color:var(--accent)">Year</th><th class="c" style="color:var(--accent)">H.Age</th><th class="c" style="color:var(--accent)">W.Age</th>`;
+function fill(id,head,rowFn,rows){document.getElementById(id).innerHTML=`<thead><tr>${head}</tr></thead><tbody>${rows.map(rowFn).join('')}</tbody>`;}
+
+Chart.defaults.color='#7d8590';
+Chart.defaults.borderColor='#30363d';
+Chart.defaults.font.family="'DM Mono', monospace";
+Chart.defaults.font.size=14;
+
+let charts={};
+let globalRows=[];
+let currentView='portfolio';
+
+function mkChart(id,type,labels,datasets,opts={}){
+  const el=document.getElementById(id);
+  if(!el)return null;
+  if(charts[id])charts[id].destroy();
+  charts[id]=new Chart(el,{type,data:{labels,datasets},options:{
+    responsive:true,maintainAspectRatio:false,
+    onClick: (event, elements, chart) => {
+        if (elements.length > 0) {
+          const i = elements[0].index;
+          const label = chart.data.labels[i];
+          const value = chart.data.datasets[elements[0].datasetIndex].data[i];
+          const dataName = chart.data.datasets[elements[0].datasetIndex].label;
+          alert(`${dataName} at Age ${label}: ${fz(value)}`);
+        }
+      },
+    plugins:{legend:{display:opts.legend!==false,labels:{boxWidth:10,padding:12,color:'#a8b3bf'}},tooltip:{callbacks:{label:ctx=>{const v=ctx.raw;return ' '+fm(v);}}}},
+    scales:{
+      x:{grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:12}},
+      y:{grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}
+    },
+    ...opts
+  }});
+  return charts[id];
+}
+
+function lineDS(label,data,color,fill=false){
+  return{label,data,borderColor:color,backgroundColor:fill?color.replace(')',',0.15)').replace('rgb','rgba'):color+'22',borderWidth:2,pointRadius:0,pointHoverRadius:4,tension:.4,fill};
+}
+
+function switchView(view,btn){
+  currentView=view;
+  document.querySelectorAll('.ctbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMainChart(globalRows);
+}
+
+function renderMainChart(rows){
+  if(!rows.length)return;
+  const ages=rows.map(r=>r.age);
+  const titles={portfolio:'Total Portfolio Growth by Age',accounts:'Portfolio by Account',tax:'Annual Tax Bill (Federal + CA)',income:'Social Security & RMD Income'};
+  document.getElementById('mainChartTitle').textContent=titles[currentView]||'';
+
+  if(currentView==='portfolio'){
+    mkChart('mainChart','line',ages,[lineDS('Total Portfolio',rows.map(r=>r.total),'rgb(232,200,74)',true)],{legend:false});
+  } else if(currentView==='accounts'){
+    mkChart('mainChart','line',ages,[
+      lineDS('401(k)',rows.map(r=>r.e4),'#e8c84a'),
+      lineDS('Roth IRA',rows.map(r=>r.eR),'#a78bfa'),
+      lineDS('Brokerage',rows.map(r=>r.eB),'#60a5fa'),
+      lineDS('HSA',rows.map(r=>r.eH),'#4ade80'),
+      lineDS('Bonds',rows.map(r=>r.eBn),'#fb923c'),
+    ]);
+  } else if(currentView==='tax'){
+    mkChart('mainChart','bar',ages,[
+      {label:'Federal Tax',data:rows.map(r=>r.fedTax),backgroundColor:'rgba(244,114,182,0.7)',borderWidth:0},
+      {label:'CA Tax',data:rows.map(r=>r.caTax),backgroundColor:'rgba(148,163,184,0.7)',borderWidth:0},
+    ],{scales:{x:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:12}},y:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}}});
+  } else if(currentView==='income'){
+    mkChart('mainChart','line',ages,[
+      lineDS('SS Income',rows.map(r=>r.totalSS_yr),'#fb7185'),
+      lineDS('RMD',rows.map(r=>r.rmd),'#38bdf8'),
+    ]);
+  }
+}
+
+function renderSubCharts(rows){
+  const ages=rows.map(r=>r.age);
+  const mini=(id,data,color)=>mkChart(id,'line',ages,[lineDS('',data,color,true)],{legend:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fm(ctx.raw)}}}});
+  mini('chart401k',rows.map(r=>r.e4),'#e8c84a');
+  mini('chartRoth',rows.map(r=>r.eR),'#a78bfa');
+  mini('chartHSA',rows.map(r=>r.eH),'#4ade80');
+  mini('chartBonds',rows.map(r=>r.eBn),'#fb923c');
+  mini('chartBrok',rows.map(r=>r.eB),'#60a5fa');
+  if(charts['chartTax'])charts['chartTax'].destroy();
+  charts['chartTax']=new Chart(document.getElementById('chartTax'),{type:'bar',data:{labels:ages,datasets:[
+    {label:'Federal',data:rows.map(r=>r.fedTax),backgroundColor:'rgba(244,114,182,0.7)',borderWidth:0},
+    {label:'CA',data:rows.map(r=>r.caTax),backgroundColor:'rgba(148,163,184,0.7)',borderWidth:0},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:8,padding:10,color:'#a8b3bf'}}},scales:{x:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',maxTicksLimit:10}},y:{stacked:true,grid:{color:'rgba(48,54,61,.5)'},ticks:{color:'#7d8590',callback:v=>fm(v)}}}}});
+}
+
+function updateSliders(){
+  const hAge0=gi('hAge'), endAge=gi('endAge');
+  const sA=parseInt(document.getElementById('sliderA').value);
+  const sB=parseInt(document.getElementById('sliderB').value);
+  document.getElementById('sliderAVal').textContent=sA;
+  document.getElementById('sliderBVal').textContent=sB;
+  document.getElementById('col-a-head').textContent='Age '+sA;
+  document.getElementById('col-b-head').textContent='Age '+sB;
+  document.getElementById('sliderA').min=hAge0; document.getElementById('sliderA').max=endAge;
+  document.getElementById('sliderB').min=hAge0; document.getElementById('sliderB').max=endAge;
+
+  const rA=globalRows.find(r=>r.age===sA)||globalRows[0];
+  const rB=globalRows.find(r=>r.age===sB)||globalRows[globalRows.length-1];
+  if(!rA||!rB)return;
+
+  const metrics=[
+    ['401(k)', r=>r.e4],
+    ['Roth IRA', r=>r.eR],
+    ['Brokerage', r=>r.eB],
+    ['HSA', r=>r.eH],
+    ['Bonds', r=>r.eBn],
+    ['AGI', r=>r.agi],
+    ['Annual SS Income', r=>r.totalSS_yr],
+    ['Annual RMD', r=>r.rmd],
+    ['Federal Tax', r=>r.fedTax],
+    ['CA Tax', r=>r.caTax],
+    ['Total Tax', r=>r.totalTax_yr],
+    ['SD+RMD Reinvested', r=>r.reinvested],
+    ['Total Portfolio', r=>r.total],
+  ];
+
+  const isLast=(i)=>i===metrics.length-1;
+  document.getElementById('compareBody').innerHTML=metrics.map(([label,fn],i)=>{
+    const vA=fn(rA), vB=fn(rB);
+    return `<tr>
+      <td${isLast(i)?' style="font-weight:700"':''}>${label}</td>
+      <td class="col-a"${isLast(i)?' style="font-weight:700"':''}>${vA?fz(vA):'—'}</td>
+      <td class="col-b"${isLast(i)?' style="font-weight:700"':''}>${vB?fz(vB):'—'}</td>
+    </tr>`;
+  }).join('');
+
+  if(charts['mainChart']){
+    renderMainChart(globalRows);
+    const chart=charts['mainChart'];
+    chart._ageMarkers=[sA,sB];
+  }
+}
+
+const ageMarkerPlugin={
+  id:'ageMarker',
+  afterDraw(chart){
+    const markers=chart._ageMarkers;
+    if(!markers||!markers.length)return;
+    const{ctx,scales:{x,y}}=chart;
+    const colors=['#e8c84a','#38bdf8'];
+    markers.forEach((age,i)=>{
+      const xPos=x.getPixelForValue(age);
+      if(!xPos)return;
+      ctx.save();
+      ctx.setLineDash([5,4]);
+      ctx.strokeStyle=colors[i];
+      ctx.lineWidth=1.5;
+      ctx.globalAlpha=.7;
+      ctx.beginPath();
+      ctx.moveTo(xPos,y.top);
+      ctx.lineTo(xPos,y.bottom);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle=colors[i];
+      ctx.font='bold 11px DM Sans, sans-serif';
+      ctx.fillText('Age '+age,xPos+4,y.top+14);
+      ctx.restore();
+    });
+  }
+};
+Chart.register(ageMarkerPlugin);
+
+function calculate(){
+  const startYear=parseInt(document.getElementById('startYear').value);
+  const hAge0=gi('hAge'),wAge00=gi('wAge0'),retireAge=gi('retireAge'),rmdAge=gi('rmdAge'),endAge=gi('endAge');
+  const r1=gi('gr1')/100,r2=gi('gr2')/100,ssCola=gi('ssCola')/100, infl=gi('inflation')/100;
+  const rothConv=gi('rothConv'),w401=gi('w401k'),c401=gi('c401k')+gi('m401k'),cHSA=gi('cHSA'), spend_inp=gi('spend');
+  const fedDed=gi('fedDed'),caDed=gi('caDed'),caEx=gi('caExempt');
+  const ssStartH=gi('ssStartH'),ssStartW=gi('ssStartW'),ssH0=gi('ssH'),ssW0=gi('ssW');
+
+  let prev={a:gi('b401k'),b:gi('bRoth'),c:gi('bBrok'),d:gi('bHSA'),e:gi('bBonds')};
+  let ssHB=ssH0,ssWB=ssW0,ssHS=false,ssWS=false;
+  let totalSS=0,totalTax=0,peak=0,peakAge=hAge0,retPort=0,finPort=0;
+  let rows=[];
+
+  for(let age=hAge0;age<=endAge;age++){
+    const year=startYear+(age-hAge0),wAge=wAge00+(age-hAge0);
+    const ret=age>=retireAge,rmdOn=age>=rmdAge;
+    
+    // Inflate spending
+    const spendTotal = spend_inp * Math.pow(1 + infl, age - hAge0);
+
+    const s4=prev.a,g4=s4*r1,c4=ret?0:c401,w4=ret?w401:0;
+    const conv=(ret&&age<75)?rothConv:0;
+    const e4=s4+g4+c4-w4-conv;
+    
+    const sR=prev.b,gR=sR*r1,eR=sR+gR+conv;
+    
+    const sB=prev.c,gB=sB*r1; 
+    // Brokerage is handled below after reinvestment calculation
+
+    const sH=prev.d,gH=sH*r1,cH=ret?0:cHSA,eH=sH+gH+cH;
+    const sBn=prev.e,gBn=sBn*r2,eBn=sBn+gBn;
+
+    let ssH=0,ssW=0;
+    if(age>=ssStartH){if(!ssHS){ssHS=true;ssHB=ssH0;}else ssHB*=(1+ssCola);ssH=ssHB;}
+    if(wAge>=ssStartW){if(!ssWS){ssWS=true;ssWB=ssW0;}else ssWB*=(1+ssCola);ssW=ssWB;}
+    const totalSS_yr=ssH+ssW;
+
+    const rmd=rmdOn&&RMD_F[age]?Math.round(e4/RMD_F[age]):0;
+    const rmdFactor=RMD_F[age]||null;
+    const totalInc = (ret?(conv+w4):0) + totalSS_yr + rmd;
+    
+    // ── Tax calculation via shared tax_engine.js ──────────────────
+    const tx = computeTax({
+      conv, w401: w4, rmd,
+      totalSS_yr,
+      fedDed, caDed, caEx,
+      isRetired: ret
+    });
+    const taxSsFed      = tx.taxSsFed;
+    const fedAgi        = tx.fedAgi;
+    const fedTaxableInc = tx.fedTaxableInc;
+    const fedTax        = tx.fedTax;
+    const caAdjInc      = tx.caAdjInc;
+    const caTaxableInc  = tx.caTaxableInc;
+    const caTaxRaw      = tx.caTaxRaw;
+    const caTax         = tx.caTax;
+    const totalTax_yr   = tx.totalTax_yr;
+
+    // --- RMD+SS Reinvested Logic ---
+    let reinvested = (rmd + totalSS_yr) - (spendTotal + totalTax_yr);
+    reinvested = Math.max(0, reinvested);
+    const eB = sB + gB + reinvested; // Surplus flows into Brokerage
+
+    const total=e4+eR+eB+eH+eBn;
+    totalSS+=totalSS_yr;totalTax+=totalTax_yr;
+    if(total>peak){peak=total;peakAge=age;}
+    if(age===retireAge)retPort=total;
+    if(age===endAge)finPort=total;
+
+    rows.push({
+  year,age,wAge,s4,g4,c4,w4,conv,e4,sR,gR,eR,sB,gB,eB,sH,gH,cH,eH,sBn,gBn,eBn,total,agi:fedAgi,
+  ssH,ssW,totalSS_yr,rmd,rmdFactor,grossInc:totalInc,taxSS:taxSsFed,fedTaxable:fedTaxableInc,fedTax,fedEff:'',
+  caAdj:caAdjInc,caTaxRaw,caTax,caEff:'',
+  totalTax_yr,
+  spendTotal,              // ✅ ADDED
+  ret,rmdOn, reinvested
+});
+    prev={a:e4,b:eR,c:eB,d:eH,e:eBn};
+  }
+
+  // ── IRMAA Post-Processing (2-year lookback) ──────────────────────────────
+  // Medicare starts at 65. IRMAA for Year N is based on MAGI from Year N-2.
+  // So the "lookback row" is the row where H.Age = current H.Age - 2.
+  const ageToRow = {};
+  rows.forEach(r => { ageToRow[r.age] = r; });
+  rows.forEach(r => {
+    if (r.age >= 65) {
+      const lookbackRow = ageToRow[r.age - 2];
+      const irmaaMAGI   = lookbackRow ? lookbackRow.agi : r.agi; // fallback to own AGI if no lookback
+      const bracket     = getIRMAA(irmaaMAGI);
+      r.irmaaLookbackAge  = r.age - 2;
+      r.irmaaLookbackYear = lookbackRow ? lookbackRow.year : r.year - 2;
+      r.irmaaMAGI         = irmaaMAGI;
+      r.irmaaTier         = bracket.tier;
+      r.irmaaLabel        = bracket.label;
+      r.irmaaPartB_yr     = bracket.partB_mo * 12 * 2; // × 2 persons
+      r.irmaaPartD_yr     = bracket.partD_mo * 12 * 2;
+      r.irmaaTotal_yr     = r.irmaaPartB_yr + r.irmaaPartD_yr;
+      r.irmaaFlag         = bracket.tier > 0;
+    } else {
+      r.irmaaMAGI = null; r.irmaaTier = 0; r.irmaaLabel = '—';
+      r.irmaaPartB_yr = 0; r.irmaaPartD_yr = 0; r.irmaaTotal_yr = 0;
+      r.irmaaFlag = false;
+    }
+  });
+  // ─────────────────────────────────────────────────────────────────────────
+  globalRows=rows;
+
+  document.getElementById('c-retire').textContent=fz(retPort);
+  document.getElementById('c-retire-s').textContent=`at age ${retireAge}`;
+  document.getElementById('c-peak').textContent=fz(peak);
+  document.getElementById('c-peak-s').textContent=`at age ${peakAge}`;
+  document.getElementById('c-ss').textContent=fz(totalSS);
+  document.getElementById('c-tax').textContent=fz(totalTax);
+
+  const ra=retireAge,ma=rmdAge;
+  const rc=r=>rowCls(r,ra,ma),ycr=r=>yc(r,ra,ma);
+  const gr1v=gi('gr1'),gr2v=gi('gr2');
+
+  fill('t401k',`${YH}<th style="color:#e8c84a">Start</th><th style="color:#e8c84a">Growth (${gr1v}%)</th><th style="color:#e8c84a">Contribution</th><th style="color:#e8c84a">Withdrawal</th><th style="color:#e8c84a">Roth Conv Out</th><th style="color:#e8c84a">Projected Balance</th>
+<th style="color:#22c55e">Actual Balance</th>`,
+    r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.s4)}</td><td class="pos">${fz(r.g4)}</td><td class="pos">${r.c4?fz(r.c4):'—'}</td><td class="neg">${r.w4?fz(r.w4):'—'}</td><td class="neg">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.e4)}</td>
+<td>
+  <div style="display:flex; align-items:center; gap:1px;">
+    <span style="color:#000000;">$</span>
+    <input type="number"
+           style="width:100px; background:#ffffff; color:#000000; border:1px solid #30363d; border-radius:5px; padding:4px; font-family:'DM Mono',monospace;">
+  </div>
 </td></tr>`,rows);
   fill('troth',`${YH}<th style="color:#a78bfa">Start</th><th style="color:#a78bfa">Growth (${gr1v}%)</th><th style="color:#a78bfa">Roth Conv In</th><th style="color:#a78bfa">End Balance</th>`,
     r=>`<tr class="${rc(r)}">${ycr(r)}<td>${f(r.sR)}</td><td class="pos">${fz(r.gR)}</td><td class="pos">${r.conv?fz(r.conv):'—'}</td><td class="hl">${fz(r.eR)}</td></tr>`,rows);
@@ -989,287 +1128,8 @@ function exportToCSV() {
     document.body.removeChild(link);
 }
 </script>
-
-
-
-<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
-  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
-         z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
-  <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
-              border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
-              position:relative;font-family:'Segoe UI',Arial,sans-serif;
-              box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
-    <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
-    <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
-    <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
-    <div style="margin-bottom:14px;">
-      <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
-      <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
-        <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
-        <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
-        <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
-        <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
-        <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
-      </div>
-      <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
-        What topic brought you here today?
-      </div>
-      <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
-        <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
-        <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
-        <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
-        <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
-        <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
-        <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
-        <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
-        <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
-      </div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
-        Rate your experience
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
-        <thead><tr>
-          <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
-        </tr></thead>
-        <tbody>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td><td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td><td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td><td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td><td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
-        Your thoughts
-      </div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label><input id="fb-useful" type="text" placeholder="e.g. the comparison table, the calculator..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area needs the most improvement?</label><select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"><option value="">&#x2014; Select an area &#x2014;</option><option>Medicare / ACA content</option><option>Social Security guidance</option><option>Tax planning content</option><option>Retirement calculators</option><option>Portfolio / investment content</option><option>Withdrawal strategy content</option><option>401k / savings content</option><option>Long term care content</option><option>Site navigation / layout</option><option>Mobile experience</option><option>Something not listed</option></select></div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">How can we make that area better? <span style="color:#a82222;">*</span></label><textarea id="fb-improve" rows="3" placeholder="Be as specific as you like..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea><div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div></div>
-      <div style="margin-bottom:4px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label><input id="fb-add" type="text" placeholder="e.g. a topic or calculator I'd love to see..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
-        About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label><input id="fb-name" type="text" placeholder="Your name" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label><input id="fb-email" type="email" placeholder="your@email.com" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-      </div>
-    </div>
-    <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
-    <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
-  </div>
-</div>
 </body>
 
-<script>
-// ── Star rating ──────────────────────────────────────────────────────────────
-let selectedRating = 0;
-const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
-
-function setRating(val) {
-  selectedRating = val;
-  document.querySelectorAll('.star').forEach(s => {
-    s.classList.toggle('lit', +s.dataset.val <= val);
-    s.textContent = +s.dataset.val <= val ? '★' : '☆';
-  });
-  document.getElementById('star-label').textContent = starLabels[val] || '';
-}
-
-// ── Checkbox highlight ───────────────────────────────────────────────────────
-document.querySelectorAll('.fb-checks label').forEach(lbl => {
-  lbl.querySelector('input').addEventListener('change', function() {
-    lbl.classList.toggle('checked', this.checked);
-  });
-});
-
-// ── Page-aware auto-check ────────────────────────────────────────────────────
-const pageMap = {
-  'medicare': ['Medicare / ACA'],
-  'healthcare_medicare': ['Medicare / ACA'],
-  'healthcare_aca': ['Medicare / ACA'],
-  'aca_vs_cobra': ['Medicare / ACA'],
-  'medicare_flowchart': ['Medicare / ACA'],
-  'long_term_care': ['Long term care'],
-  'tax_calculator': ['Tax planning'],
-  'retirement_calculator': ['Withdrawal strategy','Investment / Portfolio'],
-  'montecarlo': ['Withdrawal strategy','Investment / Portfolio'],
-  '401k': ['401k / Savings'],
-  'portfolio': ['Investment / Portfolio'],
-  'transition_plan': ['Withdrawal strategy'],
-  'financial_plan': ['Investment / Portfolio'],
-};
-const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
-Object.keys(pageMap).forEach(key => {
-  if (page.includes(key)) {
-    pageMap[key].forEach(topic => {
-      document.querySelectorAll('.fb-checks input').forEach(inp => {
-        if (inp.value === topic) {
-          inp.checked = true;
-          inp.closest('label').classList.add('checked');
-        }
-      });
-    });
-  }
-});
-
-// ── Submit ───────────────────────────────────────────────────────────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-
-function submitFeedback() {
-  const improve = document.getElementById('fb-improve').value.trim();
-  const status  = document.getElementById('fb-status');
-  const btn     = document.getElementById('fb-submit');
-
-  if (!improve) {
-    status.style.color = '#a82222';
-    status.textContent = 'Please share how we can improve — that field is required.';
-    return;
-  }
-
-  const topics = [...document.querySelectorAll('.fb-checks input:checked')].map(i => i.value).join(', ');
-  const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
-  const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
-  const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
-  const q4 = document.querySelector('input[name="q4"]:checked')?.value || '';
-
-  const payload = {
-    page:    window.location.pathname.split('/').pop() || 'unknown',
-    rating:  selectedRating ? selectedRating + ' ★' : 'Not rated',
-    topics,
-    q_easy:        q1,
-    q_found:       q2,
-    q_calculators: q3,
-    q_recommend:   q4,
-    useful:  document.getElementById('fb-useful').value.trim(),
-    area:    document.getElementById('fb-area').value,
-    improve,
-    add:     document.getElementById('fb-add').value.trim(),
-    name:    document.getElementById('fb-name').value.trim(),
-    email:   document.getElementById('fb-email').value.trim(),
-  };
-
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  status.style.color = '#555';
-  status.textContent = '';
-
-  fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
-    .then(() => {
-      status.style.color = '#2e7d32';
-      status.textContent = '✅ Thank you! Your feedback has been received.';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
-    })
-    .catch(() => {
-      status.style.color = '#a82222';
-      status.textContent = '⚠️ Could not send — please try again.';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
-    });
-}
-</script>
-
-
-
-
-
-
-
-<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
-  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
-         z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
-  <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
-              border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
-              position:relative;font-family:'Segoe UI',Arial,sans-serif;
-              box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
-    <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
-    <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
-    <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
-    <div style="margin-bottom:14px;">
-      <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
-      <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
-        <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
-        <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
-        <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
-        <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
-        <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
-      </div>
-      <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
-        What topic brought you here today?
-      </div>
-      <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
-        <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
-        <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
-        <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
-        <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
-        <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
-        <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
-        <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
-        <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
-      </div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
-        Rate your experience
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
-        <thead><tr>
-          <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
-        </tr></thead>
-        <tbody>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td><td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td><td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td><td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td><td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
-        Your thoughts
-      </div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label><input id="fb-useful" type="text" placeholder="e.g. the comparison table, the calculator..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area needs the most improvement?</label><select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"><option value="">&#x2014; Select an area &#x2014;</option><option>Medicare / ACA content</option><option>Social Security guidance</option><option>Tax planning content</option><option>Retirement calculators</option><option>Portfolio / investment content</option><option>Withdrawal strategy content</option><option>401k / savings content</option><option>Long term care content</option><option>Site navigation / layout</option><option>Mobile experience</option><option>Something not listed</option></select></div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">How can we make that area better? <span style="color:#a82222;">*</span></label><textarea id="fb-improve" rows="3" placeholder="Be as specific as you like..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea><div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div></div>
-      <div style="margin-bottom:4px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label><input id="fb-add" type="text" placeholder="e.g. a topic or calculator I'd love to see..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
-        About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label><input id="fb-name" type="text" placeholder="Your name" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label><input id="fb-email" type="email" placeholder="your@email.com" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-      </div>
-    </div>
-    <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
-    <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
-  </div>
-</div>
 </body>
   <!-- 
     

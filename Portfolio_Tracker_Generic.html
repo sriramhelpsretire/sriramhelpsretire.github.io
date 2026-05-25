@@ -3,424 +3,218 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Retirement Portfolio Tracker | Retire Wise and Live Happy</title>
-
-  <!-- Primary SEO -->
-  <meta name="description" content="Free retirement portfolio tracker — monitor your holdings, asset allocation, account balances, cost basis, and rebalancing log across 401k, IRA, Roth and taxable accounts." />
-  <meta name="keywords" content="retirement portfolio tracker, investment tracker, asset allocation tracker, 401k balance tracker, rebalancing log, portfolio holdings, retirement account tracker, cost basis tracker" />
-  <meta name="author" content="Sriram Gopalaratnam" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://wise-retiree.com/portfolio_tracker_generic.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://wise-retiree.com/portfolio_tracker_generic.html" />
-  <meta property="og:title" content="Retirement Portfolio Tracker | Retire Wise and Live Happy" />
-  <meta property="og:description" content="Track your retirement portfolio — holdings, allocation, account balances and rebalancing log across all account types." />
-  <meta property="og:site_name" content="Retire Wise and Live Happy" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Retirement Portfolio Tracker | Retire Wise and Live Happy" />
-  <meta name="twitter:description" content="Free retirement portfolio tracker — monitor holdings, allocation, and rebalancing across 401k, IRA, Roth and taxable accounts." />
+  <title>Portfolio Tracker</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 24px; padding-top: 88px; background: #f7f7f7; color: #222; }
+    /* ─── Base ──────────────────────────────────────────────────── */
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f7f7; color: #222; padding-top: 52px; }
     h1, h2 { margin-bottom: 8px; }
-    .card { background: #FFFFCC; padding: 16px; border: 3px solid #000; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 32px; }
+    .page-content { margin: 24px; }
 
-    /* Summary row */
-    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; margin-bottom: 16px; }
+    /* ─── Sticky Nav ─────────────────────────────────────────────── */
+    .sticky-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: #1a1a2e; color: #fff;
+      display: flex; align-items: center; height: 48px;
+      padding: 0 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      overflow-x: auto; white-space: nowrap;
+    }
+    .sticky-nav .nav-title { font-weight: bold; font-size: 15px; color: #EDCB82; margin-right: 20px; flex-shrink: 0; }
+    .sticky-nav a {
+      color: #ccc; text-decoration: none; font-size: 13px;
+      padding: 14px 11px; border-bottom: 3px solid transparent;
+      transition: all 0.15s; flex-shrink: 0;
+    }
+    .sticky-nav a:hover { color: #EDCB82; border-bottom-color: #EDCB82; }
+
+    /* ─── Cards ───────────────────────────────────────────────────── */
+    .card { background: #FFFFCC; padding: 16px; border: 3px solid #000; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px; }
+
+    /* ─── Summary ─────────────────────────────────────────────────── */
+    .summary { display: grid; grid-template-columns: repeat(5, 1fr); gap: 13px; margin-bottom: 8px; }
     .summary .card { margin-bottom: 0; }
+    .last-refreshed { text-align: right; font-size: 12px; color: #666; margin: 0 0 12px; font-style: italic; }
 
-    /* Charts row: pie on left, P&L table on right */
+    /* ─── Concentration Alert ─────────────────────────────────────── */
+    #concentrationAlert {
+      display: none; background: #fff3cd; border: 2px solid #e6a817;
+      border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; font-size: 14px; line-height: 1.6;
+    }
+
+    /* ─── Charts rows ─────────────────────────────────────────────── */
     .charts-row { display: grid; grid-template-columns: 340px 1fr; gap: 16px; margin-bottom: 16px; align-items: start; }
 
-    /* Add form */
-    form { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
-    input, select, button { padding: 10px; border: 1px solid #000000;border-radius: 8px; font-size: 14px; }
-    button { background: #7FC5EB; color: #000; cursor: pointer; border: #000000; }
-    button:hover { background: #A15223; }
-    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    /* ─── How-to-use toggle ────────────────────────────────────────── */
+    .how-to-toggle {
+      cursor: pointer; color: #1a56db; font-size: 14px; user-select: none;
+      display: inline-flex; align-items: center; gap: 5px; margin-bottom: 10px;
+    }
+    .how-to-toggle:hover { text-decoration: underline; }
+    #howToContent { display: none; background: #fff9e6; border: 1px solid #e6d400; border-radius: 8px; padding: 12px 16px; font-size: 14px; margin-bottom: 14px; line-height: 1.9; }
 
-    /* Tables */
+    /* ─── Forms & Buttons ──────────────────────────────────────────── */
+    form { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+    input, select, button { padding: 10px; border: 1px solid #000; border-radius: 8px; font-size: 14px; }
+    button { background: #7FC5EB; color: #000; cursor: pointer; }
+    button:hover { background: #A15223; color: #fff; }
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
+    .api-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    /* ─── Tables ───────────────────────────────────────────────────── */
     table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 10px; border-bottom: 1.5px solid #000 ; border-top: 1.5px solid #000 ;ext-align: left; font-size: 16px; }
+    th, td { padding: 10px; border-bottom: 1.5px solid #000; border-top: 1.5px solid #000; text-align: left; font-size: 15px; }
     th { background: #EDCB82; }
+    th.sortable { cursor: pointer; user-select: none; }
+    th.sortable:hover { background: #e0bb6a; }
+    th.sort-asc::after  { content: ' ▲'; font-size: 11px; }
+    th.sort-desc::after { content: ' ▼'; font-size: 11px; }
     td[data-field]:hover { background: #B8BF36; cursor: pointer; }
     .editing { background: #fff3cd !important; }
-    input.edit-input {
-      width: 100%; height: 100%; border: 2px solid #000000;
-      background: white; font-size: 14px; padding: 4px;
-      box-sizing: border-box;
-    }
+    input.edit-input { width: 100%; height: 100%; border: 2px solid #000; background: white; font-size: 14px; padding: 4px; box-sizing: border-box; }
     input.edit-input:focus { outline: none; box-shadow: 0 0 0 2px rgba(0,123,255,0.25); }
 
     .positive { color: green; }
     .negative { color: red; }
-    .muted { color: #000; font-size: 16px;font-weight: bold; }
+    .muted { color: #000; font-size: 16px; font-weight: bold; }
     .account-title { margin: 18px 0 8px; font-size: 18px; font-weight: bold; }
 
-    /* Pie chart + legend */
+    /* ─── Pie chart + legend ───────────────────────────────────────── */
     .chart-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    canvas#allocationChart { display: block; }
     .legend { display: flex; flex-direction: column; gap: 6px; width: 100%; }
     .legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
     .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
 
-    @media (max-width: 600px) {
-      form, .summary, .charts-row { grid-template-columns: 1fr; }
-    }
+    /* ─── Rebalance action cells ────────────────────────────────────── */
+    .action-buy  { color: #059669; font-weight: bold; }
+    .action-sell { color: #dc2626; font-weight: bold; }
+    .action-ok   { color: #666; }
 
-    /* Query Panel */
+    /* ─── Retirement grid ───────────────────────────────────────────── */
+    .retire-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 6px; }
+
+    /* ─── Query Panel ───────────────────────────────────────────────── */
     .query-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
     .query-bar select, .query-bar input { flex: 1; min-width: 160px; max-width: 300px; }
     .query-bar button { flex: 0 0 auto; }
-    #queryResults { margin-top: 16px; }
     #queryResults table { background: #fff; }
     #queryResults th { background: #c8e6c9; }
-    .query-summary { margin-top: 10px; padding: 10px 14px; background: rgba(0,0,0,0.05);
-      border-radius: 6px; font-size: 15px; font-weight: bold; }
+    .query-summary { margin-top: 10px; padding: 10px 14px; background: rgba(0,0,0,0.05); border-radius: 6px; font-size: 15px; font-weight: bold; }
     .no-results { color: #888; font-style: italic; text-align: center; padding: 20px; }
 
-    /* ── Top Nav — Hover Dropdown Style ── */
-    .top-nav {
-        width: 100%;
-        background: #000;
-        border-bottom: 4px solid #a82222;
-        display: flex;
-        align-items: stretch;
-        justify-content: space-between;
-        padding: 0 28px;
-        position: fixed;
-        top: 0; left: 0;
-        z-index: 10000;
-        gap: 40px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.35);
-        box-sizing: border-box;
-    }
-    .nav-brand {
-        color: #fff;
-        font-size: clamp(15px, 2.2vw, 22px);
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: center;
-        padding: 14px 0;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-    .nav-links {
-        display: flex;
-        align-items: stretch;
-        list-style: none;
-        gap: 0;
-        margin-left: auto;
-        padding: 0;
-    }
-    .nav-item { position: relative; }
-    .nav-item > a {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        color: #fff;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        padding: 0 20px;
-        height: 100%;
-        border-bottom: 3px solid transparent;
-        transition: color 0.15s, border-color 0.15s, background 0.15s;
-        white-space: nowrap;
-    }
-    .nav-item > a .chevron { font-size: 10px; opacity: 0.7; transition: transform 0.2s; margin-left: 2px; }
-    .nav-item:hover > a { color: #d4af37; border-bottom-color: #d4af37; background: rgba(212,175,55,0.08); }
-    .nav-item:hover > a .chevron { transform: rotate(180deg); }
-    .nav-dropdown {
-        display: none;
-        position: absolute;
-        top: 100%; left: 0;
-        background: #1a1a1a;
-        border: 1px solid #333;
-        border-top: 3px solid #d4af37;
-        border-radius: 0 0 10px 10px;
-        min-width: 240px;
-        box-shadow: 0 8px 28px rgba(0,0,0,0.45);
-        z-index: 999;
-        padding: 8px 0;
-    }
-    .nav-dropdown.two-col { min-width: 260px; }
-    .nav-item:hover .nav-dropdown,
-    .nav-item:hover .nav-dropdown.two-col { display: block; }
-    .nav-dropdown a {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 10px 18px;
-        color: #ddd;
-        text-decoration: none;
-        font-size: 13px;
-        border-left: 3px solid transparent;
-        transition: background 0.15s, color 0.15s, border-color 0.15s;
-    }
-    .nav-dropdown a:hover { background: rgba(212,175,55,0.10); color: #d4af37; border-left-color: #d4af37; }
-    .nav-dropdown a .dd-icon { font-size: 17px; width: 24px; text-align: center; flex-shrink: 0; margin-top: 1px; }
-    .nav-dropdown a .dd-text strong { display: block; font-size: 13px; font-weight: 600; line-height: 1.3; }
-    .nav-dropdown a .dd-text span { display: block; font-size: 11px; color: #888; margin-top: 2px; line-height: 1.3; }
-    .nav-dropdown a:hover .dd-text span { color: #b8922e; }
-    .nav-item:last-child .nav-dropdown,
-    .nav-item:nth-last-child(2) .nav-dropdown { right: 0; left: auto; }
-    .nav-dd-divider { height: 1px; background: #333; margin: 6px 14px; }
-    .nav-mobile-select {
-        display: none;
-        background: #333;
-        color: white;
-        padding: 8px;
-        border-radius: 6px;
-        font-weight: bold;
-        border: 1px solid #d4af37;
-        cursor: pointer;
-        align-self: center;
-        margin-left: auto;
-    }
+    /* ─── Responsive ────────────────────────────────────────────────── */
     @media (max-width: 768px) {
-        .nav-links          { display: none; }
-        .nav-mobile-select  { display: block; }
+      form, .summary, .charts-row, .retire-grid { grid-template-columns: 1fr; }
     }
-    /* ── HOME footer button ── */
-    .footer-home {
-        display: flex;
-        justify-content: center;
-        margin: 40px 0 20px;
+
+    /* Accordion rows */
+    tr.asset-summary-row { cursor: pointer; transition: background 0.15s; }
+    tr.asset-summary-row:hover td { background: #fef9e0 !important; }
+    .expand-icon {
+      display: inline-block; width: 18px; height: 18px; line-height: 18px;
+      text-align: center; border-radius: 4px; font-size: 12px; font-weight: bold;
+      background: #EDCB82; color: #333; margin-right: 7px; flex-shrink: 0;
+      transition: transform 0.2s; vertical-align: middle;
     }
-    .footer-home a {
-        background-color: #d4af37;
-        color: #000;
-        text-decoration: none;
-        padding: 14px 48px;
-        border-radius: 12px;
-        font-weight: bold;
-        border: 2px solid #000;
-        font-size: 16px;
-        transition: background 0.2s, color 0.2s;
+    tr.asset-summary-row.open .expand-icon { transform: rotate(90deg); background: #A15223; color: #fff; }
+    tr.asset-detail-section > td { padding: 0 !important; border-top: none !important; border-bottom: none !important; }
+    .detail-inner { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+    .detail-inner.open { max-height: 3000px; }
+    .detail-table-wrap {
+      margin: 2px 8px 10px 36px;
+      border: 1.5px solid #EDCB82; border-radius: 8px; overflow: hidden; background: #fff;
     }
-    .footer-home a:hover { background: #693909; color: #fff; }
-  
-  
-  /* ... existing styles on your page ... */
-        
-        /* ── Tooltip Style for Wise Thoughts ── */
-        .tooltip-container {
-            position: relative;
-        }
-        .tooltip-container .tooltip-text {
-            visibility: hidden;
-            width: 160px;
-            background-color: #000000;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 6px 0;
-            position: absolute;
-            z-index: 10001;
-            bottom: 125%;
-            right: 10%;
-            opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .tooltip-container .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 85%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #000000 transparent transparent transparent;
-        }
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-  
-  
-  
-  
+    .detail-table-wrap table { width: 100%; border-collapse: collapse; }
+    .detail-table-wrap th {
+      background: #fdf3d0; font-size: 12px; padding: 7px 10px;
+      border-bottom: 1.5px solid #EDCB82; text-align: left; color: #555;
+    }
+    .detail-table-wrap td { font-size: 13px; padding: 7px 10px; border-bottom: 1px solid #f0e9c8; }
+    .detail-table-wrap tr:last-child td { border-bottom: none; }
+    .detail-table-wrap tr:hover td { background: #fffde7; }
+    .detail-footer td { background: #fdf3d0 !important; font-weight: bold; }
+    .hint-text { font-size: 11px; color: #888; font-style: italic; margin-left: 4px; font-weight: normal; }
+
+    /* Accordion rows */
+    tr.asset-summary-row { cursor: pointer; transition: background 0.15s; }
+    tr.asset-summary-row:hover td { background: #fef9e0 !important; }
+    .expand-icon {
+      display: inline-block; width: 18px; height: 18px; line-height: 18px;
+      text-align: center; border-radius: 4px; font-size: 11px; font-weight: bold;
+      background: #EDCB82; color: #333; margin-right: 6px; flex-shrink: 0;
+      transition: transform 0.22s; vertical-align: middle;
+    }
+    tr.asset-summary-row.open .expand-icon { transform: rotate(90deg); background: #A15223; color: #fff; }
+    tr.asset-detail-section > td { padding: 0 !important; border-top: none !important; border-bottom: none !important; }
+    .detail-inner { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+    .detail-inner.open { max-height: 3000px; }
+    .detail-table-wrap {
+      margin: 2px 8px 12px 36px;
+      border: 1.5px solid #EDCB82; border-radius: 8px; overflow: hidden; background: #fff;
+    }
+    .detail-table-wrap table { width: 100%; border-collapse: collapse; }
+    .detail-table-wrap th {
+      background: #fdf3d0; font-size: 12px; padding: 7px 10px;
+      border-bottom: 1.5px solid #EDCB82; text-align: left; color: #555;
+    }
+    .detail-table-wrap td { font-size: 13px; padding: 7px 10px; border-bottom: 1px solid #f0e9c8; }
+    .detail-table-wrap tr:last-child td { border-bottom: none; }
+    .detail-table-wrap tbody tr:hover td { background: #fffde7; }
+    .detail-footer td { background: #fdf3d0 !important; font-weight: bold; }
+    .hint-text { font-size: 11px; color: #aaa; font-style: italic; margin-left: 5px; font-weight: normal; }
   </style>
 </head>
 <body>
-<nav class="top-nav">
 
-  <div class="nav-brand">
-    <img src="logo_rwlh.svg" alt="Logo" style="height:40px; width:40px; margin-right:10px; vertical-align:middle;">
-    Retire Wise and Live Happy&trade;
-  </div>
-
-  <ul class="nav-links">
-    <li class="nav-item">
-      <a href="transition_plan.html">Planning <span class="chevron">▾</span></a>
-      <div class="nav-dropdown">
-        <a href="transition_plan.html"><span class="dd-icon">📌</span><div class="dd-text"><strong>Retirement Made Easy</strong><span>Working years → retirement transition</span></div></a>
-        <a href="steps_retirement.html"><span class="dd-icon">🪜</span><div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div></a>
-        <a href="financial_plan.html"><span class="dd-icon">💼</span><div class="dd-text"><strong>Financial Plan</strong><span>The 6 pillars of financial planning</span></div></a>
-        <div class="nav-dd-divider"></div>
-        <a href="terms.html"><span class="dd-icon">📖</span><div class="dd-text"><strong>Terms Used</strong><span>Retirement glossary</span></div></a>
-        <a href="website.html"><span class="dd-icon">🔗</span><div class="dd-text"><strong>Web Sites</strong><span>Curated external resources</span></div></a>
-        <a href="https://futureyou.wise-retiree.com"><span class="dd-icon">💡</span><div class="dd-text"><strong>Early Age Planning</strong><span>Future You</span></div></a>
-        <a href="faq.html"><span class="dd-icon">✨</span><div class="dd-text"><strong>FAQ</strong><span>Frequently Asked Questions</span></div></a>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a href="#calculators"><span style="color:#d4af37">🧮</span> Calculators <span class="chevron">▾</span></a>
-      <div class="nav-dropdown two-col">
-        <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track holdings, live prices</span></div></a>
-        <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Project portfolio growth</span></div></a>
-        <a href="montecarlo_retirement.html"><span class="dd-icon">🎲</span><div class="dd-text"><strong>Retirement Confidence</strong><span>Monte Carlo stress test</span></div></a>
-        <a href="401k_compounding.html"><span class="dd-icon">⚡</span><div class="dd-text"><strong>401k Compounding</strong><span>Power of starting early</span></div></a>
-        <a href="tax_calculator.html"><span class="dd-icon">💰</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>4 retirement tax scenarios</span></div></a>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a href="medicare_aca.html"><span style="color:#d4af37">🩺</span> Healthcare <span class="chevron">▾</span></a>
-      <div class="nav-dropdown">
-        <a href="medicare_aca.html"><span class="dd-icon">🏥</span><div class="dd-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div></a>
-        <a href="healthcare_medicare.html"><span class="dd-icon">💊</span><div class="dd-text"><strong>Healthcare – Medicare</strong><span>IRMAA, enrollment windows</span></div></a>
-        <a href="healthcare_aca.html"><span class="dd-icon">🛡️</span><div class="dd-text"><strong>Healthcare – ACA</strong><span>Marketplace, subsidies, Covered CA</span></div></a>
-        <div class="nav-dd-divider"></div>
-        <a href="aca_vs_cobra.html"><span class="dd-icon">⚖️</span><div class="dd-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div></a>
-        <a href="medicare_flowchart.html"><span class="dd-icon">🗺️</span><div class="dd-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div></a>
-        <a href="long_term_care.html"><span class="dd-icon">🏠</span><div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
-      </div>
-    </li>
-  </ul>
-
-  <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
-    <option value="">Explore Topics</option>
-    <optgroup label="Core Planning">
-      <option value="transition_plan.html">📌 Retirement Made Easy</option>
-      <option value="steps_retirement.html">📌 Steps in Retirement</option>
-      <option value="financial_plan.html">📌 Financial Plan</option>
-      <option value="terms.html">📌 Terms Used</option>
-      <option value="website.html">📌 Web Sites</option>
-      <option value="faq.html">📌 FAQ</option>
-    </optgroup>
-    <optgroup label="Calculators">
-      <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
-      <option value="retirement_calculator.html">📌 Retirement Calculator</option>
-      <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
-      <option value="401k_compounding.html">📌 401k Compounding</option>
-      <option value="tax_calculator.html">📌 Income Tax Calculator</option>
-    </optgroup>
-    <optgroup label="Healthcare">
-      <option value="medicare_aca.html">📌 Medicare Hub</option>
-      <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
-      <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
-      <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
-      <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
-      <option value="long_term_care.html">📌 Long Term Care</option>
-    </optgroup>
-    <optgroup label="Go Back">
-      <option value="index.html">🏠 HOME</option>
-    </optgroup>
-  </select>
-
+<!-- ── Sticky Nav ─────────────────────────────────────────────── -->
+<nav class="sticky-nav">
+  <span class="nav-title">📊 Portfolio Tracker</span>
+  <a href="#summary">Summary</a>
+  <a href="#retirement">Retirement</a>
+  <a href="#allocation">Allocation</a>
+  <a href="#taxbucket">Tax Buckets</a>
+  <a href="#accounts-pl">By Account</a>
+  <a href="#add-holding">Add / Import</a>
+  <a href="#query">Query</a>
+  <a href="#holdings">Holdings</a>
 </nav>
 
-  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px;">
-    <h1><u>Portfolio Tracker</u></h1>
-    <a href= "Portfolio_Generic.csv" download
-       style="background:#d4af37; color:#000; font-weight:bold; padding:10px 18px;
-              border:2px solid #000; border-radius:8px; text-decoration:none;
-              font-size:14px; white-space:nowrap;"
-       onmouseover="this.style.background='#693909';this.style.color='#fff';"
-       onmouseout="this.style.background='#d4af37';this.style.color='#000';">
-      ⬇ Download CSV Template
-    </a>
-  </div>
-  <!-- ── How-To Info Card ── -->
-  <div style="
-      background: #ffffff;
-      border: 2px solid #000;
-      border-left: 6px solid #d4af37;
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin: 12px 0 20px;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      font-size: 14px;
-      line-height: 1.7;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  ">
+<div class="page-content">
 
-    <!-- Section 1: Getting Started -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
-        📂 Getting Started with Your Portfolio
-      </div>
-      <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
-        <span>1.</span><span>Download the <strong>CSV Template</strong> using the button at the top right.</span>
-        <span>2.</span><span>Fill in your portfolio holdings and save the file.</span>
-        <span>3.</span><span>Click <strong>Import CSV File</strong> to load your portfolio into the tracker.</span>
-        <span>4.</span><span>Alternatively, add or modify entries directly on this page, then click <strong>Export CSV</strong> — use that file as your starting point next time.</span>
-      </div>
-    </div>
+  <h1 id="top"><u>Portfolio Tracker</u></h1>
 
-    <!-- Section 2: Reset & Reload -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
-        🔄 Resetting or Reloading Data
-      </div>
-      <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
-        <span>1.</span><span>Click <strong>Clear All</strong> to wipe all entries and start fresh.</span>
-        <span>2.</span><span>Click <strong>Import CSV File</strong> and select your saved <code style="background:#f3f4f6; padding:1px 5px; border-radius:3px;">*.csv</code> file — all entries will repopulate automatically.</span>
-      </div>
-    </div>
-
-    <!-- Section 3: API Key -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
-        🔑 Setting Up Live Price Refresh (API Key)
-      </div>
-      <div style="color:#555; font-style:italic; margin-bottom:8px;">If prices are not refreshing, you need a free API key from Finnhub:</div>
-      <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
-        <span>1.</span><span>Go to <a href="https://finnhub.io" target="_blank" style="color:#1a6fa8;">finnhub.io</a></span>
-        <span>2.</span><span>Click <strong>"Get free API key"</strong> and sign up.</span>
-        <span>3.</span><span>Paste the key into the <strong>API Key</strong> box on this page and click <strong>Save API Key</strong>.</span>
-      </div>
-    </div>
-
-    <!-- Section 4: Portfolio Query -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
-        🔍 Using Portfolio Query
-      </div>
-      <div style="color:#1a1a1a;">
-        Use <strong>Portfolio Query</strong> to filter and search your investments by Ticker, Account, or Asset Type. Click <strong>Run Query</strong> to see all matching holdings — great for answering quick questions about your portfolio.
-      </div>
-    </div>
-
-    <!-- Section 5: Important tip -->
-    <div style="background:#fffbe6; border:1.5px solid #d4af37; border-radius:6px; padding:12px 16px; color:#1a1a1a;">
-      <span style="font-weight:700; color:#8b6914;">💵 Pro Tip — Calculator Integration</span><br>
-      Keep this Portfolio Tracker open while using the <strong>Retirement Calculator</strong> or <strong>Retirement Confidence</strong> calculator — key values from your portfolio will be pre-filled automatically, saving you time.
-    </div>
-
-  </div>
-  <!-- ── End How-To Info Card ── -->
-
-  <!-- Summary Cards -->
-  <div class="summary" style="grid-template-columns: repeat(5, 1fr);">
-    <div class="card"><strong>Total Invested</strong><div id="totalInvested"><strong>$0.00</strong></div></div>
-    <div class="card"><strong>Current Value</strong><div id="currentValue">$0.00</div></div>
-    <div class="card"><strong>Gain / Loss</strong><div id="gainLoss">$0.00</div></div>
-    <div class="card"><strong>Gain / Loss %</strong><div id="gainLossPct">0.00%</div></div>
-    <div class="card"><strong>Total Expense</strong><div id="totalExpensePerYear" style="color:#b45309">$0.00</div></div>
+  <!-- How-to-use collapsible -->
+  <div class="how-to-toggle" onclick="toggleHowTo()" id="howToToggle">ℹ️ How to use ▼</div>
+  <div id="howToContent">
+    Use the .csv template to enter values. Press <strong>Import CSV File</strong> to import. Then click any cell to edit inline. Press <strong>Export CSV</strong> to save.<br>
+    <br>
+    If you've edited entries offline in the CSV:<br>
+    1. Use <strong>Clear All</strong> to reset all entries.<br>
+    2. Click <strong>Import CSV File</strong> and select your *.csv file.<br>
+    Your API key will then refresh prices automatically via Finnhub.
   </div>
 
-  <!-- Pie Chart + P&L Table side by side -->
-  <div class="charts-row">
+  <!-- ── Summary Cards ───────────────────────────────────────── -->
+  <div id="summary">
+    <div class="summary">
+      <div class="card"><strong>Total Invested</strong><div id="totalInvested">$0.00</div></div>
+      <div class="card"><strong>Current Value</strong><div id="currentValue">$0.00</div></div>
+      <div class="card"><strong>Gain / Loss</strong><div id="gainLoss">$0.00</div></div>
+      <div class="card"><strong>Gain / Loss %</strong><div id="gainLossPct">0.00%</div></div>
+      <div class="card"><strong>Total Expense / Year</strong><div id="totalExpensePerYear" style="color:#b45309">$0.00</div></div>
+    </div>
+    <div class="last-refreshed" id="lastRefreshed">Prices not yet refreshed this session</div>
+  </div>
+
+  <!-- ── Concentration Alert ─────────────────────────────────── -->
+  <div id="concentrationAlert"></div>
+
+  <!-- ── Retirement Balances (moved up) ──────────────────────── -->
+  <div class="card" id="retirement">
+    <h2>🏦 Balances for Retirement Calculator</h2>
+    <div class="retire-grid" id="retirementBalances"></div>
+  </div>
+
+  <!-- ── Pie Chart + P&L by Asset Type ──────────────────────── -->
+  <div class="charts-row" id="allocation">
     <div class="card">
       <h2>Asset Allocation</h2>
       <div class="chart-wrap">
@@ -428,13 +222,39 @@
         <div class="legend" id="chartLegend"></div>
       </div>
     </div>
-
     <div class="card">
       <h2>Profit / Loss by Asset Type</h2>
       <table id="profitLossTable">
         <thead>
           <tr>
             <th>Asset Type</th>
+            <th>Invested</th>
+            <th>Current Value</th>
+            <th>Profit / Loss</th>
+            <th>% Profit / Loss</th>
+            <th>% Allocation</th>
+            <th>Target %</th>
+            <th>Difference</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Tax Bucket Bar Chart + Tax Bucket P&L ───────────────── -->
+  <div class="charts-row" id="taxbucket">
+    <div class="card">
+      <h2>Tax Bucket Distribution</h2>
+      <canvas id="taxBucketChart" width="300" height="240"></canvas>
+    </div>
+    <div class="card">
+      <h2>Profit / Loss by Tax Bucket</h2>
+      <table id="taxBucketProfitLossTable">
+        <thead>
+          <tr>
+            <th>Tax Bucket</th>
             <th>Invested</th>
             <th>Current Value</th>
             <th>Profit / Loss</th>
@@ -447,734 +267,212 @@
     </div>
   </div>
 
-  <!-- Profit / Loss by Account Type -->
-  <div class="card" style="margin-bottom:16px">
-    <h2>Profit / Loss by Account Type</h2>
+  <!-- ── P&L by Account ──────────────────────────────────────── -->
+  <div class="card" id="accounts-pl">
+    <h2>Profit / Loss by Account</h2>
     <table id="accountProfitLossTable">
       <thead>
         <tr>
-          <th>Account Type</th>
-          <th>Invested</th>
-          <th>Current Value</th>
-          <th>Profit / Loss</th>
-          <th>% Profit / Loss</th>
-          <th>% Allocation</th>
+          <th>Account</th><th>Invested</th><th>Current Value</th>
+          <th>Profit / Loss</th><th>% Profit / Loss</th><th>% Allocation</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
 
-  <!-- Profit / Loss by Tax Bucket System -->
-  <div class="card" style="margin-bottom:16px">
-    <h2>Profit / Loss by Tax Bucket System</h2>
-    <table id="taxBucketProfitLossTable">
-      <thead>
-        <tr>
-          <th>Tax Bucket</th>
-          <th>Invested</th>
-          <th>Current Value</th>
-          <th>Profit / Loss</th>
-          <th>% Profit / Loss</th>
-          <th>% Allocation</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <!-- Add Holding -->
-  <div class="card">
+  <!-- ── Add Holding ─────────────────────────────────────────── -->
+  <div class="card" id="add-holding">
     <h2>Add Holding</h2>
-   <form id="stockForm">
-  <input id="account" placeholder="Account" required />
-  
-  <!-- Asset Type moved up so user selection can trigger the UI change -->
-  <select id="assetType" onchange="toggleCashMode()">
-    <option>U.S Large Cap Equity</option>
-    <option>U.S Mid/Small Cap Equity</option>
-    <option>International Equity</option>
-    <option>Bonds</option>
-    <option>Certificate of Deposit</option>
-    <option>Commodities</option>
-    <option>Cash</option>
-    <option>Multi Asset</option>
-    <option>U.S Large Cap Dividend</option>
-  </select>
+    <form id="stockForm">
+      <input id="account" placeholder="Account" required />
+      <select id="assetType" onchange="toggleCashMode()"></select>
+      <input id="ticker" placeholder="Ticker" required />
+      <input id="name" placeholder="Investment Name" required />
+      <input id="quantity" type="number" step="0.0001" placeholder="Quantity" required />
+      <input id="purchasePrice" type="number" step="0.01" placeholder="Price Per Share" required />
+      <input id="purchaseDate" type="date" required />
+      <input id="expenseRatioInput" type="number" step="0.0001" min="0" placeholder="Expense Ratio %" />
+      <input id="cashAmount" type="number" step="0.01" placeholder="Cash Amount ($)" style="display:none;" />
+      <button type="submit">Add Holding</button>
+    </form>
+  </div>
 
-  <!-- Investment fields -->
-  <input id="ticker" placeholder="Ticker" required />
-  <input id="name" placeholder="Investment Name" required />
-  <input id="quantity" type="number" step="0.0001" placeholder="Quantity" required />
-  <input id="purchasePrice" type="number" step="0.01" placeholder="Price Per Share" required />
-  <input id="purchaseDate" type="date" required />
-  <input id="expenseRatioInput" type="number" step="0.0001" min="0" placeholder="Expense Ratio %" />
-
-  <!-- Specific field for Cash value -->
-  <input id="cashAmount" type="number" step="0.01" placeholder="Cash Amount ($)" style="display:none;" />
-  
-  <button type="submit">Add Holding</button>
-</form>
-    <div class="card">
-    <h2>API Key</h2>
-    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+  <!-- ── API Key (own card) ───────────────────────────────────── -->
+  <div class="card">
+    <h2>API Key (Finnhub)</h2>
+    <div class="api-row">
       <input id="apiKeyInput" type="password" placeholder="Enter Finnhub API key" style="min-width:320px;">
       <button id="saveApiKeyBtn" type="button">Save API Key</button>
-      <span id="apiKeyStatus" class="muted"></span>
+      <span id="apiKeyStatus" style="font-size:14px;color:#555;"></span>
     </div>
   </div>
 
-<div class="toolbar">
-      <button id="exportCsvBtn" type="button">Export CSV</button>
-      <label for="importCsvInput">
-		<button type="button" onclick="document.getElementById('importCsvInput').click()">Import CSV File</button>
-	</label>
-	<input id="importCsvInput" type="file" accept=".csv" style="display:none;" />
-      <button id="refreshBtn" type="button">Refresh Prices</button>
-      <button id="clearBtn" type="button">Clear All</button>
+  <!-- ── Toolbar (own card) ──────────────────────────────────── -->
+  <div class="card">
+    <div class="toolbar">
+      <button id="refreshBtn" type="button">🔄 Refresh Prices</button>
+      <button id="exportCsvBtn" type="button">⬇ Export CSV</button>
+      <label>
+        <button type="button" onclick="document.getElementById('importCsvInput').click()">⬆ Import CSV File</button>
+      </label>
+      <input id="importCsvInput" type="file" accept=".csv" style="display:none;" />
+      <button id="clearBtn" type="button" style="background:#f8d7da;">🗑 Clear All</button>
     </div>
   </div>
 
-  <!-- Query Panel -->
-  <div class="card" id="queryPanel">
+  <!-- ── Query Panel ─────────────────────────────────────────── -->
+  <div class="card" id="query">
     <h2>🔍 Portfolio Query</h2>
-
     <div class="query-bar">
       <select id="queryType" onchange="onQueryTypeChange()">
         <option value="ticker">Find by Ticker</option>
+        <option value="name">Search by Name</option>
         <option value="account">Find by Account</option>
         <option value="assetType">Find by Asset Type</option>
         <option value="topN">Top N Holdings by Value</option>
-        <option value="gainPct">Holdings with Gain/Loss % above threshold</option>
-        <option value="lossPct">Holdings with Gain/Loss % below threshold</option>
+        <option value="gainPct">Holdings with Gain % above threshold</option>
+        <option value="lossPct">Holdings with Gain % below threshold</option>
       </select>
-
-      <!-- Ticker input -->
       <input id="queryInputTicker" placeholder="e.g. VOO" style="text-transform:uppercase" onkeydown="if(event.key==='Enter') runQuery()" />
-
-      <!-- Account dropdown -->
-      <select id="queryInputAccount" style="display:none">
-        <option value="">-- select account --</option>
-      </select>
-
-      <!-- Asset Type dropdown -->
-      <select id="queryInputAssetType" style="display:none">
-        <option value="">-- select asset type --</option>
-        <option>U.S Large Cap Equity</option>
-        <option>U.S Mid/Small Cap Equity</option>
-        <option>International Equity</option>
-        <option>Bonds</option>
-        <option>Certificate of Deposit</option>
-        <option>Commodities</option>
-        <option>Cash</option>
-        <option>Multi Asset</option>
-        <option>U.S Large Cap Dividend</option>
-      </select>
-
-      <!-- Top N input -->
+      <input id="queryInputName" placeholder="e.g. S&P 500, Vanguard, Bond…" style="display:none" onkeydown="if(event.key==='Enter') runQuery()" />
+      <select id="queryInputAccount" style="display:none"><option value="">-- select account --</option></select>
+      <select id="queryInputAssetType" style="display:none"><option value="">-- select asset type --</option></select>
       <input id="queryInputTopN" type="number" min="1" max="50" placeholder="e.g. 10" style="display:none" />
-
-      <!-- Gain/Loss % threshold -->
       <input id="queryInputPct" type="number" step="0.1" placeholder="e.g. 20 (for 20%)" style="display:none" />
-
       <button type="button" onclick="runQuery()">Run Query</button>
       <button type="button" onclick="clearQuery()" style="background:#e2e8f0">Clear</button>
     </div>
-
     <div id="queryResults"></div>
   </div>
 
-  <!-- Retirement Calculator Balances -->
-  <!-- Retirement Calculator Balances -->
-<div class="card" style="margin-top: 40px;"> <!-- Adjust 40px to your preferred spacing -->
-    <h2>🏦 Balances required for Retirement Calculator</h2>
-    <div id="retirementBalances" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:6px;"></div>
+  <!-- ── Per-account holdings tables ────────────────────────── -->
+  <div id="holdings">
+    <div id="accountsContainer"></div>
   </div>
 
-  <!-- Per-account holdings tables rendered here -->
-  <div id="accountsContainer"></div>
+</div><!-- end page-content -->
 
-  <script>
-    const STORAGE_KEY = 'portfolio_tracker_holdings_v1';
-    const APIKEY_STORAGE_KEY = 'portfolio_tracker_finnhub_key_v1';
-    const FINNHUB_BASE = 'https://finnhub.io/api/v1/quote?symbol=';
+<script>
+  // ── Constants ────────────────────────────────────────────────────────────────
+  const STORAGE_KEY        = 'portfolio_tracker_holdings_v1';
+  const APIKEY_STORAGE_KEY = 'portfolio_tracker_finnhub_key_v1';
+  const TARGETS_STORAGE_KEY = 'portfolio_asset_targets_v1';
+  const FINNHUB_BASE = 'https://finnhub.io/api/v1/quote?symbol=';
 
-    function getApiKey() {
-      return localStorage.getItem(APIKEY_STORAGE_KEY) || '';
-    }
+  // Single source of truth for asset types — used in both form and query dropdowns
+  const ASSET_TYPES = [
+    'U.S Large Cap Equity',
+    'U.S Large Cap Dividend',
+    'U.S Mid/Small Cap Equity',
+    'International Equity',
+    'Bonds',
+    'Multi Asset',
+    'Commodities',
+    'Cash',
+    'Cash Equivalents',
+    'Certificate of Deposit',
+  ];
 
-    const COLORS = [
-      '#36A2EB','#FF6384','#FFCE56','#4BC0C0','#9966FF',
-      '#FF9F40','#C9CBCF','#8BC34A','#F06292','#26A69A'
-    ];
-	
-	
-	let portfolio = loadPortfolio();
-    let editingCell = null;
+  const COLORS = [
+    '#36A2EB','#FF6384','#FFCE56','#4BC0C0','#9966FF',
+    '#FF9F40','#C9CBCF','#8BC34A','#F06292','#26A69A'
+  ];
 
-    function money(n) {
-      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(n || 0));
-    }
+  const ACCOUNT_ORDER = [
+    'Employer Brokerage Link','Employer 401k','Health Savings Account',
+    'Individual Brokerage','Merril','Robinhood','Rollover IRA Main','Roth IRA'
+  ];
+  const BROKERAGE_ACCOUNTS = ['Individual Brokerage','Merril','Robinhood'];
 
-    function loadPortfolio() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
-    }
+  const TAX_BUCKET_MAP = {
+    'Tax-Deferred': ['Employer Brokerage Link','Employer 401k','Rollover IRA Main','Treasury Direct'],
+    'Tax-Free':     ['Health Savings Account','Roth IRA'],
+    'Taxable':      ['Individual Brokerage','Merril','Robinhood']
+  };
 
-    function savePortfolio() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio));
-    }
+  const RETIRE_MAP = {
+    '401k Balance':      { ids: ['employer brokerage link','employer 401k','rollover ira main'], color: '#000' },
+    'Roth IRA Balance':  { ids: ['roth ira'],                                          color: '#000' },
+    'Brokerage Balance': { ids: ['individual brokerage','merril','robinhood'],         color: '#000' },
+    'HSA Balance':       { ids: ['health savings account'],                            color: '#000' },
+    'Bonds Balance':     { ids: ['treasury direct'],                                   color: '#000' }
+  };
 
-	async function fetchCompanyName(ticker) {
-  const apiKey = getApiKey();
-  if (!apiKey) return '';
+  // Sort state per account section: { accountName: { field, dir } }
+  const tableSortState = {};
+  let editingCell = null;
 
-  try {
-    const resp = await fetch(
-      `https://finnhub.io/api/v1/stock/profile2?symbol=${encodeURIComponent(ticker)}&token=${encodeURIComponent(apiKey)}`
-    );
-    const data = await resp.json();
-    return data.name || '';
-  } catch {
-    return '';
+  // ── State helpers ─────────────────────────────────────────────────────────────
+  function getApiKey() { return localStorage.getItem(APIKEY_STORAGE_KEY) || ''; }
+
+  // ── Auto-fill company name from Finnhub when ticker is entered ────────────────
+  async function fetchCompanyName(ticker) {
+    const apiKey = getApiKey();
+    if (!apiKey || !ticker) return '';
+    try {
+      const resp = await fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${encodeURIComponent(ticker)}&token=${encodeURIComponent(apiKey)}`);
+      const data = await resp.json();
+      return data.name || '';
+    } catch { return ''; }
   }
-}
+  function money(n) { return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n||0)); }
+  function loadPortfolio() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; } catch { return []; } }
+  function savePortfolio() { localStorage.setItem(STORAGE_KEY, JSON.stringify(portfolio)); }
+  function loadTargets() { try { return JSON.parse(localStorage.getItem(TARGETS_STORAGE_KEY))||{}; } catch { return {}; } }
+  function saveTargets(t) { localStorage.setItem(TARGETS_STORAGE_KEY, JSON.stringify(t)); }
 
+  let portfolio    = loadPortfolio();
+  let assetTargets = loadTargets();
 
-
-    function calcRow(row) {
-      // Cash entries: current value = purchase price, no gain/loss
-      if ((row.assetType || '') === 'Cash') {
-        const cashValue = Number(row.purchasePrice || 0);
-        return { costBasis: cashValue, currentValue: cashValue, gainLoss: 0, gainLossPct: 0, expensePerYear: 0 };
-      }
-      const qty = Number(row.quantity || 0);
-      const buy = Number(row.purchasePrice || 0);
-      const cur = Number(row.currentPrice || buy || 0);
-      const er  = Number(row.expenseRatio || 0);
-      const costBasis = qty * buy;
-      const currentValue = qty * cur;
-      const gainLoss = currentValue - costBasis;
-      const gainLossPct = costBasis ? (gainLoss / costBasis) * 100 : 0;
-      const expensePerYear = (er / 100) * currentValue;
-      return { costBasis, currentValue, gainLoss, gainLossPct, expensePerYear };
-    }
-
-    function groupByAccount() {
-      return portfolio.reduce((acc, row, i) => {
-        const key = row.account || 'Uncategorized';
-        if (!acc[key]) acc[key] = [];
-        acc[key].push({ ...row, _index: i });
-        return acc;
-      }, {});
-    }
-
-    function buildAssetTotals() {
-      const totals = {};
-      portfolio.forEach(row => {
-        const type = row.assetType || 'Other';
-        if (!totals[type]) totals[type] = { value: 0, invested: 0 };
-        const c = calcRow(row);
-        totals[type].value += c.currentValue;
-        totals[type].invested += c.costBasis;
-      });
-      // Sort by value descending
-      return Object.fromEntries(
-        Object.entries(totals).sort((a, b) => b[1].value - a[1].value)
-      );
-    }
-	
-	// Function to toggle inputs based on Asset Type selection
-function toggleCashMode() {
-  const assetType = document.getElementById('assetType').value;
-  const isCash = (assetType === "Cash");
-  
-  // List of fields to disable when "Cash" is selected
-  const fieldsToDisable = ['ticker', 'name', 'quantity', 'purchasePrice', 'purchaseDate', 'expenseRatioInput'];
-  
-  fieldsToDisable.forEach(id => {
-    const el = document.getElementById(id);
-    el.disabled = isCash;
-    el.required = !isCash; // Remove 'required' validation if it's cash
-    if (isCash) el.value = ""; // Clear values if switching to cash
-  });
-
-  // Toggle the Cash Amount input visibility and requirement
-  const cashInput = document.getElementById('cashAmount');
-  cashInput.style.display = isCash ? "block" : "none";
-  cashInput.required = isCash;
-}
-
-// Updated Form Submission Logic
-document.getElementById('stockForm').addEventListener('submit', e => {
-  e.preventDefault();
-  
-  const assetType = document.getElementById('assetType').value;
-  let newHolding;
-
-  if (assetType === "Cash") {
-    const amount = parseFloat(document.getElementById('cashAmount').value);
-    newHolding = {
-      account:       document.getElementById('account').value.trim(),
-      ticker:        "CASH",
-      name:          "Cash / Settlement",
-      quantity:      1,
-      purchasePrice: amount,
-      currentPrice:  amount,
-      purchaseDate:  new Date().toLocaleDateString('en-US'), // Defaults to today
-      assetType:     "Cash",
-      expenseRatio:  0
-    };
-  } else {
-    newHolding = {
-      account:       document.getElementById('account').value.trim(),
-      ticker:        document.getElementById('ticker').value.trim().toUpperCase(),
-      name:          document.getElementById('name').value.trim(),
-      quantity:      parseFloat(document.getElementById('quantity').value),
-      purchasePrice: parseFloat(document.getElementById('purchasePrice').value),
-      purchaseDate:  document.getElementById('purchaseDate').value,
-      currentPrice:  parseFloat(document.getElementById('purchasePrice').value),
-      assetType:     assetType,
-      expenseRatio:  parseFloat(document.getElementById('expenseRatioInput').value) || 0
-    };
+  // ── How-to toggle ─────────────────────────────────────────────────────────────
+  function toggleHowTo() {
+    const el  = document.getElementById('howToContent');
+    const tog = document.getElementById('howToToggle');
+    const open = el.style.display === 'block';
+    el.style.display = open ? 'none' : 'block';
+    tog.innerHTML = open ? 'ℹ️ How to use ▼' : 'ℹ️ How to use ▲';
   }
 
-  portfolio.push(newHolding);
-  savePortfolio();
-  e.target.reset();
-  toggleCashMode(); // Reset the field states
-  render();
-});
-	
-	
-	
+  // ── Populate asset type dropdowns from ASSET_TYPES ────────────────────────────
+  function populateAssetDropdowns() {
+    const formSel  = document.getElementById('assetType');
+    const querySel = document.getElementById('queryInputAssetType');
+    ASSET_TYPES.forEach(t => {
+      const o1 = document.createElement('option'); o1.value = t; o1.textContent = t; formSel.appendChild(o1);
+      const o2 = document.createElement('option'); o2.value = t; o2.textContent = t; querySel.appendChild(o2);
+    });
+  }
 
-    // ── Pie Chart ──────────────────────────────────────────────────────────────
-    function renderPieChart(assetTotals, totalValue) {
-      const canvas = document.getElementById('allocationChart');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ── Cash mode toggle ──────────────────────────────────────────────────────────
+  function toggleCashMode() {
+    const isCash = document.getElementById('assetType').value === 'Cash';
+    ['ticker','name','quantity','purchasePrice','purchaseDate','expenseRatioInput'].forEach(id => {
+      const el = document.getElementById(id);
+      el.disabled = isCash; el.required = !isCash;
+      if (isCash) el.value = '';
+    });
+    const ca = document.getElementById('cashAmount');
+    ca.style.display = isCash ? 'block' : 'none';
+    ca.required = isCash;
+  }
 
-      const cx = 150, cy = 150, r = 130;
-      const entries = Object.entries(assetTotals);
-
-      if (!totalValue || entries.length === 0) {
-        ctx.fillStyle = '#000';
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.fillStyle = '#999';
-        ctx.font = '16px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText('No data', cx, cy);
-        return;
-      }
-
-      let startAngle = -Math.PI / 2; // start at 12 o'clock
-      entries.forEach(([type, data], i) => {
-        const sliceAngle = (data.value / totalValue) * 2 * Math.PI;
-        const pct = ((data.value / totalValue) * 100).toFixed(1);
-
-        // Slice
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.arc(cx, cy, r, startAngle, startAngle + sliceAngle);
-        ctx.closePath();
-        ctx.fillStyle = COLORS[i % COLORS.length];
-        ctx.fill();
-        ctx.strokeStyle = '#000';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // % label inside slice (only if big enough)
-        if (sliceAngle > 0.25) {
-          const midAngle = startAngle + sliceAngle / 2;
-          const lx = cx + (r * 0.65) * Math.cos(midAngle);
-          const ly = cy + (r * 0.65) * Math.sin(midAngle);
-          ctx.fillStyle = '#000';
-          ctx.font = 'bold 12px Arial';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(pct + '%', lx, ly);
-        }
-
-        startAngle += sliceAngle;
-      });
-
-      // Legend
-      const legend = document.getElementById('chartLegend');
-      legend.innerHTML = entries.map(([type, data], i) => {
-        const pct = ((data.value / totalValue) * 100).toFixed(1);
-        return `<div class="legend-item">
-          <div class="legend-dot" style="background:${COLORS[i % COLORS.length]}"></div>
-          <span>${type} — ${pct}%</span>
-        </div>`;
-      }).join('');
-    }
-
-    // ── P&L Table ──────────────────────────────────────────────────────────────
-    function renderProfitLossTable(assetTotals, totalValue) {
-      const tbody = document.querySelector('#profitLossTable tbody');
-      tbody.innerHTML = '';
-
-      if (!Object.keys(assetTotals).length) {
-        tbody.innerHTML = '<tr><td colspan="6" class="muted" style="text-align:center">No holdings yet</td></tr>';
-        return;
-      }
-
-      Object.entries(assetTotals).forEach(([type, data], i) => {
-        const pl = data.value - data.invested;
-        const plPct = data.invested ? (pl / data.invested) * 100 : 0;
-        const pct = totalValue ? ((data.value / totalValue) * 100).toFixed(1) : '0.0';
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${COLORS[i % COLORS.length]};margin-right:6px"></span><strong>${type}</strong></td>
-          <td>${money(data.invested)}</td>
-          <td>${money(data.value)}</td>
-          <td class="${pl >= 0 ? 'positive' : 'negative'}">${money(pl)}</td>
-          <td class="${plPct >= 0 ? 'positive' : 'negative'}">${plPct.toFixed(2)}%</td>
-          <td>${pct}%</td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      // Totals row
-      const totalInvested = Object.values(assetTotals).reduce((s, d) => s + d.invested, 0);
-      const totalPL = totalValue - totalInvested;
-      const totalPLPct = totalInvested ? (totalPL / totalInvested) * 100 : 0;
-      const foot = document.createElement('tr');
-      foot.style.fontWeight = 'bold';
-      foot.style.borderTop = '2px solid #000';
-      foot.innerHTML = `
-        <td>Total</td>
-        <td>${money(totalInvested)}</td>
-        <td>${money(totalValue)}</td>
-        <td class="${totalPL >= 0 ? 'positive' : 'negative'}">${money(totalPL)}</td>
-        <td class="${totalPLPct >= 0 ? 'positive' : 'negative'}">${totalPLPct.toFixed(2)}%</td>
-        <td>100%</td>
-      `;
-      tbody.appendChild(foot);
-    }
-
-    // ── Account P&L Table ──────────────────────────────────────────────────────
-    const ACCOUNT_ORDER = [
-      'Employer 401k',
-      'Health Savings Account',
-      'Charles Schwab',
-      'Robinhood',
-      'Roth IRA',
-      'Treasury Direct'
-    ];
-
-    function buildAccountTotals() {
-      const totals = {};
-      portfolio.forEach(row => {
-        const acct = (row.account || 'Uncategorized').trim();
-        if (!totals[acct]) totals[acct] = { value: 0, invested: 0 };
-        const c = calcRow(row);
-        totals[acct].value    += c.currentValue;
-        totals[acct].invested += c.costBasis;
-      });
-      // Return sorted: known accounts first (in defined order), then any extras alphabetically
-      const known = ACCOUNT_ORDER.filter(a => totals[a]);
-      const extras = Object.keys(totals).filter(a => !ACCOUNT_ORDER.includes(a)).sort();
-      const ordered = {};
-      [...known, ...extras].forEach(a => { ordered[a] = totals[a]; });
-      return ordered;
-    }
-
-    function renderAccountProfitLossTable(accountTotals, totalValue) {
-      const tbody = document.querySelector('#accountProfitLossTable tbody');
-      tbody.innerHTML = '';
-
-      if (!Object.keys(accountTotals).length) {
-        tbody.innerHTML = '<tr><td colspan="6" class="muted" style="text-align:center">No holdings yet</td></tr>';
-        return;
-      }
-
-      const ACCT_COLORS = [
-        '#5C85D6','#E07B39','#5BAD6F','#C75C7E','#8E6BBF',
-        '#3AAFAF','#D4A84B','#E05C5C','#7A9E9F','#B07D62'
-      ];
-
-      Object.entries(accountTotals).forEach(([acct, data], i) => {
-        const pl     = data.value - data.invested;
-        const plPct  = data.invested ? (pl / data.invested) * 100 : 0;
-        const alloc  = totalValue   ? ((data.value / totalValue) * 100).toFixed(1) : '0.0';
-        const color  = ACCT_COLORS[i % ACCT_COLORS.length];
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};margin-right:6px"></span><strong>${acct}</strong></td>
-          <td>${money(data.invested)}</td>
-          <td>${money(data.value)}</td>
-          <td class="${pl >= 0 ? 'positive' : 'negative'}">${money(pl)}</td>
-          <td class="${plPct >= 0 ? 'positive' : 'negative'}">${plPct.toFixed(2)}%</td>
-          <td>${alloc}%</td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      // Totals row
-      const totalInvested = Object.values(accountTotals).reduce((s, d) => s + d.invested, 0);
-      const totalPL    = totalValue - totalInvested;
-      const totalPLPct = totalInvested ? (totalPL / totalInvested) * 100 : 0;
-      const foot = document.createElement('tr');
-      foot.style.fontWeight = 'bold';
-      foot.style.borderTop  = '2px solid #000';
-      foot.innerHTML = `
-        <td>Total</td>
-        <td>${money(totalInvested)}</td>
-        <td>${money(totalValue)}</td>
-        <td class="${totalPL >= 0 ? 'positive' : 'negative'}">${money(totalPL)}</td>
-        <td class="${totalPLPct >= 0 ? 'positive' : 'negative'}">${totalPLPct.toFixed(2)}%</td>
-        <td>100%</td>
-      `;
-      tbody.appendChild(foot);
-    }
-
-    // ── Tax Bucket System ──────────────────────────────────────────────────────
-    const TAX_BUCKET_MAP = {
-      'Tax-Deferred': ['Employer 401k', 'Treasury Direct'],
-      'Tax-Free': ['Health Savings Account', 'Roth IRA'],
-      'Taxable': ['Charles Schwab', 'Robinhood']
-    };
-
-    function getTaxBucket(accountName) {
-      for (const [bucket, accounts] of Object.entries(TAX_BUCKET_MAP)) {
-        if (accounts.includes(accountName)) return bucket;
-      }
-      return 'Taxable'; // unmatched accounts fall into Taxable
-    }
-
-    function buildTaxBucketTotals() {
-      const buckets = {};
-      Object.keys(TAX_BUCKET_MAP).forEach(b => {
-        buckets[b] = { value: 0, invested: 0 };
-      });
-
-      portfolio.forEach(row => {
-        const acct = (row.account || 'Uncategorized').trim();
-        const bucket = getTaxBucket(acct);
-        if (!buckets[bucket]) buckets[bucket] = { value: 0, invested: 0 };
-        const c = calcRow(row);
-        buckets[bucket].value    += c.currentValue;
-        buckets[bucket].invested += c.costBasis;
-      });
-      return buckets;
-    }
-
-    function renderTaxBucketProfitLossTable(bucketTotals, totalValue) {
-      const tbody = document.querySelector('#taxBucketProfitLossTable tbody');
-      tbody.innerHTML = '';
-
-      if (!Object.keys(bucketTotals).length) {
-        tbody.innerHTML = '<tr><td colspan="6" class="muted" style="text-align:center">No holdings yet</td></tr>';
-        return;
-      }
-
-      const BUCKET_COLORS = ['#5C85D6', '#5BAD6F', '#E07B39'];
-      const bucketOrder = ['Tax-Deferred', 'Tax-Free', 'Taxable'];
-
-      bucketOrder.forEach((bucket, i) => {
-        const data = bucketTotals[bucket];
-        if (!data || (data.value === 0 && data.invested === 0)) return;
-
-        const pl    = data.value - data.invested;
-        const plPct = data.invested ? (pl / data.invested) * 100 : 0;
-        const alloc = totalValue ? ((data.value / totalValue) * 100).toFixed(1) : '0.0';
-        const color = BUCKET_COLORS[i % BUCKET_COLORS.length];
-        
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};margin-right:6px"></span><strong>${bucket}</strong></td>
-          <td>${money(data.invested)}</td>
-          <td>${money(data.value)}</td>
-          <td class="${pl >= 0 ? 'positive' : 'negative'}">${money(pl)}</td>
-          <td class="${plPct >= 0 ? 'positive' : 'negative'}">${plPct.toFixed(2)}%</td>
-          <td>${alloc}%</td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      // Totals row
-      const totalInvested = Object.values(bucketTotals).reduce((s, d) => s + d.invested, 0);
-      const totalPL = totalValue - totalInvested;
-      const totalPLPct = totalInvested ? (totalPL / totalInvested) * 100 : 0;
-      const foot = document.createElement('tr');
-      foot.style.fontWeight = 'bold';
-      foot.style.borderTop = '2px solid #000';
-      foot.innerHTML = `
-        <td>Total</td>
-        <td>${money(totalInvested)}</td>
-        <td>${money(totalValue)}</td>
-        <td class="${totalPL >= 0 ? 'positive' : 'negative'}">${money(totalPL)}</td>
-        <td class="${totalPLPct >= 0 ? 'positive' : 'negative'}">${totalPLPct.toFixed(2)}%</td>
-        <td>100%</td>
-      `;
-      tbody.appendChild(foot);
-    }
-
-    // ── Cell Editing ───────────────────────────────────────────────────────────
-    function makeCellEditable(td, value, rowIndex, field) {
-      td.classList.add('editing');
-      td.innerHTML = `<input type="text" class="edit-input" value="${value}" />`;
-      const input = td.querySelector('.edit-input');
-      input.select();
-
-      function saveEdit() {
-        const newVal = input.value.trim();
-        const row = portfolio[rowIndex];
-        if (['quantity', 'purchasePrice', 'currentPrice', 'expenseRatio'].includes(field)) {
-          row[field] = parseFloat(newVal) || 0;
-        } else {
-          row[field] = newVal;
-        }
-        savePortfolio();
-        render();
-        editingCell = null;
-      }
-
-      input.addEventListener('keydown', e => {
-        if (e.key === 'Enter') saveEdit();
-        if (e.key === 'Escape') { render(); editingCell = null; }
-      });
-      input.addEventListener('blur', saveEdit);
-    }
-
-    // ── Main Render ────────────────────────────────────────────────────────────
-    function render() {
-      const container = document.getElementById('accountsContainer');
-      container.innerHTML = '';
-      let totalInvested = 0, totalCurrentValue = 0, totalExpensePerYear = 0;
-      const grouped = groupByAccount();
-
-      Object.keys(grouped).sort().forEach(account => {
-        const rows = grouped[account];
-        let acctInvested = 0, acctValue = 0;
-
-        const section = document.createElement('div');
-        section.className = 'card';
-        section.innerHTML = `<div class="account-title">${account}</div>`;
-
-        const table = document.createElement('table');
-        table.innerHTML = `
-          <thead>
-            <tr>
-              <th>Ticker</th><th>Name</th><th>Qty</th>
-              <th>Purchase Price</th><th>Inv Date</th><th>Current Price</th><th>Expense Ratio %</th><th>Expense</th><th>Asset Type</th>
-              <th>Cost Basis</th><th>Current Value</th><th>Gain/Loss</th><th>% Gain/Loss</th><th>Action</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        `;
-        const tbody = table.querySelector('tbody');
-        let acctExpensePerYear = 0;
-
-        rows.forEach(rowData => {
-          const row = portfolio[rowData._index];
-          const c = calcRow(row);
-          acctInvested += c.costBasis;
-          acctValue += c.currentValue;
-          acctExpensePerYear += c.expensePerYear;
-          totalInvested += c.costBasis;
-          totalCurrentValue += c.currentValue;
-          totalExpensePerYear += c.expensePerYear;
-
-          const tr = document.createElement('tr');
-          // Convert stored mm/dd/yyyy → yyyy-mm-dd for the date input
-          const pd = row.purchaseDate || '';
-          const pdParts = pd.split('/');
-          const pdInput = pdParts.length === 3 ? `${pdParts[2]}-${pdParts[0].padStart(2,'0')}-${pdParts[1].padStart(2,'0')}` : '';
-          tr.innerHTML = `
-            <td data-field="ticker"        data-row="${rowData._index}">${row.ticker || ''}</td>
-            <td data-field="name"          data-row="${rowData._index}">${row.name || ''}</td>
-            <td data-field="quantity"      data-row="${rowData._index}">${Number(row.quantity || 0).toFixed(4)}</td>
-            <td data-field="purchasePrice" data-row="${rowData._index}">${money(row.purchasePrice)}</td>
-            <td style="text-align:center;">
-              <input type="date" value="${pdInput}"
-                style="border:1px solid #ccc; border-radius:4px; padding:2px 4px; font-size:0.78rem; width:118px;"
-                onchange="(function(v,i){
-                  var p=v.split('-');
-                  portfolio[i].purchaseDate = p.length===3 ? p[1]+'/'+p[2]+'/'+p[0] : '';
-                  savePortfolio();
-                })(this.value, ${rowData._index})" />
-            </td>
-            <td data-field="currentPrice"  data-row="${rowData._index}">${money(row.currentPrice)}</td>
-            <td data-field="expenseRatio"  data-row="${rowData._index}" style="text-align:right">${Number(row.expenseRatio || 0).toFixed(4)}%</td>
-            <td style="text-align:right">${money(c.expensePerYear)}</td>
-            <td data-field="assetType"     data-row="${rowData._index}">${row.assetType || ''}</td>
-            <td>${money(c.costBasis)}</td>
-            <td>${money(c.currentValue)}</td>
-            <td class="${c.gainLoss >= 0 ? 'positive' : 'negative'}">${money(c.gainLoss)}</td>
-            <td class="${c.gainLossPct >= 0 ? 'positive' : 'negative'}">${c.gainLossPct.toFixed(2)}%</td>
-            <td><button onclick="removeHolding(${rowData._index})">Delete</button></td>
-          `;
-          tbody.appendChild(tr);
-        });
-
-        section.appendChild(table);
-
-        const acctGain = acctValue - acctInvested;
-        const acctGainPct = acctInvested ? (acctGain / acctInvested) * 100 : 0;
-        const summary = document.createElement('div');
-        summary.className = 'muted';
-        summary.style.marginTop = '8px';
-        summary.innerHTML = `Account Total: <strong>${money(acctValue)}</strong> | Invested: <strong>${money(acctInvested)}</strong> | Gain/Loss: <strong class="${acctGain >= 0 ? 'positive' : 'negative'}">${money(acctGain)}</strong> | <strong class="${acctGainPct >= 0 ? 'positive' : 'negative'}">${acctGainPct.toFixed(2)}%</strong> | Total Expense: <strong style="color:#b45309">${money(acctExpensePerYear)}</strong>`;
-        section.appendChild(summary);
-        container.appendChild(section);
-      });
-
-      // Summary cards
-      const gainLoss = totalCurrentValue - totalInvested;
-      const gainLossPct = totalInvested ? (gainLoss / totalInvested) * 100 : 0;
-      document.getElementById('totalInvested').textContent = money(totalInvested);
-      document.getElementById('currentValue').textContent = money(totalCurrentValue);
-      const gl = document.getElementById('gainLoss');
-      gl.textContent = money(gainLoss); gl.className = gainLoss >= 0 ? 'positive' : 'negative';
-      const glp = document.getElementById('gainLossPct');
-      glp.textContent = gainLossPct.toFixed(2) + '%'; glp.className = gainLossPct >= 0 ? 'positive' : 'negative';
-      document.getElementById('totalExpensePerYear').textContent = money(totalExpensePerYear);
-
-      // Charts
-      const assetTotals = buildAssetTotals();
-      renderPieChart(assetTotals, totalCurrentValue);
-      renderProfitLossTable(assetTotals, totalCurrentValue);
-
-      // Account P&L dashboard
-      const accountTotals = buildAccountTotals();
-      renderAccountProfitLossTable(accountTotals, totalCurrentValue);
-
-      // Tax Bucket P&L dashboard
-      const bucketTotals = buildTaxBucketTotals();
-      renderTaxBucketProfitLossTable(bucketTotals, totalCurrentValue);
-
-      // Cell editing
-      document.querySelectorAll('td[data-field]').forEach(td => {
-        td.addEventListener('click', function() {
-          if (editingCell) return;
-          editingCell = this;
-          const field = this.dataset.field;
-          const rowIndex = parseInt(this.dataset.row);
-          makeCellEditable(this, portfolio[rowIndex][field], rowIndex, field);
-        });
-      });
-
-      // Keep query account dropdown in sync
-      if (typeof populateQueryDropdowns === 'function') populateQueryDropdowns();
-
-      // Update retirement balances panel
-      renderRetirementBalances();
-    }
-
-    function removeHolding(index) {
-      portfolio.splice(index, 1);
-      savePortfolio();
-      render();
-    }
-
-    // ── Form: Add Holding ──────────────────────────────────────────────────────
-    document.getElementById('stockForm').addEventListener('submit', e => {
-      e.preventDefault();
-      portfolio.push({
+  // ── Form submit — SINGLE handler ───────────────────────────────────────────────
+  document.getElementById('stockForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const assetType = document.getElementById('assetType').value;
+    let holding;
+    if (assetType === 'Cash') {
+      const amt = parseFloat(document.getElementById('cashAmount').value);
+      holding = {
+        account: document.getElementById('account').value.trim(),
+        ticker: 'CASH', name: 'Cash / Settlement',
+        quantity: 1, purchasePrice: amt, currentPrice: amt,
+        purchaseDate: new Date().toLocaleDateString('en-US'),
+        assetType: 'Cash', expenseRatio: 0
+      };
+    } else {
+      holding = {
         account:       document.getElementById('account').value.trim(),
         ticker:        document.getElementById('ticker').value.trim().toUpperCase(),
         name:          document.getElementById('name').value.trim(),
@@ -1182,622 +480,765 @@ document.getElementById('stockForm').addEventListener('submit', e => {
         purchasePrice: parseFloat(document.getElementById('purchasePrice').value),
         purchaseDate:  document.getElementById('purchaseDate').value,
         currentPrice:  parseFloat(document.getElementById('purchasePrice').value),
-        assetType:     document.getElementById('assetType').value,
-        expenseRatio:  parseFloat(document.getElementById('expenseRatioInput').value) || 0
-      });
-      savePortfolio();
-      e.target.reset();
-      render();
-    });
-
-    // ── Export CSV ─────────────────────────────────────────────────────────────
-    document.getElementById('exportCsvBtn').addEventListener('click', () => {
-      const headers = ['account','ticker','name','quantity','purchasePrice','purchaseDate','currentPrice','assetType','expenseRatio'];
-      const lines = [headers.join(','), ...portfolio.map(row =>
-        headers.map(h => `"${String(row[h] ?? '').replace(/"/g, '""')}"`).join(',')
-      )];
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/csv' }));
-      a.download = 'portfolio.csv';
-      a.click();
-    });
-
-    // ── Import CSV ─────────────────────────────────────────────────────────────
-    document.getElementById('importCsvInput').addEventListener('change', async e => {
-      const file = e.target.files[0]; if (!file) return;
-      const lines = (await file.text()).trim().split(/\r?\n/);
-      const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim());
-      for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, ''));
-        const obj = Object.fromEntries(headers.map((h, idx) => [h, cols[idx]]));
-        portfolio.push({
-          account:       obj.account || '',
-          ticker:        (obj.ticker || '').toUpperCase(),
-          name:          obj.name || '',
-          quantity:      parseFloat(obj.quantity || '0'),
-          purchasePrice: parseFloat(obj.purchasePrice || '0'),
-          purchaseDate:  obj.purchaseDate || '',
-          currentPrice:  parseFloat(obj.currentPrice || obj.purchasePrice || '0'),
-          assetType:     obj.assetType || '',
-          expenseRatio:  parseFloat(obj.expenseRatio || '0')
-        });
-      }
-      savePortfolio();
-      render();
-      e.target.value = '';
-    });
-
-    // ── Refresh Prices ─────────────────────────────────────────────────────────
-    async function refreshPrices() {
-      const apiKey = getApiKey();
-      if (!apiKey) {
-        document.getElementById('apiKeyStatus').textContent = 'No API key — enter and save one above';
-        return;
-      }
-      const tickers = [...new Set(
-        portfolio
-          .filter(h => (h.assetType || '') !== 'Cash')   // never look up Cash entries
-          .map(h => (h.ticker || '').trim().toUpperCase())
-          .filter(Boolean)
-      )];
-      if (!tickers.length) return;
-
-      const btn = document.getElementById('refreshBtn');
-      btn.disabled = true;
-      btn.textContent = 'Refreshing...';
-      document.getElementById('apiKeyStatus').textContent = 'Fetching ' + tickers.length + ' ticker(s)...';
-
-      // Sequential with 300ms delay to respect Finnhub free-tier rate limit
-      const map = {};
-      for (const t of tickers) {
-        try {
-          const resp = await fetch(FINNHUB_BASE + encodeURIComponent(t) + '&token=' + encodeURIComponent(apiKey));
-          const data = await resp.json();
-          map[t] = data;
-        } catch { map[t] = null; }
-        await new Promise(r => setTimeout(r, 300));
-      }
-
-      let updated = 0;
-      portfolio = portfolio.map(row => {
-        if ((row.assetType || '') === 'Cash') return row;   // never overwrite Cash
-        const q = map[(row.ticker || '').trim().toUpperCase()];
-        if (q && typeof q.c === 'number' && q.c > 0) { updated++; return Object.assign({}, row, { currentPrice: q.c }); }
-        return row;
-      });
-
-      savePortfolio();
-      render();
-      btn.disabled = false;
-      btn.textContent = 'Refresh Prices';
-      document.getElementById('apiKeyStatus').textContent = 'Updated ' + updated + '/' + tickers.length + ' ticker(s) at ' + new Date().toLocaleTimeString();
-    }
-
-    const apiKeyInput = document.getElementById('apiKeyInput');
-    const apiKeyStatus = document.getElementById('apiKeyStatus');
-    const savedApiKey = getApiKey();
-    if (apiKeyInput) apiKeyInput.value = savedApiKey;
-    if (apiKeyStatus) apiKeyStatus.textContent = savedApiKey ? 'API key loaded from storage' : 'No API key saved yet';
-
-    document.getElementById('saveApiKeyBtn').addEventListener('click', () => {
-      const key = apiKeyInput.value.trim();
-      if (!key) { apiKeyStatus.textContent = 'Please enter an API key'; return; }
-      localStorage.setItem(APIKEY_STORAGE_KEY, key);
-      apiKeyStatus.textContent = 'API key saved!';
-    });
-
-  document.getElementById('refreshBtn').addEventListener('click', refreshPrices);
-    document.getElementById('clearBtn').addEventListener('click', () => {
-      if (confirm('Clear all holdings?')) { portfolio = []; savePortfolio(); render(); }
-    });
-
-    // ── Query Panel ────────────────────────────────────────────────────────────
-    function onQueryTypeChange() {
-      const type = document.getElementById('queryType').value;
-      document.getElementById('queryInputTicker').style.display  = type === 'ticker'   ? '' : 'none';
-      document.getElementById('queryInputAccount').style.display  = type === 'account'  ? '' : 'none';
-      document.getElementById('queryInputAssetType').style.display= type === 'assetType'? '' : 'none';
-      document.getElementById('queryInputTopN').style.display     = type === 'topN'     ? '' : 'none';
-      document.getElementById('queryInputPct').style.display      = (type === 'gainPct' || type === 'lossPct') ? '' : 'none';
-      document.getElementById('queryResults').innerHTML = '';
-    }
-
-    function populateQueryDropdowns() {
-      const accountSel = document.getElementById('queryInputAccount');
-      const current = accountSel.value;
-      accountSel.innerHTML = '<option value="">-- select account --</option>';
-      const accounts = [...new Set(portfolio.map(r => r.account || 'Uncategorized'))].sort();
-      accounts.forEach(a => {
-        const opt = document.createElement('option');
-        opt.value = a; opt.textContent = a;
-        if (a === current) opt.selected = true;
-        accountSel.appendChild(opt);
-      });
-    }
-
-    function buildQueryTable(rows, isTicker) {
-      if (!rows.length) return '<p class="no-results">No holdings matched your query.</p>';
-
-      const colDefs = [
-        { label: 'Account',       key: 'account' },
-        { label: 'Ticker',        key: 'ticker' },
-        { label: 'Name',          key: 'name' },
-        { label: 'Qty',           key: 'qty',           fmt: v => Number(v).toFixed(4) },
-        { label: 'Cost Basis',    key: 'costBasis',     fmt: money },
-        { label: 'Current Value', key: 'currentValue',  fmt: money },
-		{ label: 'Current Price', key: 'currentPrice', fmt: money },
-        { label: 'Gain / Loss',   key: 'gainLoss',      fmt: money, cls: v => v >= 0 ? 'positive' : 'negative' },
-        { label: '% Gain/Loss',   key: 'gainLossPct',   fmt: v => v.toFixed(2) + '%', cls: v => v >= 0 ? 'positive' : 'negative' },
-        ...(isTicker ? [
-          { label: 'Inv Date',                  key: 'purchaseDate' },
-          { label: 'Purchase Price',            key: 'purchasePrice', fmt: money },
-		  { label: 'Current Price', key: 'currentPrice', fmt: money },
-          { label: 'Gain/Loss since Inv Date',  key: 'gainSinceAmt',  fmt: money, cls: v => v >= 0 ? 'positive' : 'negative' },
-          { label: '% since Inv Date',          key: 'gainSincePct',  fmt: v => v.toFixed(2) + '%', cls: v => v >= 0 ? 'positive' : 'negative' },
-        ] : []),
-        { label: 'Expense/Yr',    key: 'expensePerYear', fmt: money },
-      ];
-
-      let html = '<table><thead><tr>' + colDefs.map(c => `<th>${c.label}</th>`).join('') + '</tr></thead><tbody>';
-      rows.forEach(r => {
-        html += '<tr>' + colDefs.map(c => {
-          const val = r[c.key] ?? '';
-          const display = c.fmt ? c.fmt(val) : val;
-          const cls = c.cls ? c.cls(val) : '';
-          return `<td${cls ? ` class="${cls}"` : ''}>${display}</td>`;
-        }).join('') + '</tr>';
-      });
-      html += '</tbody></table>';
-
-      const totCost  = rows.reduce((s, r) => s + r.costBasis, 0);
-      const totValue = rows.reduce((s, r) => s + r.currentValue, 0);
-      const totGL    = totValue - totCost;
-      const totGLPct = totCost ? (totGL / totCost * 100) : 0;
-      const totExp   = rows.reduce((s, r) => s + r.expensePerYear, 0);
-      const glClass  = totGL >= 0 ? 'positive' : 'negative';
-
-      html += `<div class="query-summary">
-        ${rows.length} holding(s) &nbsp;|&nbsp;
-        Cost Basis: <span>${money(totCost)}</span> &nbsp;|&nbsp;
-        Current Value: <span>${money(totValue)}</span> &nbsp;|&nbsp;
-        Gain/Loss: <span class="${glClass}">${money(totGL)} (${totGLPct.toFixed(2)}%)</span> &nbsp;|&nbsp;
-        Expense: <span style="color:#b45309">${money(totExp)}</span>
-      </div>`;
-
-      return html;
-    }
-
-    function portfolioToQueryRows() {
-      return portfolio.map(row => {
-        const c = calcRow(row);
-        const curPrice = Number(row.currentPrice || 0);
-        const buyPrice = Number(row.purchasePrice || 0);
-        const qty      = Number(row.quantity || 0);
-        const gainSinceAmt = (curPrice - buyPrice) * qty;
-        const gainSincePct = buyPrice ? ((curPrice - buyPrice) / buyPrice) * 100 : 0;
-        return {
-          account:        row.account || 'Uncategorized',
-          ticker:         row.ticker  || '',
-          name:           row.name    || '',
-          qty,
-          purchaseDate:   row.purchaseDate || '',
-          purchasePrice:  buyPrice,
-		  currentPrice: curPrice,
-          costBasis:      c.costBasis,
-          currentValue:   c.currentValue,
-          gainLoss:       c.gainLoss,
-          gainLossPct:    c.gainLossPct,
-          expensePerYear: c.expensePerYear,
-          gainSinceAmt,
-          gainSincePct
-        };
-      });
-    }
-
-    function runQuery() {
-      const type = document.getElementById('queryType').value;
-      const resultsDiv = document.getElementById('queryResults');
-      const allRows = portfolioToQueryRows();
-      let filtered = [];
-      let isTicker = false;
-
-      if (type === 'ticker') {
-        const t = document.getElementById('queryInputTicker').value.trim().toUpperCase();
-        if (!t) { resultsDiv.innerHTML = '<p class="no-results">Please enter a ticker symbol.</p>'; return; }
-        filtered = allRows.filter(r => r.ticker === t);
-        isTicker = true;
-
-      } else if (type === 'account') {
-        const a = document.getElementById('queryInputAccount').value;
-        if (!a) { resultsDiv.innerHTML = '<p class="no-results">Please select an account.</p>'; return; }
-        filtered = allRows.filter(r => r.account === a);
-
-      } else if (type === 'assetType') {
-        const at = document.getElementById('queryInputAssetType').value;
-        if (!at) { resultsDiv.innerHTML = '<p class="no-results">Please select an asset type.</p>'; return; }
-        filtered = allRows.filter(r => {
-          const row = portfolio.find(p => p.ticker === r.ticker && p.account === r.account);
-          return row && (row.assetType || '') === at;
-        });
-
-      } else if (type === 'topN') {
-        const n = parseInt(document.getElementById('queryInputTopN').value) || 10;
-        filtered = [...allRows].sort((a, b) => b.currentValue - a.currentValue).slice(0, n);
-
-      } else if (type === 'gainPct') {
-        const pct = parseFloat(document.getElementById('queryInputPct').value);
-        if (isNaN(pct)) { resultsDiv.innerHTML = '<p class="no-results">Please enter a percentage threshold.</p>'; return; }
-        filtered = allRows.filter(r => r.gainLossPct >= pct).sort((a, b) => b.gainLossPct - a.gainLossPct);
-
-      } else if (type === 'lossPct') {
-        const pct = parseFloat(document.getElementById('queryInputPct').value);
-        if (isNaN(pct)) { resultsDiv.innerHTML = '<p class="no-results">Please enter a percentage threshold.</p>'; return; }
-        filtered = allRows.filter(r => r.gainLossPct <= pct).sort((a, b) => a.gainLossPct - b.gainLossPct);
-      }
-
-      resultsDiv.innerHTML = buildQueryTable(filtered, isTicker);
-    }
-
-    function clearQuery() {
-      document.getElementById('queryInputTicker').value = '';
-      document.getElementById('queryInputTopN').value = '';
-      document.getElementById('queryInputPct').value = '';
-      document.getElementById('queryResults').innerHTML = '';
-    }
-
-    // Populate account dropdown whenever render() is called
-    const _origRender = typeof render === 'function' ? render : null;
-
-    // ── Retirement Calculator Balance Summary ────────────────────────────────
-    const RETIRE_MAP = {
-      '401k Balance':      { ids: ['employer 401k'], subtitle: '', color: '#000000' },
-      'Roth IRA Balance':  { ids: ['roth ira'],      subtitle: '', color: '#000000' },
-      'Brokerage Balance': { ids: ['charles schwab', 'robinhood'], subtitle: 'Robinhood + Charles Schwab', color: '#000000' },
-      'HSA Balance':       { ids: ['health savings account'],      subtitle: '', color: '#000000' }
-    };
-
-    function copyRetireBalance(btn, rawValue) {
-      navigator.clipboard.writeText(String(rawValue)).then(() => {
-        const orig = btn.innerHTML;
-        btn.innerHTML = '✓';
-        btn.style.color = '#059669';
-        setTimeout(() => { btn.innerHTML = orig; btn.style.color = '#aaa'; }, 1500);
-      });
-    }
-
-    function renderRetirementBalances() {
-      const container = document.getElementById('retirementBalances');
-      if (!container) return;
-
-      const totals  = {};
-      const sources = {};
-      Object.keys(RETIRE_MAP).forEach(k => { totals[k] = 0; sources[k] = []; });
-
-      portfolio.forEach(row => {
-        const acct = (row.account || '').toLowerCase().trim();
-        const val  = calcRow(row).currentValue;
-        for (const [label, cfg] of Object.entries(RETIRE_MAP)) {
-          if (cfg.ids.some(n => acct === n || acct.includes(n))) {
-            totals[label] += val;
-            const display = (row.account || '').trim();
-            if (!sources[label].includes(display)) sources[label].push(display);
-            break;
-          }
-        }
-      });
-
-      container.innerHTML = Object.entries(RETIRE_MAP).map(([label, cfg]) => {
-        const val = totals[label];
-        const raw = Math.round(val);
-        const src = sources[label].length
-          ? sources[label].join('<br>+ ')
-          : '<span style="color:#b45309">⚠ no accounts matched</span>';
-        const subtitleHtml = cfg.subtitle
-          ? `<div style="font-size:11px; color:#555; font-weight:600; margin-bottom:6px;">(${cfg.subtitle})</div>`
-          : '';
-        return `
-          <div style="background:#EBF2F5; border:2px solid ${cfg.color}; border-radius:10px;
-            padding:14px; position:relative;">
-            <button onclick="copyRetireBalance(this, ${raw})" title="Copy value"
-              style="position:absolute; top:7px; right:8px; background:none; border:none;
-                cursor:pointer; padding:2px 5px; border-radius:4px; color:#aaa; font-size:15px; line-height:1;"
-              onmouseover="this.style.color='#DB7527';this.style.background='#f0f0f0'"
-              onmouseout="this.style.color='#aaa';this.style.background='none'">⧉</button>
-            <div style="font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:1px;
-              color:#000; border-bottom:2px solid #000; padding-bottom:6px; margin-bottom:8px;
-              padding-right:24px;">${label}</div>
-            ${subtitleHtml}
-            <div style="font-size:1.4rem; font-weight:800; color:#111; margin-bottom:8px;">${money(val)}</div>
-            <div style="font-size:11px; color:#555; line-height:1.6;">${src}</div>
-          </div>`;
-      }).join('');
-
-      // Save pre-computed retirement balances so other calculators can read them directly
-      const retireSnapshot = {
-        '401k Balance':      Math.round(totals['401k Balance']),
-        'Roth IRA Balance':  Math.round(totals['Roth IRA Balance']),
-        'Brokerage Balance': Math.round(totals['Brokerage Balance']),
-        'HSA Balance':       Math.round(totals['HSA Balance']),
-        updatedAt: new Date().toISOString()
+        assetType,
+        expenseRatio: parseFloat(document.getElementById('expenseRatioInput').value) || 0
       };
-      localStorage.setItem('portfolio_retire_balances_v1', JSON.stringify(retireSnapshot));
     }
-
+    portfolio.push(holding);
+    savePortfolio();
+    e.target.reset();
+    toggleCashMode();
     render();
-    populateQueryDropdowns();
-    onQueryTypeChange();
-    setInterval(refreshPrices, 60000);
-  </script>
-
-  <div class="footer-home">
-    <a href="index.html">🏠 Home</a>
-  </div>
-  
-  
-  <!-- Floating Feedback Button with Text -->
-
-<a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
-  style="
-    position: fixed;
-    bottom: 96px; /* Stacks perfectly above feedback button */
-    right: 28px;
-    height: 54px;
-    padding: 0 18px;
-    border-radius: 28px;
-    background: #d4af37;
-    border: 2px solid #000;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-    z-index: 9999;
-    transition: background 0.2s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #000;
-    text-decoration: none;
-  "
-  onmouseover="this.style.background='#693909'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
-  onmouseout="this.style.background='#d4af37'; this.style.color='#000'; this.style.transform='scale(1)';">
-
-  <span style="font-size:22px;">✍️</span>
-  <span>Wise Thoughts</span>
-  <span class="tooltip-text">Subscribe on Substack</span>
-</a>
-
-
-
-
-<button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
-  style="
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    height: 54px;
-    padding: 0 18px;
-    border-radius: 28px;
-    background: #d4af37;
-    border: 2px solid #000;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-    z-index: 9999;
-    transition: background 0.2s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #000;
-  "
-  onmouseover="this.style.background='#693909'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
-  onmouseout="this.style.background='#d4af37'; this.style.color='#000'; this.style.transform='scale(1)';">
-
-  <span style="font-size:22px;">💬</span>
-  <span>Share feedback</span>
-
-</button>
-
-<!-- Modal Overlay -->
-
-  
-  
-  <script>
-// ── Star rating ──────────────────────────────────────────────────────────────
-let selectedRating = 0;
-const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
-
-function setRating(val) {
-  selectedRating = val;
-  document.querySelectorAll('.star').forEach(s => {
-    s.classList.toggle('lit', +s.dataset.val <= val);
-    s.textContent = +s.dataset.val <= val ? '★' : '☆';
   });
-  document.getElementById('star-label').textContent = starLabels[val] || '';
-}
 
-// ── Checkbox highlight ───────────────────────────────────────────────────────
-document.querySelectorAll('.fb-checks label').forEach(lbl => {
-  lbl.querySelector('input').addEventListener('change', function() {
-    lbl.classList.toggle('checked', this.checked);
-  });
-});
+  // ── calcRow ────────────────────────────────────────────────────────────────────
+  function calcRow(row) {
+    if ((row.assetType||'') === 'Cash') {
+      const v = Number(row.purchasePrice||0);
+      return { costBasis: v, currentValue: v, gainLoss: 0, gainLossPct: 0, expensePerYear: 0 };
+    }
+    const qty = Number(row.quantity||0), buy = Number(row.purchasePrice||0), cur = Number(row.currentPrice||buy||0), er = Number(row.expenseRatio||0);
+    const costBasis = qty*buy, currentValue = qty*cur, gainLoss = currentValue-costBasis;
+    return { costBasis, currentValue, gainLoss, gainLossPct: costBasis ? (gainLoss/costBasis)*100 : 0, expensePerYear: (er/100)*currentValue };
+  }
 
-// ── Page-aware auto-check ────────────────────────────────────────────────────
-const pageMap = {
-  'medicare': ['Medicare / ACA'],
-  'healthcare_medicare': ['Medicare / ACA'],
-  'healthcare_aca': ['Medicare / ACA'],
-  'aca_vs_cobra': ['Medicare / ACA'],
-  'medicare_flowchart': ['Medicare / ACA'],
-  'long_term_care': ['Long term care'],
-  'tax_calculator': ['Tax planning'],
-  'retirement_calculator': ['Withdrawal strategy','Investment / Portfolio'],
-  'montecarlo': ['Withdrawal strategy','Investment / Portfolio'],
-  '401k': ['401k / Savings'],
-  'portfolio': ['Investment / Portfolio'],
-  'transition_plan': ['Withdrawal strategy'],
-  'financial_plan': ['Investment / Portfolio'],
-};
-const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
-Object.keys(pageMap).forEach(key => {
-  if (page.includes(key)) {
-    pageMap[key].forEach(topic => {
-      document.querySelectorAll('.fb-checks input').forEach(inp => {
-        if (inp.value === topic) {
-          inp.checked = true;
-          inp.closest('label').classList.add('checked');
+  function groupByAccount() {
+    return portfolio.reduce((acc,row,i) => {
+      const key = row.account||'Uncategorized';
+      if (!acc[key]) acc[key]=[];
+      acc[key].push({...row, _index: i});
+      return acc;
+    }, {});
+  }
+
+  function buildAssetTotals() {
+    const totals = {};
+    portfolio.forEach(row => {
+      const type = row.assetType||'Other';
+      if (!totals[type]) totals[type]={value:0,invested:0};
+      const c = calcRow(row); totals[type].value+=c.currentValue; totals[type].invested+=c.costBasis;
+    });
+    return Object.fromEntries(Object.entries(totals).sort((a,b)=>b[1].value-a[1].value));
+  }
+
+  function buildAccountTotals() {
+    const totals = {};
+    portfolio.forEach(row => {
+      const acct=(row.account||'Uncategorized').trim();
+      if (!totals[acct]) totals[acct]={value:0,invested:0};
+      const c=calcRow(row); totals[acct].value+=c.currentValue; totals[acct].invested+=c.costBasis;
+    });
+    const known=ACCOUNT_ORDER.filter(a=>totals[a]), extras=Object.keys(totals).filter(a=>!ACCOUNT_ORDER.includes(a)).sort();
+    const ordered={};
+    [...known,...extras].forEach(a=>{ordered[a]=totals[a];});
+    return ordered;
+  }
+
+  function getTaxBucket(acct) {
+    for (const [b,accounts] of Object.entries(TAX_BUCKET_MAP)) { if (accounts.includes(acct)) return b; }
+    return 'Other';
+  }
+
+  function buildTaxBucketTotals() {
+    const buckets={};
+    Object.keys(TAX_BUCKET_MAP).forEach(b=>{buckets[b]={value:0,invested:0};});
+    buckets['Other']={value:0,invested:0};
+    portfolio.forEach(row=>{
+      const b=getTaxBucket((row.account||'Uncategorized').trim());
+      if (!buckets[b]) buckets[b]={value:0,invested:0};
+      const c=calcRow(row); buckets[b].value+=c.currentValue; buckets[b].invested+=c.costBasis;
+    });
+    return buckets;
+  }
+
+  // ── Pie Chart ──────────────────────────────────────────────────────────────────
+  function renderPieChart(assetTotals, totalValue) {
+    const canvas=document.getElementById('allocationChart'), ctx=canvas.getContext('2d');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const cx=150,cy=150,r=130, entries=Object.entries(assetTotals);
+    if (!totalValue||!entries.length) {
+      ctx.fillStyle='#ccc'; ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI); ctx.fill();
+      ctx.fillStyle='#999'; ctx.font='16px Arial'; ctx.textAlign='center'; ctx.fillText('No data',cx,cy); return;
+    }
+    let start=-Math.PI/2;
+    entries.forEach(([,data],i) => {
+      const slice=(data.value/totalValue)*2*Math.PI, pct=((data.value/totalValue)*100).toFixed(1);
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+slice); ctx.closePath();
+      ctx.fillStyle=COLORS[i%COLORS.length]; ctx.fill(); ctx.strokeStyle='#000'; ctx.lineWidth=1; ctx.stroke();
+      if (slice>0.25) {
+        const mid=start+slice/2;
+        ctx.fillStyle='#000'; ctx.font='bold 12px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(pct+'%', cx+r*0.65*Math.cos(mid), cy+r*0.65*Math.sin(mid));
+      }
+      start+=slice;
+    });
+    document.getElementById('chartLegend').innerHTML=entries.map(([type,data],i)=>{
+      const pct=((data.value/totalValue)*100).toFixed(1);
+      return `<div class="legend-item"><div class="legend-dot" style="background:${COLORS[i%COLORS.length]}"></div><span>${type} — ${pct}%</span></div>`;
+    }).join('');
+  }
+
+  // ── Tax Bucket Bar Chart ───────────────────────────────────────────────────────
+  function roundRect(ctx,x,y,w,h,r) {
+    if (w < 2*r) r=w/2; if (h < 2*r) r=h/2;
+    ctx.beginPath(); ctx.moveTo(x+r,y);
+    ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+    ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+    ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+    ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath();
+  }
+
+  function renderTaxBucketChart(bucketTotals, totalValue) {
+    const canvas=document.getElementById('taxBucketChart'), ctx=canvas.getContext('2d');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const W=canvas.width, bucketOrder=['Tax-Deferred','Tax-Free','Taxable'];
+    const barColors=['#5C85D6','#5BAD6F','#E07B39'];
+    const barH=50, gap=24, leftPad=105, rightPad=12, maxBarW=W-leftPad-rightPad;
+    ctx.font='13px Arial';
+    bucketOrder.forEach((bucket,i)=>{
+      const data=bucketTotals[bucket]||{value:0,invested:0};
+      const pct=totalValue?data.value/totalValue:0;
+      const y=30+i*(barH+gap);
+      // Label
+      ctx.fillStyle='#222'; ctx.textAlign='right'; ctx.textBaseline='middle';
+      ctx.fillText(bucket, leftPad-8, y+barH/2);
+      // Background bar
+      ctx.fillStyle='#e0e0e0'; roundRect(ctx,leftPad,y,maxBarW,barH,6); ctx.fill();
+      // Value bar
+      if (pct>0) { ctx.fillStyle=barColors[i]; roundRect(ctx,leftPad,y,Math.max(pct*maxBarW,6),barH,6); ctx.fill(); }
+      // Percentage + amount label
+      const inside = pct>0.25;
+      ctx.fillStyle=inside?'#fff':'#333'; ctx.font='bold 13px Arial'; ctx.textAlign='left';
+      const lx=leftPad+(inside?10:Math.max(pct*maxBarW,6)+8);
+      ctx.fillText(`${(pct*100).toFixed(1)}%  ${money(data.value)}`, lx, y+barH/2);
+      ctx.font='13px Arial';
+    });
+  }
+
+  // ── P&L by Asset Type (with rebalance columns) ────────────────────────────────
+  function renderProfitLossTable(assetTotals, totalValue) {
+    const tbody=document.querySelector('#profitLossTable tbody'); tbody.innerHTML='';
+    if (!Object.keys(assetTotals).length) {
+      tbody.innerHTML='<tr><td colspan="9" class="muted" style="text-align:center">No holdings yet</td></tr>'; return;
+    }
+    Object.entries(assetTotals).forEach(([type,data],i)=>{
+      const pl=data.value-data.invested, plPct=data.invested?(pl/data.invested)*100:0;
+      const allocPct=totalValue?(data.value/totalValue)*100:0;
+      const targetPct=assetTargets[type]!=null&&assetTargets[type]!==''?parseFloat(assetTargets[type]):null;
+      const diffPct=targetPct!==null?allocPct-targetPct:null;
+      const color=COLORS[i%COLORS.length];
+      let diffHtml='', actionHtml='', actionType='hold';
+      if (diffPct!==null) {
+        const cls=Math.abs(diffPct)<0.5?'action-ok':diffPct>0?'action-sell':'action-buy';
+        diffHtml=`<span class="${cls}">${diffPct>0?'+':''}${diffPct.toFixed(1)}%</span>`;
+        const diffAmt=(diffPct/100)*totalValue;
+        if (Math.abs(diffPct)<0.5) { actionHtml='<span class="action-ok">✓ On Target</span>'; actionType='hold'; }
+        else if (diffAmt>0) { actionHtml=`<span class="action-sell">Sell ${money(Math.abs(diffAmt))}</span>`; actionType='sell'; }
+        else { actionHtml=`<span class="action-buy">Buy ${money(Math.abs(diffAmt))}</span>`; actionType='buy'; }
+      }
+      const typeSafe=type.replace(/'/g,"\'");
+      const detailId='detail-row-'+i;
+      // Summary row
+      const tr=document.createElement('tr');
+      tr.className='asset-summary-row';
+      tr.innerHTML=`
+        <td>
+          <span class="expand-icon">▶</span>
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};margin-right:6px;vertical-align:middle;"></span>
+          <strong>${type}</strong>
+          <span class="hint-text">click to expand</span>
+        </td>
+        <td>${money(data.invested)}</td>
+        <td>${money(data.value)}</td>
+        <td class="${pl>=0?'positive':'negative'}">${money(pl)}</td>
+        <td class="${plPct>=0?'positive':'negative'}">${plPct.toFixed(2)}%</td>
+        <td>${allocPct.toFixed(1)}%</td>
+        <td><input type="number" step="0.1" min="0" max="100"
+          value="${assetTargets[type]??''}" placeholder="%"
+          style="width:72px;padding:4px;border:1px solid #999;border-radius:4px;"
+          onclick="event.stopPropagation()"
+          onchange="(function(v,t){assetTargets[t]=v;portfolio.forEach(p=>{if(p.assetType===t)p.suggestedTarget=v;});saveTargets(assetTargets);savePortfolio();render();})(this.value,'${typeSafe}')" /></td>
+        <td>${diffHtml}</td>
+        <td>${actionHtml}</td>`;
+      // Detail accordion row
+      const detailTr=document.createElement('tr');
+      detailTr.className='asset-detail-section';
+      detailTr.innerHTML=`<td colspan="9"><div class="detail-inner" id="${detailId}"></div></td>`;
+      // Toggle
+      tr.addEventListener('click', function() {
+        const inner=document.getElementById(detailId);
+        const isOpen=inner.classList.contains('open');
+        document.querySelectorAll('.detail-inner.open').forEach(el=>{ el.classList.remove('open'); });
+        document.querySelectorAll('.asset-summary-row.open').forEach(el=>{
+          el.classList.remove('open');
+          const h=el.querySelector('.hint-text'); if(h) h.textContent='click to expand';
+        });
+        if (!isOpen) {
+          inner.classList.add('open'); tr.classList.add('open');
+          if (!inner.dataset.built) { inner.innerHTML=buildDetailPanel(type,actionType,color,totalValue); inner.dataset.built='1'; }
+          const h=tr.querySelector('.hint-text'); if(h) h.textContent='click to collapse';
         }
       });
+      tbody.appendChild(tr);
+      tbody.appendChild(detailTr);
     });
+    const ti=Object.values(assetTotals).reduce((s,d)=>s+d.invested,0);
+    const tpl=totalValue-ti, tplPct=ti?(tpl/ti)*100:0;
+    const totalTarget=Object.keys(assetTotals).reduce((s,type)=>{
+      const v=assetTargets[type]; return s+(v!==undefined&&v!==''?parseFloat(v):0);
+    },0);
+    const hasAnyTarget=Object.keys(assetTotals).some(t=>assetTargets[t]!==undefined&&assetTargets[t]!=='');
+    const targetDiff=Math.abs(totalTarget-100);
+    const targetColor=!hasAnyTarget?'#888':targetDiff<0.1?'#059669':totalTarget>100?'#dc2626':'#b45309';
+    const warningLabel=hasAnyTarget&&targetDiff>=0.1
+      ?`<span style="font-size:11px;color:${targetColor};display:block;font-weight:normal;">${totalTarget>100?'\u26a0 exceeds 100%':'\u26a0 does not sum to 100%'}</span>`:'';
+    const targetLabel=!hasAnyTarget?'\u2014'
+      :`<span style="color:${targetColor};font-weight:bold;">${totalTarget.toFixed(1)}%</span>${warningLabel}`;
+    const foot=document.createElement('tr');
+    foot.style.fontWeight='bold'; foot.style.borderTop='2px solid #000';
+    foot.innerHTML=`<td>Total</td><td>${money(ti)}</td><td>${money(totalValue)}</td>
+      <td class="${tpl>=0?'positive':'negative'}">${money(tpl)}</td>
+      <td class="${tplPct>=0?'positive':'negative'}">${tplPct.toFixed(2)}%</td>
+      <td>100%</td><td>${targetLabel}</td><td></td><td></td>`;
+    tbody.appendChild(foot);
   }
-});
 
-// ── Submit ───────────────────────────────────────────────────────────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-
-function submitFeedback() {
-  const improve = document.getElementById('fb-improve').value.trim();
-  const status  = document.getElementById('fb-status');
-  const btn     = document.getElementById('fb-submit');
-
-  if (!improve) {
-    status.style.color = '#a82222';
-    status.textContent = 'Please share how we can improve — that field is required.';
-    return;
-  }
-
-  const topics = [...document.querySelectorAll('.fb-checks input:checked')].map(i => i.value).join(', ');
-  const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
-  const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
-  const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
-  const q4 = document.querySelector('input[name="q4"]:checked')?.value || '';
-
-  const payload = {
-    page:    window.location.pathname.split('/').pop() || 'unknown',
-    rating:  selectedRating ? selectedRating + ' ★' : 'Not rated',
-    topics,
-    q_easy:        q1,
-    q_found:       q2,
-    q_calculators: q3,
-    q_recommend:   q4,
-    useful:  document.getElementById('fb-useful').value.trim(),
-    area:    document.getElementById('fb-area').value,
-    improve,
-    add:     document.getElementById('fb-add').value.trim(),
-    name:    document.getElementById('fb-name').value.trim(),
-    email:   document.getElementById('fb-email').value.trim(),
-  };
-
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  status.style.color = '#555';
-  status.textContent = '';
-
-  fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
-    .then(() => {
-      status.style.color = '#2e7d32';
-      status.textContent = '✅ Thank you! Your feedback has been received.';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
-    })
-    .catch(() => {
-      status.style.color = '#a82222';
-      status.textContent = '⚠️ Could not send — please try again.';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
+  // Build accordion detail panel for one asset type
+  function buildDetailPanel(type, actionType, color, totalValue) {
+    const holdings=portfolio.filter(r=>(r.assetType||'')===(type||''));
+    if (!holdings.length) return '<div style="padding:12px 36px;color:#888;font-style:italic;">No holdings found.</div>';
+    const bannerBg={sell:'#fee2e2',buy:'#d1fae5',hold:'#f1f5f9'}[actionType];
+    const bannerFg={sell:'#dc2626',buy:'#059669',hold:'#64748b'}[actionType];
+    const bannerMsg={
+      sell:`<strong>↓ Over-allocated.</strong> Consider trimming higher-gain lots first (especially in taxable accounts) or pausing new contributions to rebalance.`,
+      buy:`<strong>↑ Under-allocated.</strong> Consider adding to existing positions or directing new contributions here.`,
+      hold:`<strong>✓ On Target.</strong> No rebalancing action needed — maintain current allocation.`
+    }[actionType];
+    let rows='', subInvested=0, subValue=0;
+    [...holdings].sort((a,b)=>calcRow(b).currentValue-calcRow(a).currentValue).forEach(row=>{
+      const c=calcRow(row); subInvested+=c.costBasis; subValue+=c.currentValue;
+      const gl=c.gainLoss, glPct=c.gainLossPct;
+      const allocPct=totalValue?(c.currentValue/totalValue*100).toFixed(1):'—';
+      rows+=`<tr>
+        <td><strong>${row.ticker||'—'}</strong></td>
+        <td style="color:#555;font-size:12px;">${row.name||''}</td>
+        <td style="color:#555;font-size:12px;">${row.account||''}</td>
+        <td>${money(c.costBasis)}</td>
+        <td>${money(c.currentValue)}</td>
+        <td class="${gl>=0?'positive':'negative'}">${money(gl)}</td>
+        <td class="${glPct>=0?'positive':'negative'}">${glPct.toFixed(2)}%</td>
+        <td style="color:#555;">${allocPct}%</td>
+      </tr>`;
     });
-}
-</script>
-
-
-
-  
-  
-
-
-
-
-<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
-  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
-         z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
-  <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
-              border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
-              position:relative;font-family:'Segoe UI',Arial,sans-serif;
-              box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
-    <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
-    <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
-    <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
-    <div style="margin-bottom:14px;">
-      <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
-      <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
-        <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
-        <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
-        <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
-        <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
-        <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
-      </div>
-      <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
-        What topic brought you here today?
-      </div>
-      <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
-        <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
-        <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
-        <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
-        <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
-        <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
-        <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
-        <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
-        <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
-      </div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
-        Rate your experience
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+    const subGl=subValue-subInvested, subGlPct=subInvested?(subGl/subInvested*100):0;
+    return `<div class="detail-table-wrap">
+      <div style="padding:10px 14px;background:${bannerBg};border-bottom:1.5px solid #EDCB82;font-size:13px;color:${bannerFg};">${bannerMsg}</div>
+      <table>
         <thead><tr>
-          <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
+          <th>Ticker</th><th>Name</th><th>Account</th>
+          <th>Cost Basis</th><th>Current Value</th>
+          <th>Gain / Loss</th><th>% Gain/Loss</th><th>% of Portfolio</th>
         </tr></thead>
-        <tbody>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td><td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td><td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td><td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td><td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-        </tbody>
+        <tbody>${rows}</tbody>
+        <tfoot><tr class="detail-footer">
+          <td colspan="3"><strong>${type} Total (${holdings.length} holding${holdings.length!==1?'s':''})</strong></td>
+          <td>${money(subInvested)}</td><td>${money(subValue)}</td>
+          <td class="${subGl>=0?'positive':'negative'}">${money(subGl)}</td>
+          <td class="${subGlPct>=0?'positive':'negative'}">${subGlPct.toFixed(2)}%</td>
+          
+        </tr></tfoot>
       </table>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
-        Your thoughts
-      </div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label><input id="fb-useful" type="text" placeholder="e.g. the comparison table, the calculator..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area needs the most improvement?</label><select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"><option value="">&#x2014; Select an area &#x2014;</option><option>Medicare / ACA content</option><option>Social Security guidance</option><option>Tax planning content</option><option>Retirement calculators</option><option>Portfolio / investment content</option><option>Withdrawal strategy content</option><option>401k / savings content</option><option>Long term care content</option><option>Site navigation / layout</option><option>Mobile experience</option><option>Something not listed</option></select></div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">How can we make that area better? <span style="color:#a82222;">*</span></label><textarea id="fb-improve" rows="3" placeholder="Be as specific as you like..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea><div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div></div>
-      <div style="margin-bottom:4px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label><input id="fb-add" type="text" placeholder="e.g. a topic or calculator I'd love to see..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
-        About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label><input id="fb-name" type="text" placeholder="Your name" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label><input id="fb-email" type="email" placeholder="your@email.com" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-      </div>
-    </div>
-    <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
-    <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
-  </div>
-</div>
+    </div>`;
+  }
+
+
+  // ── P&L by Account ────────────────────────────────────────────────────────────
+  function renderAccountProfitLossTable(accountTotals, totalValue) {
+    const tbody=document.querySelector('#accountProfitLossTable tbody'); tbody.innerHTML='';
+    if (!Object.keys(accountTotals).length) {
+      tbody.innerHTML='<tr><td colspan="6" class="muted" style="text-align:center">No holdings yet</td></tr>'; return;
+    }
+    const ACCT_COLORS=['#5C85D6','#E07B39','#5BAD6F','#C75C7E','#8E6BBF','#3AAFAF','#D4A84B','#E05C5C','#7A9E9F','#B07D62'];
+    const brokSub=BROKERAGE_ACCOUNTS.reduce((acc,n)=>{
+      if (accountTotals[n]){acc.invested+=accountTotals[n].invested;acc.value+=accountTotals[n].value;}
+      return acc;
+    },{invested:0,value:0});
+
+    Object.entries(accountTotals).forEach(([acct,data],i)=>{
+      const pl=data.value-data.invested, plPct=data.invested?(pl/data.invested)*100:0;
+      const alloc=totalValue?((data.value/totalValue)*100).toFixed(1):'0.0';
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${ACCT_COLORS[i%ACCT_COLORS.length]};margin-right:6px"></span><strong>${acct}</strong></td>
+        <td>${money(data.invested)}</td><td>${money(data.value)}</td>
+        <td class="${pl>=0?'positive':'negative'}">${money(pl)}</td>
+        <td class="${plPct>=0?'positive':'negative'}">${plPct.toFixed(2)}%</td>
+        <td>${alloc}%</td>`;
+      tbody.appendChild(tr);
+
+      if (acct==='Robinhood') {
+        const bpl=brokSub.value-brokSub.invested, bplPct=brokSub.invested?(bpl/brokSub.invested)*100:0;
+        const balloc=totalValue?((brokSub.value/totalValue)*100).toFixed(1):'0.0';
+        const sep=document.createElement('tr'); sep.innerHTML=`<td colspan="6" style="padding:0;border-top:2px dashed #888;border-bottom:none;"></td>`; tbody.appendChild(sep);
+        const sub=document.createElement('tr'); sub.style.background='#e8f4e8'; sub.style.fontStyle='italic';
+        sub.innerHTML=`<td style="padding-left:20px">🏦 <strong>Brokerage Accounts</strong> <span style="font-size:12px;color:#666">(Individual Brokerage + Merril + Robinhood)</span></td>
+          <td>${money(brokSub.invested)}</td><td>${money(brokSub.value)}</td>
+          <td class="${bpl>=0?'positive':'negative'}">${money(bpl)}</td>
+          <td class="${bplPct>=0?'positive':'negative'}">${bplPct.toFixed(2)}%</td>
+          <td>${balloc}%</td>`; tbody.appendChild(sub);
+        const sep2=document.createElement('tr'); sep2.innerHTML=`<td colspan="6" style="padding:0;border-top:2px dashed #888;border-bottom:none;"></td>`; tbody.appendChild(sep2);
+      }
+    });
+    const ti=Object.values(accountTotals).reduce((s,d)=>s+d.invested,0);
+    const tpl=totalValue-ti, tplPct=ti?(tpl/ti)*100:0;
+    const foot=document.createElement('tr'); foot.style.fontWeight='bold'; foot.style.borderTop='2px solid #000';
+    foot.innerHTML=`<td>Total</td><td>${money(ti)}</td><td>${money(totalValue)}</td>
+      <td class="${tpl>=0?'positive':'negative'}">${money(tpl)}</td>
+      <td class="${tplPct>=0?'positive':'negative'}">${tplPct.toFixed(2)}%</td><td>100%</td>`;
+    tbody.appendChild(foot);
+  }
+
+  // ── Tax Bucket P&L Table ──────────────────────────────────────────────────────
+  function renderTaxBucketProfitLossTable(bucketTotals, totalValue) {
+    const tbody=document.querySelector('#taxBucketProfitLossTable tbody'); tbody.innerHTML='';
+    const BUCKET_COLORS=['#5C85D6','#5BAD6F','#E07B39','#C75C7E'];
+    ['Tax-Deferred','Tax-Free','Taxable','Other'].forEach((bucket,i)=>{
+      const data=bucketTotals[bucket];
+      if (!data||(data.value===0&&data.invested===0)) return;
+      const pl=data.value-data.invested, plPct=data.invested?(pl/data.invested)*100:0;
+      const alloc=totalValue?((data.value/totalValue)*100).toFixed(1):'0.0';
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${BUCKET_COLORS[i%BUCKET_COLORS.length]};margin-right:6px"></span><strong>${bucket}</strong></td>
+        <td>${money(data.invested)}</td><td>${money(data.value)}</td>
+        <td class="${pl>=0?'positive':'negative'}">${money(pl)}</td>
+        <td class="${plPct>=0?'positive':'negative'}">${plPct.toFixed(2)}%</td>
+        <td>${alloc}%</td>`;
+      tbody.appendChild(tr);
+    });
+    const ti=Object.values(bucketTotals).reduce((s,d)=>s+d.invested,0);
+    const tpl=totalValue-ti, tplPct=ti?(tpl/ti)*100:0;
+    const foot=document.createElement('tr'); foot.style.fontWeight='bold'; foot.style.borderTop='2px solid #000';
+    foot.innerHTML=`<td>Total</td><td>${money(ti)}</td><td>${money(totalValue)}</td>
+      <td class="${tpl>=0?'positive':'negative'}">${money(tpl)}</td>
+      <td class="${tplPct>=0?'positive':'negative'}">${tplPct.toFixed(2)}%</td><td>100%</td>`;
+    tbody.appendChild(foot);
+  }
+
+  // ── Concentration Alert ────────────────────────────────────────────────────────
+  function renderConcentrationAlert(totalValue) {
+    const alert=document.getElementById('concentrationAlert');
+    if (!totalValue) { alert.style.display='none'; return; }
+    const byTicker={};
+    portfolio.forEach(row=>{
+      if (!row.ticker||row.ticker==='CASH') return;
+      if (!byTicker[row.ticker]) byTicker[row.ticker]={value:0,name:row.name||row.ticker};
+      byTicker[row.ticker].value+=calcRow(row).currentValue;
+    });
+    const flagged=Object.entries(byTicker).filter(([,d])=>d.value/totalValue>0.05).sort((a,b)=>b[1].value-a[1].value);
+    if (!flagged.length) { alert.style.display='none'; return; }
+    alert.style.display='block';
+    alert.innerHTML='⚠️ <strong>Single-Stock Concentration Alert</strong> — the following exceed 5% of your total portfolio:&nbsp;&nbsp;' +
+      flagged.map(([ticker,d])=>`<strong>${ticker}</strong> ${((d.value/totalValue)*100).toFixed(1)}% (${money(d.value)})`).join('&nbsp;&nbsp;|&nbsp;&nbsp;') +
+      '<br><small style="color:#666;display:block;margin-top:4px">Standard guidance: keep any single holding below 5%. Consider a gradual reduction plan.</small>';
+  }
+
+  // ── Retirement Balances ────────────────────────────────────────────────────────
+  function copyRetireBalance(btn, raw) {
+    navigator.clipboard.writeText(String(raw)).then(()=>{
+      const orig=btn.innerHTML; btn.innerHTML='✓'; btn.style.color='#059669';
+      setTimeout(()=>{ btn.innerHTML=orig; btn.style.color='#aaa'; },1500);
+    });
+  }
+
+  function renderRetirementBalances() {
+    const container=document.getElementById('retirementBalances'); if (!container) return;
+    const totals={}, sources={};
+    Object.keys(RETIRE_MAP).forEach(k=>{totals[k]=0;sources[k]=[];});
+    portfolio.forEach(row=>{
+      const acct=(row.account||'').toLowerCase().trim(), val=calcRow(row).currentValue;
+      for (const [label,cfg] of Object.entries(RETIRE_MAP)) {
+        if (cfg.ids.some(n=>acct===n||acct.includes(n))) {
+          totals[label]+=val;
+          const d=(row.account||'').trim();
+          if (!sources[label].includes(d)) sources[label].push(d);
+          break;
+        }
+      }
+    });
+    container.innerHTML=Object.entries(RETIRE_MAP).map(([label,cfg])=>{
+      const val=totals[label], raw=Math.round(val);
+      const src=sources[label].length?sources[label].join('<br>+ '):'<span style="color:#b45309">⚠ no accounts matched</span>';
+      return `<div style="background:#EBF2F5;border:2px solid ${cfg.color};border-radius:10px;padding:14px;position:relative;">
+        <button onclick="copyRetireBalance(this,${raw})" title="Copy value"
+          style="position:absolute;top:7px;right:8px;background:none;border:none;cursor:pointer;padding:2px 5px;border-radius:4px;color:#aaa;font-size:15px;line-height:1;"
+          onmouseover="this.style.color='#DB7527';this.style.background='#f0f0f0'"
+          onmouseout="this.style.color='#aaa';this.style.background='none'">⧉</button>
+        <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#000;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:8px;padding-right:24px;">${label}</div>
+        <div style="font-size:1.4rem;font-weight:800;color:#111;margin-bottom:8px;">${money(val)}</div>
+        <div style="font-size:11px;color:#555;line-height:1.6;">${src}</div>
+      </div>`;
+    }).join('');
+    const snap={};
+    Object.keys(RETIRE_MAP).forEach(k=>snap[k]=Math.round(totals[k]));
+    snap.updatedAt=new Date().toISOString();
+    localStorage.setItem('portfolio_retire_balances_v1', JSON.stringify(snap));
+  }
+
+  // ── Cell Editing ───────────────────────────────────────────────────────────────
+  function makeCellEditable(td, value, rowIndex, field) {
+    td.classList.add('editing');
+    td.innerHTML=`<input type="text" class="edit-input" value="${value}" />`;
+    const input=td.querySelector('.edit-input'); input.select();
+    function saveEdit() {
+      const newVal=input.value.trim(), row=portfolio[rowIndex];
+      if (['quantity','purchasePrice','currentPrice','expenseRatio'].includes(field)) row[field]=parseFloat(newVal)||0;
+      else row[field]=newVal;
+      savePortfolio(); render(); editingCell=null;
+    }
+    input.addEventListener('keydown',e=>{ if(e.key==='Enter')saveEdit(); if(e.key==='Escape'){render();editingCell=null;} });
+    input.addEventListener('blur',saveEdit);
+  }
+
+  // ── Sort helpers ───────────────────────────────────────────────────────────────
+  function sortRows(rows, field, dir) {
+    return [...rows].sort((a,b)=>{
+      const ca=calcRow(a), cb=calcRow(b);
+      let va, vb;
+      switch(field) {
+        case 'ticker':        va=a.ticker||'';  vb=b.ticker||'';  break;
+        case 'name':          va=a.name||'';    vb=b.name||'';    break;
+        case 'quantity':      va=+a.quantity||0; vb=+b.quantity||0; break;
+        case 'purchasePrice': va=+a.purchasePrice||0; vb=+b.purchasePrice||0; break;
+        case 'currentPrice':  va=+a.currentPrice||0;  vb=+b.currentPrice||0;  break;
+        case 'expenseRatio':  va=+a.expenseRatio||0;  vb=+b.expenseRatio||0;  break;
+        case 'assetType':     va=a.assetType||''; vb=b.assetType||''; break;
+        case 'costBasis':     va=ca.costBasis;   vb=cb.costBasis;   break;
+        case 'currentValue':  va=ca.currentValue; vb=cb.currentValue; break;
+        case 'gainLoss':      va=ca.gainLoss;    vb=cb.gainLoss;    break;
+        case 'gainLossPct':   va=ca.gainLossPct; vb=cb.gainLossPct; break;
+        case 'expensePerYear':va=ca.expensePerYear; vb=cb.expensePerYear; break;
+        default: va=''; vb='';
+      }
+      if (typeof va==='string') return dir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
+      return dir==='asc'?va-vb:vb-va;
+    });
+  }
+
+  // ── Build one account's sortable table ────────────────────────────────────────
+  function buildAccountTable(account, rows, container) {
+    const sort=tableSortState[account]||{field:null,dir:'asc'};
+    const section=document.createElement('div'); section.className='card';
+    section.innerHTML=`<div class="account-title">${account}</div>`;
+
+    const colDefs=[
+      {label:'Ticker',         field:'ticker'},
+      {label:'Name',           field:'name'},
+      {label:'Qty',            field:'quantity'},
+      {label:'Purchase Price', field:'purchasePrice'},
+      {label:'Inv Date',       field:null},
+      {label:'Current Price',  field:'currentPrice'},
+      {label:'Exp Ratio %',    field:'expenseRatio'},
+      {label:'Expense/Yr',     field:'expensePerYear'},
+      {label:'Asset Type',     field:'assetType'},
+      {label:'Cost Basis',     field:'costBasis'},
+      {label:'Current Value',  field:'currentValue'},
+      {label:'Gain/Loss',      field:'gainLoss'},
+      {label:'% Gain/Loss',    field:'gainLossPct'},
+      {label:'Action',         field:null},
+    ];
+
+    const table=document.createElement('table');
+    const theadRow=document.createElement('tr');
+    colDefs.forEach(col=>{
+      const th=document.createElement('th'); th.textContent=col.label;
+      if (col.field) {
+        th.classList.add('sortable');
+        if (sort.field===col.field) th.classList.add('sort-'+sort.dir);
+        th.addEventListener('click',()=>{
+          const cur=tableSortState[account]||{field:null,dir:'asc'};
+          tableSortState[account]={field:col.field, dir:cur.field===col.field&&cur.dir==='asc'?'desc':'asc'};
+          render();
+        });
+      }
+      theadRow.appendChild(th);
+    });
+    const thead=document.createElement('thead'); thead.appendChild(theadRow);
+    const tbody=document.createElement('tbody');
+    table.appendChild(thead); table.appendChild(tbody);
+
+    const sortedRows=sort.field?sortRows(rows,sort.field,sort.dir):rows;
+    let acctInvested=0, acctValue=0, acctExpense=0;
+
+    sortedRows.forEach(rowData=>{
+      const row=portfolio[rowData._index], c=calcRow(row);
+      acctInvested+=c.costBasis; acctValue+=c.currentValue; acctExpense+=c.expensePerYear;
+      const pd=row.purchaseDate||'', pdParts=pd.split('/');
+      const pdInput=pdParts.length===3?`${pdParts[2]}-${pdParts[0].padStart(2,'0')}-${pdParts[1].padStart(2,'0')}`:'';
+      const tr=document.createElement('tr');
+      tr.innerHTML=`
+        <td data-field="ticker"        data-row="${rowData._index}">${row.ticker||''}</td>
+        <td data-field="name"          data-row="${rowData._index}">${row.name||''}</td>
+        <td data-field="quantity"      data-row="${rowData._index}">${Number(row.quantity||0).toFixed(4)}</td>
+        <td data-field="purchasePrice" data-row="${rowData._index}">${money(row.purchasePrice)}</td>
+        <td style="text-align:center;">
+          <input type="date" value="${pdInput}"
+            style="border:1px solid #ccc;border-radius:4px;padding:2px 4px;font-size:0.78rem;width:118px;"
+            onchange="(function(v,i){var p=v.split('-');portfolio[i].purchaseDate=p.length===3?p[1]+'/'+p[2]+'/'+p[0]:'';savePortfolio();})(this.value,${rowData._index})" />
+        </td>
+        <td data-field="currentPrice"  data-row="${rowData._index}">${money(row.currentPrice)}</td>
+        <td data-field="expenseRatio"  data-row="${rowData._index}" style="text-align:right">${Number(row.expenseRatio||0).toFixed(4)}%</td>
+        <td style="text-align:right">${money(c.expensePerYear)}</td>
+        <td data-field="assetType"     data-row="${rowData._index}">${row.assetType||''}</td>
+        <td>${money(c.costBasis)}</td>
+        <td>${money(c.currentValue)}</td>
+        <td class="${c.gainLoss>=0?'positive':'negative'}">${money(c.gainLoss)}</td>
+        <td class="${c.gainLossPct>=0?'positive':'negative'}">${c.gainLossPct.toFixed(2)}%</td>
+        <td><button onclick="removeHolding(${rowData._index})">Delete</button></td>`;
+      tbody.appendChild(tr);
+    });
+
+    section.appendChild(table);
+    const acctGain=acctValue-acctInvested, acctGainPct=acctInvested?(acctGain/acctInvested)*100:0;
+    const summary=document.createElement('div'); summary.className='muted'; summary.style.marginTop='8px';
+    summary.innerHTML=`Account Total: <strong>${money(acctValue)}</strong> | Invested: <strong>${money(acctInvested)}</strong> | Gain/Loss: <strong class="${acctGain>=0?'positive':'negative'}">${money(acctGain)}</strong> | <strong class="${acctGainPct>=0?'positive':'negative'}">${acctGainPct.toFixed(2)}%</strong> | Total Expense: <strong style="color:#b45309">${money(acctExpense)}</strong>`;
+    section.appendChild(summary);
+    container.appendChild(section);
+    return { invested: acctInvested, value: acctValue, expensePerYear: acctExpense };
+  }
+
+  // ── Main Render ────────────────────────────────────────────────────────────────
+  function render() {
+    const container=document.getElementById('accountsContainer'); container.innerHTML='';
+    let totalInvested=0, totalCurrentValue=0, totalExpensePerYear=0;
+    const grouped=groupByAccount();
+    Object.keys(grouped).sort().forEach(account=>{
+      const t=buildAccountTable(account, grouped[account], container);
+      totalInvested+=t.invested; totalCurrentValue+=t.value; totalExpensePerYear+=t.expensePerYear;
+    });
+
+    // Summary cards
+    const gainLoss=totalCurrentValue-totalInvested, gainLossPct=totalInvested?(gainLoss/totalInvested)*100:0;
+    document.getElementById('totalInvested').textContent=money(totalInvested);
+    document.getElementById('currentValue').textContent=money(totalCurrentValue);
+    const gl=document.getElementById('gainLoss'); gl.textContent=money(gainLoss); gl.className=gainLoss>=0?'positive':'negative';
+    const glp=document.getElementById('gainLossPct'); glp.textContent=gainLossPct.toFixed(2)+'%'; glp.className=gainLossPct>=0?'positive':'negative';
+    document.getElementById('totalExpensePerYear').textContent=money(totalExpensePerYear);
+
+    // All charts & tables
+    const assetTotals=buildAssetTotals(), accountTotals=buildAccountTotals(), bucketTotals=buildTaxBucketTotals();
+    renderPieChart(assetTotals, totalCurrentValue);
+    renderProfitLossTable(assetTotals, totalCurrentValue);
+    renderTaxBucketChart(bucketTotals, totalCurrentValue);
+    renderTaxBucketProfitLossTable(bucketTotals, totalCurrentValue);
+    renderAccountProfitLossTable(accountTotals, totalCurrentValue);
+    renderConcentrationAlert(totalCurrentValue);
+    renderRetirementBalances();
+
+    // Wire up cell editing
+    document.querySelectorAll('td[data-field]').forEach(td=>{
+      td.addEventListener('click',function(){
+        if (editingCell) return; editingCell=this;
+        makeCellEditable(this, portfolio[parseInt(this.dataset.row)][this.dataset.field], parseInt(this.dataset.row), this.dataset.field);
+      });
+    });
+    populateQueryDropdowns();
+  }
+
+  function removeHolding(index) { portfolio.splice(index,1); savePortfolio(); render(); }
+
+  // ── Export CSV ─────────────────────────────────────────────────────────────────
+  document.getElementById('exportCsvBtn').addEventListener('click',()=>{
+    const headers=['account','ticker','name','quantity','purchasePrice','purchaseDate','currentPrice','assetType','expenseRatio','suggestedTarget'];
+    const lines=[headers.join(','),...portfolio.map(row=>headers.map(h=>`"${String(row[h]??'').replace(/"/g,'""')}"`).join(','))];
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/csv'}));
+    a.download='portfolio.csv'; a.click();
+  });
+
+  // ── Import CSV ─────────────────────────────────────────────────────────────────
+  document.getElementById('importCsvInput').addEventListener('change',async e=>{
+    const file=e.target.files[0]; if (!file) return;
+    const lines=(await file.text()).trim().split(/\r?\n/);
+    const headers=lines[0].split(',').map(h=>h.replace(/^"|"$/g,'').trim());
+    for (let i=1;i<lines.length;i++) {
+      const cols=lines[i].split(',').map(c=>c.replace(/^"|"$/g,''));
+      const obj=Object.fromEntries(headers.map((h,idx)=>[h,cols[idx]]));
+      portfolio.push({
+        account:obj.account||'', ticker:(obj.ticker||'').toUpperCase(), name:obj.name||'',
+        quantity:parseFloat(obj.quantity||'0'), purchasePrice:parseFloat(obj.purchasePrice||'0'),
+        purchaseDate:obj.purchaseDate||'',
+        currentPrice:parseFloat(obj.currentPrice||obj.purchasePrice||'0'),
+        assetType:obj.assetType||'', expenseRatio:parseFloat(obj.expenseRatio||'0'),
+        suggestedTarget:obj.suggestedTarget||''
+      });
+    }
+    portfolio.forEach(row=>{ if (row.assetType&&row.suggestedTarget!==undefined&&row.suggestedTarget!=='') assetTargets[row.assetType]=row.suggestedTarget; });
+    saveTargets(assetTargets); savePortfolio(); render();
+    e.target.value='';
+  });
+
+  // ── Refresh Prices ─────────────────────────────────────────────────────────────
+  async function refreshPrices() {
+    const apiKey=getApiKey();
+    if (!apiKey) { document.getElementById('apiKeyStatus').textContent='No API key — enter and save one above'; return; }
+    const tickers=[...new Set(portfolio.filter(h=>(h.assetType||'')!=='Cash').map(h=>(h.ticker||'').trim().toUpperCase()).filter(Boolean))];
+    if (!tickers.length) return;
+    const btn=document.getElementById('refreshBtn'); btn.disabled=true; btn.textContent='Refreshing...';
+    document.getElementById('apiKeyStatus').textContent='Fetching '+tickers.length+' ticker(s)...';
+    const map={};
+    for (const t of tickers) {
+      try { const r=await fetch(FINNHUB_BASE+encodeURIComponent(t)+'&token='+encodeURIComponent(apiKey)); map[t]=await r.json(); } catch { map[t]=null; }
+      await new Promise(r=>setTimeout(r,300));
+    }
+    let updated=0;
+    portfolio=portfolio.map(row=>{
+      if ((row.assetType||'')==='Cash') return row;
+      const q=map[(row.ticker||'').trim().toUpperCase()];
+      if (q&&typeof q.c==='number'&&q.c>0) { updated++; return {...row,currentPrice:q.c}; }
+      return row;
+    });
+    savePortfolio(); render();
+    btn.disabled=false; btn.textContent='🔄 Refresh Prices';
+    const ts=new Date().toLocaleTimeString();
+    document.getElementById('apiKeyStatus').textContent=`Updated ${updated}/${tickers.length} ticker(s) at ${ts}`;
+    document.getElementById('lastRefreshed').textContent=`Prices last refreshed: ${new Date().toLocaleDateString()} at ${ts}`;
+  }
+
+  // ── API Key ────────────────────────────────────────────────────────────────────
+  const apiKeyInput=document.getElementById('apiKeyInput'), apiKeyStatus=document.getElementById('apiKeyStatus');
+  const savedKey=getApiKey();
+  if (apiKeyInput) apiKeyInput.value=savedKey;
+  if (apiKeyStatus) apiKeyStatus.textContent=savedKey?'API key loaded from storage':'No API key saved yet';
+  document.getElementById('saveApiKeyBtn').addEventListener('click',()=>{
+    const key=apiKeyInput.value.trim();
+    if (!key) { apiKeyStatus.textContent='Please enter an API key'; return; }
+    localStorage.setItem(APIKEY_STORAGE_KEY,key); apiKeyStatus.textContent='API key saved!';
+  });
+  document.getElementById('refreshBtn').addEventListener('click', refreshPrices);
+  document.getElementById('clearBtn').addEventListener('click',()=>{ if(confirm('Clear all holdings?')){portfolio=[];savePortfolio();render();} });
+
+  // ── Query Panel ────────────────────────────────────────────────────────────────
+  function onQueryTypeChange() {
+    const type=document.getElementById('queryType').value;
+    document.getElementById('queryInputTicker').style.display   = type==='ticker'    ?'':'none';
+    document.getElementById('queryInputName').style.display     = type==='name'      ?'':'none';
+    document.getElementById('queryInputAccount').style.display   = type==='account'   ?'':'none';
+    document.getElementById('queryInputAssetType').style.display = type==='assetType' ?'':'none';
+    document.getElementById('queryInputTopN').style.display      = type==='topN'      ?'':'none';
+    document.getElementById('queryInputPct').style.display       = (type==='gainPct'||type==='lossPct')?'':'none';
+    document.getElementById('queryResults').innerHTML='';
+  }
+
+  function populateQueryDropdowns() {
+    const accountSel=document.getElementById('queryInputAccount'), current=accountSel.value;
+    accountSel.innerHTML='<option value="">-- select account --</option>';
+    [...new Set(portfolio.map(r=>r.account||'Uncategorized'))].sort().forEach(a=>{
+      const opt=document.createElement('option'); opt.value=a; opt.textContent=a;
+      if (a===current) opt.selected=true; accountSel.appendChild(opt);
+    });
+  }
+
+  function buildQueryTable(rows, isTicker) {
+    if (!rows.length) return '<p class="no-results">No holdings matched your query.</p>';
+    const colDefs=[
+      {label:'Account',key:'account'},{label:'Ticker',key:'ticker'},{label:'Name',key:'name'},
+      {label:'Qty',key:'qty',fmt:v=>Number(v).toFixed(4)},
+      {label:'Purchase Price',key:'purchasePrice',fmt:money},{label:'Current Price',key:'currentPrice',fmt:money},
+      {label:'Cost Basis',key:'costBasis',fmt:money},{label:'Current Value',key:'currentValue',fmt:money},
+      {label:'Gain / Loss',key:'gainLoss',fmt:money,cls:v=>v>=0?'positive':'negative'},
+      {label:'% Gain/Loss',key:'gainLossPct',fmt:v=>v.toFixed(2)+'%',cls:v=>v>=0?'positive':'negative'},
+      {label:'Expense/Yr',key:'expensePerYear',fmt:money},
+      ...(isTicker?[
+        {label:'Inv Date',key:'purchaseDate'},
+        {label:'Gain since Inv Date',key:'gainSinceAmt',fmt:money,cls:v=>v>=0?'positive':'negative'},
+        {label:'% since Inv Date',key:'gainSincePct',fmt:v=>v.toFixed(2)+'%',cls:v=>v>=0?'positive':'negative'},
+      ]:[]),
+    ];
+    let html='<table><thead><tr>'+colDefs.map(c=>`<th>${c.label}</th>`).join('')+'</tr></thead><tbody>';
+    rows.forEach(r=>{
+      html+='<tr>'+colDefs.map(c=>{
+        const val=r[c.key]??'', display=c.fmt?c.fmt(val):val, cls=c.cls?c.cls(val):'';
+        return `<td${cls?` class="${cls}"`:''}>${display}</td>`;
+      }).join('')+'</tr>';
+    });
+    html+='</tbody></table>';
+    const totCost=rows.reduce((s,r)=>s+r.costBasis,0), totVal=rows.reduce((s,r)=>s+r.currentValue,0);
+    const totGL=totVal-totCost, totGLPct=totCost?(totGL/totCost*100):0, totExp=rows.reduce((s,r)=>s+r.expensePerYear,0);
+    html+=`<div class="query-summary">${rows.length} holding(s) &nbsp;|&nbsp; Cost Basis: ${money(totCost)} &nbsp;|&nbsp; Current Value: ${money(totVal)} &nbsp;|&nbsp;
+      Gain/Loss: <span class="${totGL>=0?'positive':'negative'}">${money(totGL)} (${totGLPct.toFixed(2)}%)</span> &nbsp;|&nbsp;
+      Expense: <span style="color:#b45309">${money(totExp)}</span></div>`;
+    return html;
+  }
+
+  function portfolioToQueryRows() {
+    return portfolio.map(row=>{
+      const c=calcRow(row), cur=+row.currentPrice||0, buy=+row.purchasePrice||0, qty=+row.quantity||0;
+      return { account:row.account||'Uncategorized', ticker:row.ticker||'', name:row.name||'', qty,
+        purchaseDate:row.purchaseDate||'', purchasePrice:buy, currentPrice:cur,
+        costBasis:c.costBasis, currentValue:c.currentValue, gainLoss:c.gainLoss, gainLossPct:c.gainLossPct,
+        expensePerYear:c.expensePerYear, gainSinceAmt:(cur-buy)*qty, gainSincePct:buy?((cur-buy)/buy)*100:0 };
+    });
+  }
+
+  function runQuery() {
+    const type=document.getElementById('queryType').value, resultsDiv=document.getElementById('queryResults');
+    const allRows=portfolioToQueryRows(); let filtered=[], isTicker=false;
+    if (type==='ticker') {
+      const t=document.getElementById('queryInputTicker').value.trim().toUpperCase();
+      if (!t){resultsDiv.innerHTML='<p class="no-results">Please enter a ticker symbol.</p>';return;}
+      filtered=allRows.filter(r=>r.ticker===t); isTicker=true;
+    } else if (type==='name') {
+      const q=document.getElementById('queryInputName').value.trim().toLowerCase();
+      if (!q){resultsDiv.innerHTML='<p class="no-results">Please enter a name or keyword to search.</p>';return;}
+      filtered=allRows.filter(r=>
+        (r.name||'').toLowerCase().includes(q) ||
+        (r.ticker||'').toLowerCase().includes(q)
+      ).sort((a,b)=>b.currentValue-a.currentValue);
+    } else if (type==='account') {
+      const a=document.getElementById('queryInputAccount').value;
+      if (!a){resultsDiv.innerHTML='<p class="no-results">Please select an account.</p>';return;}
+      filtered=allRows.filter(r=>r.account===a);
+    } else if (type==='assetType') {
+      const at=document.getElementById('queryInputAssetType').value;
+      if (!at){resultsDiv.innerHTML='<p class="no-results">Please select an asset type.</p>';return;}
+      filtered=allRows.filter(r=>{const row=portfolio.find(p=>p.ticker===r.ticker&&p.account===r.account);return row&&(row.assetType||'')===at;});
+    } else if (type==='topN') {
+      const n=parseInt(document.getElementById('queryInputTopN').value)||10;
+      filtered=[...allRows].sort((a,b)=>b.currentValue-a.currentValue).slice(0,n);
+    } else if (type==='gainPct') {
+      const pct=parseFloat(document.getElementById('queryInputPct').value);
+      if (isNaN(pct)){resultsDiv.innerHTML='<p class="no-results">Please enter a percentage.</p>';return;}
+      filtered=allRows.filter(r=>r.gainLossPct>=pct).sort((a,b)=>b.gainLossPct-a.gainLossPct);
+    } else if (type==='lossPct') {
+      const pct=parseFloat(document.getElementById('queryInputPct').value);
+      if (isNaN(pct)){resultsDiv.innerHTML='<p class="no-results">Please enter a percentage.</p>';return;}
+      filtered=allRows.filter(r=>r.gainLossPct<=pct).sort((a,b)=>a.gainLossPct-b.gainLossPct);
+    }
+    resultsDiv.innerHTML=buildQueryTable(filtered,isTicker);
+  }
+
+  function clearQuery() {
+    ['queryInputTicker','queryInputName','queryInputTopN','queryInputPct'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('queryResults').innerHTML='';
+  }
+
+  // ── Init ───────────────────────────────────────────────────────────────────────
+  // Auto-fill investment name when ticker loses focus
+  document.getElementById('ticker').addEventListener('blur', async function() {
+    const ticker = this.value.trim().toUpperCase();
+    const nameEl = document.getElementById('name');
+    if (!ticker || nameEl.value.trim()) return; // don't overwrite if already filled
+    this.style.background = '#fffde7';
+    const name = await fetchCompanyName(ticker);
+    this.style.background = '';
+    if (name) { nameEl.value = name; }
+  });
+  portfolio.forEach(row=>{ if (row.assetType&&row.suggestedTarget!==undefined&&row.suggestedTarget!=='') assetTargets[row.assetType]=row.suggestedTarget; });
+  populateAssetDropdowns();
+  render();
+  populateQueryDropdowns();
+  onQueryTypeChange();
+  setInterval(refreshPrices, 60000);
+</script>
 </body>
 </html>
