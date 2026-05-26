@@ -28,16 +28,16 @@
     --accent:#8b6914; --green:#2e7d32; --blue:#1a6fa8; --text:#1a2a3a; --muted:#3d5166;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; padding-top: 72px; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px; min-height: 100vh; padding-top: 48px; }
 
   header { display: none; }
 
   /* ── Top Nav — Hover Dropdown Style ── */
-  .top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
-  .nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
-  .nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
+  .top-nav{width:100%;background:#000;border-bottom:3px solid #a82222;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;position:fixed;top:0;left:0;z-index:10000;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
+  .nav-brand{color:#fff;font-size:clamp(13px,1.8vw,18px);font-weight:700;letter-spacing:0.3px;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;}
+  .nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;height:100%;}
   .nav-item{position:relative;}
-  .nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
+  .nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:13px;font-weight:600;padding:0 14px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
   .nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
   .nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
   .nav-item:hover>a .chevron{transform:rotate(180deg);}
@@ -54,8 +54,9 @@
   .nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
   .nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
   @media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
+  header{display:none;}
 
-  .layout { display: grid; grid-template-columns: 310px 1fr; min-height: calc(100vh - 72px); }
+  .layout { display: grid; grid-template-columns: 310px 1fr; min-height: calc(100vh - 48px); }
   .sidebar { background: #1a2a3a; border-right: 2px solid #000; padding: 20px 18px; overflow-y: auto; }
   .sxn { margin-bottom: 18px; }
   .sxn h3 { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#e8c84a; margin-bottom:10px; padding-bottom:5px; border-bottom:1px solid rgba(201,147,58,0.4); }
@@ -162,7 +163,7 @@
 
 <nav class="top-nav">
   <div class="nav-brand">
-    <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
+    <img src="logo_rwlh.svg" alt="Logo" style="height:30px;width:30px;margin-right:8px;vertical-align:middle;">
     Retire Wise and Live Happy&trade; -                   Power of Compounding. Learn how much your investment reaches at your retirement age.
   </div>
   <ul class="nav-links">
@@ -201,44 +202,17 @@
         <a href="long_term_care.html"><span class="dd-icon">🏠</span><div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
       </div>
     </li>
-  </ul>
-  <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
-    <option value="">Explore Topics</option>
-    <optgroup label="Core Planning">
-      <option value="transition_plan.html">📌 Retirement Made Easy</option>
-      <option value="steps_retirement.html">📌 Steps in Retirement</option>
-      <option value="financial_plan.html">📌 Financial Plan</option>
-      <option value="terms.html">📌 Terms Used</option>
-      <option value="website.html">📌 Web Sites</option>
-      <option value="faq.html">📌 FAQ</option>
-    </optgroup>
-    <optgroup label="Calculators">
-      <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
-      <option value="retirement_calculator.html">📌 Retirement Calculator</option>
-      <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
-      <option value="401k_compounding.html">📌 401k Compounding</option>
-      <option value="tax_calculator.html">📌 Income Tax Calculator</option>
-    </optgroup>
-    <optgroup label="Healthcare">
-      <option value="medicare_aca.html">📌 Medicare Hub</option>
-      <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
-      <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
-      <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
-      <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
-      <option value="long_term_care.html">📌 Long Term Care</option>
-    </optgroup>
-    <optgroup label="Go Back">
-      <option value="index.html">🏠 HOME</option>
-    </optgroup>
+    <li class="nav-item">
+      <a href="index.html" style="color:#d4af37;">🏠 Home</a>
+    </li>
+
+   
+   
+   
+    
   </select>
 </nav>
 
-<header>
-  <div style="display:flex;align-items:baseline;gap:14px;">
-    <h1>401k COMPOUNDING GROWTH</h1>
-    <span>— Start from day one. Stay consistent. Time does the heavy lifting.</span>
-  </div>
-</header>
 
 <div class="layout">
 <aside class="sidebar">
