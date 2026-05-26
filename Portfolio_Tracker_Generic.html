@@ -155,39 +155,10 @@
     .detail-table-wrap tr:hover td { background: #fffde7; }
     .detail-footer td { background: #fdf3d0 !important; font-weight: bold; }
     .hint-text { font-size: 11px; color: #888; font-style: italic; margin-left: 4px; font-weight: normal; }
-
-    /* Accordion rows */
-    tr.asset-summary-row { cursor: pointer; transition: background 0.15s; }
-    tr.asset-summary-row:hover td { background: #fef9e0 !important; }
-    .expand-icon {
-      display: inline-block; width: 18px; height: 18px; line-height: 18px;
-      text-align: center; border-radius: 4px; font-size: 11px; font-weight: bold;
-      background: #EDCB82; color: #333; margin-right: 6px; flex-shrink: 0;
-      transition: transform 0.22s; vertical-align: middle;
-    }
-    tr.asset-summary-row.open .expand-icon { transform: rotate(90deg); background: #A15223; color: #fff; }
-    tr.asset-detail-section > td { padding: 0 !important; border-top: none !important; border-bottom: none !important; }
-    .detail-inner { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
-    .detail-inner.open { max-height: 3000px; }
-    .detail-table-wrap {
-      margin: 2px 8px 12px 36px;
-      border: 1.5px solid #EDCB82; border-radius: 8px; overflow: hidden; background: #fff;
-    }
-    .detail-table-wrap table { width: 100%; border-collapse: collapse; }
-    .detail-table-wrap th {
-      background: #fdf3d0; font-size: 12px; padding: 7px 10px;
-      border-bottom: 1.5px solid #EDCB82; text-align: left; color: #555;
-    }
-    .detail-table-wrap td { font-size: 13px; padding: 7px 10px; border-bottom: 1px solid #f0e9c8; }
-    .detail-table-wrap tr:last-child td { border-bottom: none; }
-    .detail-table-wrap tbody tr:hover td { background: #fffde7; }
-    .detail-footer td { background: #fdf3d0 !important; font-weight: bold; }
-    .hint-text { font-size: 11px; color: #aaa; font-style: italic; margin-left: 5px; font-weight: normal; }
   </style>
 </head>
 <body>
 
-<!-- ── Top Nav ─────────────────────────────────────────────────── -->
 <nav class="top-nav">
   <div class="nav-brand">
     <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
@@ -261,7 +232,6 @@
   </select>
 </nav>
 
-<!-- ── Page Sub-Nav (internal anchors) ────────────────────────── -->
 <nav class="sticky-nav">
   <span class="nav-title">📊 Portfolio Tracker</span>
   <a href="#summary">Summary</a>
@@ -278,18 +248,16 @@
 
   <h1 id="top"><u>Portfolio Tracker</u></h1>
 
-  <!-- How-to-use collapsible -->
   <div class="how-to-toggle" onclick="toggleHowTo()" id="howToToggle">ℹ️ How to use ▼</div>
   <div id="howToContent">
-    Use the .csv template to enter values. Press <strong>Import CSV File</strong> to import. Then click any cell to edit inline. Press <strong>Export CSV</strong> to save.<br>
+    Use your local .csv template to populate values. Press <strong>Import CSV File</strong> to import. Then click any row cell to edit variables inline. Press <strong>Export CSV</strong> to save details down.<br>
     <br>
     If you've edited entries offline in the CSV:<br>
-    1. Use <strong>Clear All</strong> to reset all entries.<br>
-    2. Click <strong>Import CSV File</strong> and select your *.csv file.<br>
-    Your API key will then refresh prices automatically via Finnhub.
+    1. Use <strong>Clear All</strong> to reset all data tables.<br>
+    2. Click <strong>Import CSV File</strong> and select your updated asset list.<br>
+    Your Finnhub setup will automatically ping live quotes instantly.
   </div>
 
-  <!-- ── Summary Cards ───────────────────────────────────────── -->
   <div id="summary">
     <div class="summary">
       <div class="card"><strong>Total Invested</strong><div id="totalInvested">$0.00</div></div>
@@ -301,16 +269,13 @@
     <div class="last-refreshed" id="lastRefreshed">Prices not yet refreshed this session</div>
   </div>
 
-  <!-- ── Concentration Alert ─────────────────────────────────── -->
   <div id="concentrationAlert"></div>
 
-  <!-- ── Retirement Balances (moved up) ──────────────────────── -->
   <div class="card" id="retirement">
     <h2>🏦 Balances for Retirement Calculator</h2>
     <div class="retire-grid" id="retirementBalances"></div>
   </div>
 
-  <!-- ── Pie Chart + P&L by Asset Type ──────────────────────── -->
   <div class="charts-row" id="allocation">
     <div class="card">
       <h2>Asset Allocation</h2>
@@ -340,7 +305,6 @@
     </div>
   </div>
 
-  <!-- ── Tax Bucket Bar Chart + Tax Bucket P&L ───────────────── -->
   <div class="charts-row" id="taxbucket">
     <div class="card">
       <h2>Tax Bucket Distribution</h2>
@@ -364,7 +328,6 @@
     </div>
   </div>
 
-  <!-- ── P&L by Account ──────────────────────────────────────── -->
   <div class="card" id="accounts-pl">
     <h2>Profit / Loss by Account</h2>
     <table id="accountProfitLossTable">
@@ -378,7 +341,6 @@
     </table>
   </div>
 
-  <!-- ── Add Holding ─────────────────────────────────────────── -->
   <div class="card" id="add-holding">
     <h2>Add Holding</h2>
     <form id="stockForm">
@@ -395,7 +357,6 @@
     </form>
   </div>
 
-  <!-- ── API Key (own card) ───────────────────────────────────── -->
   <div class="card">
     <h2>API Key (Finnhub)</h2>
     <div class="api-row">
@@ -405,7 +366,6 @@
     </div>
   </div>
 
-  <!-- ── Toolbar (own card) ──────────────────────────────────── -->
   <div class="card">
     <div class="toolbar">
       <button id="refreshBtn" type="button">🔄 Refresh Prices</button>
@@ -418,7 +378,6 @@
     </div>
   </div>
 
-  <!-- ── Query Panel ─────────────────────────────────────────── -->
   <div class="card" id="query">
     <h2>🔍 Portfolio Query</h2>
     <div class="query-bar">
@@ -443,12 +402,11 @@
     <div id="queryResults"></div>
   </div>
 
-  <!-- ── Per-account holdings tables ────────────────────────── -->
   <div id="holdings">
     <div id="accountsContainer"></div>
   </div>
 
-</div><!-- end page-content -->
+</div>
 
 <script>
   // ── Constants ────────────────────────────────────────────────────────────────
@@ -457,7 +415,6 @@
   const TARGETS_STORAGE_KEY = 'portfolio_asset_targets_v1';
   const FINNHUB_BASE = 'https://finnhub.io/api/v1/quote?symbol=';
 
-  // Single source of truth for asset types — used in both form and query dropdowns
   const ASSET_TYPES = [
     'U.S Large Cap Equity',
     'U.S Large Cap Dividend',
@@ -478,32 +435,29 @@
 
   const ACCOUNT_ORDER = [
     'Employer Brokerage Link','Employer 401k','Health Savings Account',
-    'Individual Brokerage','Merril','Robinhood','Rollover IRA Main','Roth IRA'
+    'Individual Brokerage','Merril','Robinhood','Rollover IRA Main','Roth IRA', 'Charles Schwab'
   ];
-  const BROKERAGE_ACCOUNTS = ['Individual Brokerage','Merril','Robinhood'];
+  const BROKERAGE_ACCOUNTS = ['Individual Brokerage','Merril','Robinhood', 'Charles Schwab'];
 
   const TAX_BUCKET_MAP = {
     'Tax-Deferred': ['Employer Brokerage Link','Employer 401k','Rollover IRA Main','Treasury Direct'],
     'Tax-Free':     ['Health Savings Account','Roth IRA'],
-    'Taxable':      ['Individual Brokerage','Merril','Robinhood']
+    'Taxable':      ['Individual Brokerage','Merril','Robinhood', 'Charles Schwab']
   };
 
   const RETIRE_MAP = {
     '401k Balance':      { ids: ['employer brokerage link','employer 401k','rollover ira main'], color: '#000' },
     'Roth IRA Balance':  { ids: ['roth ira'],                                          color: '#000' },
-    'Brokerage Balance': { ids: ['individual brokerage','merril','robinhood'],         color: '#000' },
+    'Brokerage Balance': { ids: ['individual brokerage','merril','robinhood', 'charles schwab'],         color: '#000' },
     'HSA Balance':       { ids: ['health savings account'],                            color: '#000' },
     'Bonds Balance':     { ids: ['treasury direct'],                                   color: '#000' }
   };
 
-  // Sort state per account section: { accountName: { field, dir } }
   const tableSortState = {};
   let editingCell = null;
 
-  // ── State helpers ─────────────────────────────────────────────────────────────
   function getApiKey() { return localStorage.getItem(APIKEY_STORAGE_KEY) || ''; }
 
-  // ── Auto-fill company name from Finnhub when ticker is entered ────────────────
   async function fetchCompanyName(ticker) {
     const apiKey = getApiKey();
     if (!apiKey || !ticker) return '';
@@ -522,7 +476,6 @@
   let portfolio    = loadPortfolio();
   let assetTargets = loadTargets();
 
-  // ── How-to toggle ─────────────────────────────────────────────────────────────
   function toggleHowTo() {
     const el  = document.getElementById('howToContent');
     const tog = document.getElementById('howToToggle');
@@ -531,17 +484,17 @@
     tog.innerHTML = open ? 'ℹ️ How to use ▼' : 'ℹ️ How to use ▲';
   }
 
-  // ── Populate asset type dropdowns from ASSET_TYPES ────────────────────────────
   function populateAssetDropdowns() {
     const formSel  = document.getElementById('assetType');
     const querySel = document.getElementById('queryInputAssetType');
+    formSel.innerHTML = '';
+    querySel.innerHTML = '<option value="">-- select asset type --</option>';
     ASSET_TYPES.forEach(t => {
       const o1 = document.createElement('option'); o1.value = t; o1.textContent = t; formSel.appendChild(o1);
       const o2 = document.createElement('option'); o2.value = t; o2.textContent = t; querySel.appendChild(o2);
     });
   }
 
-  // ── Cash mode toggle ──────────────────────────────────────────────────────────
   function toggleCashMode() {
     const isCash = document.getElementById('assetType').value === 'Cash';
     ['ticker','name','quantity','purchasePrice','purchaseDate','expenseRatioInput'].forEach(id => {
@@ -554,7 +507,6 @@
     ca.required = isCash;
   }
 
-  // ── Form submit — SINGLE handler ───────────────────────────────────────────────
   document.getElementById('stockForm').addEventListener('submit', e => {
     e.preventDefault();
     const assetType = document.getElementById('assetType').value;
@@ -588,7 +540,6 @@
     render();
   });
 
-  // ── calcRow ────────────────────────────────────────────────────────────────────
   function calcRow(row) {
     if ((row.assetType||'') === 'Cash') {
       const v = Number(row.purchasePrice||0);
@@ -639,50 +590,41 @@
   function buildTaxBucketTotals() {
     const buckets={};
     Object.keys(TAX_BUCKET_MAP).forEach(b=>{buckets[b]={value:0,invested:0};});
-    buckets['Other']={value:0,invested:0};
     portfolio.forEach(row=>{
-      const b=getTaxBucket((row.account||'Uncategorized').trim());
-      if (!buckets[b]) buckets[b]={value:0,invested:0};
+      const b=getTaxBucket((row.account||'').trim());
+      if(!buckets[b]) buckets[b]={value:0,invested:0};
       const c=calcRow(row); buckets[b].value+=c.currentValue; buckets[b].invested+=c.costBasis;
     });
     return buckets;
   }
 
-  // ── Pie Chart ──────────────────────────────────────────────────────────────────
   function renderPieChart(assetTotals, totalValue) {
     const canvas=document.getElementById('allocationChart'), ctx=canvas.getContext('2d');
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    const cx=150,cy=150,r=130, entries=Object.entries(assetTotals);
-    if (!totalValue||!entries.length) {
-      ctx.fillStyle='#ccc'; ctx.beginPath(); ctx.arc(cx,cy,r,0,2*Math.PI); ctx.fill();
-      ctx.fillStyle='#999'; ctx.font='16px Arial'; ctx.textAlign='center'; ctx.fillText('No data',cx,cy); return;
+    const cx=canvas.width/2, cy=canvas.height/2, r=Math.min(cx,cy)-10;
+    if (totalValue===0) {
+      ctx.fillStyle='#888'; ctx.textAlign='center'; ctx.fillText('No active data',cx,cy);
+      document.getElementById('chartLegend').innerHTML=''; return;
     }
-    let start=-Math.PI/2;
-    entries.forEach(([,data],i) => {
-      const slice=(data.value/totalValue)*2*Math.PI, pct=((data.value/totalValue)*100).toFixed(1);
-      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,start+slice); ctx.closePath();
-      ctx.fillStyle=COLORS[i%COLORS.length]; ctx.fill(); ctx.strokeStyle='#000'; ctx.lineWidth=1; ctx.stroke();
-      if (slice>0.25) {
-        const mid=start+slice/2;
-        ctx.fillStyle='#000'; ctx.font='bold 12px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle';
-        ctx.fillText(pct+'%', cx+r*0.65*Math.cos(mid), cy+r*0.65*Math.sin(mid));
-      }
-      start+=slice;
+    let startAngle=0;
+    const entries=Object.entries(assetTotals);
+    entries.forEach(([type,data],i)=>{
+      const sliceAngle=(data.value/totalValue)*2*Math.PI;
+      ctx.fillStyle=COLORS[i%COLORS.length]; ctx.beginPath(); ctx.moveTo(cx,cy);
+      ctx.arc(cx,cy,r,startAngle,startAngle+sliceAngle); ctx.closePath(); ctx.fill();
+      startAngle+=sliceAngle;
     });
     document.getElementById('chartLegend').innerHTML=entries.map(([type,data],i)=>{
-      const pct=((data.value/totalValue)*100).toFixed(1);
+      const pct=totalValue?((data.value/totalValue)*100).toFixed(1):'0.0';
       return `<div class="legend-item"><div class="legend-dot" style="background:${COLORS[i%COLORS.length]}"></div><span>${type} — ${pct}%</span></div>`;
     }).join('');
   }
 
-  // ── Tax Bucket Bar Chart ───────────────────────────────────────────────────────
   function roundRect(ctx,x,y,w,h,r) {
     if (w < 2*r) r=w/2; if (h < 2*r) r=h/2;
-    ctx.beginPath(); ctx.moveTo(x+r,y);
-    ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
-    ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
-    ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
-    ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath();
+    ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+    ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r); ctx.lineTo(x+r,y+h);
+    ctx.arcTo(x,y+h,x,y+h-r,r); ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r); ctx.closePath();
   }
 
   function renderTaxBucketChart(bucketTotals, totalValue) {
@@ -694,25 +636,15 @@
     ctx.font='13px Arial';
     bucketOrder.forEach((bucket,i)=>{
       const data=bucketTotals[bucket]||{value:0,invested:0};
-      const pct=totalValue?data.value/totalValue:0;
-      const y=30+i*(barH+gap);
-      // Label
-      ctx.fillStyle='#222'; ctx.textAlign='right'; ctx.textBaseline='middle';
-      ctx.fillText(bucket, leftPad-8, y+barH/2);
-      // Background bar
+      const pct=totalValue?data.value/totalValue:0; const y=30+i*(barH+gap);
+      ctx.fillStyle='#222'; ctx.textAlign='right'; ctx.textBaseline='middle'; ctx.fillText(bucket, leftPad-8, y+barH/2);
       ctx.fillStyle='#e0e0e0'; roundRect(ctx,leftPad,y,maxBarW,barH,6); ctx.fill();
-      // Value bar
       if (pct>0) { ctx.fillStyle=barColors[i]; roundRect(ctx,leftPad,y,Math.max(pct*maxBarW,6),barH,6); ctx.fill(); }
-      // Percentage + amount label
-      const inside = pct>0.25;
-      ctx.fillStyle=inside?'#fff':'#333'; ctx.font='bold 13px Arial'; ctx.textAlign='left';
-      const lx=leftPad+(inside?10:Math.max(pct*maxBarW,6)+8);
-      ctx.fillText(`${(pct*100).toFixed(1)}%  ${money(data.value)}`, lx, y+barH/2);
-      ctx.font='13px Arial';
+      const inside = pct>0.25; ctx.fillStyle=inside?'#fff':'#333'; ctx.font='bold 13px Arial'; ctx.textAlign='left';
+      const lx=leftPad+(inside?10:Math.max(pct*maxBarW,6)+8); ctx.fillText(`${(pct*100).toFixed(1)}% ${money(data.value)}`, lx, y+barH/2); ctx.font='13px Arial';
     });
   }
 
-  // ── P&L by Asset Type (with rebalance columns) ────────────────────────────────
   function renderProfitLossTable(assetTotals, totalValue) {
     const tbody=document.querySelector('#profitLossTable tbody'); tbody.innerHTML='';
     if (!Object.keys(assetTotals).length) {
@@ -722,8 +654,7 @@
       const pl=data.value-data.invested, plPct=data.invested?(pl/data.invested)*100:0;
       const allocPct=totalValue?(data.value/totalValue)*100:0;
       const targetPct=assetTargets[type]!=null&&assetTargets[type]!==''?parseFloat(assetTargets[type]):null;
-      const diffPct=targetPct!==null?allocPct-targetPct:null;
-      const color=COLORS[i%COLORS.length];
+      const diffPct=targetPct!==null?allocPct-targetPct:null; const color=COLORS[i%COLORS.length];
       let diffHtml='', actionHtml='', actionType='hold';
       if (diffPct!==null) {
         const cls=Math.abs(diffPct)<0.5?'action-ok':diffPct>0?'action-sell':'action-buy';
@@ -733,76 +664,40 @@
         else if (diffAmt>0) { actionHtml=`<span class="action-sell">Sell ${money(Math.abs(diffAmt))}</span>`; actionType='sell'; }
         else { actionHtml=`<span class="action-buy">Buy ${money(Math.abs(diffAmt))}</span>`; actionType='buy'; }
       }
-      const typeSafe=type.replace(/'/g,"\'");
-      const detailId='detail-row-'+i;
-      // Summary row
-      const tr=document.createElement('tr');
-      tr.className='asset-summary-row';
+      const tr=document.createElement('tr'); tr.className='asset-summary-row'; tr.id=`asset-row-${i}`;
       tr.innerHTML=`
-        <td>
-          <span class="expand-icon">▶</span>
-          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};margin-right:6px;vertical-align:middle;"></span>
-          <strong>${type}</strong>
-          <span class="hint-text">click to expand</span>
-        </td>
-        <td>${money(data.invested)}</td>
-        <td>${money(data.value)}</td>
-        <td class="${pl>=0?'positive':'negative'}">${money(pl)}</td>
-        <td class="${plPct>=0?'positive':'negative'}">${plPct.toFixed(2)}%</td>
+        <td><span class="expand-icon">▶</span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${color};margin-right:6px"></span><strong>${type}</strong></td>
+        <td>${money(data.invested)}</td><td>${money(data.value)}</td>
+        <td class="${pl>=0?'positive':'negative'}">${money(pl)}</td><td class="${plPct>=0?'positive':'negative'}">${plPct.toFixed(2)}%</td>
         <td>${allocPct.toFixed(1)}%</td>
-        <td><input type="number" step="0.1" min="0" max="100"
-          value="${assetTargets[type]??''}" placeholder="%"
-          style="width:72px;padding:4px;border:1px solid #999;border-radius:4px;"
-          onclick="event.stopPropagation()"
-          onchange="(function(v,t){assetTargets[t]=v;portfolio.forEach(p=>{if(p.assetType===t)p.suggestedTarget=v;});saveTargets(assetTargets);savePortfolio();render();})(this.value,'${typeSafe}')" /></td>
-        <td>${diffHtml}</td>
-        <td>${actionHtml}</td>`;
-      // Detail accordion row
-      const detailTr=document.createElement('tr');
-      detailTr.className='asset-detail-section';
-      detailTr.innerHTML=`<td colspan="9"><div class="detail-inner" id="${detailId}"></div></td>`;
-      // Toggle
-      tr.addEventListener('click', function() {
-        const inner=document.getElementById(detailId);
-        const isOpen=inner.classList.contains('open');
-        document.querySelectorAll('.detail-inner.open').forEach(el=>{ el.classList.remove('open'); });
-        document.querySelectorAll('.asset-summary-row.open').forEach(el=>{
-          el.classList.remove('open');
-          const h=el.querySelector('.hint-text'); if(h) h.textContent='click to expand';
-        });
-        if (!isOpen) {
-          inner.classList.add('open'); tr.classList.add('open');
-          if (!inner.dataset.built) { inner.innerHTML=buildDetailPanel(type,actionType,color,totalValue); inner.dataset.built='1'; }
-          const h=tr.querySelector('.hint-text'); if(h) h.textContent='click to collapse';
-        }
-      });
+        <td data-asset-target="${type}" style="font-weight:bold;color:#1a56db;">${targetPct!==null?targetPct+'%':'—'}</td>
+        <td>${diffHtml||'—'}</td><td>${actionHtml||'—'}</td>
+      `;
       tbody.appendChild(tr);
+      const detailTr=document.createElement('tr'); detailTr.className='asset-detail-section';
+      detailTr.innerHTML=`<td colspan="9"><div class="detail-inner" id="asset-detail-${i}">${buildAssetSubTable(type, actionType)}</div></td>`;
       tbody.appendChild(detailTr);
+      tr.addEventListener('click', (e)=>{
+        if (e.target.hasAttribute('data-asset-target')) return;
+        const panel=document.getElementById(`asset-detail-${i}`); const isOpen=panel.classList.contains('open');
+        document.querySelectorAll('.detail-inner').forEach(p=>p.classList.remove('open'));
+        document.querySelectorAll('.asset-summary-row').forEach(r=>r.classList.remove('open'));
+        if(!isOpen){ panel.classList.add('open'); tr.classList.add('open'); }
+      });
     });
-    const ti=Object.values(assetTotals).reduce((s,d)=>s+d.invested,0);
-    const tpl=totalValue-ti, tplPct=ti?(tpl/ti)*100:0;
-    const totalTarget=Object.keys(assetTotals).reduce((s,type)=>{
-      const v=assetTargets[type]; return s+(v!==undefined&&v!==''?parseFloat(v):0);
-    },0);
-    const hasAnyTarget=Object.keys(assetTotals).some(t=>assetTargets[t]!==undefined&&assetTargets[t]!=='');
-    const targetDiff=Math.abs(totalTarget-100);
-    const targetColor=!hasAnyTarget?'#888':targetDiff<0.1?'#059669':totalTarget>100?'#dc2626':'#b45309';
-    const warningLabel=hasAnyTarget&&targetDiff>=0.1
-      ?`<span style="font-size:11px;color:${targetColor};display:block;font-weight:normal;">${totalTarget>100?'\u26a0 exceeds 100%':'\u26a0 does not sum to 100%'}</span>`:'';
-    const targetLabel=!hasAnyTarget?'\u2014'
-      :`<span style="color:${targetColor};font-weight:bold;">${totalTarget.toFixed(1)}%</span>${warningLabel}`;
-    const foot=document.createElement('tr');
-    foot.style.fontWeight='bold'; foot.style.borderTop='2px solid #000';
-    foot.innerHTML=`<td>Total</td><td>${money(ti)}</td><td>${money(totalValue)}</td>
-      <td class="${tpl>=0?'positive':'negative'}">${money(tpl)}</td>
-      <td class="${tplPct>=0?'positive':'negative'}">${tplPct.toFixed(2)}%</td>
-      <td>100%</td><td>${targetLabel}</td><td></td><td></td>`;
-    tbody.appendChild(foot);
+    document.querySelectorAll('td[data-asset-target]').forEach(td=>{
+      td.addEventListener('click', function(e){
+        e.stopPropagation(); const type=this.dataset.assetTarget; const cur=assetTargets[type]!=null?assetTargets[type]:'';
+        const val=prompt(`Enter target % for ${type}:`, cur);
+        if(val===null) return; if(val.trim()===''){ delete assetTargets[type]; }
+        else { const num=parseFloat(val); if(isNaN(num)||num<0||num>100){alert('Enter a percentage between 0 and 100');return;} assetTargets[type]=num; }
+        saveTargets(assetTargets); render();
+      });
+    });
   }
 
-  // Build accordion detail panel for one asset type
-  function buildDetailPanel(type, actionType, color, totalValue) {
-    const holdings=portfolio.filter(r=>(r.assetType||'')===(type||''));
+  function buildAssetSubTable(type, actionType) {
+    const holdings=portfolio.filter(r=>(r.assetType||'Other')===type);
     if (!holdings.length) return '<div style="padding:12px 36px;color:#888;font-style:italic;">No holdings found.</div>';
     const bannerBg={sell:'#fee2e2',buy:'#d1fae5',hold:'#f1f5f9'}[actionType];
     const bannerFg={sell:'#dc2626',buy:'#059669',hold:'#64748b'}[actionType];
@@ -812,134 +707,141 @@
       hold:`<strong>✓ On Target.</strong> No rebalancing action needed — maintain current allocation.`
     }[actionType];
     let rows='', subInvested=0, subValue=0;
+    const totalValue = portfolio.reduce((sum, r) => sum + calcRow(r).currentValue, 0);
     [...holdings].sort((a,b)=>calcRow(b).currentValue-calcRow(a).currentValue).forEach(row=>{
-      const c=calcRow(row); subInvested+=c.costBasis; subValue+=c.currentValue;
-      const gl=c.gainLoss, glPct=c.gainLossPct;
+      const c=calcRow(row); subInvested+=c.costBasis; subValue+=c.currentValue; const gl=c.gainLoss, glPct=c.gainLossPct;
       const allocPct=totalValue?(c.currentValue/totalValue*100).toFixed(1):'—';
       rows+=`<tr>
-        <td><strong>${row.ticker||'—'}</strong></td>
-        <td style="color:#555;font-size:12px;">${row.name||''}</td>
-        <td style="color:#555;font-size:12px;">${row.account||''}</td>
-        <td>${money(c.costBasis)}</td>
-        <td>${money(c.currentValue)}</td>
-        <td class="${gl>=0?'positive':'negative'}">${money(gl)}</td>
-        <td class="${glPct>=0?'positive':'negative'}">${glPct.toFixed(2)}%</td>
-        <td style="color:#555;">${allocPct}%</td>
+        <td><strong>${row.ticker||'—'}</strong></td><td style="color:#555;font-size:12px;">${row.name||''}</td><td style="color:#555;font-size:12px;">${row.account||''}</td>
+        <td>${money(c.costBasis)}</td><td>${money(c.currentValue)}</td>
+        <td class="${gl>=0?'positive':'negative'}">${money(gl)}</td><td class="${glPct>=0?'positive':'negative'}">${glPct.toFixed(2)}%</td><td style="color:#555;">${allocPct}%</td>
       </tr>`;
     });
     const subGl=subValue-subInvested, subGlPct=subInvested?(subGl/subInvested*100):0;
     return `<div class="detail-table-wrap">
       <div style="padding:10px 14px;background:${bannerBg};border-bottom:1.5px solid #EDCB82;font-size:13px;color:${bannerFg};">${bannerMsg}</div>
       <table>
-        <thead><tr>
-          <th>Ticker</th><th>Name</th><th>Account</th>
-          <th>Cost Basis</th><th>Current Value</th>
-          <th>Gain / Loss</th><th>% Gain/Loss</th><th>% of Portfolio</th>
-        </tr></thead>
+        <thead><tr><th>Ticker</th><th>Name</th><th>Account</th><th>Cost Basis</th><th>Current Value</th><th>Gain / Loss</th><th>% Gain/Loss</th><th>% of Portfolio</th></tr></thead>
         <tbody>${rows}</tbody>
-        <tfoot><tr class="detail-footer">
-          <td colspan="3"><strong>${type} Total (${holdings.length} holding${holdings.length!==1?'s':''})</strong></td>
-          <td>${money(subInvested)}</td><td>${money(subValue)}</td>
-          <td class="${subGl>=0?'positive':'negative'}">${money(subGl)}</td>
-          <td class="${subGlPct>=0?'positive':'negative'}">${subGlPct.toFixed(2)}%</td>
-          
-        </tr></tfoot>
+        <tfoot><tr class="detail-footer"><td colspan="3"><strong>${type} Total (${holdings.length} holding${holdings.length!==1?'s':''})</strong></td><td>${money(subInvested)}</td><td>${money(subValue)}</td><td class="${subGl>=0?'positive':'negative'}">${money(subGl)}</td><td class="${subGlPct>=0?'positive':'negative'}">${subGlPct.toFixed(2)}%</td></tr></tfoot>
       </table>
     </div>`;
   }
 
-
-  // ── P&L by Account ────────────────────────────────────────────────────────────
-  function renderAccountProfitLossTable(accountTotals, totalValue) {
-    const tbody=document.querySelector('#accountProfitLossTable tbody'); tbody.innerHTML='';
-    if (!Object.keys(accountTotals).length) {
-      tbody.innerHTML='<tr><td colspan="6" class="muted" style="text-align:center">No holdings yet</td></tr>'; return;
+  function renderTaxBucketProfitLossTable(bucketTotals, totalValue) {
+    const tbody=document.querySelector('#taxBucketProfitLossTable tbody'); tbody.innerHTML='';
+    if (!Object.keys(bucketTotals).length) {
+      tbody.innerHTML='<tr><td colspan="6" class="muted" style="text-align:center">No data</td></tr>'; return;
     }
-    const ACCT_COLORS=['#5C85D6','#E07B39','#5BAD6F','#C75C7E','#8E6BBF','#3AAFAF','#D4A84B','#E05C5C','#7A9E9F','#B07D62'];
-    const brokSub=BROKERAGE_ACCOUNTS.reduce((acc,n)=>{
-      if (accountTotals[n]){acc.invested+=accountTotals[n].invested;acc.value+=accountTotals[n].value;}
-      return acc;
-    },{invested:0,value:0});
-
-    Object.entries(accountTotals).forEach(([acct,data],i)=>{
+    const bucketOrder=['Tax-Deferred','Tax-Free','Taxable','Other'];
+    const barColors=['#5C85D6','#5BAD6F','#E07B39','#7A9E9F'];
+    bucketOrder.forEach((bucket,i)=>{
+      const data=bucketTotals[bucket]; if(!data||(!data.value&&!data.invested)) return;
       const pl=data.value-data.invested, plPct=data.invested?(pl/data.invested)*100:0;
       const alloc=totalValue?((data.value/totalValue)*100).toFixed(1):'0.0';
       const tr=document.createElement('tr');
       tr.innerHTML=`
-        <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${ACCT_COLORS[i%ACCT_COLORS.length]};margin-right:6px"></span><strong>${acct}</strong></td>
+        <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${barColors[i]};margin-right:6px"></span><strong>${bucket}</strong></td>
         <td>${money(data.invested)}</td><td>${money(data.value)}</td>
-        <td class="${pl>=0?'positive':'negative'}">${money(pl)}</td>
-        <td class="${plPct>=0?'positive':'negative'}">${plPct.toFixed(2)}%</td>
-        <td>${alloc}%</td>`;
+        <td class="${pl>=0?'positive':'negative'}">${money(pl)}</td><td class="${plPct>=0?'positive':'negative'}">${plPct.toFixed(2)}%</td><td>${alloc}%</td>
+      `;
       tbody.appendChild(tr);
+    });
+  }
 
-      if (acct==='Robinhood') {
-        const bpl=brokSub.value-brokSub.invested, bplPct=brokSub.invested?(bpl/brokSub.invested)*100:0;
-        const balloc=totalValue?((brokSub.value/totalValue)*100).toFixed(1):'0.0';
-        const sep=document.createElement('tr'); sep.innerHTML=`<td colspan="6" style="padding:0;border-top:2px dashed #888;border-bottom:none;"></td>`; tbody.appendChild(sep);
-        const sub=document.createElement('tr'); sub.style.background='#e8f4e8'; sub.style.fontStyle='italic';
-        sub.innerHTML=`<td style="padding-left:20px">🏦 <strong>Brokerage Accounts</strong> <span style="font-size:12px;color:#666">(Individual Brokerage + Merril + Robinhood)</span></td>
-          <td>${money(brokSub.invested)}</td><td>${money(brokSub.value)}</td>
-          <td class="${bpl>=0?'positive':'negative'}">${money(bpl)}</td>
-          <td class="${bplPct>=0?'positive':'negative'}">${bplPct.toFixed(2)}%</td>
-          <td>${balloc}%</td>`; tbody.appendChild(sub);
-        const sep2=document.createElement('tr'); sep2.innerHTML=`<td colspan="6" style="padding:0;border-top:2px dashed #888;border-bottom:none;"></td>`; tbody.appendChild(sep2);
+  function renderAccountProfitLossTable(accountTotals, totalValue) {
+    const tbody=document.querySelector('#accountProfitLossTable tbody');
+    tbody.innerHTML='';
+    if (!Object.keys(accountTotals).length) {
+      tbody.innerHTML='<tr><td colspan="6" class="muted" style="text-align:center">No holdings yet</td></tr>';
+      return;
+    }
+    const ACCT_COLORS=['#5C85D6','#E07B39','#5BAD6F','#C75C7E','#8E6BBF','#3AAFAF','#D4A84B','#E05C5C','#7A9E9F','#B07D62'];
+    
+    const brokSub = BROKERAGE_ACCOUNTS.reduce((acc, n) => {
+      if (accountTotals[n]) {
+        acc.invested += accountTotals[n].invested;
+        acc.value += accountTotals[n].value;
       }
-    });
-    const ti=Object.values(accountTotals).reduce((s,d)=>s+d.invested,0);
-    const tpl=totalValue-ti, tplPct=ti?(tpl/ti)*100:0;
-    const foot=document.createElement('tr'); foot.style.fontWeight='bold'; foot.style.borderTop='2px solid #000';
-    foot.innerHTML=`<td>Total</td><td>${money(ti)}</td><td>${money(totalValue)}</td>
-      <td class="${tpl>=0?'positive':'negative'}">${money(tpl)}</td>
-      <td class="${tplPct>=0?'positive':'negative'}">${tplPct.toFixed(2)}%</td><td>100%</td>`;
-    tbody.appendChild(foot);
-  }
+      return acc;
+    }, { invested: 0, value: 0 });
 
-  // ── Tax Bucket P&L Table ──────────────────────────────────────────────────────
-  function renderTaxBucketProfitLossTable(bucketTotals, totalValue) {
-    const tbody=document.querySelector('#taxBucketProfitLossTable tbody'); tbody.innerHTML='';
-    const BUCKET_COLORS=['#5C85D6','#5BAD6F','#E07B39','#C75C7E'];
-    ['Tax-Deferred','Tax-Free','Taxable','Other'].forEach((bucket,i)=>{
-      const data=bucketTotals[bucket];
-      if (!data||(data.value===0&&data.invested===0)) return;
-      const pl=data.value-data.invested, plPct=data.invested?(pl/data.invested)*100:0;
-      const alloc=totalValue?((data.value/totalValue)*100).toFixed(1):'0.0';
-      const tr=document.createElement('tr');
-      tr.innerHTML=`<td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${BUCKET_COLORS[i%BUCKET_COLORS.length]};margin-right:6px"></span><strong>${bucket}</strong></td>
+    let brokerageRendered = false;
+    let grandInvested = 0;
+    let grandValue = 0;
+
+    Object.entries(accountTotals).forEach(([acct, data], i) => {
+      grandInvested += data.invested;
+      grandValue += data.value;
+
+      if (BROKERAGE_ACCOUNTS.includes(acct)) {
+        if (!brokerageRendered && brokSub.value > 0) {
+          const pl = brokSub.value - brokSub.invested;
+          const plPct = brokSub.invested ? (pl / brokSub.invested) * 100 : 0;
+          const alloc = totalValue ? ((brokSub.value / totalValue) * 100).toFixed(1) : '0.0';
+          
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#E07B39;margin-right:6px"></span><strong>Brokerage accounts (Robinhood + Charles Schwab)</strong></td>
+            <td>${money(brokSub.invested)}</td>
+            <td>${money(brokSub.value)}</td>
+            <td class="${pl >= 0 ? 'positive' : 'negative'}">${money(pl)}</td>
+            <td class="${plPct >= 0 ? 'positive' : 'negative'}">${plPct.toFixed(2)}%</td>
+            <td>${alloc}%</td>
+          `;
+          tbody.appendChild(tr);
+          brokerageRendered = true;
+        }
+        return;
+      }
+
+      const pl = data.value - data.invested;
+      const plPct = data.invested ? (pl / data.invested) * 100 : 0;
+      const alloc = totalValue ? ((data.value / totalValue) * 100).toFixed(1) : '0.0';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${ACCT_COLORS[i % ACCT_COLORS.length]};margin-right:6px"></span><strong>${acct}</strong></td>
         <td>${money(data.invested)}</td><td>${money(data.value)}</td>
-        <td class="${pl>=0?'positive':'negative'}">${money(pl)}</td>
-        <td class="${plPct>=0?'positive':'negative'}">${plPct.toFixed(2)}%</td>
-        <td>${alloc}%</td>`;
+        <td class="${pl >= 0 ? 'positive' : 'negative'}">${money(pl)}</td>
+        <td class="${plPct >= 0 ? 'positive' : 'negative'}">${plPct.toFixed(2)}%</td>
+        <td>${alloc}%</td>
+      `;
       tbody.appendChild(tr);
     });
-    const ti=Object.values(bucketTotals).reduce((s,d)=>s+d.invested,0);
-    const tpl=totalValue-ti, tplPct=ti?(tpl/ti)*100:0;
-    const foot=document.createElement('tr'); foot.style.fontWeight='bold'; foot.style.borderTop='2px solid #000';
-    foot.innerHTML=`<td>Total</td><td>${money(ti)}</td><td>${money(totalValue)}</td>
-      <td class="${tpl>=0?'positive':'negative'}">${money(tpl)}</td>
-      <td class="${tplPct>=0?'positive':'negative'}">${tplPct.toFixed(2)}%</td><td>100%</td>`;
+
+    const grandPl = grandValue - grandInvested;
+    const grandPlPct = grandInvested ? (grandPl / grandInvested) * 100 : 0;
+    
+    const foot = document.createElement('tr');
+    foot.style.fontWeight = 'bold';
+    foot.style.background = '#eee';
+    foot.innerHTML = `
+      <td>Total</td>
+      <td>${money(grandInvested)}</td>
+      <td>${money(grandValue)}</td>
+      <td class="${grandPl >= 0 ? 'positive' : 'negative'}">${money(grandPl)}</td>
+      <td class="${grandPlPct >= 0 ? 'positive' : 'negative'}">${grandPlPct.toFixed(2)}%</td>
+      <td>100%</td>
+    `;
     tbody.appendChild(foot);
   }
 
-  // ── Concentration Alert ────────────────────────────────────────────────────────
   function renderConcentrationAlert(totalValue) {
-    const alert=document.getElementById('concentrationAlert');
-    if (!totalValue) { alert.style.display='none'; return; }
-    const byTicker={};
-    portfolio.forEach(row=>{
-      if (!row.ticker||row.ticker==='CASH') return;
-      if (!byTicker[row.ticker]) byTicker[row.ticker]={value:0,name:row.name||row.ticker};
-      byTicker[row.ticker].value+=calcRow(row).currentValue;
+    const alertEl=document.getElementById('concentrationAlert'); if(!alertEl) return;
+    if(totalValue===0){alertEl.style.display='none';return;}
+    const tStats={};
+    portfolio.forEach(r=>{
+      if((r.assetType||'')==='Cash'||!r.ticker||r.ticker==='CASH') return;
+      tStats[r.ticker]=(tStats[r.ticker]||0)+calcRow(r).currentValue;
     });
-    const flagged=Object.entries(byTicker).filter(([,d])=>d.value/totalValue>0.05).sort((a,b)=>b[1].value-a[1].value);
-    if (!flagged.length) { alert.style.display='none'; return; }
-    alert.style.display='block';
-    alert.innerHTML='⚠️ <strong>Single-Stock Concentration Alert</strong> — the following exceed 5% of your total portfolio:&nbsp;&nbsp;' +
-      flagged.map(([ticker,d])=>`<strong>${ticker}</strong> ${((d.value/totalValue)*100).toFixed(1)}% (${money(d.value)})`).join('&nbsp;&nbsp;|&nbsp;&nbsp;') +
-      '<br><small style="color:#666;display:block;margin-top:4px">Standard guidance: keep any single holding below 5%. Consider a gradual reduction plan.</small>';
+    const high=Object.entries(tStats).filter(([t,v])=>(v/totalValue)>0.05).sort((a,b)=>b[1]-a[1]);
+    if(!high.length){alertEl.style.display='none';return;}
+    alertEl.style.display='block';
+    alertEl.innerHTML='⚠️ <strong>Concentration Warning:</strong> The following ticker(s) each exceed 5% of your total portfolio value:<br>'+
+      high.map(([t,v])=>`• <strong>${t}</strong>: ${money(v)} (${((v/totalValue)*100).toFixed(1)}%)`).join('<br>')+
+      '<br><small style="color:#666;margin-top:4px;display:block;">Standard diversification benchmarks suggest limiting single-stock exposures below 5%. Consider a gradual reduction plan.</small>';
   }
 
-  // ── Retirement Balances ────────────────────────────────────────────────────────
   function copyRetireBalance(btn, raw) {
     navigator.clipboard.writeText(String(raw)).then(()=>{
       const orig=btn.innerHTML; btn.innerHTML='✓'; btn.style.color='#059669';
@@ -949,16 +851,12 @@
 
   function renderRetirementBalances() {
     const container=document.getElementById('retirementBalances'); if (!container) return;
-    const totals={}, sources={};
-    Object.keys(RETIRE_MAP).forEach(k=>{totals[k]=0;sources[k]=[];});
+    const totals={}, sources={}; Object.keys(RETIRE_MAP).forEach(k=>{totals[k]=0;sources[k]=[];});
     portfolio.forEach(row=>{
       const acct=(row.account||'').toLowerCase().trim(), val=calcRow(row).currentValue;
       for (const [label,cfg] of Object.entries(RETIRE_MAP)) {
         if (cfg.ids.some(n=>acct===n||acct.includes(n))) {
-          totals[label]+=val;
-          const d=(row.account||'').trim();
-          if (!sources[label].includes(d)) sources[label].push(d);
-          break;
+          totals[label]+=val; const d=(row.account||'').trim(); if (!sources[label].includes(d)) sources[label].push(d); break;
         }
       }
     });
@@ -966,144 +864,119 @@
       const val=totals[label], raw=Math.round(val);
       const src=sources[label].length?sources[label].join('<br>+ '):'<span style="color:#b45309">⚠ no accounts matched</span>';
       return `<div style="background:#EBF2F5;border:2px solid ${cfg.color};border-radius:10px;padding:14px;position:relative;">
-        <button onclick="copyRetireBalance(this,${raw})" title="Copy value"
-          style="position:absolute;top:7px;right:8px;background:none;border:none;cursor:pointer;padding:2px 5px;border-radius:4px;color:#aaa;font-size:15px;line-height:1;"
-          onmouseover="this.style.color='#DB7527';this.style.background='#f0f0f0'"
-          onmouseout="this.style.color='#aaa';this.style.background='none'">⧉</button>
+        <button onclick="copyRetireBalance(this,${raw})" title="Copy value" style="position:absolute;top:7px;right:8px;background:none;border:none;cursor:pointer;padding:2px 5px;border-radius:4px;color:#aaa;font-size:15px;line-height:1;" onmouseover="this.style.color='#DB7527';this.style.background='#f0f0f0'" onmouseout="this.style.color='#aaa';this.style.background='none'">⧉</button>
         <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#000;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:8px;padding-right:24px;">${label}</div>
         <div style="font-size:1.4rem;font-weight:800;color:#111;margin-bottom:8px;">${money(val)}</div>
         <div style="font-size:11px;color:#555;line-height:1.6;">${src}</div>
       </div>`;
     }).join('');
-    const snap={};
-    Object.keys(RETIRE_MAP).forEach(k=>snap[k]=Math.round(totals[k]));
-    snap.updatedAt=new Date().toISOString();
+    const snap={}; Object.keys(RETIRE_MAP).forEach(k=>snap[k]=Math.round(totals[k])); snap.updatedAt=new Date().toISOString();
     localStorage.setItem('portfolio_retire_balances_v1', JSON.stringify(snap));
   }
 
-  // ── Cell Editing ───────────────────────────────────────────────────────────────
   function makeCellEditable(td, value, rowIndex, field) {
-    td.classList.add('editing');
-    td.innerHTML=`<input type="text" class="edit-input" value="${value}" />`;
+    td.classList.add('editing'); td.innerHTML=`<input type="text" class="edit-input" value="${value}" />`;
     const input=td.querySelector('.edit-input'); input.select();
     function saveEdit() {
       const newVal=input.value.trim(), row=portfolio[rowIndex];
       if (['quantity','purchasePrice','currentPrice','expenseRatio'].includes(field)) row[field]=parseFloat(newVal)||0;
-      else row[field]=newVal;
-      savePortfolio(); render(); editingCell=null;
+      else row[field]=newVal; savePortfolio(); render(); editingCell=null;
     }
     input.addEventListener('keydown',e=>{ if(e.key==='Enter')saveEdit(); if(e.key==='Escape'){render();editingCell=null;} });
     input.addEventListener('blur',saveEdit);
   }
 
-  // ── Sort helpers ───────────────────────────────────────────────────────────────
   function sortRows(rows, field, dir) {
     return [...rows].sort((a,b)=>{
-      const ca=calcRow(a), cb=calcRow(b);
-      let va, vb;
+      const ca=calcRow(a), cb=calcRow(b); let va, vb;
       switch(field) {
-        case 'ticker':        va=a.ticker||'';  vb=b.ticker||'';  break;
-        case 'name':          va=a.name||'';    vb=b.name||'';    break;
-        case 'quantity':      va=+a.quantity||0; vb=+b.quantity||0; break;
+        case 'ticker': va=a.ticker||''; vb=b.ticker||''; break;
+        case 'name': va=a.name||''; vb=b.name||''; break;
+        case 'quantity': va=+a.quantity||0; vb=+b.quantity||0; break;
         case 'purchasePrice': va=+a.purchasePrice||0; vb=+b.purchasePrice||0; break;
-        case 'currentPrice':  va=+a.currentPrice||0;  vb=+b.currentPrice||0;  break;
-        case 'expenseRatio':  va=+a.expenseRatio||0;  vb=+b.expenseRatio||0;  break;
-        case 'assetType':     va=a.assetType||''; vb=b.assetType||''; break;
-        case 'costBasis':     va=ca.costBasis;   vb=cb.costBasis;   break;
-        case 'currentValue':  va=ca.currentValue; vb=cb.currentValue; break;
-        case 'gainLoss':      va=ca.gainLoss;    vb=cb.gainLoss;    break;
-        case 'gainLossPct':   va=ca.gainLossPct; vb=cb.gainLossPct; break;
-        case 'expensePerYear':va=ca.expensePerYear; vb=cb.expensePerYear; break;
-        default: va=''; vb='';
+        case 'currentPrice': va=+a.currentPrice||0; vb=+b.currentPrice||0; break;
+        case 'expenseRatio': va=+a.expenseRatio||0; vb=+b.expenseRatio||0; break;
+        case 'assetType': va=a.assetType||''; vb=b.assetType||''; break;
+        case 'costBasis': va=ca.costBasis; vb=cb.costBasis; break;
+        case 'currentValue': va=ca.currentValue; vb=cb.currentValue; break;
+        case 'gainLoss': va=ca.gainLoss; vb=cb.gainLoss; break;
+        case 'gainLossPct': va=ca.gainLossPct; vb=cb.gainLossPct; break;
+        default: va=a[field]||''; vb=b[field]||'';
       }
-      if (typeof va==='string') return dir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
+      if(typeof va==='string') return dir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
       return dir==='asc'?va-vb:vb-va;
     });
   }
 
-  // ── Build one account's sortable table ────────────────────────────────────────
-  function buildAccountTable(account, rows, container) {
-    const sort=tableSortState[account]||{field:null,dir:'asc'};
+  function toggleSort(account, field) {
+    if(!tableSortState[account]) tableSortState[account]={field:'',dir:''};
+    const s=tableSortState[account];
+    if(s.field===field){ s.dir=s.dir==='asc'?'desc':'asc'; } else { s.field=field; s.dir='asc'; }
+    render();
+  }
+
+  function buildAccountTable(accountName, holdings, container) {
+    const totalValue = portfolio.reduce((sum, r) => sum + calcRow(r).currentValue, 0);
     const section=document.createElement('div'); section.className='card';
-    section.innerHTML=`<div class="account-title">${account}</div>`;
-
-    const colDefs=[
-      {label:'Ticker',         field:'ticker'},
-      {label:'Name',           field:'name'},
-      {label:'Qty',            field:'quantity'},
-      {label:'Purchase Price', field:'purchasePrice'},
-      {label:'Inv Date',       field:null},
-      {label:'Current Price',  field:'currentPrice'},
-      {label:'Exp Ratio %',    field:'expenseRatio'},
-      {label:'Expense/Yr',     field:'expensePerYear'},
-      {label:'Asset Type',     field:'assetType'},
-      {label:'Cost Basis',     field:'costBasis'},
-      {label:'Current Value',  field:'currentValue'},
-      {label:'Gain/Loss',      field:'gainLoss'},
-      {label:'% Gain/Loss',    field:'gainLossPct'},
-      {label:'Action',         field:null},
+    const state=tableSortState[accountName]||{field:'',dir:''};
+    const finalHoldings=state.field?sortRows(holdings, state.field, state.dir):holdings;
+    const hIdx=ACCOUNT_ORDER.indexOf(accountName);
+    const dotColor=hIdx!==-1?COLORS[hIdx%COLORS.length]:'#7A9E9F';
+    const h2=document.createElement('h2');
+    h2.innerHTML=`<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${dotColor};margin-right:8px;"></span>Account: ${accountName}`;
+    section.appendChild(h2);
+    const table=document.createElement('table'); const thead=document.createElement('thead');
+    const cols=[
+      {label:'Ticker',k:'ticker'},{label:'Name',k:'name'},{label:'Quantity',k:'quantity'},
+      {label:'Cost / Share',k:'purchasePrice'},{label:'Purchase Date',k:'purchaseDate',s:false},
+      {label:'Live Price',k:'currentPrice'},{label:'Expense Ratio',k:'expenseRatio'},
+      {label:'Exp/Yr',k:'expensePerYear'},{label:'Asset Type',k:'assetType'},
+      {label:'Cost Basis',k:'costBasis'},{label:'Current Value',k:'currentValue'},
+      {label:'Gain / Loss',k:'gainLoss'},{label:'Gain / Loss %',k:'gainLossPct'},{label:'Action',s:false}
     ];
-
-    const table=document.createElement('table');
-    const theadRow=document.createElement('tr');
-    colDefs.forEach(col=>{
-      const th=document.createElement('th'); th.textContent=col.label;
-      if (col.field) {
-        th.classList.add('sortable');
-        if (sort.field===col.field) th.classList.add('sort-'+sort.dir);
-        th.addEventListener('click',()=>{
-          const cur=tableSortState[account]||{field:null,dir:'asc'};
-          tableSortState[account]={field:col.field, dir:cur.field===col.field&&cur.dir==='asc'?'desc':'asc'};
-          render();
-        });
-      }
-      theadRow.appendChild(th);
-    });
-    const thead=document.createElement('thead'); thead.appendChild(theadRow);
-    const tbody=document.createElement('tbody');
-    table.appendChild(thead); table.appendChild(tbody);
-
-    const sortedRows=sort.field?sortRows(rows,sort.field,sort.dir):rows;
-    let acctInvested=0, acctValue=0, acctExpense=0;
-
-    sortedRows.forEach(rowData=>{
-      const row=portfolio[rowData._index], c=calcRow(row);
+    let ths=cols.map(c=>{
+      if(c.s===false) return `<th>${c.label}</th>`;
+      let cls='sortable'; if(state.field===c.k) cls+=(state.dir==='asc'?' sort-asc':' sort-desc');
+      return `<th class="${cls}" onclick="toggleSort('${accountName.replace(/'/g,"\\'")}', '${c.k}')">${c.label}</th>`;
+    }).join('');
+    thead.innerHTML=`<tr>${ths}</tr>`; table.appendChild(thead);
+    const tbody=document.createElement('tbody'); let acctInvested=0, acctValue=0, acctExpense=0;
+    finalHoldings.forEach(rowData=>{
+      const row=portfolio[rowData._index]; const c=calcRow(row);
       acctInvested+=c.costBasis; acctValue+=c.currentValue; acctExpense+=c.expensePerYear;
-      const pd=row.purchaseDate||'', pdParts=pd.split('/');
-      const pdInput=pdParts.length===3?`${pdParts[2]}-${pdParts[0].padStart(2,'0')}-${pdParts[1].padStart(2,'0')}`:'';
+      let pdInput='—';
+      if(row.purchaseDate){
+        const parts=row.purchaseDate.split('/');
+        if(parts.length===3) pdInput=`${parts[2]}-${parts[0].padStart(2,'0')}-${parts[1].padStart(2,'0')}`;
+        else if(row.purchaseDate.includes('-')) pdInput=row.purchaseDate;
+      }
       const tr=document.createElement('tr');
       tr.innerHTML=`
-        <td data-field="ticker"        data-row="${rowData._index}">${row.ticker||''}</td>
-        <td data-field="name"          data-row="${rowData._index}">${row.name||''}</td>
-        <td data-field="quantity"      data-row="${rowData._index}">${Number(row.quantity||0).toFixed(4)}</td>
+        <td data-field="ticker" data-row="${rowData._index}"><strong>${row.ticker||''}</strong></td>
+        <td data-field="name" data-row="${rowData._index}" style="font-size:13px;color:#333;">${row.name||''}</td>
+        <td data-field="quantity" data-row="${rowData._index}">${Number(row.quantity||0).toFixed(4)}</td>
         <td data-field="purchasePrice" data-row="${rowData._index}">${money(row.purchasePrice)}</td>
         <td style="text-align:center;">
-          <input type="date" value="${pdInput}"
-            style="border:1px solid #ccc;border-radius:4px;padding:2px 4px;font-size:0.78rem;width:118px;"
-            onchange="(function(v,i){var p=v.split('-');portfolio[i].purchaseDate=p.length===3?p[1]+'/'+p[2]+'/'+p[0]:'';savePortfolio();})(this.value,${rowData._index})" />
+          <input type="date" value="${pdInput}" style="border:1px solid #ccc;border-radius:4px;padding:2px 4px;font-size:0.78rem;width:118px;" onchange="(function(v,i){var p=v.split('-');portfolio[i].purchaseDate=p.length===3?p[1]+'/'+p[2]+'/'+p[0]:'';savePortfolio();})(this.value,${rowData._index})" />
         </td>
-        <td data-field="currentPrice"  data-row="${rowData._index}">${money(row.currentPrice)}</td>
-        <td data-field="expenseRatio"  data-row="${rowData._index}" style="text-align:right">${Number(row.expenseRatio||0).toFixed(4)}%</td>
+        <td data-field="currentPrice" data-row="${rowData._index}">${money(row.currentPrice)}</td>
+        <td data-field="expenseRatio" data-row="${rowData._index}" style="text-align:right">${Number(row.expenseRatio||0).toFixed(4)}%</td>
         <td style="text-align:right">${money(c.expensePerYear)}</td>
-        <td data-field="assetType"     data-row="${rowData._index}">${row.assetType||''}</td>
-        <td>${money(c.costBasis)}</td>
-        <td>${money(c.currentValue)}</td>
+        <td data-field="assetType" data-row="${rowData._index}">${row.assetType||''}</td>
+        <td>${money(c.costBasis)}</td><td>${money(c.currentValue)}</td>
         <td class="${c.gainLoss>=0?'positive':'negative'}">${money(c.gainLoss)}</td>
         <td class="${c.gainLossPct>=0?'positive':'negative'}">${c.gainLossPct.toFixed(2)}%</td>
         <td><button onclick="removeHolding(${rowData._index})">Delete</button></td>`;
       tbody.appendChild(tr);
     });
-
-    section.appendChild(table);
+    table.appendChild(tbody); section.appendChild(table);
     const acctGain=acctValue-acctInvested, acctGainPct=acctInvested?(acctGain/acctInvested)*100:0;
     const summary=document.createElement('div'); summary.className='muted'; summary.style.marginTop='8px';
     summary.innerHTML=`Account Total: <strong>${money(acctValue)}</strong> | Invested: <strong>${money(acctInvested)}</strong> | Gain/Loss: <strong class="${acctGain>=0?'positive':'negative'}">${money(acctGain)}</strong> | <strong class="${acctGainPct>=0?'positive':'negative'}">${acctGainPct.toFixed(2)}%</strong> | Total Expense: <strong style="color:#b45309">${money(acctExpense)}</strong>`;
-    section.appendChild(summary);
-    container.appendChild(section);
+    section.appendChild(summary); container.appendChild(section);
     return { invested: acctInvested, value: acctValue, expensePerYear: acctExpense };
   }
 
-  // ── Main Render ────────────────────────────────────────────────────────────────
   function render() {
     const container=document.getElementById('accountsContainer'); container.innerHTML='';
     let totalInvested=0, totalCurrentValue=0, totalExpensePerYear=0;
@@ -1112,8 +985,6 @@
       const t=buildAccountTable(account, grouped[account], container);
       totalInvested+=t.invested; totalCurrentValue+=t.value; totalExpensePerYear+=t.expensePerYear;
     });
-
-    // Summary cards
     const gainLoss=totalCurrentValue-totalInvested, gainLossPct=totalInvested?(gainLoss/totalInvested)*100:0;
     document.getElementById('totalInvested').textContent=money(totalInvested);
     document.getElementById('currentValue').textContent=money(totalCurrentValue);
@@ -1121,17 +992,12 @@
     const glp=document.getElementById('gainLossPct'); glp.textContent=gainLossPct.toFixed(2)+'%'; glp.className=gainLossPct>=0?'positive':'negative';
     document.getElementById('totalExpensePerYear').textContent=money(totalExpensePerYear);
 
-    // All charts & tables
     const assetTotals=buildAssetTotals(), accountTotals=buildAccountTotals(), bucketTotals=buildTaxBucketTotals();
-    renderPieChart(assetTotals, totalCurrentValue);
-    renderProfitLossTable(assetTotals, totalCurrentValue);
-    renderTaxBucketChart(bucketTotals, totalCurrentValue);
-    renderTaxBucketProfitLossTable(bucketTotals, totalCurrentValue);
-    renderAccountProfitLossTable(accountTotals, totalCurrentValue);
-    renderConcentrationAlert(totalCurrentValue);
+    renderPieChart(assetTotals, totalCurrentValue); renderProfitLossTable(assetTotals, totalCurrentValue);
+    renderTaxBucketChart(bucketTotals, totalCurrentValue); renderTaxBucketProfitLossTable(bucketTotals, totalCurrentValue);
+    renderAccountProfitLossTable(accountTotals, totalCurrentValue); renderConcentrationAlert(totalCurrentValue);
     renderRetirementBalances();
 
-    // Wire up cell editing
     document.querySelectorAll('td[data-field]').forEach(td=>{
       td.addEventListener('click',function(){
         if (editingCell) return; editingCell=this;
@@ -1143,86 +1009,119 @@
 
   function removeHolding(index) { portfolio.splice(index,1); savePortfolio(); render(); }
 
-  // ── Export CSV ─────────────────────────────────────────────────────────────────
+  // ── Robust Dynamic Export CSV ──────────────────────────────────────────────────
   document.getElementById('exportCsvBtn').addEventListener('click',()=>{
-    const headers=['account','ticker','name','quantity','purchasePrice','purchaseDate','currentPrice','assetType','expenseRatio','suggestedTarget'];
-    const lines=[headers.join(','),...portfolio.map(row=>headers.map(h=>`"${String(row[h]??'').replace(/"/g,'""')}"`).join(','))];
+    const headers=['account','ticker','name','quantity','purchasePrice','purchaseDate','currentPrice','assetType','expenseRatio'];
+    const linesText = [headers.join(','), ...portfolio.map(r => [
+      r.account, r.ticker, r.name, r.quantity, r.purchasePrice, r.purchaseDate, r.currentPrice || r.purchasePrice, r.assetType, r.expenseRatio || 0
+    ].map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(','))].join('\n');
     const a=document.createElement('a');
-    a.href=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/csv'}));
-    a.download='portfolio.csv'; a.click();
+    a.href=URL.createObjectURL(new Blob([linesText],{type:'text/csv'}));
+    a.download='portfolio_holdings.csv'; a.click();
   });
 
-  // ── Import CSV ─────────────────────────────────────────────────────────────────
-  document.getElementById('importCsvInput').addEventListener('change',async e=>{
-    const file=e.target.files[0]; if (!file) return;
-    const lines=(await file.text()).trim().split(/\r?\n/);
-    const headers=lines[0].split(',').map(h=>h.replace(/^"|"$/g,'').trim());
-    for (let i=1;i<lines.length;i++) {
-      const cols=lines[i].split(',').map(c=>c.replace(/^"|"$/g,''));
-      const obj=Object.fromEntries(headers.map((h,idx)=>[h,cols[idx]]));
-      portfolio.push({
-        account:obj.account||'', ticker:(obj.ticker||'').toUpperCase(), name:obj.name||'',
-        quantity:parseFloat(obj.quantity||'0'), purchasePrice:parseFloat(obj.purchasePrice||'0'),
-        purchaseDate:obj.purchaseDate||'',
-        currentPrice:parseFloat(obj.currentPrice||obj.purchasePrice||'0'),
-        assetType:obj.assetType||'', expenseRatio:parseFloat(obj.expenseRatio||'0'),
-        suggestedTarget:obj.suggestedTarget||''
-      });
-    }
-    portfolio.forEach(row=>{ if (row.assetType&&row.suggestedTarget!==undefined&&row.suggestedTarget!=='') assetTargets[row.assetType]=row.suggestedTarget; });
-    saveTargets(assetTargets); savePortfolio(); render();
-    e.target.value='';
+  // ── Robust Dynamic Import CSV (Quote Aware + Case Insensitive Header Mapping) ──
+  document.getElementById('importCsvInput').addEventListener('change',function(e){
+    const file=e.target.files[0]; if(!file)return; const reader=new FileReader();
+    reader.onload=function(evt){
+      const text=evt.target.result; const lines=text.split(/\r?\n/); if(lines.length<2)return;
+      
+      const headerLine = lines[0].trim();
+      let headers = [];
+      let current = '', inQuotes = false;
+      for (let j = 0; j < headerLine.length; j++) {
+        const ch = headerLine[j];
+        if (ch === '"') { inQuotes = !inQuotes; }
+        else if (ch === ',' && !inQuotes) { headers.push(current.trim().replace(/^"|"$/g, '')); current = ''; }
+        else { current += ch; }
+      }
+      headers.push(current.trim().replace(/^"|"$/g, ''));
+
+      const parsed=[];
+      for(let i=1;i<lines.length;i++){
+        const line=lines[i].trim(); if(!line)continue;
+        let cells=[], cellCurrent='', cellInQuotes=false;
+        for(let j=0;j<line.length;j++){
+          const ch=line[j];
+          if(ch==='"'){ cellInQuotes=!cellInQuotes; }
+          else if(ch===','&&!cellInQuotes){ cells.push(cellCurrent.trim().replace(/^"|"$/g, '')); cellCurrent=''; }
+          else { cellCurrent+=ch; }
+        }
+        cells.push(cellCurrent.trim().replace(/^"|"$/g, ''));
+        
+        const obj = {};
+        headers.forEach((h, idx) => {
+          if (h) {
+            const normKey = h.toLowerCase().replace(/[^a-z0-9]/g, '');
+            obj[normKey] = cells[idx] !== undefined ? cells[idx].trim() : '';
+          }
+        });
+        
+        if (obj['account'] || obj['ticker']) {
+          const pPrice = parseFloat(obj['purchaseprice'] || obj['pricepershare'] || '0');
+          const cPrice = obj['currentprice'] ? parseFloat(obj['currentprice']) : (obj['liveprice'] ? parseFloat(obj['liveprice']) : pPrice);
+          
+          parsed.push({
+            account: obj['account'] || '',
+            assetType: obj['assettype'] || 'U.S Large Cap Equity',
+            ticker: (obj['ticker'] || '').toUpperCase(),
+            name: obj['name'] || obj['investmentname'] || '',
+            quantity: parseFloat(obj['quantity'] || obj['qty'] || '0'),
+            purchasePrice: pPrice,
+            purchaseDate: obj['purchasedate'] || '',
+            currentPrice: cPrice,
+            expenseRatio: parseFloat(obj['expenseratio'] || '0')
+          });
+        }
+      }
+      if(parsed.length){ portfolio=parsed; savePortfolio(); render(); }
+    };
+    reader.readAsText(file); this.value='';
   });
 
-  // ── Refresh Prices ─────────────────────────────────────────────────────────────
   async function refreshPrices() {
-    const apiKey=getApiKey();
-    if (!apiKey) { document.getElementById('apiKeyStatus').textContent='No API key — enter and save one above'; return; }
-    const tickers=[...new Set(portfolio.filter(h=>(h.assetType||'')!=='Cash').map(h=>(h.ticker||'').trim().toUpperCase()).filter(Boolean))];
-    if (!tickers.length) return;
-    const btn=document.getElementById('refreshBtn'); btn.disabled=true; btn.textContent='Refreshing...';
-    document.getElementById('apiKeyStatus').textContent='Fetching '+tickers.length+' ticker(s)...';
-    const map={};
-    for (const t of tickers) {
-      try { const r=await fetch(FINNHUB_BASE+encodeURIComponent(t)+'&token='+encodeURIComponent(apiKey)); map[t]=await r.json(); } catch { map[t]=null; }
-      await new Promise(r=>setTimeout(r,300));
+    const apiKey=getApiKey(); if(!apiKey){alert('Please enter and save a Finnhub API key first.');return;}
+    const tickers=[...new Set(portfolio.map(r=>r.ticker))].filter(t=>t&&t!=='CASH');
+    if(!tickers.length){alert('No tickers found to refresh.');return;}
+    const btn=document.getElementById('refreshBtn'); btn.disabled=true; btn.textContent='🔄 Fetching…';
+    let successCount=0;
+    for(const ticker of tickers) {
+      try {
+        const resp=await fetch(`${FINNHUB_BASE}${encodeURIComponent(ticker)}&token=${encodeURIComponent(apiKey)}`);
+        const data=await resp.json();
+        if(data&&data.c) {
+          portfolio.forEach(r=>{ if(r.ticker===ticker) r.currentPrice=data.c; });
+          successCount++;
+        }
+      } catch(e) { console.error('Error fetching '+ticker, e); }
     }
-    let updated=0;
-    portfolio=portfolio.map(row=>{
-      if ((row.assetType||'')==='Cash') return row;
-      const q=map[(row.ticker||'').trim().toUpperCase()];
-      if (q&&typeof q.c==='number'&&q.c>0) { updated++; return {...row,currentPrice:q.c}; }
-      return row;
-    });
-    savePortfolio(); render();
-    btn.disabled=false; btn.textContent='🔄 Refresh Prices';
-    const ts=new Date().toLocaleTimeString();
-    document.getElementById('apiKeyStatus').textContent=`Updated ${updated}/${tickers.length} ticker(s) at ${ts}`;
-    document.getElementById('lastRefreshed').textContent=`Prices last refreshed: ${new Date().toLocaleDateString()} at ${ts}`;
+    savePortfolio(); render(); btn.disabled=false; btn.textContent='🔄 Refresh Prices';
+    document.getElementById('lastRefreshed').textContent=`Last successfully refreshed: ${new Date().toLocaleTimeString()} (${successCount}/${tickers.length} tickers updated)`;
   }
 
-  // ── API Key ────────────────────────────────────────────────────────────────────
-  const apiKeyInput=document.getElementById('apiKeyInput'), apiKeyStatus=document.getElementById('apiKeyStatus');
-  const savedKey=getApiKey();
-  if (apiKeyInput) apiKeyInput.value=savedKey;
-  if (apiKeyStatus) apiKeyStatus.textContent=savedKey?'API key loaded from storage':'No API key saved yet';
+  const savedApiKey=getApiKey();
+  if(savedApiKey){
+    document.getElementById('apiKeyInput').value=savedApiKey;
+    document.getElementById('apiKeyStatus').textContent='API Key Loaded from storage';
+  }
   document.getElementById('saveApiKeyBtn').addEventListener('click',()=>{
-    const key=apiKeyInput.value.trim();
+    const apiKeyInput=document.getElementById('apiKeyInput'); const key=apiKeyInput.value.trim();
     if (!key) { apiKeyStatus.textContent='Please enter an API key'; return; }
     localStorage.setItem(APIKEY_STORAGE_KEY,key); apiKeyStatus.textContent='API key saved!';
   });
   document.getElementById('refreshBtn').addEventListener('click', refreshPrices);
-  document.getElementById('clearBtn').addEventListener('click',()=>{ if(confirm('Clear all holdings?')){portfolio=[];savePortfolio();render();} });
+  document.getElementById('clearBtn').addEventListener('click',()=>{
+    if(confirm('Clear all holdings?')){portfolio=[];savePortfolio();render();}
+  });
 
-  // ── Query Panel ────────────────────────────────────────────────────────────────
   function onQueryTypeChange() {
     const type=document.getElementById('queryType').value;
-    document.getElementById('queryInputTicker').style.display   = type==='ticker'    ?'':'none';
-    document.getElementById('queryInputName').style.display     = type==='name'      ?'':'none';
-    document.getElementById('queryInputAccount').style.display   = type==='account'   ?'':'none';
+    document.getElementById('queryInputTicker').style.display = type==='ticker' ?'':'none';
+    document.getElementById('queryInputName').style.display = type==='name' ?'':'none';
+    document.getElementById('queryInputAccount').style.display = type==='account' ?'':'none';
     document.getElementById('queryInputAssetType').style.display = type==='assetType' ?'':'none';
-    document.getElementById('queryInputTopN').style.display      = type==='topN'      ?'':'none';
-    document.getElementById('queryInputPct').style.display       = (type==='gainPct'||type==='lossPct')?'':'none';
+    document.getElementById('queryInputTopN').style.display = type==='topN' ?'':'none';
+    document.getElementById('queryInputPct').style.display = (type==='gainPct'||type==='lossPct')?'':'none';
     document.getElementById('queryResults').innerHTML='';
   }
 
@@ -1230,8 +1129,7 @@
     const accountSel=document.getElementById('queryInputAccount'), current=accountSel.value;
     accountSel.innerHTML='<option value="">-- select account --</option>';
     [...new Set(portfolio.map(r=>r.account||'Uncategorized'))].sort().forEach(a=>{
-      const opt=document.createElement('option'); opt.value=a; opt.textContent=a;
-      if (a===current) opt.selected=true; accountSel.appendChild(opt);
+      const opt=document.createElement('option'); opt.value=a; opt.textContent=a; if (a===current) opt.selected=true; accountSel.appendChild(opt);
     });
   }
 
@@ -1242,74 +1140,56 @@
       {label:'Qty',key:'qty',fmt:v=>Number(v).toFixed(4)},
       {label:'Purchase Price',key:'purchasePrice',fmt:money},{label:'Current Price',key:'currentPrice',fmt:money},
       {label:'Cost Basis',key:'costBasis',fmt:money},{label:'Current Value',key:'currentValue',fmt:money},
-      {label:'Gain / Loss',key:'gainLoss',fmt:money,cls:v=>v>=0?'positive':'negative'},
-      {label:'% Gain/Loss',key:'gainLossPct',fmt:v=>v.toFixed(2)+'%',cls:v=>v>=0?'positive':'negative'},
-      {label:'Expense/Yr',key:'expensePerYear',fmt:money},
-      ...(isTicker?[
-        {label:'Inv Date',key:'purchaseDate'},
-        {label:'Gain since Inv Date',key:'gainSinceAmt',fmt:money,cls:v=>v>=0?'positive':'negative'},
-        {label:'% since Inv Date',key:'gainSincePct',fmt:v=>v.toFixed(2)+'%',cls:v=>v>=0?'positive':'negative'},
-      ]:[]),
+      {label:'Gain/Loss',key:'gainLoss',fmt:money,useColor:true},{label:'Gain/Loss %',key:'gainLossPct',fmt:v=>v.toFixed(2)+'%',useColor:true}
     ];
     let html='<table><thead><tr>'+colDefs.map(c=>`<th>${c.label}</th>`).join('')+'</tr></thead><tbody>';
+    let totalInvested=0, totalCurrentValue=0;
     rows.forEach(r=>{
-      html+='<tr>'+colDefs.map(c=>{
-        const val=r[c.key]??'', display=c.fmt?c.fmt(val):val, cls=c.cls?c.cls(val):'';
-        return `<td${cls?` class="${cls}"`:''}>${display}</td>`;
+      const c=calcRow(r); totalInvested+=c.costBasis; totalCurrentValue+=c.currentValue;
+      html+='<tr>'+colDefs.map(col=>{
+        let raw=r[col.key]; if(col.key==='qty') raw=r.quantity; if(col.key==='costBasis') raw=c.costBasis;
+        if(col.key==='currentValue') raw=c.currentValue; if(col.key==='gainLoss') raw=c.gainLoss; if(col.key==='gainLossPct') raw=c.gainLossPct;
+        const txt=col.fmt?col.fmt(raw):raw;
+        if(col.useColor){ const cls=raw>=0?'positive':'negative'; return `<td class="${cls}">${txt}</td>`; }
+        return `<td>${txt}</td>`;
       }).join('')+'</tr>';
     });
-    html+='</tbody></table>';
-    const totCost=rows.reduce((s,r)=>s+r.costBasis,0), totVal=rows.reduce((s,r)=>s+r.currentValue,0);
-    const totGL=totVal-totCost, totGLPct=totCost?(totGL/totCost*100):0, totExp=rows.reduce((s,r)=>s+r.expensePerYear,0);
-    html+=`<div class="query-summary">${rows.length} holding(s) &nbsp;|&nbsp; Cost Basis: ${money(totCost)} &nbsp;|&nbsp; Current Value: ${money(totVal)} &nbsp;|&nbsp;
-      Gain/Loss: <span class="${totGL>=0?'positive':'negative'}">${money(totGL)} (${totGLPct.toFixed(2)}%)</span> &nbsp;|&nbsp;
-      Expense: <span style="color:#b45309">${money(totExp)}</span></div>`;
+    const aggGl=totalCurrentValue-totalInvested, aggGlPct=totalInvested?(aggGl/totalInvested)*100:0;
+    html+=`</tbody></table><div class="query-summary">Matched Holdings: ${rows.length} | Total Value: ${money(totalCurrentValue)} | Invested: ${money(totalInvested)} | Gain/Loss: <span class="${aggGl>=0?'positive':'negative'}">${money(aggGl)} (${aggGlPct.toFixed(2)}%)</span></div>`;
     return html;
-  }
-
-  function portfolioToQueryRows() {
-    return portfolio.map(row=>{
-      const c=calcRow(row), cur=+row.currentPrice||0, buy=+row.purchasePrice||0, qty=+row.quantity||0;
-      return { account:row.account||'Uncategorized', ticker:row.ticker||'', name:row.name||'', qty,
-        purchaseDate:row.purchaseDate||'', purchasePrice:buy, currentPrice:cur,
-        costBasis:c.costBasis, currentValue:c.currentValue, gainLoss:c.gainLoss, gainLossPct:c.gainLossPct,
-        expensePerYear:c.expensePerYear, gainSinceAmt:(cur-buy)*qty, gainSincePct:buy?((cur-buy)/buy)*100:0 };
-    });
   }
 
   function runQuery() {
     const type=document.getElementById('queryType').value, resultsDiv=document.getElementById('queryResults');
-    const allRows=portfolioToQueryRows(); let filtered=[], isTicker=false;
+    const allRows=portfolio.map((r,i)=>({...r, _index:i})); let filtered=[], isTicker=false;
     if (type==='ticker') {
-      const t=document.getElementById('queryInputTicker').value.trim().toUpperCase();
-      if (!t){resultsDiv.innerHTML='<p class="no-results">Please enter a ticker symbol.</p>';return;}
-      filtered=allRows.filter(r=>r.ticker===t); isTicker=true;
+      const val=document.getElementById('queryInputTicker').value.trim().toUpperCase(); isTicker=true;
+      if (!val){resultsDiv.innerHTML='<p class="no-results">Please enter a ticker symbol.</p>';return;}
+      filtered=allRows.filter(r=>r.ticker===val);
     } else if (type==='name') {
-      const q=document.getElementById('queryInputName').value.trim().toLowerCase();
-      if (!q){resultsDiv.innerHTML='<p class="no-results">Please enter a name or keyword to search.</p>';return;}
-      filtered=allRows.filter(r=>
-        (r.name||'').toLowerCase().includes(q) ||
-        (r.ticker||'').toLowerCase().includes(q)
-      ).sort((a,b)=>b.currentValue-a.currentValue);
+      const val=document.getElementById('queryInputName').value.trim().toLowerCase();
+      if (!val){resultsDiv.innerHTML='<p class="no-results">Please enter a search term.</p>';return;}
+      filtered=allRows.filter(r=>(r.name||'').toLowerCase().includes(val));
     } else if (type==='account') {
-      const a=document.getElementById('queryInputAccount').value;
-      if (!a){resultsDiv.innerHTML='<p class="no-results">Please select an account.</p>';return;}
-      filtered=allRows.filter(r=>r.account===a);
+      const val=document.getElementById('queryInputAccount').value;
+      if (!val){resultsDiv.innerHTML='<p class="no-results">Please select an account.</p>';return;}
+      filtered=allRows.filter(r=>(r.account||'Uncategorized')===val);
     } else if (type==='assetType') {
-      const at=document.getElementById('queryInputAssetType').value;
-      if (!at){resultsDiv.innerHTML='<p class="no-results">Please select an asset type.</p>';return;}
-      filtered=allRows.filter(r=>{const row=portfolio.find(p=>p.ticker===r.ticker&&p.account===r.account);return row&&(row.assetType||'')===at;});
+      const val=document.getElementById('queryInputAssetType').value;
+      if (!val){resultsDiv.innerHTML='<p class="no-results">Please select an asset type.</p>';return;}
+      filtered=allRows.filter(r=>r.assetType===val);
     } else if (type==='topN') {
-      const n=parseInt(document.getElementById('queryInputTopN').value)||10;
-      filtered=[...allRows].sort((a,b)=>b.currentValue-a.currentValue).slice(0,n);
+      const n=parseInt(document.getElementById('queryInputTopN').value);
+      if (isNaN(n)||n<1){resultsDiv.innerHTML='<p class="no-results">Please enter a valid number.</p>';return;}
+      filtered=[...allRows].sort((a,b)=>calcRow(b).currentValue-calcRow(a).currentValue).slice(0,n);
     } else if (type==='gainPct') {
       const pct=parseFloat(document.getElementById('queryInputPct').value);
       if (isNaN(pct)){resultsDiv.innerHTML='<p class="no-results">Please enter a percentage.</p>';return;}
-      filtered=allRows.filter(r=>r.gainLossPct>=pct).sort((a,b)=>b.gainLossPct-a.gainLossPct);
+      filtered=allRows.filter(r=>calcRow(r).gainLossPct>=pct).sort((a,b)=>calcRow(b).gainLossPct-calcRow(a).gainLossPct);
     } else if (type==='lossPct') {
       const pct=parseFloat(document.getElementById('queryInputPct').value);
       if (isNaN(pct)){resultsDiv.innerHTML='<p class="no-results">Please enter a percentage.</p>';return;}
-      filtered=allRows.filter(r=>r.gainLossPct<=pct).sort((a,b)=>a.gainLossPct-b.gainLossPct);
+      filtered=allRows.filter(r=>calcRow(r).gainLossPct<=pct).sort((a,b)=>calcRow(a).gainLossPct-calcRow(b).gainLossPct);
     }
     resultsDiv.innerHTML=buildQueryTable(filtered,isTicker);
   }
@@ -1319,23 +1199,14 @@
     document.getElementById('queryResults').innerHTML='';
   }
 
-  // ── Init ───────────────────────────────────────────────────────────────────────
-  // Auto-fill investment name when ticker loses focus
   document.getElementById('ticker').addEventListener('blur', async function() {
-    const ticker = this.value.trim().toUpperCase();
-    const nameEl = document.getElementById('name');
-    if (!ticker || nameEl.value.trim()) return; // don't overwrite if already filled
-    this.style.background = '#fffde7';
-    const name = await fetchCompanyName(ticker);
-    this.style.background = '';
+    const ticker = this.value.trim().toUpperCase(); const nameEl = document.getElementById('name');
+    if (!ticker || nameEl.value.trim()) return; this.style.background = '#fffde7';
+    const name = await fetchCompanyName(ticker); this.style.background = '';
     if (name) { nameEl.value = name; }
   });
   portfolio.forEach(row=>{ if (row.assetType&&row.suggestedTarget!==undefined&&row.suggestedTarget!=='') assetTargets[row.assetType]=row.suggestedTarget; });
-  populateAssetDropdowns();
-  render();
-  populateQueryDropdowns();
-  onQueryTypeChange();
-  setInterval(refreshPrices, 60000);
+  populateAssetDropdowns(); render(); populateQueryDropdowns();
 </script>
 </body>
 </html>
