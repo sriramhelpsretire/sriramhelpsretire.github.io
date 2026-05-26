@@ -3,26 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retirement Tax Planner — California & Federal | Retire Wise and Live Happy</title>
-
-<!-- Primary SEO -->
-<meta name="description" content="Free California and Federal retirement tax calculator — model Roth conversions, RMD impact, Social Security taxation, IRMAA surcharges, and what-if tax scenarios for retirees in California." />
-<meta name="keywords" content="retirement tax calculator, California retirement tax, Roth conversion calculator, RMD tax calculator, Social Security tax calculator, IRMAA calculator, retirement tax planning, federal retirement tax, CA state tax retirement" />
-<meta name="author" content="Sriram Gopalaratnam" />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://wise-retiree.com/tax_calculator.html" />
-
-<!-- Open Graph -->
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://wise-retiree.com/tax_calculator.html" />
-<meta property="og:title" content="Retirement Tax Planner — California & Federal | Retire Wise and Live Happy" />
-<meta property="og:description" content="Model California and Federal retirement taxes — Roth conversions, RMDs, Social Security taxation, and IRMAA surcharges. Free what-if tax planner." />
-<meta property="og:site_name" content="Retire Wise and Live Happy" />
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Retirement Tax Planner — CA & Federal | Retire Wise and Live Happy" />
-<meta name="twitter:description" content="Free California and Federal retirement tax calculator — model Roth conversions, RMDs, Social Security tax, and IRMAA." />
+<title>"What If" Retirement Tax Planner (CA + Fed)</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -34,33 +15,22 @@
   --text:#e6edf3; --muted:#7d8590; --label:#ffffff;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;padding-top:72px;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;}
 
-/* ── Header (hidden — replaced by top nav) ───────────────────────────────── */
-header{display:none;}
-
-/* ── Top Nav — Hover Dropdown Style ── */
-.top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
-.nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
-.nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
-.nav-item{position:relative;}
-.nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
-.nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
-.nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
-.nav-item:hover>a .chevron{transform:rotate(180deg);}
-.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
-.nav-dropdown.two-col{min-width:260px;}
-.nav-item:hover .nav-dropdown,.nav-item:hover .nav-dropdown.two-col{display:block;}
-.nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
-.nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
-.nav-dropdown a .dd-icon{font-size:17px;width:24px;text-align:center;flex-shrink:0;margin-top:1px;}
-.nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
-.nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
-.nav-dropdown a:hover .dd-text span{color:#b8922e;}
-.nav-item:last-child .nav-dropdown,.nav-item:nth-last-child(2) .nav-dropdown{right:0;left:auto;}
-.nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
-.nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
-@media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
+/* ── Header ──────────────────────────────────────────────────────────────── */
+header{background:linear-gradient(135deg,#0d1117,#1a2235);border-bottom:1px solid var(--border);
+  padding:14px 20px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px;}
+.header-left{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+header h1{font-family:'DM Serif Display',serif;font-size:24px;color:var(--accent);}
+header span{color:#DE3163;font-size:14px;font-family:'DM Mono',monospace;}
+.hdr-btns{display:flex;gap:8px;align-items:center;}
+.home-btn,.print-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:7px;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;border:none;}
+.home-btn{background:var(--surface2);border:1px solid #FFCE1B;color:#FFCE1B;}
+.home-btn:hover{color:#A35614;}
+.print-btn{background:#1e3a5f;border:1px solid var(--blue);color:var(--blue);}
+.print-btn:hover{background:#2563eb;color:#fff;}
 
 /* ── Layout ──────────────────────────────────────────────────────────────── */
 .container{max-width:1420px;margin:18px auto;padding:0 14px;}
@@ -253,126 +223,9 @@ header{display:none;}
 }
 /* Hide print-only elements on screen */
 .print-page-title, .print-subtitle { display: none; }
-
-
-/* ... existing styles on your page ... */
-        
-        /* ── Tooltip Style for Wise Thoughts ── */
-        .tooltip-container {
-            position: relative;
-        }
-        .tooltip-container .tooltip-text {
-            visibility: hidden;
-            width: 160px;
-            background-color: #000000;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 6px 0;
-            position: absolute;
-            z-index: 10001;
-            bottom: 125%;
-            right: 10%;
-            opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .tooltip-container .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 85%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #000000 transparent transparent transparent;
-        }
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-
-
 </style>
 </head>
 <body>
-
-<nav class="top-nav">
-  <div class="nav-brand">
-    <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
-    Retire Wise and Live Happy&trade;
-  </div>
-  <ul class="nav-links">
-    <li class="nav-item">
-      <a href="transition_plan.html">Planning <span class="chevron">▾</span></a>
-      <div class="nav-dropdown">
-        <a href="transition_plan.html"><span class="dd-icon">📌</span><div class="dd-text"><strong>Retirement Made Easy</strong><span>Working years → retirement transition</span></div></a>
-        <a href="steps_retirement.html"><span class="dd-icon">🪜</span><div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div></a>
-        <a href="financial_plan.html"><span class="dd-icon">💼</span><div class="dd-text"><strong>Financial Plan</strong><span>The 6 pillars of financial planning</span></div></a>
-        <div class="nav-dd-divider"></div>
-        <a href="terms.html"><span class="dd-icon">📖</span><div class="dd-text"><strong>Terms Used</strong><span>Retirement glossary</span></div></a>
-        <a href="website.html"><span class="dd-icon">🔗</span><div class="dd-text"><strong>Web Sites</strong><span>Curated external resources</span></div></a>
-        <a href="https://futureyou.wise-retiree.com"><span class="dd-icon">💡</span><div class="dd-text"><strong>Early Age Planning</strong><span>Future You</span></div></a>
-        <a href="faq.html"><span class="dd-icon">✨</span><div class="dd-text"><strong>FAQ</strong><span>Frequently Asked Questions</span></div></a>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a href="#calculators"><span style="color:#d4af37">🧮</span> Calculators <span class="chevron">▾</span></a>
-      <div class="nav-dropdown two-col">
-        <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track holdings, live prices</span></div></a>
-        <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Project portfolio growth</span></div></a>
-        <a href="montecarlo_retirement.html"><span class="dd-icon">🎲</span><div class="dd-text"><strong>Retirement Confidence</strong><span>Monte Carlo stress test</span></div></a>
-        <a href="401k_compounding.html"><span class="dd-icon">⚡</span><div class="dd-text"><strong>401k Compounding</strong><span>Power of starting early</span></div></a>
-        <a href="tax_calculator.html"><span class="dd-icon">💰</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>4 retirement tax scenarios</span></div></a>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a href="medicare_aca.html"><span style="color:#d4af37">🩺</span> Healthcare <span class="chevron">▾</span></a>
-      <div class="nav-dropdown">
-        <a href="medicare_aca.html"><span class="dd-icon">🏥</span><div class="dd-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div></a>
-        <a href="healthcare_medicare.html"><span class="dd-icon">💊</span><div class="dd-text"><strong>Healthcare – Medicare</strong><span>IRMAA, enrollment windows</span></div></a>
-        <a href="healthcare_aca.html"><span class="dd-icon">🛡️</span><div class="dd-text"><strong>Healthcare – ACA</strong><span>Marketplace, subsidies, Covered CA</span></div></a>
-        <div class="nav-dd-divider"></div>
-        <a href="aca_vs_cobra.html"><span class="dd-icon">⚖️</span><div class="dd-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div></a>
-        <a href="medicare_flowchart.html"><span class="dd-icon">🗺️</span><div class="dd-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div></a>
-        <a href="long_term_care.html"><span class="dd-icon">🏠</span><div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
-      </div>
-    </li>
-  </ul>
-  <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
-    <option value="">Explore Topics</option>
-    <optgroup label="Core Planning">
-      <option value="transition_plan.html">📌 Retirement Made Easy</option>
-      <option value="steps_retirement.html">📌 Steps in Retirement</option>
-      <option value="financial_plan.html">📌 Financial Plan</option>
-      <option value="terms.html">📌 Terms Used</option>
-      <option value="website.html">📌 Web Sites</option>
-      <option value="faq.html">📌 FAQ</option>
-    </optgroup>
-    <optgroup label="Calculators">
-      <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
-      <option value="retirement_calculator.html">📌 Retirement Calculator</option>
-      <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
-      <option value="401k_compounding.html">📌 401k Compounding</option>
-      <option value="tax_calculator.html">📌 Income Tax Calculator</option>
-    </optgroup>
-    <optgroup label="Healthcare">
-      <option value="medicare_aca.html">📌 Medicare Hub</option>
-      <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
-      <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
-      <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
-      <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
-      <option value="long_term_care.html">📌 Long Term Care</option>
-    </optgroup>
-    <optgroup label="Go Back">
-      <option value="index.html">🏠 HOME</option>
-    </optgroup>
-  </select>
-</nav>
 
 <header>
   <div class="header-left">
@@ -381,6 +234,10 @@ header{display:none;}
   </div>
   <div class="hdr-btns">
     <button class="print-btn" onclick="window.print()">🖨 Print / PDF</button>
+    <a href="index.html" class="home-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      HOME
+    </a>
   </div>
 </header>
 
@@ -780,39 +637,6 @@ header{display:none;}
 
 
 <!-- Floating Feedback Button with Text -->
-
-<a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
-  style="
-    position: fixed;
-    bottom: 96px; /* Stacks perfectly above feedback button */
-    right: 28px;
-    height: 54px;
-    padding: 0 18px;
-    border-radius: 28px;
-    background: #d4af37;
-    border: 2px solid #000;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 700;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-    z-index: 9999;
-    transition: background 0.2s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #000;
-    text-decoration: none;
-  "
-  onmouseover="this.style.background='#693909'; this.style.color='#fff'; this.style.transform='scale(1.05)';"
-  onmouseout="this.style.background='#d4af37'; this.style.color='#000'; this.style.transform='scale(1)';">
-
-  <span style="font-size:22px;">✍️</span>
-  <span>Wise Thoughts</span>
-  <span class="tooltip-text">Subscribe on Substack</span>
-</a>
-
-
-
 <button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
   style="
     position: fixed;
@@ -843,7 +667,444 @@ header{display:none;}
 </button>
 
 <!-- Modal Overlay -->
-<div class="pv">${fz(curConv)}</div></div>
+<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
+  style="
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+  ">
+
+  <!-- Modal Box -->
+  <div style="
+    background: #fff;
+    border: 2px solid #000;
+    border-top: 6px solid #d4af37;
+    border-radius: 12px;
+    padding: 30px 28px 24px;
+    width: 92%;
+    max-width: 460px;
+    position: relative;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  ">
+
+    <!-- Close X -->
+    <button onclick="closeFeedback()" style="
+      position: absolute; top: 12px; right: 14px;
+      background: none; border: none; font-size: 22px;
+      cursor: pointer; color: #555; line-height: 1;
+    ">✕</button>
+
+    <!-- Title -->
+    <div style="font-size: 19px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;">
+      Share Your Feedback
+    </div>
+    <div style="font-size: 13px; color: #666; margin-bottom: 20px;">
+      We read every response — thank you for taking the time!
+    </div>
+
+    <!-- Star Rating -->
+    <div style="margin-bottom: 16px;">
+      <div style="font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px;">
+        How helpful was this page?
+      </div>
+      <div id="star-row" style="display: flex; gap: 8px; font-size: 28px; cursor: pointer;">
+        <span class="star" data-val="1" onclick="setRating(1)">☆</span>
+        <span class="star" data-val="2" onclick="setRating(2)">☆</span>
+        <span class="star" data-val="3" onclick="setRating(3)">☆</span>
+        <span class="star" data-val="4" onclick="setRating(4)">☆</span>
+        <span class="star" data-val="5" onclick="setRating(5)">☆</span>
+      </div>
+    </div>
+
+    <!-- Name -->
+    <div style="margin-bottom: 12px;">
+      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
+        Name <span style="color:#999; font-weight:400;">(optional)</span>
+      </label>
+      <input id="fb-name" type="text" placeholder="Your name"
+        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
+               font-size:14px; box-sizing:border-box; outline:none;"
+        onfocus="this.style.borderColor='#d4af37';"
+        onblur="this.style.borderColor='#ccc';">
+    </div>
+
+    <!-- Email -->
+    <div style="margin-bottom: 12px;">
+      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
+        Email <span style="color:#999; font-weight:400;">(optional)</span>
+      </label>
+      <input id="fb-email" type="email" placeholder="your@email.com"
+        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
+               font-size:14px; box-sizing:border-box; outline:none;"
+        onfocus="this.style.borderColor='#d4af37';"
+        onblur="this.style.borderColor='#ccc';">
+    </div>
+
+    <!-- Message -->
+    <div style="margin-bottom: 18px;">
+      <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">
+        Your feedback <span style="color:#a82222;">*</span>
+      </label>
+      <textarea id="fb-message" rows="4" placeholder="What did you find helpful? What can we improve?"
+        style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px;
+               font-size:14px; box-sizing:border-box; resize:vertical; outline:none;
+               font-family: inherit;"
+        onfocus="this.style.borderColor='#d4af37';"
+        onblur="this.style.borderColor='#ccc';"></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button id="fb-submit" onclick="submitFeedback()"
+      style="
+        width: 100%;
+        background: #d4af37;
+        color: #000;
+        border: 2px solid #000;
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s;
+      "
+      onmouseover="this.style.background='#693909'; this.style.color='#fff';"
+      onmouseout="this.style.background='#d4af37'; this.style.color='#000';">
+      Send Feedback
+    </button>
+
+    <!-- Status message -->
+    <div id="fb-status" style="margin-top: 12px; font-size: 13px; text-align: center; min-height: 18px;"></div>
+
+  </div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════════
+// INLINE TAX ENGINE  —  self-contained, no external dependency
+// Brackets: 2026 MFJ projected. Update arrays each November.
+// ══════════════════════════════════════════════════════════════════════════════
+
+const FED_MFJ = [
+  { lo:0,       hi:24800,   r:0.10 },
+  { lo:24800,   hi:100800,  r:0.12 },
+  { lo:100800,  hi:211400,  r:0.22 },
+  { lo:211400,  hi:403550,  r:0.24 },
+  { lo:403550,  hi:512450,  r:0.32 },
+  { lo:512450,  hi:768700,  r:0.35 },
+  { lo:768700,  hi:1e18,    r:0.37 }
+];
+
+const LTCG_MFJ = [
+  { lo:0,       hi:98700,   r:0.00 },
+  { lo:98700,   hi:596000,  r:0.15 },
+  { lo:596000,  hi:1e18,    r:0.20 }
+];
+
+const CA_MFJ = [
+  { lo:0,        hi:22158,   r:0.010 },
+  { lo:22158,    hi:52528,   r:0.020 },
+  { lo:52528,    hi:82904,   r:0.040 },
+  { lo:82904,    hi:115084,  r:0.060 },
+  { lo:115084,   hi:145448,  r:0.080 },
+  { lo:145448,   hi:742958,  r:0.093 },
+  { lo:742958,   hi:891542,  r:0.103 },
+  { lo:891542,   hi:1485906, r:0.113 },
+  { lo:1485906,  hi:1e18,    r:0.123 }
+];
+
+const IRMAA_MFJ = [
+  { tier:0, label:'Standard',      magiHi:212000,  partB_mo:185.00, partD_mo:0     },
+  { tier:1, label:'Tier 1 ⚑',     magiHi:266000,  partB_mo:259.00, partD_mo:12.90 },
+  { tier:2, label:'Tier 2 ⚑⚑',    magiHi:334000,  partB_mo:370.00, partD_mo:33.30 },
+  { tier:3, label:'Tier 3 ⚑⚑⚑',   magiHi:402000,  partB_mo:480.90, partD_mo:53.80 },
+  { tier:4, label:'Tier 4 ⚑⚑⚑⚑',  magiHi:750000,  partB_mo:591.90, partD_mo:74.20 },
+  { tier:5, label:'Tier 5 ⚑⚑⚑⚑⚑', magiHi:1e18,    partB_mo:628.90, partD_mo:81.00 }
+];
+const NIIT_THRESHOLD = 250000;
+
+// ── Core helpers ──────────────────────────────────────────────────────────────
+function applyBrackets(inc, br) {
+  if (inc <= 0) return 0;
+  let t = 0;
+  for (const b of br) {
+    if (inc <= b.lo) break;
+    t += (Math.min(inc, b.hi) - b.lo) * b.r;
+  }
+  return Math.round(t);
+}
+
+function calcTaxableSS(ss, pi) {
+  // Full IRS two-tier worksheet — MFJ thresholds $32k / $44k
+  if (ss <= 0 || pi <= 32000) return 0;
+  if (pi <= 44000) return Math.round(Math.min(ss * 0.5, (pi - 32000) * 0.5));
+  const lowerTier = Math.min(ss * 0.5, 6000);
+  const upperTier = 0.85 * (pi - 44000);
+  return Math.round(Math.min(ss * 0.85, lowerTier + upperTier));
+}
+
+function calcLtcgTax(ordTaxable, ltcgAmt) {
+  // LTCG stacked on top of ordinary taxable income
+  if (ltcgAmt <= 0) return 0;
+  let tax = 0, rem = ltcgAmt;
+  for (const b of LTCG_MFJ) {
+    const lo = Math.max(b.lo, ordTaxable);
+    if (lo >= b.hi) continue;
+    const slice = Math.min(rem, b.hi - lo);
+    if (slice <= 0) continue;
+    tax += slice * b.r;
+    rem -= slice;
+    if (rem <= 0) break;
+  }
+  return Math.round(tax);
+}
+
+function getBracketInfo(taxable, br) {
+  for (let i = 0; i < br.length; i++) {
+    if (taxable >= br[i].lo && taxable < br[i].hi) {
+      return { rate: br[i].r, headroom: br[i].hi - taxable,
+               nextRate: i + 1 < br.length ? br[i+1].r : br[i].r };
+    }
+  }
+  return { rate: br[br.length-1].r, headroom: 0, nextRate: br[br.length-1].r };
+}
+
+function getIRMAA(magi) {
+  for (const b of IRMAA_MFJ) { if (magi <= b.magiHi) return b; }
+  return IRMAA_MFJ[IRMAA_MFJ.length - 1];
+}
+
+// ── Master tax computation ────────────────────────────────────────────────────
+function computeAllTax({ roth, w401, rmd, ss, ltcg, other, fedDed, caDed, caEx }) {
+  const ordIncome  = roth + w401 + rmd + other;
+  const pi         = ordIncome + ltcg + ss * 0.5;
+  const taxSS      = calcTaxableSS(ss, pi);
+  const fedAgiOrd  = ordIncome + taxSS;
+  const fedAgi     = fedAgiOrd + ltcg;
+
+  const totalTaxable = Math.max(0, fedAgi    - fedDed);
+  const ordTaxable   = Math.max(0, fedAgiOrd - fedDed);
+  const ltcgTaxable  = Math.max(0, Math.min(ltcg, totalTaxable - ordTaxable));
+
+  const fedOrdTax  = applyBrackets(ordTaxable, FED_MFJ);
+  const fedLtcgTax = calcLtcgTax(ordTaxable, ltcgTaxable);
+  const niit       = fedAgi > NIIT_THRESHOLD
+    ? Math.round(Math.min(ltcg, fedAgi - NIIT_THRESHOLD) * 0.038) : 0;
+  const fedTaxTotal = fedOrdTax + fedLtcgTax + niit;
+
+  const fedBrk      = getBracketInfo(ordTaxable, FED_MFJ);
+  const fedEffOnAgi = fedAgi > 0 ? fedTaxTotal / fedAgi * 100 : 0;
+
+  const irmaa        = getIRMAA(fedAgi);
+  const irmaaCost_yr = (irmaa.partB_mo + irmaa.partD_mo) * 12 * 2;
+
+  const caAgi     = ordIncome + ltcg;
+  const caTaxable = Math.max(0, caAgi - caDed);
+  const caTaxRaw  = applyBrackets(caTaxable, CA_MFJ);
+  const caTax     = Math.max(0, caTaxRaw - caEx);
+  const caBrk     = getBracketInfo(caTaxable, CA_MFJ);
+  const caEffOnAgi = caAgi > 0 ? caTax / caAgi * 100 : 0;
+
+  const totalIncome      = roth + w401 + rmd + ss + ltcg + other;
+  const totalTax         = fedTaxTotal + caTax;
+  const netIncome        = totalIncome - totalTax;
+  const totalEffOnIncome = totalIncome > 0 ? totalTax / totalIncome * 100 : 0;
+
+  return {
+    ordIncome, totalIncome, pi, taxSS,
+    fedAgiOrd, fedAgi, ordTaxable, ltcgTaxable,
+    fedOrdTax, fedLtcgTax, niit, fedTaxTotal,
+    fedBrk, fedEffOnAgi,
+    irmaa, irmaaCost_yr,
+    caAgi, caTaxable, caTaxRaw, caTax, caBrk, caEffOnAgi,
+    totalTax, netIncome, totalEffOnIncome
+  };
+}
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── Formatters ────────────────────────────────────────────────────────────────
+const fz    = n => '$' + Math.round(n).toLocaleString();
+const fpct  = n => n.toFixed(2) + '%';
+const frate = r => (r * 100).toFixed(1) + '%';
+const IRMAA_COLORS = ['#4ade80','#fbbf24','#fb923c','#f87171','#e879f9','#f472b6'];
+
+// ── Scenario runner ───────────────────────────────────────────────────────────
+function calculateScenario(idx) {
+  const box   = document.querySelectorAll('.scenario-grid .scenario-box')[idx];
+  const getIn = cls => parseFloat(box.querySelector('.' + cls)?.value) || 0;
+
+  const inputs = {
+    roth:   getIn('roth'),   w401: getIn('w401'),
+    ss:     getIn('ss'),     rmd:  getIn('rmd'),
+    other:  getIn('other'),  ltcg: getIn('ltcg'),
+    fedDed: parseFloat(box.querySelector('.scenFedDed')?.value) || 0,
+    caDed:  parseFloat(box.querySelector('.scenCaDed')?.value)  || 0,
+    caEx:   parseFloat(document.getElementById('caExInput').value) || 0
+  };
+
+  const tx = computeAllTax(inputs);
+
+  const set = (cls, val, color) => {
+    const el = box.querySelector('.' + cls);
+    if (!el) return;
+    el.innerText = val;
+    if (color) el.style.color = color;
+  };
+
+  // Income
+  set('totalIncome', fz(tx.totalIncome));
+  set('provInc',     fz(tx.pi));
+  set('taxSs',       fz(tx.taxSS));
+
+  // Federal
+  set('fedAgi',     fz(tx.fedAgi));
+  set('fedDedOut',  fz(inputs.fedDed));
+  set('fedOrdInc',  fz(tx.ordTaxable));
+  set('fedTaxOrd',  fz(tx.fedOrdTax));
+  set('fedTaxLtcg', tx.fedLtcgTax > 0 ? fz(tx.fedLtcgTax) : '—');
+  set('fedNiit',    tx.niit > 0        ? fz(tx.niit)       : '—');
+  set('fedTax',     fz(tx.fedTaxTotal));
+  set('maxBracket', frate(tx.fedBrk.rate));
+  set('fedHeadroom', tx.fedBrk.headroom > 0
+    ? fz(tx.fedBrk.headroom) + ' → ' + frate(tx.fedBrk.nextRate) : 'Top bracket');
+  set('fedEff', fpct(tx.fedEffOnAgi));
+
+  // IRMAA + lookback year
+  const iCol = IRMAA_COLORS[tx.irmaa.tier] || '#4ade80';
+  set('irmaaLabel', tx.irmaa.label, iCol);
+  set('irmaaCost',
+    tx.irmaa.tier > 0 ? fz(tx.irmaaCost_yr) + '/yr couple' : 'Standard ($185/mo)',
+    tx.irmaa.tier > 0 ? '#fb923c' : '#4ade80');
+  // ── IRMAA lookback: Medicare in (Tax Year + 2) ──
+  const taxYear = parseInt(document.getElementById('taxYear').value) || 2026;
+  const irmaaYearEl = box.querySelector('.irmaaYear');
+  if (irmaaYearEl) {
+    irmaaYearEl.innerText = `Medicare Year ${taxYear + 2}`;
+    irmaaYearEl.style.borderColor = iCol;
+    irmaaYearEl.style.color = iCol;
+    irmaaYearEl.style.background = iCol + '18';
+  }
+
+  // California
+  set('caAgi',        fz(tx.caAgi));
+  set('caDedOut',     fz(inputs.caDed));
+  set('caTaxableInc', fz(tx.caTaxable));
+  set('caTaxRaw',     fz(tx.caTaxRaw));
+  set('caExOut',      fz(inputs.caEx));
+  set('caTax',        fz(tx.caTax));
+  set('caMarginal',   frate(tx.caBrk.rate));
+  set('caEff',        fpct(tx.caEffOnAgi));
+
+  // Summary
+  set('totalTax',  fz(tx.totalTax));
+  set('totalEff',  fpct(tx.totalEffOnIncome) + ' of total income');
+  set('netIncome', fz(tx.netIncome));
+
+  return { fedOrd: tx.fedOrdTax, fedLtcg: tx.fedLtcgTax + tx.niit, ca: tx.caTax };
+}
+
+// ── Scenario comparison chart ─────────────────────────────────────────────────
+let chartScenarios = null;
+function renderScenariosChart(data) {
+  const el = document.getElementById('chartTaxBreakdown');
+  if (chartScenarios) chartScenarios.destroy();
+  chartScenarios = new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: ['Scenario 1','Scenario 2','Scenario 3','Scenario 4'],
+      datasets: [
+        { label:'Fed Ordinary',  data:data.map(d=>d.fedOrd),  backgroundColor:'#fb7185cc', borderWidth:0 },
+        { label:'Fed LTCG+NIIT', data:data.map(d=>d.fedLtcg), backgroundColor:'#fb923ccc', borderWidth:0 },
+        { label:'CA Tax',        data:data.map(d=>d.ca),       backgroundColor:'#94a3b8cc', borderWidth:0 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins: {
+        legend:{ display:true, position:'bottom', labels:{ color:'#7d8590', font:{family:'DM Mono',size:11} } },
+        tooltip:{ callbacks:{ footer: items => 'Total: $'+Math.round(items.reduce((s,i)=>s+i.raw,0)).toLocaleString() } }
+      },
+      scales: {
+        x:{ stacked:true, grid:{color:'rgba(48,54,61,.5)'}, ticks:{color:'#7d8590'} },
+        y:{ stacked:true, grid:{color:'rgba(48,54,61,.5)'}, ticks:{color:'#7d8590', callback:v=>'$'+(v/1000).toFixed(0)+'K'} }
+      }
+    }
+  });
+}
+
+function calculateAll() {
+  const results = [];
+  for (let i = 0; i < 4; i++) results.push(calculateScenario(i));
+  renderScenariosChart(results);
+  runOptimizer();
+  runBreakeven();
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FEATURE 1 — ROTH CONVERSION OPTIMIZER
+// Sweeps conversion from $0 → max, computes total tax at each point.
+// Plots total tax curve + IRMAA surcharge. Marks bracket & IRMAA cliff lines.
+// ══════════════════════════════════════════════════════════════════════════════
+let optChart = null;
+
+function gi(id)  { return parseFloat(document.getElementById(id)?.value) || 0; }
+function gii(id) { return parseInt(document.getElementById(id)?.value)   || 0; }
+
+function updateSliderLabel() {
+  const v = document.getElementById('opt_slider').value;
+  document.getElementById('opt_slider_val').innerText = '$' + parseInt(v).toLocaleString();
+  // sync slider max
+  const mx = gii('opt_max') || 300000;
+  document.getElementById('opt_slider').max = mx;
+}
+
+function runOptimizer() {
+  const base = {
+    ss: gi('opt_ss'), rmd: gi('opt_rmd'), w401: gi('opt_w401'),
+    other: gi('opt_other'), ltcg: gi('opt_ltcg'),
+    fedDed: gi('opt_fedDed'), caDed: gi('opt_caDed'),
+    caEx: gi('caExInput')
+  };
+  const maxConv = Math.max(10000, gii('opt_max') || 300000);
+  const step    = Math.max(5000, Math.round(maxConv / 60 / 5000) * 5000);
+  const curConv = parseInt(document.getElementById('opt_slider').value) || 0;
+
+  // Update slider max
+  document.getElementById('opt_slider').max = maxConv;
+  document.getElementById('opt_slider_val').innerText = '$' + curConv.toLocaleString();
+
+  const labels = [], totalTaxes = [], irmaaCosts = [];
+  let prevIRMAATier = -1;
+  const cliffLines = []; // {x, label, color}
+
+  // Add federal bracket boundaries as reference lines (in terms of ordTaxable = roth + base_ord_agi - fedDed)
+  // We'll mark them on the chart as annotations via vertical lines
+  const fedBracketAmts = FED_MFJ.map(b => b.hi).filter(h => h < 1e15);
+  const irmaaBracketAmts = IRMAA_MFJ.map(b => b.magiHi).filter(h => h < 1e15);
+
+  for (let conv = 0; conv <= maxConv; conv += step) {
+    const tx = computeAllTax({ ...base, roth: conv });
+    labels.push('$' + (conv/1000).toFixed(0) + 'k');
+    totalTaxes.push(Math.round(tx.totalTax));
+    irmaaCosts.push(Math.round(tx.irmaaCost_yr));
+
+    // Detect IRMAA tier change
+    if (tx.irmaa.tier !== prevIRMAATier && prevIRMAATier >= 0) {
+      cliffLines.push({ xIdx: labels.length - 1, label: 'IRMAA ' + tx.irmaa.label, color: '#fb923c' });
+    }
+    prevIRMAATier = tx.irmaa.tier;
+  }
+
+  // Current conversion result
+  const curTx = computeAllTax({ ...base, roth: curConv });
+  const brk   = curTx.fedBrk;
+
+  // Update pills
+  const pillHTML = `
+    <div class="opt-pill"><div class="pk">Conv Amount</div><div class="pv">${fz(curConv)}</div></div>
     <div class="opt-pill"><div class="pk">Federal AGI</div><div class="pv blu">${fz(curTx.fedAgi)}</div></div>
     <div class="opt-pill"><div class="pk">Total Tax (Fed+CA)</div><div class="pv red">${fz(curTx.totalTax)}</div></div>
     <div class="opt-pill"><div class="pk">Net Take-Home</div><div class="pv grn">${fz(curTx.netIncome)}</div></div>
@@ -1077,202 +1338,94 @@ calculateAll();
 -->
 
 <script>
-// ── Star rating ──────────────────────────────────────────────────────────────
-let selectedRating = 0;
-const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
+  // ── Config ────────────────────────────────────────────────────
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
+  const PAGE_NAME  = document.title || window.location.pathname;
 
-function setRating(val) {
-  selectedRating = val;
-  document.querySelectorAll('.star').forEach(s => {
-    s.classList.toggle('lit', +s.dataset.val <= val);
-    s.textContent = +s.dataset.val <= val ? '★' : '☆';
-  });
-  document.getElementById('star-label').textContent = starLabels[val] || '';
-}
+  // ── Rating ────────────────────────────────────────────────────
+  let selectedRating = 0;
 
-// ── Checkbox highlight ───────────────────────────────────────────────────────
-document.querySelectorAll('.fb-checks label').forEach(lbl => {
-  lbl.querySelector('input').addEventListener('change', function() {
-    lbl.classList.toggle('checked', this.checked);
-  });
-});
-
-// ── Page-aware auto-check ────────────────────────────────────────────────────
-const pageMap = {
-  'medicare': ['Medicare / ACA'],
-  'healthcare_medicare': ['Medicare / ACA'],
-  'healthcare_aca': ['Medicare / ACA'],
-  'aca_vs_cobra': ['Medicare / ACA'],
-  'medicare_flowchart': ['Medicare / ACA'],
-  'long_term_care': ['Long term care'],
-  'tax_calculator': ['Tax planning'],
-  'retirement_calculator': ['Withdrawal strategy','Investment / Portfolio'],
-  'montecarlo': ['Withdrawal strategy','Investment / Portfolio'],
-  '401k': ['401k / Savings'],
-  'portfolio': ['Investment / Portfolio'],
-  'transition_plan': ['Withdrawal strategy'],
-  'financial_plan': ['Investment / Portfolio'],
-};
-const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
-Object.keys(pageMap).forEach(key => {
-  if (page.includes(key)) {
-    pageMap[key].forEach(topic => {
-      document.querySelectorAll('.fb-checks input').forEach(inp => {
-        if (inp.value === topic) {
-          inp.checked = true;
-          inp.closest('label').classList.add('checked');
-        }
-      });
+  function setRating(val) {
+    selectedRating = val;
+    document.querySelectorAll(".star").forEach(s => {
+      s.textContent = parseInt(s.dataset.val) <= val ? "★" : "☆";
+      s.style.color  = parseInt(s.dataset.val) <= val ? "#d4af37" : "#aaa";
     });
   }
-});
 
-// ── Submit ───────────────────────────────────────────────────────────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-
-function submitFeedback() {
-  const improve = document.getElementById('fb-improve').value.trim();
-  const status  = document.getElementById('fb-status');
-  const btn     = document.getElementById('fb-submit');
-
-  if (!improve) {
-    status.style.color = '#a82222';
-    status.textContent = 'Please share how we can improve — that field is required.';
-    return;
+  // ── Open / Close ──────────────────────────────────────────────
+  function openFeedback() {
+    const overlay = document.getElementById("feedback-overlay");
+    overlay.style.display = "flex";
+    document.getElementById("fb-status").textContent = "";
   }
 
-  const topics = [...document.querySelectorAll('.fb-checks input:checked')].map(i => i.value).join(', ');
-  const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
-  const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
-  const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
-  const q4 = document.querySelector('input[name="q4"]:checked')?.value || '';
+  function closeFeedback() {
+    document.getElementById("feedback-overlay").style.display = "none";
+  }
 
-  const payload = {
-    page:    window.location.pathname.split('/').pop() || 'unknown',
-    rating:  selectedRating ? selectedRating + ' ★' : 'Not rated',
-    topics,
-    q_easy:        q1,
-    q_found:       q2,
-    q_calculators: q3,
-    q_recommend:   q4,
-    useful:  document.getElementById('fb-useful').value.trim(),
-    area:    document.getElementById('fb-area').value,
-    improve,
-    add:     document.getElementById('fb-add').value.trim(),
-    name:    document.getElementById('fb-name').value.trim(),
-    email:   document.getElementById('fb-email').value.trim(),
-  };
+  function closeFeedbackOutside(e) {
+    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
+  }
 
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  status.style.color = '#555';
-  status.textContent = '';
+  // ── Submit ────────────────────────────────────────────────────
+  function submitFeedback() {
+    const message = document.getElementById("fb-message").value.trim();
+    const status  = document.getElementById("fb-status");
+    const btn     = document.getElementById("fb-submit");
 
-  fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
+    if (!message) {
+      status.style.color = "#a82222";
+      status.textContent = "Please enter your feedback before sending.";
+      return;
+    }
+
+    btn.disabled     = true;
+    btn.textContent  = "Sending…";
+    status.textContent = "";
+
+    const payload = {
+      page:    PAGE_NAME,
+      rating:  selectedRating ? selectedRating + " ★" : "Not rated",
+      name:    document.getElementById("fb-name").value.trim(),
+      email:   document.getElementById("fb-email").value.trim(),
+      message: message
+    };
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode:   "no-cors",         // required for Apps Script
+      headers: { "Content-Type": "application/json" },
+      body:   JSON.stringify(payload)
+    })
     .then(() => {
-      status.style.color = '#2e7d32';
-      status.textContent = '✅ Thank you! Your feedback has been received.';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
+      status.style.color = "#2a7a2a";
+      status.textContent = "✅ Thank you! Your feedback has been received.";
+      btn.textContent    = "Send Feedback";
+      btn.disabled       = false;
+      // Reset form
+      document.getElementById("fb-name").value    = "";
+      document.getElementById("fb-email").value   = "";
+      document.getElementById("fb-message").value = "";
+      setRating(0);
+      setTimeout(closeFeedback, 2500);
     })
     .catch(() => {
-      status.style.color = '#a82222';
-      status.textContent = '⚠️ Could not send — please try again.';
-      btn.textContent = 'Send Feedback';
-      btn.disabled = false;
+      status.style.color = "#a82222";
+      status.textContent = "Something went wrong — please try again.";
+      btn.textContent    = "Send Feedback";
+      btn.disabled       = false;
     });
-}
+  }
+
+  // ── Keyboard: Escape to close ─────────────────────────────────
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeFeedback();
+  });
 </script>
 
 
 
 
-
-
-
-
-
-
-<div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
-  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
-         z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
-  <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
-              border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
-              position:relative;font-family:'Segoe UI',Arial,sans-serif;
-              box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
-    <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
-    <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
-    <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
-    <div style="margin-bottom:14px;">
-      <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
-      <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
-        <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
-        <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
-        <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
-        <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
-        <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
-      </div>
-      <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
-        What topic brought you here today?
-      </div>
-      <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
-        <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
-        <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
-        <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
-        <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
-        <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
-        <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
-        <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
-        <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
-      </div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
-        Rate your experience
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
-        <thead><tr>
-          <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
-          <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
-        </tr></thead>
-        <tbody>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td><td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td><td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td><td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-          <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td><td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
-        Your thoughts
-      </div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label><input id="fb-useful" type="text" placeholder="e.g. the comparison table, the calculator..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area needs the most improvement?</label><select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"><option value="">&#x2014; Select an area &#x2014;</option><option>Medicare / ACA content</option><option>Social Security guidance</option><option>Tax planning content</option><option>Retirement calculators</option><option>Portfolio / investment content</option><option>Withdrawal strategy content</option><option>401k / savings content</option><option>Long term care content</option><option>Site navigation / layout</option><option>Mobile experience</option><option>Something not listed</option></select></div>
-      <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">How can we make that area better? <span style="color:#a82222;">*</span></label><textarea id="fb-improve" rows="3" placeholder="Be as specific as you like..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea><div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div></div>
-      <div style="margin-bottom:4px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label><input id="fb-add" type="text" placeholder="e.g. a topic or calculator I'd love to see..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-    </div>
-    <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
-      <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-        <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
-        About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label><input id="fb-name" type="text" placeholder="Your name" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label><input id="fb-email" type="email" placeholder="your@email.com" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
-      </div>
-    </div>
-    <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
-    <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
-  </div>
-</div>
 </body>
 </html>
