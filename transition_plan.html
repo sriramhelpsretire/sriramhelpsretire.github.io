@@ -562,43 +562,74 @@
   
   /* ... existing styles ... */
         
-        /* ── Tooltip Style for Wise Thoughts ── */
-        .tooltip-container {
-            position: relative;
-        }
-        .tooltip-container .tooltip-text {
-            visibility: hidden;
-            width: 160px;
-            background-color: #000000;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 6px 0;
-            position: absolute;
-            z-index: 10001;
-            bottom: 125%;
-            right: 10%;
-            opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .tooltip-container .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 85%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: var(--bar-dark) transparent transparent transparent;
-        }
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
+        /* ── Better Hover handling to prevent sticky mobile states ── */
+  #substack-btn, #feedback-btn {
+    position: fixed;
+    right: 28px;
+    height: 54px;
+    padding: 0 18px;
+    border-radius: 28px;
+    background: #d4af37;
+    border: 2px solid #000;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    z-index: 9999;
+    transition: background 0.2s, transform 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #000;
+    text-decoration: none;
+  }
+  
+  #substack-btn { bottom: 96px; }
+  #feedback-btn { bottom: 28px; }
+
+  @media (hover: hover) {
+    #substack-btn:hover, #feedback-btn:hover {
+      background: #693909 !important;
+      color: #fff !important;
+      transform: scale(1.05);
+    }
+  }
+
+  /* ── Tooltip Style Fixes (Uses correct fallback colors/variables) ── */
+  .tooltip-container { position: relative; }
+  .tooltip-container .tooltip-text {
+    visibility: hidden;
+    width: 160px;
+    background-color: #000000;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 6px 0;
+    position: absolute;
+    z-index: 10001;
+    bottom: 125%;
+    right: 10%;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid var(--gold); /* Swapped broken variable */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .tooltip-container .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 85%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #000 transparent transparent transparent; /* Replaced missing background variable */
+  }
+  .tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
   
   
   
@@ -2015,11 +2046,11 @@ shared.forEach((s, i) => {
     selectedRating = val;
     document.querySelectorAll(".star").forEach(s => {
       const v = parseInt(s.dataset.val);
-      s.textContent = v <= val ? "★" : "☆";
-      s.style.color = v <= val ? "#d4af37" : "#aaa";
+      s.textContent = (val > 0 && v <= val) ? "★" : "☆";
+      s.style.color  = (val > 0 && v <= val) ? "#d4af37" : "#aaa";
     });
     const lbl = document.getElementById("star-label");
-    if (lbl) lbl.textContent = starLabels[val] || "";
+    if (lbl) lbl.textContent = val > 0 ? (starLabels[val] || "") : "";
   }
 
   // ── Open / Close ──────────────────────────────────────────────
