@@ -41,13 +41,21 @@ function doPost(e) {
 
     // Write submission
     sheet.appendRow([
-      new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
-      data.page    || "Unknown",
-      data.rating  || "—",
-      data.name    || "Anonymous",
-      data.email   || "—",
-      data.message || ""
-    ]);
+  new Date(),
+  data.page || '',
+  data.rating || '',
+  data.topics || '',
+  data.q_easy || '',
+  data.q_found || '',
+  data.q_calculators || '',
+  data.q_recommend || '',
+  data.useful || '',
+  data.area || '',
+  data.improve || '',
+  data.add || '',
+  data.name || '',
+  data.email || ''
+]);
 
     return ContentService
       .createTextOutput(JSON.stringify({ result: "success" }))
