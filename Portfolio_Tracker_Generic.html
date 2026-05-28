@@ -73,34 +73,29 @@
     .no-results { color: #888; font-style: italic; text-align: center; padding: 20px; }
 
     /* ── Top Nav (site-wide standard) ── */
-    .top-nav {
-        width: 100%;
-        background-color: #000000;
-        padding: 14px 20px;
-        border-bottom: 4px solid #a82222;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-sizing: border-box;
-        margin: -24px -24px 24px -24px;
-        width: calc(100% + 48px);
-    }
-    .top-nav h1 {
-        font-size: clamp(18px, 3.5vw, 26px);
-        color: #FFFFFF;
-        letter-spacing: 1px;
-        font-weight: 600;
-        margin: 0;
-    }
-    .top-nav select {
-        background: #333333;
-        color: white;
-        padding: 8px;
-        border-radius: 6px;
-        font-weight: bold;
-        border: 1px solid #d4af37;
-        cursor: pointer;
-    }
+    body { padding-top: 68px; }
+    .top-nav{width:100%;background:#000;border-bottom:3px solid #a82222;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:48px;position:fixed;top:0;left:0;z-index:10000;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
+    .nav-brand{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+    .nav-brand img{height:32px;width:32px;}
+    .nav-brand span{color:#fff;font-size:clamp(13px,1.6vw,18px);font-weight:700;white-space:nowrap;}
+    .nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;height:100%;}
+    .nav-item{position:relative;display:flex;align-items:center;}
+    .nav-item>a{display:flex;align-items:center;gap:4px;color:#fff;text-decoration:none;font-size:13px;font-weight:600;padding:0 13px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
+    .nav-item>a .chevron{font-size:9px;opacity:0.7;transition:transform .2s;margin-left:2px;}
+    .nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
+    .nav-item:hover>a .chevron{transform:rotate(180deg);}
+    .nav-dropdown{display:none;position:absolute;top:100%;right:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
+    .nav-dropdown.two-col{min-width:260px;}
+    .nav-item:hover .nav-dropdown{display:block;}
+    .nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
+    .nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
+    .nav-dropdown a .dd-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0;margin-top:1px;}
+    .nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
+    .nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
+    .nav-dropdown a:hover .dd-text span{color:#b8922e;}
+    .nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
+    .nav-mobile-select{display:none;background:#333;color:white;padding:6px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;margin-left:8px;}
+    @media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
     /* ── HOME footer button ── */
     .footer-home {
         display: flex;
@@ -122,48 +117,102 @@
   </style>
 </head>
 <body>
-  <div class="top-nav">
-    <h1>Retire Wise and Live Happy&trade;-------- Build your Portfolio quickly and Track</h1>
-    <select onchange="if(this.value) window.location.href=this.value;">
-        <option value="">Explore Topics</option>
-        <optgroup label="Core Planning">
-            <option value="transition_plan.html">📌 Retirement Made Easy</option>
-            <option value="steps_retirement.html">📌 Steps in Retirement</option>
-            <option value="financial_plan.html">📌 Financial Plan</option>
-            <option value="terms.html">📌 Terms Used</option>
-            <option value="website.html">📌 Web Sites</option>
-        </optgroup>
-        <optgroup label="Calculators">
-            <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
-            <option value="retirement_calculator.html">📌 Retirement Calculator</option>
-            <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
-            <option value="401k_compounding.html">📌 401k Compounding</option>
-            <option value="tax_calculator.html">📌 Income Tax Calculator</option>
-        </optgroup>
-        <optgroup label="Healthcare">
-            <option value="medicare_aca.html">📌 Medicare Hub</option>
-            <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
-            <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
-            <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
-            <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
-            <option value="long_term_care.html">📌 Long Term Care</option>
-        </optgroup>
-        <optgroup label="Go Back">
-            <option value="index.html">🏠 HOME</option>
-        </optgroup>
-    </select>
+<nav class="top-nav">
+  <div class="nav-brand">
+    <img src="logo_rwlh.svg" alt="Logo">
+    <span>Retire Wise and Live Happy&trade;</span>
   </div>
+  <ul class="nav-links">
+    <li class="nav-item">
+      <a href="transition_plan.html">Planning <span class="chevron">&#9662;</span></a>
+      <div class="nav-dropdown">
+        <a href="transition_plan.html"><span class="dd-icon">&#x1F4CC;</span><div class="dd-text"><strong>Retirement Made Easy</strong><span>Working years &#x2192; retirement transition</span></div></a>
+        <a href="steps_retirement.html"><span class="dd-icon">&#x1FA9C;</span><div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div></a>
+        <a href="financial_plan.html"><span class="dd-icon">&#x1F4BC;</span><div class="dd-text"><strong>Financial Plan</strong><span>The 6 pillars of financial planning</span></div></a>
+        <div class="nav-dd-divider"></div>
+        <a href="terms.html"><span class="dd-icon">&#x1F4D6;</span><div class="dd-text"><strong>Terms Used</strong><span>Retirement glossary</span></div></a>
+        <a href="website.html"><span class="dd-icon">&#x1F517;</span><div class="dd-text"><strong>Web Sites</strong><span>Curated external resources</span></div></a>
+        <a href="https://futureyou.wise-retiree.com"><span class="dd-icon">&#x1F4A1;</span><div class="dd-text"><strong>Early Age Planning</strong><span>Future You</span></div></a>
+        <a href="faq.html"><span class="dd-icon">&#x2728;</span><div class="dd-text"><strong>FAQ</strong><span>Frequently Asked Questions</span></div></a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="#"><span style="color:#d4af37">&#x1F9EE;</span> Calculators <span class="chevron">&#9662;</span></a>
+      <div class="nav-dropdown two-col">
+        <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">&#x1F4CA;</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track holdings, live prices</span></div></a>
+        <a href="retirement_calculator.html"><span class="dd-icon">&#x1F4C8;</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Project portfolio growth</span></div></a>
+        <a href="montecarlo_retirement.html"><span class="dd-icon">&#x1F3B2;</span><div class="dd-text"><strong>Retirement Confidence</strong><span>Monte Carlo stress test</span></div></a>
+        <a href="401k_compounding.html"><span class="dd-icon">&#x26A1;</span><div class="dd-text"><strong>401k Compounding</strong><span>Power of starting early</span></div></a>
+        <a href="tax_calculator.html"><span class="dd-icon">&#x1F4B0;</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>4 retirement tax scenarios</span></div></a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="medicare_aca.html"><span style="color:#d4af37">&#x1FA7A;</span> Healthcare <span class="chevron">&#9662;</span></a>
+      <div class="nav-dropdown">
+        <a href="medicare_aca.html"><span class="dd-icon">&#x1F3E5;</span><div class="dd-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div></a>
+        <a href="healthcare_medicare.html"><span class="dd-icon">&#x1F48A;</span><div class="dd-text"><strong>Healthcare &#x2013; Medicare</strong><span>IRMAA, enrollment windows</span></div></a>
+        <a href="healthcare_aca.html"><span class="dd-icon">&#x1F6E1;&#xFE0F;</span><div class="dd-text"><strong>Healthcare &#x2013; ACA</strong><span>Marketplace, subsidies, Covered CA</span></div></a>
+        <div class="nav-dd-divider"></div>
+        <a href="aca_vs_cobra.html"><span class="dd-icon">&#x2696;&#xFE0F;</span><div class="dd-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div></a>
+        <a href="medicare_flowchart.html"><span class="dd-icon">&#x1F5FA;&#xFE0F;</span><div class="dd-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div></a>
+        <a href="long_term_care.html"><span class="dd-icon">&#x1F3E0;</span><div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="index.html" style="color:#d4af37;">&#x1F3E0; Home</a>
+    </li>
+  </ul>
+  <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
+    <option value="">Explore Topics</option>
+    <optgroup label="Core Planning">
+      <option value="transition_plan.html">&#x1F4CC; Retirement Made Easy</option>
+      <option value="steps_retirement.html">&#x1F4CC; Steps in Retirement</option>
+      <option value="financial_plan.html">&#x1F4CC; Financial Plan</option>
+      <option value="terms.html">&#x1F4CC; Terms Used</option>
+      <option value="website.html">&#x1F4CC; Web Sites</option>
+      <option value="faq.html">&#x1F4CC; FAQ</option>
+    </optgroup>
+    <optgroup label="Calculators">
+      <option value="Portfolio_Tracker_Generic.html">&#x1F4CC; Portfolio Manager</option>
+      <option value="retirement_calculator.html">&#x1F4CC; Retirement Calculator</option>
+      <option value="montecarlo_retirement.html">&#x1F4CC; Retirement Confidence</option>
+      <option value="401k_compounding.html">&#x1F4CC; 401k Compounding</option>
+      <option value="tax_calculator.html">&#x1F4CC; Income Tax Calculator</option>
+    </optgroup>
+    <optgroup label="Healthcare">
+      <option value="medicare_aca.html">&#x1F4CC; Medicare Hub</option>
+      <option value="healthcare_medicare.html">&#x1F4CC; Healthcare - Medicare</option>
+      <option value="healthcare_aca.html">&#x1F4CC; Healthcare - ACA</option>
+      <option value="aca_vs_cobra.html">&#x1F4CC; ACA vs COBRA</option>
+      <option value="medicare_flowchart.html">&#x1F4CC; Medicare Flowchart</option>
+      <option value="long_term_care.html">&#x1F4CC; Long Term Care</option>
+    </optgroup>
+    <optgroup label="Go Back">
+      <option value="index.html">&#x1F3E0; HOME</option>
+    </optgroup>
+  </select>
+</nav>
 
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px;">
     <h1><u>Portfolio Tracker</u></h1>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+    <a href="index.html"
+       style="background:#1a1a1a; color:#d4af37; font-weight:bold; padding:10px 18px;
+              border:2px solid #d4af37; border-radius:8px; text-decoration:none;
+              font-size:14px; white-space:nowrap;"
+       onmouseover="this.style.background='#d4af37';this.style.color='#000';"
+       onmouseout="this.style.background='#1a1a1a';this.style.color='#d4af37';">
+      &#x1F3E0; HOME
+    </a>
     <a href="#" id="downloadCsvTemplateBtn"
        style="background:#d4af37; color:#000; font-weight:bold; padding:10px 18px;
               border:2px solid #000; border-radius:8px; text-decoration:none;
               font-size:14px; white-space:nowrap;"
        onmouseover="this.style.background='#693909';this.style.color='#fff';"
        onmouseout="this.style.background:#d4af37;this.style.color='#000';">
-      ⬇ Download CSV Template
+      &#x2B07; Download CSV Template
     </a>
+    </div>
   </div>
 
   <!-- ── How-To Info Card ── -->
@@ -1354,118 +1403,156 @@
   </button>
 
   <!-- Modal Overlay -->
-  <div id="feedback-overlay" onclick="closeFeedbackOutside(event)" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center;">
-    <div style="background: #fff; border: 2px solid #000; border-top: 6px solid #d4af37; border-radius: 12px; padding: 30px 28px 24px; width: 92%; max-width: 460px; position: relative; font-family: 'Segoe UI', Arial, sans-serif; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
-      <button onclick="closeFeedback()" style="position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 22px; cursor: pointer; color: #555; line-height: 1;">✕</button>
-      <div style="font-size: 19px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px;">Share Your Feedback</div>
-      <div style="font-size: 13px; color: #666; margin-bottom: 20px;">We read every response — thank you for taking the time!</div>
-
-      <div style="margin-bottom: 16px;">
-        <div style="font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px;">How helpful was this page?</div>
-        <div id="star-row" style="display: flex; gap: 8px; font-size: 28px; cursor: pointer;">
-          <span class="star" data-val="1" onclick="setRating(1)">☆</span>
-          <span class="star" data-val="2" onclick="setRating(2)">☆</span>
-          <span class="star" data-val="3" onclick="setRating(3)">☆</span>
-          <span class="star" data-val="4" onclick="setRating(4)">☆</span>
-          <span class="star" data-val="5" onclick="setRating(5)">☆</span>
+  <div id="feedback-overlay" onclick="closeFeedbackOutside(event)"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+           z-index:99999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
+    <div style="background:#fff;border:2px solid #000;border-top:6px solid #d4af37;
+                border-radius:12px;padding:28px 26px 22px;width:92%;max-width:500px;
+                position:relative;font-family:'Segoe UI',Arial,sans-serif;
+                box-shadow:0 8px 32px rgba(0,0,0,0.3);max-height:90vh;overflow-y:auto;">
+      <button onclick="closeFeedback()" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#555;">&#x2715;</button>
+      <div style="font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:3px;">&#x1F4EC; Share Your Feedback</div>
+      <div style="font-size:12px;color:#777;margin-bottom:16px;">We read every response &#8212; your input shapes this site. Thank you!</div>
+      <div style="margin-bottom:14px;">
+        <div style="font-size:12.5px;font-weight:600;color:#333;margin-bottom:5px;">Overall, how helpful was this page?</div>
+        <div id="star-row" style="display:flex;gap:7px;font-size:26px;cursor:pointer;">
+          <span class="star" data-val="1" onclick="setRating(1)">&#x2606;</span>
+          <span class="star" data-val="2" onclick="setRating(2)">&#x2606;</span>
+          <span class="star" data-val="3" onclick="setRating(3)">&#x2606;</span>
+          <span class="star" data-val="4" onclick="setRating(4)">&#x2606;</span>
+          <span class="star" data-val="5" onclick="setRating(5)">&#x2606;</span>
+        </div>
+        <div id="star-label" style="font-size:11px;color:#aaa;min-height:15px;margin-top:2px;"></div>
+      </div>
+      <div style="border-top:1px solid #eee;padding-top:13px;margin-top:4px;">
+        <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+          <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">1</span>
+          What topic brought you here today?
+        </div>
+        <div id="topic-checks" style="display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;">
+          <label class="fb-chk"><input type="checkbox" value="Medicare / ACA"> Medicare / ACA</label>
+          <label class="fb-chk"><input type="checkbox" value="Social Security"> Social Security</label>
+          <label class="fb-chk"><input type="checkbox" value="Tax planning"> Tax planning</label>
+          <label class="fb-chk"><input type="checkbox" value="Investment / Portfolio"> Investments</label>
+          <label class="fb-chk"><input type="checkbox" value="Withdrawal strategy"> Withdrawal strategy</label>
+          <label class="fb-chk"><input type="checkbox" value="401k / Savings"> 401k / Savings</label>
+          <label class="fb-chk"><input type="checkbox" value="Long term care"> Long term care</label>
+          <label class="fb-chk"><input type="checkbox" value="Just browsing"> Just browsing</label>
         </div>
       </div>
-
-      <div style="margin-bottom: 12px;">
-        <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">Name <span style="color:#999; font-weight:400;">(optional)</span></label>
-        <input id="fb-name" type="text" placeholder="Your name" style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px; font-size:14px; box-sizing:border-box; outline:none;" onfocus="this.style.borderColor='#d4af37';" onblur="this.style.borderColor='#ccc';">
+      <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+        <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+          <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">2</span>
+          Rate your experience
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+          <thead><tr>
+            <th style="text-align:left;padding:4px 6px;color:#888;font-size:11px;font-weight:600;"></th>
+            <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44D; Yes</th>
+            <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F610; Sort of</th>
+            <th style="text-align:center;padding:4px 6px;color:#888;font-size:11px;font-weight:600;">&#x1F44E; No</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;width:55%;">Content was easy to understand</td><td style="text-align:center;"><input type="radio" name="q1" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q1" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+            <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I found what I was looking for</td><td style="text-align:center;"><input type="radio" name="q2" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q2" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+            <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">Calculators were helpful &amp; accurate</td><td style="text-align:center;"><input type="radio" name="q3" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q3" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+            <tr style="border-top:1px solid #f0f0f0;"><td style="padding:7px 6px;color:#333;font-size:12.5px;">I&#39;d recommend this site to a friend</td><td style="text-align:center;"><input type="radio" name="q4" value="Yes" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="Sort of" style="accent-color:#d4af37;width:15px;height:15px;"></td><td style="text-align:center;"><input type="radio" name="q4" value="No" style="accent-color:#d4af37;width:15px;height:15px;"></td></tr>
+          </tbody>
+        </table>
       </div>
-
-      <div style="margin-bottom: 12px;">
-        <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">Email <span style="color:#999; font-weight:400;">(optional)</span></label>
-        <input id="fb-email" type="email" placeholder="your@email.com" style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px; font-size:14px; box-sizing:border-box; outline:none;" onfocus="this.style.borderColor='#d4af37';" onblur="this.style.borderColor='#ccc';">
+      <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+        <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+          <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">3</span>
+          Your thoughts
+        </div>
+        <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">What was most useful on this page?</label><input id="fb-useful" type="text" placeholder="e.g. the comparison table, the calculator..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+        <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Which area needs the most improvement?</label><select id="fb-area" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"><option value="">&#x2014; Select an area &#x2014;</option><option>Medicare / ACA content</option><option>Social Security guidance</option><option>Tax planning content</option><option>Retirement calculators</option><option>Portfolio / investment content</option><option>Withdrawal strategy content</option><option>401k / savings content</option><option>Long term care content</option><option>Site navigation / layout</option><option>Mobile experience</option><option>Something not listed</option></select></div>
+        <div style="margin-bottom:10px;"><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">How can we make that area better? <span style="color:#a82222;">*</span></label><textarea id="fb-improve" rows="3" placeholder="Be as specific as you like..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></textarea><div style="font-size:11px;color:#999;margin-top:2px;">Your suggestion goes directly to the author.</div></div>
+        <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Anything else you&#39;d like us to add or cover?</label><input id="fb-add" type="text" placeholder="e.g. a topic or calculator I'd love to see..." style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
       </div>
-
-      <div style="margin-bottom: 18px;">
-        <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">Your feedback <span style="color:#a82222;">*</span></label>
-        <textarea id="fb-message" rows="4" placeholder="What did you find helpful? What can we improve?" style="width:100%; padding:9px 12px; border:1.5px solid #ccc; border-radius:6px; font-size:14px; box-sizing:border-box; resize:vertical; outline:none; font-family: inherit;" onfocus="this.style.borderColor='#d4af37';" onblur="this.style.borderColor='#ccc';"></textarea>
+      <div style="border-top:1px solid #eee;padding-top:13px;margin-top:13px;">
+        <div style="font-size:13px;font-weight:700;color:#1a2a3a;margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+          <span style="background:#d4af37;color:#000;font-size:11px;font-weight:800;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">4</span>
+          About you <span style="font-weight:400;color:#999;font-size:11px;margin-left:4px;">(optional)</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Name</label><input id="fb-name" type="text" placeholder="Your name" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+          <div><label style="display:block;font-size:12.5px;font-weight:600;color:#333;margin-bottom:4px;">Email</label><input id="fb-email" type="email" placeholder="your@email.com" style="width:100%;padding:8px 11px;border:1.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#ccc'"></div>
+        </div>
       </div>
-
-      <button id="fb-submit" onclick="submitFeedback()" style="width: 100%; background: #d4af37; color: #000; border: 2px solid #000; border-radius: 8px; padding: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s;" onmouseover="this.style.background='#693909'; this.style.color='#fff';" onmouseout="this.style.background='#d4af37'; this.style.color='#000';">Send Feedback</button>
-      <div id="fb-status" style="margin-top: 12px; font-size: 13px; text-align: center; min-height: 18px;"></div>
+      <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
+      <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
     </div>
   </div>
-  
-  <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-    const PAGE_NAME  = document.title || window.location.pathname;
 
+  <script>
+    (function() {
+      var style = document.createElement('style');
+      style.textContent = '.fb-chk{display:flex;align-items:center;gap:7px;font-size:13px;color:#333;cursor:pointer;padding:6px 8px;border-radius:6px;border:1.5px solid #e0e0e0;transition:border-color .15s,background .15s;}.fb-chk:hover{border-color:#d4af37;background:#fffbf0;}.fb-chk input[type=checkbox]{accent-color:#d4af37;width:15px;height:15px;cursor:pointer;}.fb-chk.checked{border-color:#d4af37;background:#fffbf0;}';
+      document.head.appendChild(style);
+      document.querySelectorAll('.fb-chk').forEach(function(lbl){
+        lbl.querySelector('input').addEventListener('change',function(){lbl.classList.toggle('checked',this.checked);});
+      });
+      var pageMap={'portfolio':['Investment / Portfolio']};
+      var page=window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
+      Object.keys(pageMap).forEach(function(key){if(page.includes(key)){pageMap[key].forEach(function(topic){document.querySelectorAll('.fb-chk input').forEach(function(inp){if(inp.value===topic){inp.checked=true;inp.closest('.fb-chk').classList.add('checked');}});});}});
+    })();
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykmLrSOu8C4Us-FBgygd9xa4fBeAPLfrKreJplnx9nShxYA6CV5EdEwDCU18mQcpBY/exec";
+    const PAGE_NAME  = document.title || window.location.pathname;
     let selectedRating = 0;
+    const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
 
     function setRating(val) {
       selectedRating = val;
       document.querySelectorAll(".star").forEach(s => {
-        s.textContent = parseInt(s.dataset.val) <= val ? "★" : "☆";
-        s.style.color  = parseInt(s.dataset.val) <= val ? "#d4af37" : "#aaa";
+        const v = parseInt(s.dataset.val);
+        s.textContent = (val > 0 && v <= val) ? "★" : "☆";
+        s.style.color  = (val > 0 && v <= val) ? "#d4af37" : "#aaa";
       });
+      const lbl = document.getElementById("star-label");
+      if (lbl) lbl.textContent = val > 0 ? (starLabels[val] || "") : "";
     }
 
     function openFeedback() {
-      const overlay = document.getElementById("feedback-overlay");
-      overlay.style.display = "flex";
+      document.getElementById("feedback-overlay").style.display = "flex";
       document.getElementById("fb-status").textContent = "";
     }
+    function closeFeedback() { document.getElementById("feedback-overlay").style.display = "none"; }
+    function closeFeedbackOutside(e) { if (e.target === document.getElementById("feedback-overlay")) closeFeedback(); }
 
-    function closeFeedback() {
-      document.getElementById("feedback-overlay").style.display = "none";
-    }
-
-    function closeFeedbackOutside(e) {
-      if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
-    }
-
-    // Direct fetch post implementation
     function submitFeedback() {
-      const message = document.getElementById("fb-message").value.trim();
+      const improve = document.getElementById("fb-improve").value.trim();
       const status  = document.getElementById("fb-status");
       const btn     = document.getElementById("fb-submit");
-
-      if (!message) {
-        status.style.color = "#a82222";
-        status.textContent = "Please enter your feedback before sending.";
-        return;
-      }
-
-      btn.disabled     = true;
-      btn.textContent  = "Sending…";
-      status.textContent = "";
-
+      if (!improve) { status.style.color="#a82222"; status.textContent="Please share how we can improve — that field is required."; return; }
+      btn.disabled = true; btn.textContent = "Sending…"; status.textContent = "";
+      const topics = [...document.querySelectorAll('.fb-chk input:checked')].map(i=>i.value).join(', ');
       const payload = {
-        page:    PAGE_NAME,
-        rating:  selectedRating ? selectedRating + " ★" : "Not rated",
-        name:    document.getElementById("fb-name").value.trim(),
-        email:   document.getElementById("fb-email").value.trim(),
-        message: message
+        page: PAGE_NAME,
+        rating: selectedRating ? selectedRating + " ★" : "Not rated",
+        topics,
+        'Easy to Navigate':        document.querySelector('input[name="q1"]:checked')?.value || '',
+        'Found what needed':       document.querySelector('input[name="q2"]:checked')?.value || '',
+        'Useful calculators':      document.querySelector('input[name="q3"]:checked')?.value || '',
+        'Recommend Site':          document.querySelector('input[name="q4"]:checked')?.value || '',
+        'Most useful':             document.getElementById("fb-useful").value.trim(),
+        'Area to improve':         document.getElementById("fb-area").value,
+        'Improvement suggestions': improve,
+        'Additional comments':     document.getElementById("fb-add").value.trim(),
+        name:                      document.getElementById("fb-name").value.trim(),
+        email:                     document.getElementById("fb-email").value.trim(),
       };
-
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        mode:   "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body:   JSON.stringify(payload)
-      })
+      fetch(SCRIPT_URL, { method:"POST", mode:"no-cors", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload) })
       .then(() => {
-        status.style.color = "#2a7a2a";
-        status.textContent = "✅ Thank you! Your feedback has been received.";
-        btn.textContent    = "Send Feedback";
-        btn.disabled       = false;
-        document.getElementById("fb-name").value    = "";
-        document.getElementById("fb-email").value   = "";
-        document.getElementById("fb-message").value = "";
-        setRating(0);
-        setTimeout(closeFeedback, 2500);
+        status.style.color="#2a7a2a"; status.textContent="✅ Thank you! Your feedback has been received.";
+        btn.textContent="Send Feedback"; btn.disabled=false;
+        document.querySelectorAll('.fb-chk input').forEach(i=>{i.checked=false;i.closest('.fb-chk').classList.remove('checked');});
+        ['q1','q2','q3','q4'].forEach(n=>{const r=document.querySelector(`input[name="${n}"]:checked`);if(r)r.checked=false;});
+        ['fb-useful','fb-area','fb-improve','fb-add','fb-name','fb-email'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+        setRating(0); setTimeout(closeFeedback, 2500);
       })
-      .catch(() => {
-        status.style.color = "#a82222";
-        status.textContent = "Something went wrong — please try again.";
-        btn.textContent    = "Send Feedback";
-        btn.disabled       = false;
-      });
+      .catch(() => { status.style.color="#a82222"; status.textContent="Something went wrong — please try again."; btn.textContent="Send Feedback"; btn.disabled=false; });
     }
 
     document.addEventListener("keydown", e => {
