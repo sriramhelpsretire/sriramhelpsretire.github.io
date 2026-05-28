@@ -2036,7 +2036,7 @@ shared.forEach((s, i) => {
   })();
 
   // ── Config ────────────────────────────────────────────────────
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykmLrSOu8C4Us-FBgygd9xa4fBeAPLfrKreJplnx9nShxYA6CV5EdEwDCU18mQcpBY/exec";
   const PAGE_NAME  = document.title || window.location.pathname;
 
   // ── Star rating ───────────────────────────────────────────────
@@ -2080,19 +2080,19 @@ shared.forEach((s, i) => {
 
     const topics = [...document.querySelectorAll('.fb-chk input:checked')].map(i => i.value).join(', ');
     const payload = {
-      page:          PAGE_NAME,
-      rating:        selectedRating ? selectedRating + " ★" : "Not rated",
+      page:                    PAGE_NAME,
+      rating:                  selectedRating ? selectedRating + " ★" : "Not rated",
       topics,
-      q_easy:        document.querySelector('input[name="q1"]:checked')?.value || '',
-      q_found:       document.querySelector('input[name="q2"]:checked')?.value || '',
-      q_calculators: document.querySelector('input[name="q3"]:checked')?.value || '',
-      q_recommend:   document.querySelector('input[name="q4"]:checked')?.value || '',
-      useful:        document.getElementById("fb-useful").value.trim(),
-      area:          document.getElementById("fb-area").value,
-      improve,
-      add:           document.getElementById("fb-add").value.trim(),
-      name:          document.getElementById("fb-name").value.trim(),
-      email:         document.getElementById("fb-email").value.trim(),
+      "Easy to Navigate":      document.querySelector('input[name="q1"]:checked')?.value || '',
+      "Found what needed":     document.querySelector('input[name="q2"]:checked')?.value || '',
+      "Useful calculators":    document.querySelector('input[name="q3"]:checked')?.value || '',
+      "Recommend Site":        document.querySelector('input[name="q4"]:checked')?.value || '',
+      "Most useful":           document.getElementById("fb-useful").value.trim(),
+      "Area to improve":       document.getElementById("fb-area").value,
+      "Improvement suggestions": document.getElementById("fb-improve").value.trim(),
+      "Additional comments":   document.getElementById("fb-add").value.trim(),
+      name:                    document.getElementById("fb-name").value.trim(),
+      email:                   document.getElementById("fb-email").value.trim(),
     };
 
     btn.disabled    = true;
@@ -2110,7 +2110,8 @@ shared.forEach((s, i) => {
       status.textContent = "✅ Thank you! Your feedback has been received.";
       btn.textContent    = "Send Feedback";
       btn.disabled       = false;
-      // Reset
+
+      // Reset form
       document.querySelectorAll('.fb-chk input').forEach(i => { i.checked = false; i.closest('.fb-chk').classList.remove('checked'); });
       ['q1','q2','q3','q4'].forEach(n => { const r = document.querySelector(`input[name="${n}"]:checked`); if(r) r.checked=false; });
       ['fb-useful','fb-area','fb-improve','fb-add','fb-name','fb-email'].forEach(id => {
