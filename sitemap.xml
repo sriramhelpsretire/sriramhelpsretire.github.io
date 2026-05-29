@@ -1,125 +1,142 @@
-This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<script id="eppiocemhmnlbhjplcgkofciiegomcon"/>
-<script/>
-<script/>
-<!--  Homepage  -->
-<url>
-<loc>https://wise-retiree.com/</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>1.0</priority>
-</url>
-<!--  Core Planning Pages  -->
-<url>
-<loc>https://wise-retiree.com/faq.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.95</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/retirement_plan.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/transition_plan.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/steps_retirement.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/financial_plan.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.9</priority>
-</url>
-<!--  Calculators  -->
-<url>
-<loc>https://wise-retiree.com/retirement_calculator.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/montecarlo_retirement.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/401k_compounding.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/tax_calculator.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.9</priority>
-</url>
-<!--  Healthcare Hub & Pages  -->
-<url>
-<loc>https://wise-retiree.com/medicare_aca.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/healthcare_medicare.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/healthcare_aca.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/aca_vs_cobra.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/medicare_flowchart.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.8</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/long_term_care.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.8</priority>
-</url>
-<!--  Reference Pages  -->
-<url>
-<loc>https://wise-retiree.com/terms.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.7</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/website.html</loc>
-<lastmod>2026-05-18</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.7</priority>
-</url>
-<url>
-<loc>https://wise-retiree.com/Portfolio_Tracker_Generic.html</loc>
-<lastmod>2026-05-29</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.7</priority>
-</url>
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://wise-retiree.com/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Core Planning Pages -->
+  <url>
+    <loc>https://wise-retiree.com/faq.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/retirement_plan.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/transition_plan.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/steps_retirement.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/financial_plan.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Calculators -->
+  <url>
+    <loc>https://wise-retiree.com/retirement_calculator.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/montecarlo_retirement.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/401k_compounding.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/tax_calculator.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Healthcare Hub & Pages -->
+  <url>
+    <loc>https://wise-retiree.com/medicare_aca.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/healthcare_medicare.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/healthcare_aca.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/aca_vs_cobra.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/medicare_flowchart.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/long_term_care.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Reference Pages -->
+  <url>
+    <loc>https://wise-retiree.com/terms.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/website.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://wise-retiree.com/Portfolio_Tracker_Generic.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

@@ -4,8 +4,8 @@
 
 A personal retirement education website built for people who want to understand their finances deeply, plan thoughtfully, and retire with confidence.
 
-**Live site:** [https://wise-retiree.com](https://wise-retiree.com)  
-**GitHub Pages URL:** [https://sriramhelpsretire.github.io](https://sriramhelpsretire.github.io) (redirects to the custom domain)
+**Live Site:** [https://wise-retiree.com](https://wise-retiree.com)  
+**GitHub Pages:** [https://sriramhelpsretire.github.io](https://sriramhelpsretire.github.io) (redirects to the custom domain)
 
 ---
 
@@ -29,7 +29,6 @@ The content is written at a CFP-curriculum level but presented in plain language
 | Financial Plan | `financial_plan.html` | The 6 pillars of comprehensive financial planning |
 | Terms Used | `terms.html` | Glossary of key retirement and financial terms |
 | Web Sites | `website.html` | Curated list of trusted external resources |
-| FAQ | `faq.html` | Frequently asked retirement planning questions |
 
 ### 🧮 Calculators
 | Calculator | File | Description |
@@ -49,15 +48,6 @@ The content is written at a CFP-curriculum level but presented in plain language
 | ACA vs COBRA | `aca_vs_cobra.html` | When to pick each, hybrid strategy, pros and cons |
 | Medicare Flowchart | `medicare_flowchart.html` | Medigap, inpatient vs. observation, coverage details |
 | Long Term Care | `long_term_care.html` | LTC types, real costs by care level, who pays and how |
-
----
-
-## 🔍 SEO maintenance
-
-- **`sitemap.xml`** — lists all public pages with canonical URLs on [wise-retiree.com](https://wise-retiree.com); referenced in `robots.txt`.
-- **`.nojekyll`** — disables Jekyll on GitHub Pages so static files (including `sitemap.xml`) are served as-is.
-- **Meta tags** — each public HTML page includes meta description, canonical URL, Open Graph, and Twitter Card tags. Social preview image: `index_pic.jpg`.
-- **Refresh meta tags** — from the repo root, run `python scripts/inject-seo.py` or `powershell -ExecutionPolicy Bypass -File scripts/inject-seo.ps1` after changing page titles or descriptions.
 
 ---
 
@@ -87,7 +77,7 @@ The content is written at a CFP-curriculum level but presented in plain language
 ## 🛠️ Technical Notes
 
 - Built with plain **HTML, CSS, and JavaScript** — no frameworks or build tools
-- Hosted on **GitHub Pages** with custom domain **wise-retiree.com**
+- Hosted on **GitHub Pages** (no server required)
 - Shared tax logic lives in `js/tax_engine.js` — used across multiple calculators
 - All pages use a consistent navigation dropdown (three groups: Core Planning, Calculators, Healthcare)
 - Optimized for both **mobile and desktop** (calculators work best on desktop)
@@ -99,12 +89,11 @@ The content is written at a CFP-curriculum level but presented in plain language
 
 ```
 /
-├── index.html
+├── index.html                      # Home page
 ├── transition_plan.html
 ├── retirement_plan.html
 ├── steps_retirement.html
 ├── financial_plan.html
-├── faq.html
 ├── medicare_aca.html
 ├── healthcare_medicare.html
 ├── healthcare_aca.html
@@ -114,20 +103,14 @@ The content is written at a CFP-curriculum level but presented in plain language
 ├── terms.html
 ├── website.html
 ├── Portfolio_Tracker_Generic.html
-├── Portfolio_Generic.csv
+├── Portfolio_Generic.csv           # CSV template for Portfolio Manager
 ├── retirement_calculator.html
 ├── montecarlo_retirement.html
 ├── 401k_compounding.html
 ├── tax_calculator.html
-├── sitemap.xml
-├── robots.txt
-├── .nojekyll
 ├── js/
-│   └── tax_engine.js
-├── scripts/
-│   ├── inject-seo.py
-│   └── inject-seo.ps1
-└── *.jpg
+│   └── tax_engine.js               # Shared tax calculation engine
+└── *.jpg                           # Page banner and illustration images
 ```
 
 ---
@@ -140,7 +123,7 @@ This website is for **educational purposes only** and does not constitute financ
 
 ## 👤 Author
 
-**Sriram Gopalaratnam**  
+**Sriram Gopalaratnam**
 © 2026 All Rights Reserved.
 
 ---
