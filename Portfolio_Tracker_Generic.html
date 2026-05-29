@@ -114,6 +114,31 @@
         transition: background 0.2s, color 0.2s;
     }
     .footer-home a:hover { background: #693909; color: #fff; }
+    .last-updated {
+      display: flex;
+      justify-content: center;
+      margin: 0 0 28px;
+    }
+    .last-updated-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .last-updated-box .date-value {
+      background: #fffbe6;
+      border: 1.5px solid #d4af37;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-family: Consolas, 'Courier New', monospace;
+      letter-spacing: 0.5px;
+    }
   </style>
 </head>
 <body>
@@ -1559,5 +1584,13 @@
       if (e.key === "Escape") closeFeedback();
     });
   </script>
+
+  <!-- EDIT DATE BELOW when you update this page (MM/DD/YYYY) -->
+  <div class="last-updated">
+    <div class="last-updated-box">
+      Last updated:
+      <span class="date-value">05/29/2026</span>
+    </div>
+  </div>
 </body>
 </html>
