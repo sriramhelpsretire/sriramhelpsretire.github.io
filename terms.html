@@ -4,27 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Retirement Terms Deciphered | Retire Wise and Live Happy</title>
-    <!-- Primary SEO -->
-    <meta name="description" content="Glossary of retirement and financial terms used across Retire Wise and Live Happy - plain-language definitions." />
-    <meta name="keywords" content="retirement glossary, financial terms, retirement definitions" />
-    <meta name="author" content="Sriram Gopalaratnam" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://wise-retiree.com/terms.html" />
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://wise-retiree.com/terms.html" />
-    <meta property="og:title" content="Retirement Glossary | Terms Used" />
-    <meta property="og:description" content="Glossary of retirement and financial terms used across Retire Wise and Live Happy - plain-language definitions." />
-    <meta property="og:image" content="https://wise-retiree.com/index_pic.jpg" />
-    <meta property="og:site_name" content="Retire Wise and Live Happy" />
+<!-- Primary SEO -->
+<meta name="description" content="Plain-English glossary of retirement terms — 401k, IRA, Roth, RMDs, IRMAA, Medicare, ACA, COLA, sequence of returns risk, safe withdrawal rate and more. No jargon, just clarity." />
+<meta name="keywords" content="retirement terms glossary, 401k definition, Roth IRA explained, RMD rules, IRMAA Medicare surcharge, safe withdrawal rate, sequence of returns risk, retirement jargon explained, retirement dictionary" />
+<meta name="author" content="Sriram Gopalaratnam" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://wise-retiree.com/terms.html" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Retirement Glossary | Terms Used" />
-    <meta name="twitter:description" content="Glossary of retirement and financial terms used across Retire Wise and Live Happy - plain-language definitions." />
-    <meta name="twitter:image" content="https://wise-retiree.com/index_pic.jpg" />
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://wise-retiree.com/terms.html" />
+<meta property="og:title" content="Retirement Terms Deciphered | Retire Wise and Live Happy" />
+<meta property="og:description" content="Plain-English glossary of retirement terms — 401k, IRA, Roth, RMDs, IRMAA, Medicare and more. No jargon." />
+<meta property="og:site_name" content="Retire Wise and Live Happy" />
 
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Retirement Terms Deciphered | Retire Wise and Live Happy" />
+<meta name="twitter:description" content="Plain-English glossary of retirement terms — 401k, Roth, RMDs, IRMAA, Medicare, safe withdrawal rate and more." />
 
 <style>
 :root {
@@ -600,112 +598,151 @@ h1 {
 <!-- Modal Overlay -->
 
 	
-	<script>
-// ── Star rating ──────────────────────────────────────────────────────────────
-let selectedRating = 0;
-const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
-
-function setRating(val) {
-  selectedRating = val;
-  document.querySelectorAll('.star').forEach(s => {
-    s.classList.toggle('lit', +s.dataset.val <= val);
-    s.textContent = +s.dataset.val <= val ? '★' : '☆';
-  });
-  document.getElementById('star-label').textContent = starLabels[val] || '';
-}
-
-// ── Checkbox highlight ───────────────────────────────────────────────────────
-document.querySelectorAll('.fb-checks label').forEach(lbl => {
-  lbl.querySelector('input').addEventListener('change', function() {
-    lbl.classList.toggle('checked', this.checked);
-  });
-});
-
-// ── Page-aware auto-check ────────────────────────────────────────────────────
-const pageMap = {
-  'medicare': ['Medicare / ACA'],
-  'healthcare_medicare': ['Medicare / ACA'],
-  'healthcare_aca': ['Medicare / ACA'],
-  'aca_vs_cobra': ['Medicare / ACA'],
-  'medicare_flowchart': ['Medicare / ACA'],
-  'long_term_care': ['Long term care'],
-  'tax_calculator': ['Tax planning'],
-  'retirement_calculator': ['Withdrawal strategy','Investment / Portfolio'],
-  'montecarlo': ['Withdrawal strategy','Investment / Portfolio'],
-  '401k': ['401k / Savings'],
-  'portfolio': ['Investment / Portfolio'],
-  'transition_plan': ['Withdrawal strategy'],
-  'financial_plan': ['Investment / Portfolio'],
-};
-const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
-Object.keys(pageMap).forEach(key => {
-  if (page.includes(key)) {
-    pageMap[key].forEach(topic => {
-      document.querySelectorAll('.fb-checks input').forEach(inp => {
-        if (inp.value === topic) {
-          inp.checked = true;
-          inp.closest('label').classList.add('checked');
-        }
+<script>
+  function initFeedbackForm() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .fb-chk { display:flex;align-items:center;gap:7px;font-size:13px;color:#333;
+                 cursor:pointer;padding:6px 8px;border-radius:6px;
+                 border:1.5px solid #e0e0e0;transition:border-color .15s,background .15s; }
+      .fb-chk:hover { border-color:#d4af37;background:#fffbf0; }
+      .fb-chk input[type=checkbox] { accent-color:#d4af37;width:15px;height:15px;cursor:pointer; }
+      .fb-chk.checked { border-color:#d4af37;background:#fffbf0; }
+    `;
+    document.head.appendChild(style);
+    document.querySelectorAll('.fb-chk').forEach(lbl => {
+      lbl.querySelector('input').addEventListener('change', function() {
+        lbl.classList.toggle('checked', this.checked);
       });
     });
+
+    const pageMap = {
+      'medicare_aca':        ['Medicare / ACA'],
+      'healthcare_medicare': ['Medicare / ACA'],
+      'healthcare_aca':      ['Medicare / ACA'],
+      'aca_vs_cobra':        ['Medicare / ACA'],
+      'medicare_flowchart':  ['Medicare / ACA'],
+      'long_term_care':      ['Long term care'],
+      'tax_calculator':      ['Tax planning'],
+      'retirement_calculator':['Withdrawal strategy','Investment / Portfolio'],
+      'montecarlo':          ['Withdrawal strategy','Investment / Portfolio'],
+      '401k':                ['401k / Savings'],
+      'portfolio':           ['Investment / Portfolio'],
+      'transition_plan':     ['Withdrawal strategy'],
+      'financial_plan':      ['Investment / Portfolio'],
+      'terms':               ['Just browsing'],
+    };
+    const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
+    Object.keys(pageMap).forEach(key => {
+      if (page.includes(key)) {
+        pageMap[key].forEach(topic => {
+          document.querySelectorAll('.fb-chk input').forEach(inp => {
+            if (inp.value === topic) {
+              inp.checked = true;
+              inp.closest('.fb-chk').classList.add('checked');
+            }
+          });
+        });
+      }
+    });
   }
-});
 
-// ── Submit ───────────────────────────────────────────────────────────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykmLrSOu8C4Us-FBgygd9xa4fBeAPLfrKreJplnx9nShxYA6CV5EdEwDCU18mQcpBY/exec";
+  const PAGE_NAME  = document.title || window.location.pathname;
 
-function submitFeedback() {
-  const improve = document.getElementById('fb-improve').value.trim();
-  const status  = document.getElementById('fb-status');
-  const btn     = document.getElementById('fb-submit');
+  let selectedRating = 0;
+  const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
 
-  if (!improve) {
-    status.style.color = '#a82222';
-    status.textContent = 'Please share how we can improve — that field is required.';
-    return;
+  function setRating(val) {
+    selectedRating = val;
+    document.querySelectorAll(".star").forEach(s => {
+      const v = parseInt(s.dataset.val);
+      s.textContent = (val > 0 && v <= val) ? "★" : "☆";
+      s.style.color  = (val > 0 && v <= val) ? "#d4af37" : "#aaa";
+    });
+    const lbl = document.getElementById("star-label");
+    if (lbl) lbl.textContent = val > 0 ? (starLabels[val] || "") : "";
   }
 
-  const topics = [...document.querySelectorAll('.fb-checks input:checked')].map(i => i.value).join(', ');
-  const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
-  const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
-  const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
-  const q4 = document.querySelector('input[name="q4"]:checked')?.value || '';
+  function openFeedback() {
+    document.getElementById("feedback-overlay").style.display = "flex";
+    document.getElementById("fb-status").textContent = "";
+  }
+  function closeFeedback() {
+    document.getElementById("feedback-overlay").style.display = "none";
+  }
+  function closeFeedbackOutside(e) {
+    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
+  }
 
-  const payload = {
-    page:    window.location.pathname.split('/').pop() || 'unknown',
-    rating:  selectedRating ? selectedRating + ' ★' : 'Not rated',
-    topics,
-    q_easy:        q1,
-    q_found:       q2,
-    q_calculators: q3,
-    q_recommend:   q4,
-    useful:  document.getElementById('fb-useful').value.trim(),
-    area:    document.getElementById('fb-area').value,
-    improve,
-    add:     document.getElementById('fb-add').value.trim(),
-    name:    document.getElementById('fb-name').value.trim(),
-    email:   document.getElementById('fb-email').value.trim(),
-  };
+  function submitFeedback() {
+    const improve = document.getElementById("fb-improve").value.trim();
+    const status  = document.getElementById("fb-status");
+    const btn     = document.getElementById("fb-submit");
 
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  status.style.color = '#555';
-  status.textContent = '';
+    if (!improve) {
+      status.style.color = "#a82222";
+      status.textContent = "Please share how we can improve — that field is required.";
+      return;
+    }
 
-  fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
+    const topics = [...document.querySelectorAll('.fb-chk input:checked')].map(i => i.value).join(', ');
+    const payload = {
+      page:                    PAGE_NAME,
+      rating:                  selectedRating ? selectedRating + " ★" : "Not rated",
+      topics,
+      "Easy to Navigate":      document.querySelector('input[name="q1"]:checked')?.value || '',
+      "Found what needed":     document.querySelector('input[name="q2"]:checked')?.value || '',
+      "Useful calculators":    document.querySelector('input[name="q3"]:checked')?.value || '',
+      "Recommend Site":        document.querySelector('input[name="q4"]:checked')?.value || '',
+      "Most useful":           document.getElementById("fb-useful").value.trim(),
+      "Area to improve":       document.getElementById("fb-area").value,
+      "Improvement suggestions": improve,
+      "Additional comments":   document.getElementById("fb-add").value.trim(),
+      name:                    document.getElementById("fb-name").value.trim(),
+      email:                   document.getElementById("fb-email").value.trim(),
+    };
+
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+    status.textContent = "";
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
     .then(() => {
-      status.style.color = '#2e7d32';
-      status.textContent = '✅ Thank you! Your feedback has been received.';
-      btn.textContent = 'Send Feedback';
+      status.style.color = "#2a7a2a";
+      status.textContent = "✅ Thank you! Your feedback has been received.";
+      btn.textContent = "Send Feedback";
       btn.disabled = false;
+      document.querySelectorAll('.fb-chk input').forEach(i => {
+        i.checked = false;
+        i.closest('.fb-chk').classList.remove('checked');
+      });
+      ['q1','q2','q3','q4'].forEach(n => {
+        const r = document.querySelector(`input[name="${n}"]:checked`);
+        if (r) r.checked = false;
+      });
+      ['fb-useful','fb-area','fb-improve','fb-add','fb-name','fb-email'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      setRating(0);
+      setTimeout(closeFeedback, 2500);
     })
     .catch(() => {
-      status.style.color = '#a82222';
-      status.textContent = '⚠️ Could not send — please try again.';
-      btn.textContent = 'Send Feedback';
+      status.style.color = "#a82222";
+      status.textContent = "Something went wrong — please try again.";
+      btn.textContent = "Send Feedback";
       btn.disabled = false;
     });
-}
+  }
+
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeFeedback(); });
+  document.addEventListener("DOMContentLoaded", initFeedbackForm);
 </script>
 
 
@@ -794,6 +831,12 @@ function submitFeedback() {
     <button id="fb-submit" onclick="submitFeedback()" style="width:100%;background:#d4af37;color:#000;border:2px solid #000;border-radius:8px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;transition:background .2s,color .2s;" onmouseover="this.style.background='#693909';this.style.color='#fff';" onmouseout="this.style.background='#d4af37';this.style.color='#000';">Send Feedback</button>
     <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
   </div>
+
+
+
+
+
+
 </div>
 </body>
 </html>
