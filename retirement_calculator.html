@@ -1286,6 +1286,420 @@ function exportToCSV() {
 }
 </script>
 
+
+
+<style>
+    /* 1. Base Structure & Flicker Shields */
+    .rt-hover-card {
+        position: fixed;
+        z-index: 2147483647; /* Set to absolute max to sit safely on top of all frameworks */
+        background: #ffffff !important;
+        color: #334155 !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.12), 0 8px 10px -6px rgba(0,0,0,0.12) !important;
+        padding: 16px !important;
+        width: 360px !important;
+        pointer-events: none !important; /* Critical: Mutes core tracking engine cursor jitter */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.1s ease, visibility 0.1s ease !important;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .rt-hover-card.is-active {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .card-header {
+        border-bottom: 1px solid #e2e8f0 !important;
+        padding-bottom: 8px !important;
+        margin-bottom: 12px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
+        color: #1e293b !important;
+    }
+
+    .card-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+    }
+
+    .card-sec-title {
+        font-size: 0.75rem !important;
+        text-transform: uppercase !important;
+        color: #64748b !important;
+        font-weight: 700 !important;
+        margin-bottom: 6px !important;
+        letter-spacing: 0.05em !important;
+    }
+
+    .card-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-bottom: 4px !important;
+    }
+
+    .card-label { color: #64748b !important; }
+    .card-val { font-weight: 600 !important; color: #334155 !important; }
+    .txt-blue { color: #2563eb !important; }
+    .txt-green { color: #16a34a !important; }
+
+    /* Touch screen filter guardrails */
+    @media (hover: none) {
+        .rt-hover-card { display: none !important; }
+    }
+</style>
+
+<div id="hardened-retirement-hover-card" class="rt-hover-card">
+    <div class="card-header">
+        <span>Year: <span id="hch-year" class="txt-blue">-</span></span>
+        <span>Age: <span id="hch-age" class="txt-blue">-</span></span>
+    </div>
+    <div class="card-grid">
+        <div>
+            <div class="card-sec-title">Balances & Portfolio</div>
+            <div class="card-row"><span class="card-label">401(k):</span><span class="card-val" id="hch-401k">-</span></div>
+            <div class="card-row"><span class="card-label">Roth IRA:</span><span class="card-val" id="hch-roth">-</span></div>
+            <div class="card-row"><span class="card-label">Brokerage:</span><span class="card-val" id="hch-broke">-</span></div>
+            <div class="card-row"><span class="card-label">HSA:</span><span class="card-val" id="hch-hsa">-</span></div>
+            <div class="card-row"><span class="card-label">Bonds:</span><span class="card-val" id="hch-bonds">-</span></div>
+        </div>
+        <div>
+            <div class="card-sec-title">Income & Expenses</div>
+            <div class="card-row"><span class="card-label">Soc. Sec:</span><span class="card-val" id="hch-ss">-</span></div>
+            <div class="card-row"><span class="card-label">RMD:</span><span class="card-val" id="hch-rmd">-</span></div>
+            <div class="card-row"><span class="card-label">Fed Tax:</span><span class="card-val" id="hch-fed">-</span></div>
+            <div class="card-row"><span class="card-label">CA Tax:</span><span class="card-val" id="hch-ca">-</span></div>
+            <div class="card-row"><span class="card-label">Total Tax:</span><span class="card-val" id="hch-totx">-</span></div>
+            <div class="card-row"><span class="card-label">Spending:</span><span class="card-val" id="hch-spend">-</span></div>
+            <div class="card-row"><span class="card-label">Required:</span><span class="card-val txt-green" id="hch-req">-</span></div>
+            <div class="card-row"><span class="card-label">IRMAA:</span><span class="card-val" id="hch-irmaa">-</span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // Execute immediately to bind hooks securely regardless of window loading delays
+    const initializeCard = () => {
+        const card = document.getElementById('hardened-retirement-hover-card');
+        if (!card) return;
+
+        const cardElements = {
+            year: document.getElementById('hch-year'),
+            age: document.getElementById('hch-age'),
+            f01k: document.getElementById('hch-401k'),
+            roth: document.getElementById('hch-roth'),
+            broke: document.getElementById('hch-broke'),
+            hsa: document.getElementById('hch-hsa'),
+            bonds: document.getElementById('hch-bonds'),
+            ss: document.getElementById('hch-ss'),
+            rmd: document.getElementById('hch-rmd'),
+            fed: document.getElementById('hch-fed'),
+            ca: document.getElementById('hch-ca'),
+            totx: document.getElementById('hch-totx'),
+            spend: document.getElementById('hch-spend'),
+            req: document.getElementById('hch-req'),
+            irmaa: document.getElementById('hch-irmaa')
+        };
+
+        // Standard sequential fallback mapping configuration 
+        let mappings = { year: 0, age: 1, f01k: 2, roth: 3, broke: 4, hsa: 5, bonds: 6, ss: 7, rmd: 8, fed: 9, ca: 10, totx: 11, spend: 12, req: 13, irmaa: 14 };
+        
+        // Scan for tables dynamically
+        const table = document.querySelector('table');
+        if (table) {
+            const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent.toLowerCase().trim());
+            if (headers.length > 0) {
+                const findIdx = (keywords) => headers.findIndex(h => keywords.some(k => h.includes(k)));
+                if(findIdx(['year']) !== -1) mappings.year = findIdx(['year']);
+                if(findIdx(['age']) !== -1) mappings.age = findIdx(['age']);
+                if(findIdx(['401']) !== -1) mappings.f01k = findIdx(['401']);
+                if(findIdx(['roth']) !== -1) mappings.roth = findIdx(['roth']);
+                if(findIdx(['brokerage', 'broker']) !== -1) mappings.broke = findIdx(['brokerage', 'broker']);
+                if(findIdx(['hsa']) !== -1) mappings.hsa = findIdx(['hsa']);
+                if(findIdx(['bond']) !== -1) mappings.bonds = findIdx(['bond']);
+                if(findIdx(['soc', 'ss', 'security']) !== -1) mappings.ss = findIdx(['soc', 'ss', 'security']);
+                if(findIdx(['rmd']) !== -1) mappings.rmd = findIdx(['rmd']);
+                if(findIdx(['fed']) !== -1) mappings.fed = findIdx(['fed']);
+                if(findIdx(['ca', 'state']) !== -1) mappings.ca = findIdx(['ca', 'state']);
+                if(findIdx(['total tax', 'tot tax']) !== -1) mappings.totx = findIdx(['total tax', 'tot tax']);
+                if(findIdx(['spending', 'spend']) !== -1) mappings.spend = findIdx(['spending', 'spend']);
+                if(findIdx(['req', 'total amt']) !== -1) mappings.req = findIdx(['req', 'total amt']);
+                if(findIdx(['irmaa']) !== -1) mappings.irmaa = findIdx(['irmaa']);
+            }
+        }
+
+        // Relative responsive tracking calculations
+        function moveCard(e) {
+            const wW = window.innerWidth;
+            const wH = window.innerHeight;
+            const cW = card.offsetWidth;
+            const cH = card.offsetHeight;
+
+            let targetX = e.clientX + 20;
+            let targetY = e.clientY + 20;
+
+            // Strict viewport guardrails to guarantee the element never floats out of frame
+            if (targetX + cW > wW) targetX = e.clientX - cW - 20;
+            if (targetY + cH > wH) targetY = e.clientY - cH - 20;
+
+            card.style.left = targetX + 'px';
+            card.style.top = targetY + 'px';
+        }
+
+        // Global Window Level Delegation ensures loops re-rendering won't crash our calculations
+        window.addEventListener('mouseover', (e) => {
+            const row = e.target.closest('tr');
+            if (!row || row.parentElement.tagName === 'THEAD' || row.closest('thead')) {
+                card.classList.remove('is-active');
+                return;
+            }
+
+            const cells = row.cells;
+            if (!cells || cells.length < 2) return;
+
+            // Deep extract inner values safely
+            Object.keys(mappings).forEach(key => {
+                const index = mappings[key];
+                if (cells[index] && cardElements[key]) {
+                    cardElements[key].textContent = cells[index].textContent.trim() || '—';
+                }
+            });
+
+            card.classList.add('is-active');
+        }, { passive: true });
+
+        window.addEventListener('mousemove', (e) => {
+            if (card.classList.contains('is-active')) {
+                moveCard(e);
+            }
+        }, { passive: true });
+
+        window.addEventListener('mouseout', (e) => {
+            const row = e.target.closest('tr');
+            if (row && (!e.relatedTarget || !row.contains(e.relatedTarget))) {
+                card.classList.remove('is-active');
+            }
+        }, { passive: true });
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeCard);
+    } else {
+        initializeCard();
+    }
+})();
+</script>
+
+<script>
+/**
+ * ─ HOVER CARD for Full Summary Table ────────────────────────────────────
+ * Displays a compact floating card showing all 18 columns when hovering
+ * over a row in the Full Summary (#tsum) table. No external files needed.
+ * ─────────────────────────────────────────────────────────────────────────
+ */
+(function () {
+  'use strict';
+
+  var C = {
+    year:0, hAge:1, wAge:2,
+    f401k:3, roth:4, brok:5, hsa:6, bonds:7,
+    agi:8, portfolio:9,
+    ss:10, rmd:11,
+    fedTax:12, caTax:13, totTax:14,
+    spend:15, reqd:16, irmaa:17
+  };
+
+  var css = [
+    '#hardened-retirement-hover-card{display:none!important}',
+    '#hci{position:fixed;z-index:2147483647;width:390px;',
+    'background:#0d1b2e;border:1px solid #2d4a6e;border-radius:12px;',
+    'box-shadow:0 20px 50px rgba(0,0,0,.7);padding:14px 16px 16px;',
+    'pointer-events:none;opacity:0;visibility:hidden;',
+    'transition:opacity .08s,visibility .08s;',
+    'font-family:"DM Mono",Menlo,monospace;font-size:12px;line-height:1.5;color:#cbd5e1}',
+    '#hci.on{opacity:1!important;visibility:visible!important}',
+    '#hci .hh{display:flex;justify-content:space-between;align-items:baseline;',
+    'border-bottom:1px solid #1e3a5f;padding-bottom:9px;margin-bottom:11px}',
+    '#hci .hy{font-family:"DM Serif Display",serif;font-size:18px;',
+    'font-weight:700;color:#e8c84a}',
+    '#hci .ha{font-size:11px;color:#7a9bbf}',
+    '#hci .ha b{color:#60a5fa;font-weight:600}',
+    '#hci .hg{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}',
+    '#hci .hs{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;',
+    'color:#3d6080;font-weight:700;margin:0 0 5px;padding-bottom:3px;',
+    'border-bottom:1px solid #1a2e42}',
+    '#hci .hst{margin-top:9px}',
+    '#hci .hr{display:flex;justify-content:space-between;',
+    'align-items:baseline;margin-bottom:3px;gap:4px}',
+    '#hci .hl2{color:#4a6680;font-size:11px;white-space:nowrap}',
+    '#hci .hv{font-weight:600;text-align:right;white-space:nowrap}',
+    '#hci .hp{background:rgba(232,200,74,.07);border:1px solid rgba(232,200,74,.2);',
+    'border-radius:5px;padding:4px 7px;margin:8px -6px 5px;',
+    'display:flex;justify-content:space-between;align-items:baseline}',
+    '#hci .hpl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#4a6680}',
+    '#hci .hpv{font-family:"DM Serif Display",serif;font-size:16px;',
+    'color:#e8c84a;font-weight:700}',
+    '.hc-gold{color:#e8c84a}.hc-purple{color:#a78bfa}.hc-blue{color:#60a5fa}',
+    '.hc-green{color:#4ade80}.hc-orange{color:#fb923c}.hc-pink{color:#fb7185}',
+    '.hc-sky{color:#38bdf8}.hc-rose{color:#f472b6}.hc-slate{color:#94a3b8}',
+    '.hc-red{color:#f87171}.hc-lime{color:#a3e635}.hc-yellow{color:#facc15}',
+    '.hc-white{color:#e2e8f0}',
+    '@media(hover:none),(pointer:coarse){#hci{display:none!important}}'
+  ].join('');
+
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  var card = document.createElement('div');
+  card.id = 'hci';
+  card.setAttribute('aria-hidden','true');
+  card.innerHTML =
+    '<div class="hh">' +
+      '<div class="hy" id="hci-yr">—</div>' +
+      '<div class="ha">H&nbsp;<b id="hci-ha">—</b>&nbsp;·&nbsp;W&nbsp;<b id="hci-wa">—</b></div>' +
+    '</div>' +
+    '<div class="hg">' +
+      '<div>' +
+        '<div class="hs">Balances</div>' +
+        row('401(k)',   'hci-401',  'hc-gold')   +
+        row('Roth IRA','hci-roth', 'hc-purple')  +
+        row('Brokerage','hci-brok','hc-blue')    +
+        row('HSA',      'hci-hsa', 'hc-green')   +
+        row('Bonds',    'hci-bnd', 'hc-orange')  +
+        '<div class="hp"><span class="hpl">Total Portfolio</span>' +
+          '<span class="hpv" id="hci-tot">—</span></div>' +
+        '<div class="hr" style="margin-top:4px">' +
+          '<span class="hl2">Fed AGI</span>' +
+          '<span class="hv hc-white" id="hci-agi">—</span></div>' +
+      '</div>' +
+      '<div>' +
+        '<div class="hs">Income</div>' +
+        row('Soc. Security','hci-ss', 'hc-pink') +
+        row('RMD',          'hci-rmd','hc-sky')  +
+        '<div class="hs hst">Taxes</div>'        +
+        row('Federal',   'hci-fed', 'hc-rose')   +
+        row('CA State',  'hci-ca',  'hc-slate')  +
+        row('Total Tax', 'hci-ttx', 'hc-red')    +
+        '<div class="hs hst">Expenses</div>'     +
+        row('Spending',     'hci-spd','hc-lime')  +
+        row('Total Req\'d', 'hci-req','hc-yellow')+
+        row('IRMAA',        'hci-irm','hc-orange')+
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(card);
+
+  function row(label, id, cls) {
+    return '<div class="hr"><span class="hl2">'+label+'</span>' +
+           '<span class="hv '+cls+'" id="'+id+'">—</span></div>';
+  }
+
+  var E = {
+    yr:  'hci-yr',  ha:  'hci-ha',  wa:  'hci-wa',
+    a401:'hci-401', roth:'hci-roth',brok:'hci-brok',
+    hsa: 'hci-hsa', bnd: 'hci-bnd', tot: 'hci-tot',
+    agi: 'hci-agi', ss:  'hci-ss',  rmd: 'hci-rmd',
+    fed: 'hci-fed', ca:  'hci-ca',  ttx: 'hci-ttx',
+    spd: 'hci-spd', req: 'hci-req', irm: 'hci-irm'
+  };
+
+  var MAP = [
+    [C.year,      'yr'],
+    [C.hAge,      'ha'],
+    [C.wAge,      'wa'],
+    [C.f401k,     'a401'],
+    [C.roth,      'roth'],
+    [C.brok,      'brok'],
+    [C.hsa,       'hsa'],
+    [C.bonds,     'bnd'],
+    [C.agi,       'agi'],
+    [C.portfolio, 'tot'],
+    [C.ss,        'ss'],
+    [C.rmd,       'rmd'],
+    [C.fedTax,    'fed'],
+    [C.caTax,     'ca'],
+    [C.totTax,    'ttx'],
+    [C.spend,     'spd'],
+    [C.reqd,      'req'],
+    [C.irmaa,     'irm']
+  ];
+
+  function cellText(cell) {
+    if (!cell) return '—';
+    var txt = '';
+    cell.childNodes.forEach(function(n){
+      if (n.nodeType === 3) txt += n.textContent;
+    });
+    txt = txt.trim();
+    if (!txt) txt = cell.innerText.trim();
+    return txt || '—';
+  }
+
+  function populate(tr) {
+    var cells = tr.cells;
+    if (!cells || cells.length < 15) return false;
+    MAP.forEach(function(pair){
+      var colIdx = pair[0], key = pair[1];
+      var el = document.getElementById(E[key]);
+      if (el) el.textContent = cellText(cells[colIdx]);
+    });
+    return true;
+  }
+
+  function place(e) {
+    var pad = 18, cw = 390, ch = card.offsetHeight || 280;
+    var ww = window.innerWidth, wh = window.innerHeight;
+    var x = e.clientX + pad, y = e.clientY + pad;
+    if (x + cw > ww - pad) x = e.clientX - cw - pad;
+    if (y + ch > wh - pad) y = e.clientY - ch - pad;
+    card.style.left = Math.max(pad, x) + 'px';
+    card.style.top  = Math.max(pad, y) + 'px';
+  }
+
+  var curRow = null;
+
+  document.addEventListener('mouseover', function(e) {
+    var target = e.target;
+    var tr = target.closest ? target.closest('#tsum tbody tr') : null;
+    if (!tr) {
+      if (curRow) { card.classList.remove('on'); curRow = null; }
+      return;
+    }
+    if (tr === curRow) return;
+    curRow = tr;
+    if (populate(tr)) {
+      place(e);
+      card.classList.add('on');
+    }
+  }, {passive:true});
+
+  document.addEventListener('mousemove', function(e) {
+    if (curRow) place(e);
+  }, {passive:true});
+
+  document.addEventListener('mouseout', function(e) {
+    var tr = e.target.closest('#tsum tbody tr');
+    if (!tr) return;
+    var newTr = e.relatedTarget ? e.relatedTarget.closest('#tsum tbody tr') : null;
+    if (newTr !== tr) {
+      card.classList.remove('on');
+      curRow = null;
+    }
+  }, {passive:true});
+
+})();
+</script>
+
 </body>
   <!-- 
     
