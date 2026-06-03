@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Cost &amp; Premium Predictor (ACA &amp; IRMAA) | Retire Wise and Live Happy</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Predict early retirement healthcare costs, model ACA premium tax credit subsidies, and avoid structural Medicare IRMAA premium surcharges." />
+  <meta name="keywords" content="ACA subsidies, Covered California, IRMAA surcharge, Medicare premiums, retirement healthcare costs" />
+  <meta name="author" content="Sriram Gopalaratnam" />
+  <meta name="robots" content="index, follow" />
+  <link class="canonical" href="https://wise-retiree.com/healthcare_premium_predictor.html" />
+
+  <!-- Google Fonts & Tailwind Integration -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #DAE2EB;
+      color: #161b22;
+      padding-top: 72px;
+    }
+    body::after {
+      content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #a82222; z-index: 10005;
+    }
+    /* ── TOP NAV ── */
+    .top-nav {
+      width:100%; background:#000; border-bottom:4px solid #a82222;
+      display:flex; align-items:stretch; justify-content:space-between;
+      padding:0 24px; position:fixed; top:0; left:0; z-index:10000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.35); box-sizing:border-box; height:52px;
+    }
+    .nav-left { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .nav-left img { height:34px; width:auto; display:block; }
+    .nav-brand-name {
+      color:#fff; font-size:clamp(13px,1.6vw,18px); font-weight:700;
+      letter-spacing:0.3px; white-space:nowrap; line-height:1.2;
+    }
+    .nav-brand-name span {
+      display:block; font-size:10px; font-weight:400;
+      color:#d4af37; letter-spacing:0.5px; margin-top:1px;
+    }
+    .nav-right { display:flex; align-items:stretch; gap:0; margin-left:auto; }
+    .nav-item { position:relative; list-style:none; display:flex; align-items:stretch; }
+    .nav-link {
+      display:flex; align-items:center; gap:5px; color:#fff; text-decoration:none; font-size:13.5px;
+      font-weight:600; padding:0 16px; height:100%; border-bottom:3px solid transparent;
+      transition:all .15s; white-space:nowrap; cursor:pointer;
+    }
+    .nav-item:hover > .nav-link {
+      color:#d4af37; border-bottom-color:#d4af37; background:rgba(212,175,55,0.08);
+    }
+    .chevron { font-size:10px; opacity:.7; }
+    .nav-dropdown {
+      display:none; position:absolute; top:100%; right:0; background:#1a1a1a; border:1px solid #333;
+      border-top:3px solid #d4af37; border-radius:0 0 10px 10px; min-width:260px;
+      box-shadow:0 8px 28px rgba(0,0,0,0.5); z-index:9999; padding:6px 0;
+    }
+    .nav-item:hover .nav-dropdown { display:block; }
+    .nav-dropdown a {
+      display:flex; align-items:flex-start; gap:10px; padding:9px 16px; color:#ddd;
+      text-decoration:none; font-size:13px; border-left:3px solid transparent; transition:all .15s;
+    }
+    .nav-dropdown a:hover { background:rgba(212,175,55,0.10); color:#d4af37; border-left-color:#d4af37; }
+    .dd-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
+    .dd-text { display:flex; flex-direction:column; gap:1px; }
+    .dd-text strong { font-size:13px; font-weight:600; color:inherit; }
+    .dd-text span { font-size:11px; color:#888; }
+    .nav-action-btns { display:flex; align-items:center; gap:8px; padding:0 8px; border-left:1px solid #2a2a2a; }
+    .print-btn {
+      background:transparent; color:#ccc; border:1px solid #444; border-radius:5px;
+      padding:5px 11px; font-size:12px; font-weight:600; cursor:pointer; transition:all .15s;
+    }
+    .print-btn:hover { background:#222; color:#d4af37; border-color:#d4af37; }
+    .home-btn {
+      display:flex; align-items:center; gap:5px; background:#a82222; color:#fff;
+      border:none; border-radius:5px; padding:5px 12px; font-size:12px; font-weight:700;
+      text-decoration:none; transition:background .15s;
+    }
+    .home-btn:hover { background:#c0392b; }
+    @media(max-width:768px) {
+      .nav-item, .nav-action-btns { display:none; }
+    }
+    
+    /* ── LAYOUT EXTRA ── */
+    .font-mono-custom { font-family: 'DM Mono', monospace; }
+    .font-serif-custom { font-family: 'DM Serif Display', serif; }
+    .sidebar-box { background-color: #ffffff; border: 1px solid #c8d2dc; border-radius: 8px; padding: 14px; }
+    .sidebar-heading {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      color: #4a5568; border-bottom: 1px solid #edf2f7; padding-bottom: 4px; margin-bottom: 10px;
+    }
+    .input-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .input-label-row label { font-size: 12px; font-weight: 500; color: #2d3748; }
+    .input-field-style {
+      background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px;
+      padding: 4px 8px; font-size: 13px; width: 110px; text-align: right;
+    }
+    .input-field-style:focus { border-color: #a82222; outline: none; background-color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Menu Layout Layer -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <img src="logo_rwlh.svg" alt="Retire Wise and Live Happy Logo">
+      <div class="nav-brand-name">
+        Retire Wise and Live Happy&trade;
+        <span>Healthcare Optimization Framework</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <li class="nav-item">
+        <a href="#" class="nav-link">Calculators <span class="chevron">▾</span></a>
+        <div class="nav-dropdown">
+          <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track assets</span></div></a>
+          <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Projections</span></div></a>
+          <a href="tax_calculator.html"><span class="dd-icon">💰</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>Tax scenarios</span></div></a>
+          <a href="roth_conversion_optimizer.html"><span class="dd-icon">🎯</span><div class="dd-text"><strong>Roth Optimizer</strong><span>Bracket topping</span></div></a>
+        </div>
+      </li>
+      <div class="nav-action-btns">
+        <button class="print-btn" onclick="window.print()">🖨 Print / PDF</button>
+        <a href="index.html" class="home-btn">HOME</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <header class="mb-6 border-b border-gray-300 pb-4">
+      <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">Healthcare Cost &amp; Premium Predictor</h1>
+      <p class="mt-1 text-xs text-gray-600">
+        Evaluate early retirement healthcare costs under age 65 alongside post-65 Medicare premium surcharge thresholds.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT COLUMN: INPUT METRICS -->
+      <div class="lg:col-span-4 space-y-4">
+        
+        <!-- DEMOGRAPHICS & PROFILE STACK -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Demographics &amp; Filing Profile</div>
+          
+          <div class="mb-3">
+            <label class="block text-[11px] font-bold text-gray-600 mb-1 uppercase tracking-wider font-mono-custom">Filing Status</label>
+            <select id="filingStatus" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1.5 text-xs outline-none font-mono-custom" onchange="runHealthcarePredictor()">
+              <option value="MFJ" selected>Married Filing Jointly (MFJ)</option>
+              <option value="SINGLE">Single Filer</option>
+            </select>
+          </div>
+
+          <div class="input-label-row">
+            <label>Your Age</label>
+            <input type="number" id="primaryAge" value="62" class="input-field-style font-mono-custom" oninput="runHealthcarePredictor()">
+          </div>
+
+          <div class="input-label-row">
+            <label>Household Size (People)</label>
+            <input type="number" id="householdSize" value="2" min="1" max="8" class="input-field-style font-mono-custom" oninput="runHealthcarePredictor()">
+          </div>
+        </div>
+
+        <!-- MAGI TRACKING STACK -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Projected Retirement MAGI</div>
+          <p class="text-[10px] text-gray-500 mb-2 leading-tight">Modified Adjusted Gross Income is the benchmark used to qualify for ACA premium credits and compute IRMAA brackets.</p>
+          
+          <div class="input-label-row">
+            <label>Ordinary Income / Pensions ($)</label>
+            <input type="number" id="magiOrdinary" value="45000" class="input-field-style font-mono-custom" oninput="runHealthcarePredictor()">
+          </div>
+          <div class="input-label-row">
+            <label>Capital Gains / Div. Income ($)</label>
+            <input type="number" id="magiGains" value="15000" class="input-field-style font-mono-custom" oninput="runHealthcarePredictor()">
+          </div>
+          <div class="input-label-row">
+            <label>Planned Roth Conversion ($)</label>
+            <input type="number" id="magiRoth" value="25000" class="input-field-style font-mono-custom" oninput="runHealthcarePredictor()">
+          </div>
+        </div>
+
+        <!-- BASELINE REGIONAL PREMIUM BENCHMARKS -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Regional Market Benchmarks</div>
+          <div class="input-label-row">
+            <label>Est. Unsubsidized Silver Plan ($/mo)</label>
+            <input type="number" id="baseSilverPremium" value="1250" class="input-field-style font-mono-custom" oninput="runHealthcarePredictor()">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: OUTCOMES & ANALYTICAL SANITARY METERS -->
+      <div class="lg:col-span-8 space-y-4">
+        
+        <!-- MAIN STATUS BANNER -->
+        <div id="statusBanner" class="p-5 rounded-xl border border-gray-300 bg-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span id="epochBadge" class="px-2 py-0.5 text-[10px] font-bold uppercase rounded font-mono-custom bg-blue-700 text-white tracking-wider">Early Retirement Phase</span>
+            <h3 id="lblMainOutputTitle" class="text-xl font-black mt-1 text-gray-900 font-serif-custom">Net Monthly Cost Impact</h3>
+            <p id="lblMagiSummary" class="text-xs text-gray-600 font-mono-custom mt-0.5">Total Calculated Houseold MAGI: $85,000</p>
+          </div>
+          <div class="text-left md:text-right">
+            <div id="lblCalculatedMetricTitle" class="text-[9px] uppercase text-gray-500 font-bold tracking-widest font-mono-custom">Net Estimated Cost / mo</div>
+            <div id="lblCalculatedMetricValue" class="text-3xl font-black text-gray-900 font-serif-custom">$0</div>
+          </div>
+        </div>
+
+        <!-- ACA PANEL: SUB-65 ENVIRONMENT -->
+        <div id="panelAca" class="bg-white rounded-xl border border-gray-300 shadow-sm p-5 space-y-4">
+          <div class="border-b border-gray-100 pb-2 flex justify-between items-center">
+            <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider font-mono-custom">ACA Premium Tax Credit Optimization Sandbox</h4>
+            <span id="lblFplPercentage" class="text-[10px] text-blue-700 font-mono-custom font-bold">Calculated FPL Ratio: --%</span>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono-custom text-xs">
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded">
+              <span class="text-[10px] text-gray-500 uppercase font-bold block">Gross Premium Cost</span>
+              <span id="lblAcaGross" class="text-base font-bold text-gray-800">$1,250 / mo</span>
+            </div>
+            <div class="p-3 bg-emerald-50 border border-emerald-200 rounded">
+              <span class="text-[10px] text-emerald-700 uppercase font-bold block">Estimated Tax Subsidy</span>
+              <span id="lblAcaSubsidy" class="text-base font-bold text-emerald-800">$0 / mo</span>
+            </div>
+            <div class="p-3 bg-blue-50 border border-blue-200 rounded">
+              <span class="text-[10px] text-blue-700 uppercase font-bold block">Out of Pocket Premium</span>
+              <span id="lblAcaNet" class="text-base font-bold text-blue-900">$0 / mo</span>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            * Estimates are mapped relative to California health exchange caps. If your household MAGI falls below 138% of the Federal Poverty Level (FPL), you may transition automatically into Medi-Cal parameters.
+          </p>
+        </div>
+
+        <!-- MEDICARE PANEL: POST-65 IRMAA ENVIRONMENTAL BRACKETS -->
+        <div id="panelIrmaa" class="bg-white rounded-xl border border-gray-300 shadow-sm p-5 space-y-4">
+          <div class="border-b border-gray-100 pb-2 flex justify-between items-center">
+            <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider font-mono-custom">Medicare Premium IRMAA Bracket Standings</h4>
+            <span id="lblIrmaaStatusBadge" class="px-2 py-0.5 text-[9px] font-bold rounded uppercase font-mono-custom bg-emerald-600 text-white">Safe</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono-custom">
+              <thead class="bg-slate-100 text-gray-700 border-b border-gray-200">
+                <tr>
+                  <th class="p-3 font-semibold">IRMAA Bracket Threshold (2026 Est.)</th>
+                  <th class="p-3 font-semibold text-right">Part B Premium Surcharge</th>
+                  <th class="p-3 font-semibold text-right">Part D Premium Surcharge</th>
+                </tr>
+              </thead>
+              <tbody id="irmaaTableBody" class="divide-y divide-gray-200 text-gray-700">
+                <!-- Javascript compiled data content rows -->
+              </tbody>
+            </table>
+          </div>
+          <p class="text-[11px] text-gray-500 font-mono-custom leading-tight">
+            Note: Medicare applies a **2-year historical look-back** timeframe on tax data filings. Your year 2026 operational MAGI determines premium adjustments enforced during the calendar year 2028.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 2026 Estimated Federal Poverty Level (FPL) Parameters
+    const FPL_BASE_2026 = 15060;
+    const FPL_PER_PERSON_ADDITION_2026 = 5380;
+
+    // 2026 Estimated Structural Medicare IRMAA Surcharge Brackets Look-up Matrices
+    const IRMAA_BRACKETS_2026 = {
+      SINGLE: [
+        { limit: 106000, partB: 0.00,  partD: 0.00 },
+        { limit: 133000, partB: 87.20, partD: 13.50 },
+        { limit: 166000, partB: 217.90, partD: 34.80 },
+        { limit: 199000, partB: 348.60, partD: 56.10 },
+        { limit: 530000, partB: 479.30, partD: 77.40 }
+      ],
+      MFJ: [
+        { limit: 212000, partB: 0.00,  partD: 0.00 },
+        { limit: 266000, partB: 87.20, partD: 13.50 },
+        { limit: 332000, partB: 217.90, partD: 34.80 },
+        { limit: 398000, partB: 348.60, partD: 56.10 },
+        { limit: 1060000, partB: 479.30, partD: 77.40 }
+      ]
+    };
+
+    // Standard baseline Medicare Part B premium cost for reference 
+    const STANDARD_MEDICARE_PART_B_2026 = 185.00;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      runHealthcarePredictor();
+    });
+
+    function runHealthcarePredictor() {
+      const filingStatus = document.getElementById('filingStatus').value;
+      const age = parseInt(document.getElementById('primaryAge').value) || 62;
+      const householdSize = parseInt(document.getElementById('householdSize').value) || 2;
+      
+      const mOrdinary = parseFloat(document.getElementById('magiOrdinary').value) || 0;
+      const mGains = parseFloat(document.getElementById('magiGains').value) || 0;
+      const mRoth = parseFloat(document.getElementById('magiRoth').value) || 0;
+      const grossSilverBase = parseFloat(document.getElementById('baseSilverPremium').value) || 0;
+
+      const totalMagi = mOrdinary + mGains + mRoth;
+      document.getElementById('lblMagiSummary').innerText = `Total Calculated Household MAGI: $${Math.round(totalMagi).toLocaleString()}`;
+
+      // Calculate localized baseline poverty parameters
+      const fplThreshold = FPL_BASE_2026 + ((householdSize - 1) * FPL_PER_PERSON_ADDITION_2026);
+      const fplPercentage = (totalMagi / fplThreshold) * 100;
+      document.getElementById('lblFplPercentage').innerText = `Calculated FPL Ratio: ${fplPercentage.toFixed(0)}%`;
+
+      const epochBadge = document.getElementById('epochBadge');
+      const panelAca = document.getElementById('panelAca');
+      const panelIrmaa = document.getElementById('panelIrmaa');
+
+      if (age < 65) {
+        // --- COMPUTE ACTIVE ACA ENVIRONMENT METHODOLOGIES ---
+        epochBadge.innerText = "Early Retirement Phase (Under Age 65)";
+        epochBadge.className = "px-2 py-0.5 text-[10px] font-bold uppercase rounded font-mono-custom bg-blue-700 text-white tracking-wider";
+        
+        panelAca.style.opacity = "1";
+        panelAca.style.pointerEvents = "auto";
+        panelIrmaa.style.opacity = "0.5";
+
+        let subsidyAmount = 0;
+        // Simple scaling model mirroring historical premium caps as a function of FPL ratio
+        if (fplPercentage <= 138) {
+          subsidyAmount = grossSilverBase * 0.95; // Significant baseline support mechanism
+        } else if (fplPercentage > 138 && fplPercentage <= 400) {
+          let capMultiplier = 0.02 + ((fplPercentage - 138) / 262) * 0.065; 
+          let maximumExpectedContribution = (totalMagi * capMultiplier) / 12;
+          subsidyAmount = Math.max(0, grossSilverBase - maximumExpectedContribution);
+        } else if (fplPercentage > 400 && fplPercentage <= 600) {
+          let maximumExpectedContribution = (totalMagi * 0.085) / 12;
+          subsidyAmount = Math.max(0, grossSilverBase - maximumExpectedContribution);
+        } else {
+          subsidyAmount = 0; // Subsidy value cliffs at extreme income extensions
+        }
+
+        if (subsidyAmount > grossSilverBase) subsidyAmount = grossSilverBase;
+        const netPremiumAca = grossSilverBase - subsidyAmount;
+
+        document.getElementById('lblAcaGross').innerText = `$${Math.round(grossSilverBase).toLocaleString()} / mo`;
+        document.getElementById('lblAcaSubsidy').innerText = `$${Math.round(subsidyAmount).toLocaleString()} / mo`;
+        document.getElementById('lblAcaNet').innerText = `$${Math.round(netPremiumAca).toLocaleString()} / mo`;
+
+        document.getElementById('lblCalculatedMetricTitle').innerText = "Net Estimated ACA Premium / mo";
+        document.getElementById('lblCalculatedMetricValue').innerText = `$${Math.round(netPremiumAca).toLocaleString()}`;
+        document.getElementById('lblCalculatedMetricValue').className = "text-3xl font-black text-blue-900 font-serif-custom";
+
+      } else {
+        // --- COMPUTE ACTIVE POST-65 MEDICARE IRMAA BRACKET ENVIRONMENTS ---
+        epochBadge.innerText = "Medicare Senior Phase (Age 65+)";
+        epochBadge.className = "px-2 py-0.5 text-[10px] font-bold uppercase rounded font-mono-custom bg-purple-700 text-white tracking-wider";
+        
+        panelAca.style.opacity = "0.5";
+        panelAca.style.pointerEvents = "none";
+        panelIrmaa.style.opacity = "1";
+
+        const brackets = IRMAA_BRACKETS_2026[filingStatus];
+        let triggeredPartB_Surcharge = 0;
+        let triggeredPartD_Surcharge = 0;
+        let activeTierIndex = 0;
+
+        for (let i = 0; i < brackets.length; i++) {
+          if (totalMagi > brackets[i].limit) {
+            triggeredPartB_Surcharge = brackets[i].partB;
+            triggeredPartD_Surcharge = brackets[i].partD;
+            activeTierIndex = i + 1;
+          }
+        }
+
+        const totalMonthlyMedicareCostPerPerson = STANDARD_MEDICARE_PART_B_2026 + triggeredPartB_Surcharge + triggeredPartD_Surcharge;
+        
+        document.getElementById('lblCalculatedMetricTitle').innerText = "Total Medicare Premium / person / mo";
+        document.getElementById('lblCalculatedMetricValue').innerText = `$${Math.round(totalMonthlyMedicareCostPerPerson).toLocaleString()}`;
+        document.getElementById('lblCalculatedMetricValue').className = "text-3xl font-black text-purple-900 font-serif-custom";
+
+        const statusBadge = document.getElementById('lblIrmaaStatusBadge');
+        if (activeTierIndex > 0) {
+          statusBadge.innerText = `⚠️ IRMAA Tier ${activeTierIndex} Enforced`;
+          statusBadge.className = "px-2 py-0.5 text-[9px] font-bold rounded uppercase font-mono-custom bg-red-600 text-white";
+        } else {
+          statusBadge.innerText = "✅ Standard Premium Rates";
+          statusBadge.className = "px-2 py-0.5 text-[9px] font-bold rounded uppercase font-mono-custom bg-emerald-600 text-white";
+        }
+      }
+
+      // Re-compile and render structural table elements dynamically
+      renderIrmaaTable(totalMagi, filingStatus);
+    }
+
+    function renderIrmaaTable(currentMagi, status) {
+      const targetBody = document.getElementById('irmaaTableBody');
+      targetBody.innerHTML = '';
+      const brackets = IRMAA_BRACKETS_2026[status];
+
+      brackets.forEach((item, index) => {
+        const row = document.createElement('tr');
+        
+        // Determine highlighting properties if income breaks inside threshold constraints
+        let isTierActive = false;
+        if (index === 0 && currentMagi <= item.limit) isTierActive = true;
+        if (index > 0 && currentMagi > brackets[index-1].limit && currentMagi <= item.limit) isTierActive = true;
+        if (index === brackets.length - 1 && currentMagi > item.limit) isTierActive = true;
+
+        if (isTierActive) {
+          row.className = "bg-amber-50 font-bold border-l-4 border-amber-500";
+        }
+
+        let scopeLabel = index === 0 ? `Under $${item.limit.toLocaleString()}` : `Over $${brackets[index-1].limit.toLocaleString()} up to $${item.limit.toLocaleString()}`;
+        if (index === brackets.length - 1) scopeLabel = `Over $${brackets[index-1].limit.toLocaleString()}`;
+
+        row.innerHTML = `
+          <td class="p-3 font-medium">${scopeLabel} ${isTierActive ? '★' : ''}</td>
+          <td class="p-3 text-right text-slate-900 font-mono-custom">+ $${item.partB.toFixed(2)}/mo</td>
+          <td class="p-3 text-right text-slate-900 font-mono-custom">+ $${item.partD.toFixed(2)}/mo</td>
+        `;
+        targetBody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>

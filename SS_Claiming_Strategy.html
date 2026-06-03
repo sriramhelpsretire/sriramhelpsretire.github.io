@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Security Claiming Strategy Matrix | Retire Wise and Live Happy</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Optimize your lifetime household Social Security benefits. Compare break-even timelines, filing ages from 62 to 70, and delayed retirement credits." />
+  <meta name="keywords" content="Social Security optimization, break even analysis, delayed retirement credits, primary insurance amount" />
+  <meta name="author" content="Sriram Gopalaratnam" />
+  <meta name="robots" content="index, follow" />
+  <link class="canonical" href="https://wise-retiree.com/social_security_matrix.html" />
+
+  <!-- Google Fonts & Tailwind Integration -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #DAE2EB;
+      color: #161b22;
+      padding-top: 72px;
+    }
+    body::after {
+      content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #a82222; z-index: 10005;
+    }
+    /* ── TOP NAV ── */
+    .top-nav {
+      width:100%; background:#000; border-bottom:4px solid #a82222;
+      display:flex; align-items:stretch; justify-content:space-between;
+      padding:0 24px; position:fixed; top:0; left:0; z-index:10000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.35); box-sizing:border-box; height:52px;
+    }
+    .nav-left { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .nav-left img { height:34px; width:auto; display:block; }
+    .nav-brand-name {
+      color:#fff; font-size:clamp(13px,1.6vw,18px); font-weight:700;
+      letter-spacing:0.3px; white-space:nowrap; line-height:1.2;
+    }
+    .nav-brand-name span {
+      display:block; font-size:10px; font-weight:400;
+      color:#d4af37; letter-spacing:0.5px; margin-top:1px;
+    }
+    .nav-right { display:flex; align-items:stretch; gap:0; margin-left:auto; }
+    .nav-item { position:relative; list-style:none; display:flex; align-items:stretch; }
+    .nav-link {
+      display:flex; align-items:center; gap:5px; color:#fff; text-decoration:none; font-size:13.5px;
+      font-weight:600; padding:0 16px; height:100%; border-bottom:3px solid transparent;
+      transition:all .15s; white-space:nowrap; cursor:pointer;
+    }
+    .nav-item:hover > .nav-link {
+      color:#d4af37; border-bottom-color:#d4af37; background:rgba(212,175,55,0.08);
+    }
+    .chevron { font-size:10px; opacity:.7; }
+    .nav-dropdown {
+      display:none; position:absolute; top:100%; right:0; background:#1a1a1a; border:1px solid #333;
+      border-top:3px solid #d4af37; border-radius:0 0 10px 10px; min-width:260px;
+      box-shadow:0 8px 28px rgba(0,0,0,0.5); z-index:9999; padding:6px 0;
+    }
+    .nav-item:hover .nav-dropdown { display:block; }
+    .nav-dropdown a {
+      display:flex; align-items:flex-start; gap:10px; padding:9px 16px; color:#ddd;
+      text-decoration:none; font-size:13px; border-left:3px solid transparent; transition:all .15s;
+    }
+    .nav-dropdown a:hover { background:rgba(212,175,55,0.10); color:#d4af37; border-left-color:#d4af37; }
+    .dd-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
+    .dd-text { display:flex; flex-direction:column; gap:1px; }
+    .dd-text strong { font-size:13px; font-weight:600; color:inherit; }
+    .dd-text span { font-size:11px; color:#888; }
+    .nav-action-btns { display:flex; align-items:center; gap:8px; padding:0 8px; border-left:1px solid #2a2a2a; }
+    .print-btn {
+      background:transparent; color:#ccc; border:1px solid #444; border-radius:5px;
+      padding:5px 11px; font-size:12px; font-weight:600; cursor:pointer; transition:all .15s;
+    }
+    .print-btn:hover { background:#222; color:#d4af37; border-color:#d4af37; }
+    .home-btn {
+      display:flex; align-items:center; gap:5px; background:#a82222; color:#fff;
+      border:none; border-radius:5px; padding:5px 12px; font-size:12px; font-weight:700;
+      text-decoration:none; transition:background .15s;
+    }
+    .home-btn:hover { background:#c0392b; }
+    @media(max-width:768px){
+      .nav-item, .nav-action-btns { display:none; }
+    }
+    
+    /* ── LAYOUT EXTRA ── */
+    .font-mono-custom { font-family: 'DM Mono', monospace; }
+    .font-serif-custom { font-family: 'DM Serif Display', serif; }
+    .sidebar-box { background-color: #ffffff; border: 1px solid #c8d2dc; border-radius: 8px; padding: 14px; }
+    .sidebar-heading {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      color: #4a5568; border-bottom: 1px solid #edf2f7; padding-bottom: 4px; margin-bottom: 10px;
+    }
+    .input-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .input-label-row label { font-size: 12px; font-weight: 500; color: #2d3748; }
+    .input-field-style {
+      background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px;
+      padding: 4px 8px; font-size: 13px; width: 110px; text-align: right;
+    }
+    .input-field-style:focus { border-color: #a82222; outline: none; background-color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Menu Layout Layer -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <img src="logo_rwlh.svg" alt="Retire Wise and Live Happy Logo">
+      <div class="nav-brand-name">
+        Retire Wise and Live Happy&trade;
+        <span>Optimization Suite</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <li class="nav-item">
+        <a href="#" class="nav-link">Calculators <span class="chevron">▾</span></a>
+        <div class="nav-dropdown">
+          <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track assets</span></div></a>
+          <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Projections</span></div></a>
+          <a href="roth_conversion_optimizer.html"><span class="dd-icon">🎯</span><div class="dd-text"><strong>Roth Optimizer</strong><span>Bracket topping</span></div></a>
+        </div>
+      </li>
+      <div class="nav-action-btns">
+        <button class="print-btn" onclick="window.print()">🖨 Print / PDF</button>
+        <a href="index.html" class="home-btn">HOME</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <header class="mb-6 border-b border-gray-300 pb-4">
+      <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">Social Security Claiming Strategy Matrix</h1>
+      <p class="mt-1 text-xs text-gray-600">
+        Analyze cumulative lifetime benefits across multiple filing timelines. Identify break-even tipping points driven by the 8% annual delayed retirement credit rules.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT COLUMN: EARNINGS & FILING VARIABLES -->
+      <div class="lg:col-span-4 space-y-4">
+        
+        <!-- PRIMARY FILER STACK -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Primary Earned Income Filer</div>
+          <div class="input-label-row">
+            <label>Estimated PIA at FRA ($/mo)</label>
+            <input type="number" id="primaryPia" value="3000" class="input-field-style font-mono-custom" oninput="calculateMatrix()">
+          </div>
+          <div class="mb-3">
+            <label class="block text-[11px] font-bold text-gray-600 mb-1 uppercase tracking-wider font-mono-custom">Target Strategy Claiming Age</label>
+            <select id="primaryAge" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1.5 text-xs outline-none font-mono-custom" onchange="calculateMatrix()">
+              <option value="62">Age 62 (Early Baseline Reduction)</option>
+              <option value="66">Age 66</option>
+              <option value="67" selected>Age 67 (Full Retirement Age)</option>
+              <option value="70">Age 70 (Maximum Delayed Credits)</option>
+            </select>
+          </div>
+          <div class="input-label-row">
+            <label>Assumed Mortality Age (Years)</label>
+            <input type="number" id="primaryLife" value="85" class="input-field-style font-mono-custom" oninput="calculateMatrix()">
+          </div>
+        </div>
+
+        <!-- SPOUSAL INTEGRATION CHECKBOX -->
+        <div class="sidebar-box shadow-sm">
+          <div class="flex items-center gap-2 mb-3">
+            <input type="checkbox" id="includeSpouse" class="w-4 h-4 accent-amber-600 cursor-pointer" onchange="toggleSpouseUI()">
+            <label for="includeSpouse" class="text-xs font-bold text-gray-700 uppercase tracking-wider font-mono-custom cursor-pointer">Include Household Spouse</label>
+          </div>
+
+          <div id="spouseInputsContainer" class="opacity-40 pointer-events-none transition-all space-y-3">
+            <div class="input-label-row">
+              <label>Spouse PIA at FRA ($/mo)</label>
+              <input type="number" id="spousePia" value="2000" class="input-field-style font-mono-custom" oninput="calculateMatrix()">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-gray-600 mb-1 uppercase tracking-wider font-mono-custom">Spouse Claiming Age</label>
+              <select id="spouseAge" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1.5 text-xs outline-none font-mono-custom" onchange="calculateMatrix()">
+                <option value="62" selected>Age 62 (Early Baseline Reduction)</option>
+                <option value="66">Age 66</option>
+                <option value="67">Age 67 (Full Retirement Age)</option>
+                <option value="70">Age 70 (Maximum Delayed Credits)</option>
+              </select>
+            </div>
+            <div class="input-label-row">
+              <label>Spouse Mortality Age (Years)</label>
+              <input type="number" id="spouseLife" value="88" class="input-field-style font-mono-custom" oninput="calculateMatrix()">
+            </div>
+          </div>
+        </div>
+
+        <!-- COLA PARAMETER STACK -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Economic Adjustments</div>
+          <div class="input-label-row">
+            <label>Annual COLA Factor (%)</label>
+            <input type="number" id="colaFactor" value="2.5" step="0.1" class="input-field-style font-mono-custom" oninput="calculateMatrix()">
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: LIFETIME VALUE MATRIX & METRICS -->
+      <div class="lg:col-span-8 space-y-4">
+        
+        <!-- TARGET STRATEGY LIFETIME SUMMARY BANNER -->
+        <div class="p-5 rounded-xl border border-gray-300 bg-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase rounded font-mono-custom bg-emerald-700 text-white tracking-wider">Selected Strategy Path</span>
+            <h3 class="text-xl font-black mt-1 text-gray-900 font-serif-custom">Cumulative Projected Return</h3>
+            <p id="txtStrategyDescription" class="text-xs text-gray-600 mt-0.5">Calculated tracking data metrics based on mortality profiles.</p>
+          </div>
+          <div class="text-left md:text-right">
+            <div class="text-[9px] uppercase text-gray-500 font-bold tracking-widest font-mono-custom">Total Expected Capital Payout</div>
+            <div id="lblLifetimePayout" class="text-3xl font-black text-gray-900 font-serif-custom">$0</div>
+          </div>
+        </div>
+
+        <!-- MATRIX TABLE INTERACTIVE DISPLAY -->
+        <div class="bg-white rounded-xl border border-gray-300 shadow-sm overflow-hidden">
+          <div class="p-4 bg-slate-50 border-b border-gray-200 flex justify-between items-center">
+            <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider font-mono-custom">Filing Age Comparison Matrix Table</h4>
+            <span class="text-[10px] text-gray-500 font-mono-custom">Values adjusted for compound lifetime COLA factors</span>
+          </div>
+          
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono-custom">
+              <thead class="bg-slate-100 text-gray-700 border-b border-gray-200">
+                <tr>
+                  <th class="p-3 font-semibold">Strategy Track Option</th>
+                  <th class="p-3 font-semibold text-right">Monthly Payout (Age 62 Value)</th>
+                  <th class="p-3 font-semibold text-right">Monthly Payout (Max Age 70 Value)</th>
+                  <th class="p-3 font-semibold text-right">Total Payout (At Primary Mortality)</th>
+                </tr>
+              </thead>
+              <tbody id="matrixTableBody" class="divide-y divide-gray-200 text-gray-800">
+                <!-- Javascript populated template content -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- BREAK EVEN TIMELINE INSIGHT LAYER -->
+        <div class="bg-white p-5 rounded-xl border border-gray-300 shadow-sm">
+          <h3 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 font-mono-custom">Break-Even Analysis Tipping Points</h3>
+          <p id="txtBreakEvenReport" class="text-xs text-gray-700 leading-relaxed font-mono-custom">
+            Comparing early timeline options against delaying tactics...
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Standard Benefit Scaling Ratios relative to Full Retirement Age (FRA = 67 Base)
+    // Age 62 = 70% of PIA | Age 66 = 93.3% of PIA | Age 67 = 100% of PIA | Age 70 = 124% of PIA (8% simple yearly delayed credits)
+    const AGE_FACTORS = { 62: 0.70, 66: 0.933, 67: 1.00, 70: 1.24 };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      calculateMatrix();
+    });
+
+    function toggleSpouseUI() {
+      const isChecked = document.getElementById('includeSpouse').checked;
+      const container = document.getElementById('spouseInputsContainer');
+      if (isChecked) {
+        container.classList.remove('opacity-40', 'pointer-events-none');
+      } else {
+        container.classList.add('opacity-40', 'pointer-events-none');
+      }
+      calculateMatrix();
+    }
+
+    function calculateMatrix() {
+      const primaryPia = parseFloat(document.getElementById('primaryPia').value) || 0;
+      const primarySelectAge = parseInt(document.getElementById('primaryAge').value);
+      const primaryMaxAge = parseFloat(document.getElementById('primaryLife').value) || 0;
+      
+      const includeSpouse = document.getElementById('includeSpouse').checked;
+      const spousePia = parseFloat(document.getElementById('spousePia').value) || 0;
+      const spouseSelectAge = parseInt(document.getElementById('spouseAge').value);
+      const spouseMaxAge = parseFloat(document.getElementById('spouseLife').value) || 0;
+      
+      const COLA = (parseFloat(document.getElementById('colaFactor').value) || 0) / 100;
+
+      // Compute Selected Track Capital Output
+      let chosenTotal = computeStrategyValue(primaryPia, primarySelectAge, primaryMaxAge, COLA);
+      let strategyText = `Primary Filer claiming at Age ${primarySelectAge}.`;
+      
+      if (includeSpouse) {
+        chosenTotal += computeStrategyValue(spousePia, spouseSelectAge, spouseMaxAge, COLA);
+        strategyText += ` Combined with Spousal Filing path initiated at Age ${spouseSelectAge}.`;
+      }
+      
+      document.getElementById('lblLifetimePayout').innerText = `$${Math.round(chosenTotal).toLocaleString()}`;
+      document.getElementById('txtStrategyDescription').innerText = strategyText;
+
+      // Build Comparative Matrix Table Dataset
+      const tableBody = document.getElementById('matrixTableBody');
+      tableBody.innerHTML = ''; // Wipe contents
+
+      const strategies = [62, 66, 67, 70];
+      
+      strategies.forEach(age => {
+        let pMonthlyEarly = primaryPia * AGE_FACTORS[62];
+        let pMonthlyTarget = primaryPia * AGE_FACTORS[age];
+        
+        let rowLifetimeTotal = computeStrategyValue(primaryPia, age, primaryMaxAge, COLA);
+        let rowLabel = `Primary Filer Defers to Age ${age}`;
+
+        if (includeSpouse) {
+          rowLifetimeTotal += computeStrategyValue(spousePia, age, spouseMaxAge, COLA); // Sync spousal age for table clean comparison
+          rowLabel = `Household Sync Path: Age ${age}`;
+          pMonthlyEarly += spousePia * AGE_FACTORS[62];
+          pMonthlyTarget += spousePia * AGE_FACTORS[age];
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = (age === primarySelectAge) ? "bg-amber-50 font-bold border-l-4 border-amber-500" : "";
+        tr.innerHTML = `
+          <td class="p-3 font-medium">${rowLabel} ${(age === primarySelectAge) ? '★' : ''}</td>
+          <td class="p-3 text-right text-gray-600">$${Math.round(pMonthlyEarly).toLocaleString()}/mo</td>
+          <td class="p-3 text-right text-slate-900 font-bold">$${Math.round(pMonthlyTarget).toLocaleString()}/mo</td>
+          <td class="p-3 text-right text-emerald-800 font-bold">$${Math.round(rowLifetimeTotal).toLocaleString()}</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+
+      // Simple Dynamic Break-Even Analytical Narrative Engine
+      let earlyTotalTimeline = computeStrategyValue(primaryPia, 62, primaryMaxAge, COLA);
+      let lateTotalTimeline = computeStrategyValue(primaryPia, 70, primaryMaxAge, COLA);
+      
+      let breakEvenReport = "";
+      if (primaryMaxAge <= 78) {
+        breakEvenReport = `Based on your assumed mortality target of age ${primaryMaxAge}, filing early at Age 62 optimizes total capital efficiency. Waiting until age 70 requires reaching approximately age 78-80 to recoup the initial skipped payout years.`;
+      } else {
+        let varianceBenefit = lateTotalTimeline - earlyTotalTimeline;
+        breakEvenReport = `Given a sustained life expectancy of age ${primaryMaxAge}, waiting until Age 70 to maximize delayed retirement credits yields approximately $${Math.round(varianceBenefit).toLocaleString()} more in total lifetime household wealth compared to the early filing framework at Age 62.`;
+      }
+      document.getElementById('txtBreakEvenReport').innerText = breakEvenReport;
+    }
+
+    function computeStrategyValue(pia, claimAge, maxAge, COLA) {
+      let cumulativeSum = 0;
+      let baseBenefit = pia * AGE_FACTORS[claimAge];
+
+      // Step chronologically month-by-month or year-by-year from age 62 up through projected maximum mortality limits
+      for (let age = 62; age < maxAge; age++) {
+        if (age >= claimAge) {
+          // Compound standard inflation indexing factor annually across execution time horizons
+          let yearsCompounded = age - 62;
+          let indexedBenefit = baseBenefit * Math.pow((1 + COLA), yearsCompounded);
+          cumulativeSum += (indexedBenefit * 12);
+        }
+      }
+      return cumulativeSum;
+    }
+  </script>
+</body>
+</html>

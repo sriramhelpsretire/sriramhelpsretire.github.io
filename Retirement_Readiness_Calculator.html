@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retirement Readiness Calculator | Retire Wise and Live Happy</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Discover if you are ready to retire today. This orchestrator pulls real-time balances from your Portfolio Tracker and stress-tests dynamic spending pathways." />
+  <meta name="keywords" content="retirement readiness, gap analysis, portfolio synchronization, retirement strategy checker" />
+  <meta name="author" content="Sriram Gopalaratnam" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://wise-retiree.com/Retirement_Readiness_Calculator.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://wise-retiree.com/Retirement_Readiness_Calculator.html" />
+  <meta property="og:title" content="Retirement Readiness Calculator | Retire Wise and Live Happy" />
+  <meta property="og:description" content="Synchronize live holdings data to discover potential savings and timeline gaps for your ideal retirement targets." />
+  <meta property="og:image" content="https://wise-retiree.com/index_pic.jpg" />
+  <meta property="og:site_name" content="Retire Wise and Live Happy" />
+
+  <!-- Google Fonts & Tailwind Integration -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #DAE2EB;
+      color: #161b22;
+      padding-top: 72px;
+    }
+    body::after {
+      content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #c0392b; z-index: 10005;
+    }
+    /* ── TOP NAV ── */
+    .top-nav {
+      width:100%; background:#000; border-bottom:4px solid #a82222;
+      display:flex; align-items:stretch; justify-content:space-between;
+      padding:0 24px; position:fixed; top:0; left:0; z-index:10000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.35); box-sizing:border-box; height:52px;
+    }
+
+    /* Left: logo + brand */
+    .nav-left {
+      display:flex; align-items:center; gap:10px; flex-shrink:0;
+    }
+    .nav-left img {
+      height:34px; width:auto; display:block;
+    }
+    .nav-brand-name {
+      color:#fff; font-size:clamp(13px,1.6vw,18px); font-weight:700;
+      letter-spacing:0.3px; white-space:nowrap; line-height:1.2;
+    }
+    .nav-brand-name span {
+      display:block; font-size:10px; font-weight:400;
+      color:#d4af37; letter-spacing:0.5px; margin-top:1px;
+    }
+
+    /* Right: nav items + action buttons */
+    .nav-right {
+      display:flex; align-items:stretch; gap:0; margin-left:auto;
+    }
+
+    /* Nav items */
+    .nav-item { position:relative; list-style:none; display:flex; align-items:stretch; }
+    .nav-link {
+      display:flex; align-items:center; gap:5px;
+      color:#fff; text-decoration:none; font-size:13.5px; font-weight:600;
+      padding:0 16px; height:100%; border-bottom:3px solid transparent;
+      transition:all .15s; white-space:nowrap; cursor:pointer;
+    }
+    .nav-item:hover > .nav-link {
+      color:#d4af37; border-bottom-color:#d4af37; background:rgba(212,175,55,0.08);
+    }
+    .chevron { font-size:10px; opacity:.7; }
+
+    /* Dropdowns */
+    .nav-dropdown {
+      display:none; position:absolute; top:100%; right:0;
+      background:#1a1a1a; border:1px solid #333; border-top:3px solid #d4af37;
+      border-radius:0 0 10px 10px; min-width:260px;
+      box-shadow:0 8px 28px rgba(0,0,0,0.5); z-index:9999; padding:6px 0;
+    }
+    .nav-item:hover .nav-dropdown { display:block; }
+    .nav-dropdown a {
+      display:flex; align-items:flex-start; gap:10px;
+      padding:9px 16px; color:#ddd; text-decoration:none; font-size:13px;
+      border-left:3px solid transparent; transition:all .15s;
+    }
+    .nav-dropdown a:hover {
+      background:rgba(212,175,55,0.10); color:#d4af37; border-left-color:#d4af37;
+    }
+    .dd-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
+    .dd-text { display:flex; flex-direction:column; gap:1px; }
+    .dd-text strong { font-size:13px; font-weight:600; color:inherit; }
+    .dd-text span { font-size:11px; color:#888; }
+    .nav-dropdown a:hover .dd-text span { color:#b8952a; }
+    .nav-dd-divider { border-top:1px solid #2e2e2e; margin:4px 0; }
+
+    /* Action buttons */
+    .nav-action-btns {
+      display:flex; align-items:center; gap:8px; padding:0 8px; border-left:1px solid #2a2a2a;
+    }
+    .print-btn {
+      background:transparent; color:#ccc; border:1px solid #444;
+      border-radius:5px; padding:5px 11px; font-size:12px; font-weight:600;
+      cursor:pointer; white-space:nowrap; transition:all .15s;
+    }
+    .print-btn:hover { background:#222; color:#d4af37; border-color:#d4af37; }
+    .home-btn {
+      display:flex; align-items:center; gap:5px;
+      background:#a82222; color:#fff; border:none;
+      border-radius:5px; padding:5px 12px; font-size:12px; font-weight:700;
+      text-decoration:none; white-space:nowrap; transition:background .15s;
+    }
+    .home-btn:hover { background:#c0392b; }
+
+    /* Mobile */
+    .nav-mobile-select {
+      display:none; background:#333; color:#fff; padding:5px 10px;
+      border-radius:6px; font-weight:bold; border:1px solid #d4af37;
+      cursor:pointer; align-self:center; margin-left:8px; font-size:13px;
+    }
+    @media(max-width:768px){
+      .nav-item { display:none; }
+      .nav-action-btns { display:none; }
+      .nav-mobile-select { display:block; }
+      .nav-brand-name { font-size:13px; }
+    }
+    .font-mono-custom { font-family: 'DM Mono', monospace; }
+    .font-serif-custom { font-family: 'DM Serif Display', serif; }
+    
+    /* Styled sidebar components match basic layout parameters */
+    .sidebar-box {
+      background-color: #f8fae6;
+      border: 1px solid #c8d2dc;
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .sidebar-heading {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #4a5568;
+      border-bottom: 1px solid #edf2f7;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+    .input-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .input-label-row label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #2d3748;
+    }
+    .input-field-style {
+      background-color: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 13px;
+      width: 110px;
+      text-align: right;
+    }
+    .input-field-style:focus {
+      border-color: #a82222;
+      outline: none;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Top Menu Layer -->
+  <nav class="top-nav">
+
+  <!-- Left: Logo + brand -->
+  <div class="nav-left">
+    <img src="logo_rwlh.svg" alt="Retire Wise and Live Happy Logo">
+    <div class="nav-brand-name">
+      Retire Wise and Live Happy&trade;
+      <span>Retirement Readiness Calculator</span>
+    </div>
+  </div>
+
+  <!-- Right: dropdowns + Print + Home -->
+  <div class="nav-right">
+
+    <li class="nav-item">
+      <a href="transition_plan.html" class="nav-link">Planning <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="transition_plan.html"><span class="dd-icon">📌</span><div class="dd-text"><strong>Retirement Made Easy</strong><span>Working years → retirement transition</span></div></a>
+        <a href="steps_retirement.html"><span class="dd-icon">🪜</span><div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div></a>
+        <a href="financial_plan.html"><span class="dd-icon">💼</span><div class="dd-text"><strong>Financial Plan</strong><span>The 6 pillars of financial planning</span></div></a>
+        <div class="nav-dd-divider"></div>
+        <a href="terms.html"><span class="dd-icon">📖</span><div class="dd-text"><strong>Terms Used</strong><span>Retirement glossary</span></div></a>
+        <a href="website.html"><span class="dd-icon">🔗</span><div class="dd-text"><strong>Web Sites</strong><span>Curated external resources</span></div></a>
+        <a href="https://futureyou.wise-retiree.com"><span class="dd-icon">💡</span><div class="dd-text"><strong>Early Age Planning</strong><span>Future You</span></div></a>
+        <a href="faq.html"><span class="dd-icon">✨</span><div class="dd-text"><strong>FAQ</strong><span>Frequently Asked Questions</span></div></a>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a href="#" class="nav-link"><span style="color:#d4af37">🧮</span> Calculators <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track holdings, live prices</span></div></a>
+        <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Project portfolio growth</span></div></a>
+        <a href="montecarlo_retirement.html"><span class="dd-icon">🎲</span><div class="dd-text"><strong>Retirement Confidence</strong><span>Monte Carlo stress test</span></div></a>
+        <a href="401k_compounding.html"><span class="dd-icon">⚡</span><div class="dd-text"><strong>401k Compounding</strong><span>Power of starting early</span></div></a>
+        <a href="tax_calculator.html"><span class="dd-icon">💰</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>4 retirement tax scenarios</span></div></a>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a href="medicare_aca.html" class="nav-link"><span style="color:#d4af37">🩺</span> Healthcare <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="medicare_aca.html"><span class="dd-icon">🏥</span><div class="dd-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div></a>
+        <a href="healthcare_medicare.html"><span class="dd-icon">💊</span><div class="dd-text"><strong>Healthcare – Medicare</strong><span>IRMAA, enrollment windows</span></div></a>
+        <a href="healthcare_aca.html"><span class="dd-icon">🛡️</span><div class="dd-text"><strong>Healthcare – ACA</strong><span>Marketplace, subsidies, Covered CA</span></div></a>
+        <div class="nav-dd-divider"></div>
+        <a href="aca_vs_cobra.html"><span class="dd-icon">⚖️</span><div class="dd-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div></a>
+        <a href="medicare_flowchart.html"><span class="dd-icon">🗺️</span><div class="dd-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div></a>
+        <a href="long_term_care.html"><span class="dd-icon">🏠</span><div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
+      </div>
+    </li>
+
+    <!-- Print + Home -->
+    <div class="nav-action-btns">
+      <button class="print-btn" onclick="window.print()">🖨 Print / PDF</button>
+      <a href="index.html" class="home-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        HOME
+      </a>
+    </div>
+
+    <!-- Mobile fallback -->
+    <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
+      <option value="">Explore Topics</option>
+      <optgroup label="Core Planning">
+        <option value="transition_plan.html">📌 Retirement Made Easy</option>
+        <option value="steps_retirement.html">📌 Steps in Retirement</option>
+        <option value="financial_plan.html">📌 Financial Plan</option>
+        <option value="terms.html">📌 Terms Used</option>
+        <option value="website.html">📌 Web Sites</option>
+        <option value="faq.html">📌 FAQ</option>
+      </optgroup>
+      <optgroup label="Calculators">
+        <option value="Portfolio_Tracker_Generic.html">📌 Portfolio Manager</option>
+        <option value="retirement_calculator.html">📌 Retirement Calculator</option>
+        <option value="montecarlo_retirement.html">📌 Retirement Confidence</option>
+        <option value="401k_compounding.html">📌 401k Compounding</option>
+        <option value="tax_calculator.html">📌 Income Tax Calculator</option>
+      </optgroup>
+      <optgroup label="Healthcare">
+        <option value="medicare_aca.html">📌 Medicare Hub</option>
+        <option value="healthcare_medicare.html">📌 Healthcare - Medicare</option>
+        <option value="healthcare_aca.html">📌 Healthcare - ACA</option>
+        <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
+        <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
+        <option value="long_term_care.html">📌 Long Term Care</option>
+      </optgroup>
+      <optgroup label="Go Back">
+        <option value="index.html">🏠 HOME</option>
+      </optgroup>
+    </select>
+
+  </div>
+</nav>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    
+    <!-- Introduction Framework Graphics Block Layer -->
+    <div class="mb-8 bg-white p-2 rounded-2xl border border-gray-300 shadow-sm overflow-hidden">
+      <img src="Retirement_Readiness.png" alt="Retirement Readiness Structural Roadmap Graphic" class="w-full h-auto block rounded-xl">
+    </div>
+
+    <header class="mb-6 border-b border-gray-300 pb-4">
+      <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">Retirement Readiness Analyzer</h1>
+      <p class="mt-1 text-xs text-gray-600">
+        Standalone simulation framework testing dynamic lifestyle scenarios across target tax-diversified investment structures.
+      </p><br>
+	   <p class="mt-1 text-xs text-black-600">
+        Using your current financial situation, savings till retirement (planned),required cash flow for retirement spending, the calculator tells you PASS / FAIL. If the age assumed does not work, it suggests the age by which you can retire.
+		Annual withdrawals using user input method (3 different techniques) is used and growth after withdrawal is calculated
+      </p>
+	  
+	  
+	  
+	  
+    </header>
+
+    <!-- Core Layout Wrapper Split Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT COLUMN PANEL: Matches retirement_calculator.html sidebar structure -->
+      <div class="lg:col-span-4 space-y-4">
+        
+        <!-- Capital Starting Pools Input Sidebar Box -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Baseline Capital Starting Pools</div>
+          
+          <div class="mb-3 font-medium text-[11px] text-gray-500 uppercase tracking-wider font-mono-custom">Tax-Deferred Assets</div>
+          <div class="input-label-row">
+            <label>Traditional 401(k) / IRA ($)</label>
+            <input type="number" id="input401k" value="650000" class="input-field-style font-mono-custom" oninput="syncDisplayLedger()">
+          </div>
+
+          <div class="my-3 font-medium text-[11px] text-gray-500 uppercase tracking-wider font-mono-custom">Tax-Free Space</div>
+          <div class="input-label-row">
+            <label>Roth Capital ($)</label>
+            <input type="number" id="inputRoth" value="210000" class="input-field-style font-mono-custom" oninput="syncDisplayLedger()">
+          </div>
+          <div class="input-label-row">
+            <label>HSA Balance ($)</label>
+            <input type="number" id="inputHsa" value="35000" class="input-field-style font-mono-custom" oninput="syncDisplayLedger()">
+          </div>
+
+          <div class="my-3 font-medium text-[11px] text-gray-500 uppercase tracking-wider font-mono-custom">Taxable Holdings</div>
+          <div class="input-label-row">
+            <label>Brokerage Pool ($)</label>
+            <input type="number" id="inputBrok" value="420000" class="input-field-style font-mono-custom" oninput="syncDisplayLedger()">
+          </div>
+          <div class="input-label-row">
+            <label>Bonds Allocation ($)</label>
+            <input type="number" id="inputBonds" value="120000" class="input-field-style font-mono-custom" oninput="syncDisplayLedger()">
+          </div>
+        </div>
+
+        <!-- General Parameters Sidebar Box -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">General Timeline Strategy</div>
+          
+          <div class="input-label-row">
+            <label>Current Calendar Year</label>
+            <input type="number" id="startYear" value="2026" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Husband Current Age</label>
+            <input type="number" id="husbandAge" value="58" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Wife Current Age</label>
+            <input type="number" id="wifeAge" value="54" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Target Retirement Age</label>
+            <input type="number" id="targetAge" value="65" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>RMD Compulsory Age</label>
+            <input type="number" id="rmdAge" value="75" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Actuarial Age Horizon</label>
+            <input type="number" id="endAge" value="95" class="input-field-style font-mono-custom">
+          </div>
+        </div>
+
+        <!-- Additions & Contribution Pipeline Sidebar Box -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Annual Savings Additions</div>
+          
+          <div class="input-label-row">
+            <label>401(k) Employee Contribution ($)</label>
+            <input type="number" id="contrib401k" value="23000" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Employer 401(k) Match ($)</label>
+            <input type="number" id="contribMatch" value="7000" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Family HSA Pipeline ($)</label>
+            <input type="number" id="contribHsa" value="8500" class="input-field-style font-mono-custom">
+          </div>
+        </div>
+
+        <!-- Roth Conversion Modeling Box -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Roth Conversion Windows</div>
+          
+          <div class="input-label-row">
+            <label>Annual Conversion Amount ($)</label>
+            <input type="number" id="rothConvAmount" value="40000" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Start Age (Husband)</label>
+            <input type="number" id="rothConvFrom" value="65" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>End Age (Husband)</label>
+            <input type="number" id="rothConvTo" value="75" class="input-field-style font-mono-custom">
+          </div>
+        </div>
+
+        <!-- Market Vectors Parameters Box -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Economic Benchmarks</div>
+          
+          <div class="input-label-row">
+            <label>Target Outlays Needed ($/yr)</label>
+            <input type="number" id="annualSpending" value="85000" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Assumed Return Multiplier (%)</label>
+            <input type="number" id="growthRate" value="6.5" step="0.1" class="input-field-style font-mono-custom">
+          </div>
+          <div class="input-label-row">
+            <label>Inflation Index Deflator (%)</label>
+            <input type="number" id="inflationRate" value="2.4" step="0.1" class="input-field-style font-mono-custom">
+          </div>
+          <div class="mt-3">
+            <label class="block text-[11px] font-bold text-gray-600 mb-1 uppercase tracking-wider font-mono-custom">Liquidation Rule Track</label>
+            <select id="goalProfile" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1.5 text-xs outline-none font-mono-custom" onchange="updateStrategyLegend()">
+              <option value="THREE_BUCKET" selected>① Three-Bucket Priority Drawdown</option>
+              <option value="PRO_RATA">② Pro-Rata Portfolio Drain Matrix</option>
+              <option value="FOUR_PCT_DEFERRED">③ 4% Rule — Tax-Deferred Only</option>
+            </select>
+            <!-- Live legend panel — updates on dropdown change -->
+            <div id="strategyLegend" class="mt-2 p-2.5 rounded-lg border text-[11px] leading-relaxed bg-blue-50 border-blue-200 text-blue-900 font-mono-custom"></div>
+          </div>
+        </div>
+
+        <button id="btnAnalyse" class="w-full bg-[#e8c84a] hover:bg-[#a82222] hover:text-white text-gray-900 font-bold py-2.5 rounded-lg transition-all text-xs border border-gray-400 shadow-sm uppercase tracking-wider font-mono-custom">
+          Recompute Scenarios
+        </button>
+
+      </div>
+
+      <!-- RIGHT COLUMN PANEL: Analytics Metrics, Pathways, & Data Ledger Grid -->
+      <div class="lg:col-span-8 space-y-4">
+        
+        <!-- Telemetry Execution Banner Card -->
+        <div id="readinessBanner" class="p-5 rounded-xl border-2 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all bg-[#ededd5] border-black shadow-sm">
+          <div>
+            <span id="badgeReadiness" class="px-2 py-0.5 text-[10px] font-bold uppercase rounded font-mono-custom bg-gray-700 text-white tracking-wider">Matrix Diagnostic</span>
+            <h3 id="txtStatusHeader" class="text-xl font-black mt-1 text-gray-900 font-serif-custom">Run Engine Metrics</h3>
+            <p id="txtStatusSub" class="text-xs text-gray-700">Awaiting runtime parameter loop compilation check execution...</p>
+          </div>
+          <div class="text-left md:text-right">
+            <div class="text-[9px] uppercase text-gray-500 font-bold tracking-widest font-mono-custom">Deterministic Runway Track</div>
+            <div id="txtConfidenceMetric" class="text-3xl font-black text-gray-900 font-serif-custom">--</div>
+          </div>
+        </div>
+
+        <!-- Strategic Gap Adjustment Columns -->
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-black-300">
+          <h3 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-3 font-mono-custom">Goal-Seeking Optimization Mitigation Pathways</h3>
+          <div id="gapContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+            <div class="bg-yellow-50 p-3 rounded-lg border border-slate-200">
+              <div class="text-[9px] font-bold uppercase text-gray-500 tracking-wider font-mono-custom">Strategic Retirement Age Offset</div>
+              <div id="gapRetireAge" class="text-base font-black text-gray-800 mt-0.5 font-serif-custom">--</div>
+            </div>
+            <div class="bg-yellow-50 p-3 rounded-lg border border-slate-200">
+              <div class="text-[9px] font-bold uppercase text-gray-500 tracking-wider font-mono-custom">Additional Pipeline Accumulation Need</div>
+              <div id="gapSavings" class="text-base font-black text-gray-800 mt-0.5 font-serif-custom">--</div>
+            </div>
+            <div class="bg-yellow-50 p-3 rounded-lg border border-slate-200">
+              <div class="text-[9px] font-bold uppercase text-gray-500 tracking-wider font-mono-custom">Max Baseline Sustainable Outflow</div>
+              <div id="gapSpending" class="text-base font-black text-gray-800 mt-0.5 font-serif-custom">--</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integrated Active Balance Assets Box -->
+        <div class="bg-[#f2eece] p-4 rounded-xl shadow-sm border border-black">
+          <div class="flex items-center justify-between mb-2.5 border-b border-dashed border-gray-400 pb-1.5">
+            <h3 class="text-xs font-bold text-gray-900 uppercase tracking-wider font-mono-custom">Baseline Capital Starting Pools Configuration</h3>
+            <span id="lblLedgerSyncBadge" class="text-[9px] text-amber-900 bg-amber-100 border border-amber-300 px-1.5 py-0.5 rounded font-mono-custom font-bold">Manual Input Values</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-mono-custom text-gray-800">
+            <div class="bg-white p-2 rounded border border-gray-300">
+              <div class="font-bold text-gray-400 text-[9px] uppercase mb-1">Pre-Tax Deferred</div>
+              <div class="flex justify-between"><span>Traditional 401k:</span><span id="lbl401k" class="font-bold text-gray-900">$0</span></div>
+            </div>
+            <div class="bg-white p-2 rounded border border-gray-300">
+              <div class="font-bold text-gray-400 text-[9px] uppercase mb-1">Tax-Free Space</div>
+              <div class="flex justify-between"><span>Roth Capital:</span><span id="lblRoth" class="font-bold text-gray-900">$0</span></div>
+              <div class="flex justify-between mt-0.5"><span>HSA Balance:</span><span id="lblHsa" class="font-bold text-gray-900">$0</span></div>
+            </div>
+            <div class="bg-white p-2 rounded border border-gray-300">
+              <div class="font-bold text-gray-400 text-[9px] uppercase mb-1">Taxable Holdings</div>
+              <div class="flex justify-between"><span>Brokerage Pool:</span><span id="lblBrok" class="font-bold text-gray-900">$0</span></div>
+              <div class="flex justify-between mt-0.5"><span>Bonds Allocation:</span><span id="lblBonds" class="font-bold text-gray-900">$0</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flow Projections Ledger Matrix Table Layout -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-black-300">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-700 mb-3 font-mono-custom">Year-by-Year Multi-Bucket Flow Engine Matrix</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-[11px] font-mono-custom whitespace-nowrap border-collapse">
+              <thead>
+                <tr class="bg-slate-800 text-white border-b border-slate-600">
+                  <th class="p-1.5">Year</th>
+                  <th class="p-1.5">Ages (H/W)</th>
+                  <th class="p-1.5">Target Need</th>
+                  <th class="p-1.5">Conversions</th>
+                  <th class="p-1.5">RMD Inflow</th>
+                  <th class="p-1.5">Taxable Asset</th>
+                  <th class="p-1.5">Pre-Tax Asset</th>
+                  <th class="p-1.5">Roth Asset</th>
+                  <th class="p-1.5">Net Position</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody" class="divide-y divide-gray-100">
+                <tr>
+                  <td colspan="9" class="p-4 text-center text-gray-400 italic">Execute baseline recalculation tracks to build ledger logs...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Synchronize programmatic tracker display readouts with input fields on modifications
+    function syncDisplayLedger() {
+      const k401 = parseFloat(document.getElementById('input401k').value) || 0;
+      const roth = parseFloat(document.getElementById('inputRoth').value) || 0;
+      const hsa  = parseFloat(document.getElementById('inputHsa').value) || 0;
+      const brok = parseFloat(document.getElementById('inputBrok').value) || 0;
+      const bnd  = parseFloat(document.getElementById('inputBonds').value) || 0;
+
+      document.getElementById('lbl401k').innerText = `$${k401.toLocaleString()}`;
+      document.getElementById('lblRoth').innerText = `$${roth.toLocaleString()}`;
+      document.getElementById('lblHsa').innerText = `$${hsa.toLocaleString()}`;
+      document.getElementById('lblBrok').innerText = `$${brok.toLocaleString()}`;
+      document.getElementById('lblBonds').innerText = `$${bnd.toLocaleString()}`;
+    }
+
+    // Seed variables layout data arrays after window content fully load
+    document.addEventListener("DOMContentLoaded", () => {
+      syncDisplayLedger();
+      updateStrategyLegend();
+      attachInteractiveEngineEvents();
+      executeReadyAnalysisCalculations();
+    });
+
+    // ── Strategy Legend ──────────────────────────────────────────────────────
+    const STRATEGY_LEGENDS = {
+      THREE_BUCKET: {
+        color: 'bg-emerald-50 border-emerald-300 text-emerald-900',
+        html: `<strong>① Three-Bucket Priority Drawdown</strong><br>
+               Drains accounts in strict priority order each year:<br>
+               <span class="inline-block mt-1">🪣 <strong>Bucket 1 — Taxable</strong> (Brokerage / HSA) &nbsp;~60% target weight — drain first</span><br>
+               <span class="inline-block">🪣 <strong>Bucket 2 — Tax-Deferred</strong> (401k / IRA) &nbsp;~30% target weight — drain second (+20% tax drag)</span><br>
+               <span class="inline-block">🪣 <strong>Bucket 3 — Tax-Free</strong> (Roth IRA) &nbsp;~10% target weight — last resort, preserve longest</span>`
+      },
+      PRO_RATA: {
+        color: 'bg-blue-50 border-blue-200 text-blue-900',
+        html: `<strong>② Pro-Rata Portfolio Drain Matrix</strong><br>
+               Each year's withdrawal is split proportionally across all three accounts based on their current balance share:<br>
+               <span class="inline-block mt-1">📊 <strong>Taxable</strong> — ~50% of withdrawal (liquid, lowest tax friction)</span><br>
+               <span class="inline-block">📊 <strong>Tax-Deferred</strong> — ~30% of withdrawal (ordinary income tax applies)</span><br>
+               <span class="inline-block">📊 <strong>Roth</strong> — ~20% of withdrawal (tax-free; ratios float as balances shift)</span>`
+      },
+      FOUR_PCT_DEFERRED: {
+        color: 'bg-amber-50 border-amber-300 text-amber-900',
+        html: `<strong>③ 4% Rule — Tax-Deferred Account Only</strong><br>
+               Annual withdrawal locked at <strong>4% of opening 401k / IRA balance</strong> at retirement, inflation-adjusted each year.<br>
+               <span class="inline-block mt-1">💰 <strong>Tax-Deferred (401k / IRA)</strong> — sole source of withdrawals (+20% tax drag applied)</span><br>
+               <span class="inline-block">💰 <strong>Taxable &amp; Roth</strong> — stay fully invested &amp; compounding; only tapped if deferred is exhausted</span><br>
+               <span class="inline-block text-[10px] opacity-75 mt-0.5">Cascade: Deferred → Taxable → Roth if deferred runs dry</span>`
+      }
+    };
+
+    function updateStrategyLegend() {
+      const val = document.getElementById('goalProfile').value;
+      const leg = STRATEGY_LEGENDS[val] || STRATEGY_LEGENDS['THREE_BUCKET'];
+      const el  = document.getElementById('strategyLegend');
+      el.className = `mt-2 p-2.5 rounded-lg border text-[11px] leading-relaxed font-mono-custom ${leg.color}`;
+      el.innerHTML = leg.html;
+    }
+
+    function attachInteractiveEngineEvents() {
+      document.getElementById('btnAnalyse').addEventListener('click', executeReadyAnalysisCalculations);
+    }
+
+    // High-Fidelity Multivariable Sequential Liquidation Projections Simulator Engine
+    function simulatePlatformLiquidationTrack(config, alternativeSavingsOverride = 0) {
+      let pTaxable = config.initBrok + config.initBonds + config.initHsa;
+      let pDeferred = config.init401k;
+      let pRoth = config.initRoth;
+
+      let husbandAgeCursor = config.hAge;
+      let wifeAgeCursor = config.wAge;
+      let currentSpendingTarget = config.spending;
+      
+      let tableRowsHtml = "";
+      let successFlag = true;
+      let profileExhaustionAge = null;
+
+      // Grounding standalone fallbacks for cross-file metrics paths
+      let ssAnnualAmt = 0, ssClaimingAge = 67, personalPensionAmt = 0, pensionTriggerAge = 65;
+
+      const baselineYearsDurationCount = config.endAge - config.hAge;
+
+      for (let index = 0; index <= baselineYearsDurationCount; index++) {
+        let loopYear = config.startYear + index;
+        let hAge = husbandAgeCursor + index;
+        let wAge = wifeAgeCursor + index;
+
+        if (hAge > config.endAge) break;
+
+        // Phase A: Handle Pre-Retirement Accumulation Rules
+        if (hAge < config.retireAge) {
+          // Process active savings contributions
+          let currentAnnualSavingsInflow = config.c401k + config.cMatch + config.cHsa + alternativeSavingsOverride;
+          pTaxable += currentAnnualSavingsInflow;
+
+          // Compound holdings growth
+          pTaxable *= (1 + config.growth);
+          pDeferred *= (1 + config.growth);
+          pRoth *= (1 + config.growth);
+
+          if (config.renderTable) {
+            tableRowsHtml += `<tr class="bg-slate-50 text-slate-400">
+              <td class="p-1.5">${loopYear}</td>
+              <td class="p-1.5">${hAge} / ${wAge}</td>
+              <td colspan="3" class="p-1.5 text-center italic tracking-wider text-[10px] text-slate-500">Wealth Building (+$${Math.round(currentAnnualSavingsInflow).toLocaleString()}/yr)</td>
+              <td class="p-1.5">$${Math.round(pTaxable).toLocaleString()}</td>
+              <td class="p-1.5">$${Math.round(pDeferred).toLocaleString()}</td>
+              <td class="p-1.5">$${Math.round(pRoth).toLocaleString()}</td>
+              <td class="p-1.5 font-bold">$${Math.round(pTaxable + pDeferred + pRoth).toLocaleString()}</td>
+            </tr>`;
+          }
+          continue;
+        }
+
+        // Phase B: Post-Retirement Distribution Mechanics
+        let activeSSFlow = (hAge >= ssClaimingAge) ? ssAnnualAmt : 0;
+        let activePensionFlow = (hAge >= pensionTriggerAge) ? personalPensionAmt : 0;
+        let totalGuaranteedInflows = activeSSFlow + activePensionFlow;
+
+        let missingDrawdownRequirement = Math.max(0, currentSpendingTarget - totalGuaranteedInflows);
+        
+        // 1. Process Mandatory RMD Constraints
+        let runningYearlyRmdRequirement = 0;
+        if (hAge >= config.rmdStartAge && pDeferred > 0) {
+          let genericDivisorValue = Math.max(1, 27.4 - (hAge - 73)); // Mirror basic IRS Uniform Lifetime table scaling
+          runningYearlyRmdRequirement = pDeferred / genericDivisorValue;
+        }
+
+        // 2. Process Scheduled Roth Conversions
+        let executionConversionTransferSum = 0;
+        if (hAge >= config.convFrom && hAge <= config.convTo && pDeferred >= config.convAmt) {
+          executionConversionTransferSum = config.convAmt;
+          pDeferred -= executionConversionTransferSum;
+          pRoth += executionConversionTransferSum; // Transfers into tax-free space
+        }
+
+        // Adjust missing target spending needs by structural RMD forced liquidity inflows
+        if (runningYearlyRmdRequirement > 0) {
+          if (pDeferred >= runningYearlyRmdRequirement) {
+            pDeferred -= runningYearlyRmdRequirement;
+            missingDrawdownRequirement = Math.max(0, missingDrawdownRequirement - runningYearlyRmdRequirement);
+          } else {
+            missingDrawdownRequirement = Math.max(0, missingDrawdownRequirement - pDeferred);
+            pDeferred = 0;
+          }
+        }
+
+        // 3. Execute Primary Account Liquidation Strategies
+        if (missingDrawdownRequirement > 0 && successFlag) {
+
+          if (config.strategy === 'THREE_BUCKET') {
+            // ── STRATEGY 1: Three-Bucket Priority Drawdown ──────────────────────
+            if (pTaxable >= missingDrawdownRequirement) {
+              pTaxable -= missingDrawdownRequirement;
+              missingDrawdownRequirement = 0;
+            } else {
+              missingDrawdownRequirement -= pTaxable;
+              pTaxable = 0;
+
+              if (pDeferred >= missingDrawdownRequirement) {
+                let estimatedTaxFrictionDrag = missingDrawdownRequirement * 0.20; 
+                pDeferred -= (missingDrawdownRequirement + estimatedTaxFrictionDrag);
+                missingDrawdownRequirement = 0;
+              } else {
+                missingDrawdownRequirement -= pDeferred;
+                pDeferred = 0;
+
+                if (pRoth >= missingDrawdownRequirement) {
+                  pRoth -= missingDrawdownRequirement;
+                  missingDrawdownRequirement = 0;
+                } else {
+                  pRoth = 0;
+                  successFlag = false;
+                  profileExhaustionAge = hAge;
+                }
+              }
+            }
+
+          } else if (config.strategy === 'PRO_RATA') {
+            // ── STRATEGY 2: Pro-Rata Portfolio Drain Matrix ──────────────────────
+            let totalAggregateCapital = pTaxable + pDeferred + pRoth;
+            if (totalAggregateCapital >= missingDrawdownRequirement) {
+              let taxableShare  = totalAggregateCapital > 0 ? pTaxable  / totalAggregateCapital : 0;
+              let deferredShare = totalAggregateCapital > 0 ? pDeferred / totalAggregateCapital : 0;
+              let rothShare     = totalAggregateCapital > 0 ? pRoth     / totalAggregateCapital : 0;
+              
+              pTaxable  -= missingDrawdownRequirement * taxableShare;
+              pDeferred -= missingDrawdownRequirement * deferredShare;
+              pRoth     -= missingDrawdownRequirement * rothShare;
+              missingDrawdownRequirement = 0;
+            } else {
+              pTaxable = 0; pDeferred = 0; pRoth = 0;
+              successFlag = false;
+              profileExhaustionAge = hAge;
+            }
+
+          } else if (config.strategy === 'FOUR_PCT_DEFERRED') {
+            // ── STRATEGY 3: 4% Rule — Tax-Deferred Account Only ─────────────────
+            if (!config._fourPctBase) {
+              config._fourPctBase = pDeferred * 0.04;
+            }
+            let fourPctDraw = config._fourPctBase; 
+            let taxDrag     = fourPctDraw * 0.20;  
+            let grossNeeded = fourPctDraw + taxDrag;
+
+            if (pDeferred >= grossNeeded) {
+              pDeferred -= grossNeeded;
+              missingDrawdownRequirement = Math.max(0, missingDrawdownRequirement - fourPctDraw);
+            } else if (pDeferred > 0) {
+              let netFromDeferred = pDeferred / 1.20; 
+              missingDrawdownRequirement = Math.max(0, missingDrawdownRequirement - netFromDeferred);
+              pDeferred = 0;
+            }
+
+            if (missingDrawdownRequirement > 0) {
+              if (pTaxable >= missingDrawdownRequirement) {
+                pTaxable -= missingDrawdownRequirement;
+                missingDrawdownRequirement = 0;
+              } else {
+                missingDrawdownRequirement -= pTaxable;
+                pTaxable = 0;
+                if (pRoth >= missingDrawdownRequirement) {
+                  pRoth -= missingDrawdownRequirement;
+                  missingDrawdownRequirement = 0;
+                } else {
+                  pRoth = 0;
+                  successFlag = false;
+                  profileExhaustionAge = hAge;
+                }
+              }
+            }
+            config._fourPctBase *= (1 + config.inflation);
+          }
+        }
+
+        let combinedTotalNetAssets = pTaxable + pDeferred + pRoth;
+
+        if (config.renderTable) {
+          let stylingRowClass = successFlag ? "" : "bg-red-50 text-red-900 font-semibold";
+          tableRowsHtml += `<tr class="${stylingRowClass}">
+            <td class="p-1.5 font-bold">${loopYear}</td>
+            <td class="p-1.5">${hAge} / ${wAge}</td>
+            <td class="p-1.5 text-red-700">$${Math.round(currentSpendingTarget).toLocaleString()}</td>
+            <td class="p-1.5 text-blue-600">$${Math.round(executionConversionTransferSum).toLocaleString()}</td>
+            <td class="p-1.5 text-amber-700">$${Math.round(runningYearlyRmdRequirement).toLocaleString()}</td>
+            <td class="p-1.5">$${Math.round(Math.max(0, pTaxable)).toLocaleString()}</td>
+            <td class="p-1.5">$${Math.round(Math.max(0, pDeferred)).toLocaleString()}</td>
+            <td class="p-1.5">$${Math.round(Math.max(0, pRoth)).toLocaleString()}</td>
+            <td class="p-1.5 font-black text-slate-900">$${Math.round(Math.max(0, combinedTotalNetAssets)).toLocaleString()}</td>
+          </tr>`;
+        }
+
+        pTaxable = Math.max(0, pTaxable * (1 + config.growth));
+        pDeferred = Math.max(0, pDeferred * (1 + config.growth));
+        pRoth = Math.max(0, pRoth * (1 + config.growth));
+        
+        currentSpendingTarget *= (1 + config.inflation);
+      }
+
+      return { success: successFlag, failAge: profileExhaustionAge, tableHtml: tableRowsHtml };
+    }
+
+    function executeReadyAnalysisCalculations() {
+      const inputPackageConfig = {
+        init401k: parseFloat(document.getElementById('input401k').value) || 0,
+        initRoth: parseFloat(document.getElementById('inputRoth').value) || 0,
+        initHsa: parseFloat(document.getElementById('inputHsa').value) || 0,
+        initBrok: parseFloat(document.getElementById('inputBrok').value) || 0,
+        initBonds: parseFloat(document.getElementById('inputBonds').value) || 0,
+
+        startYear: parseInt(document.getElementById('startYear').value) || 2026,
+        hAge: parseInt(document.getElementById('husbandAge').value) || 54,
+        wAge: parseInt(document.getElementById('wifeAge').value) || 52,
+        retireAge: parseInt(document.getElementById('targetAge').value) || 65,
+        rmdStartAge: parseInt(document.getElementById('rmdAge').value) || 75,
+        endAge: parseInt(document.getElementById('endAge').value) || 95,
+        
+        c401k: parseFloat(document.getElementById('contrib401k').value) || 0,
+        cMatch: parseFloat(document.getElementById('contribMatch').value) || 0,
+        cHsa: parseFloat(document.getElementById('contribHsa').value) || 0,
+        
+        convAmt: parseFloat(document.getElementById('rothConvAmount').value) || 0,
+        convFrom: parseInt(document.getElementById('rothConvFrom').value) || 0,
+        convTo: parseInt(document.getElementById('rothConvTo').value) || 0,
+        
+        spending: parseFloat(document.getElementById('annualSpending').value) || 85000,
+        growth: (parseFloat(document.getElementById('growthRate').value) || 6.0) / 100,
+        inflation: (parseFloat(document.getElementById('inflationRate').value) || 2.5) / 100,
+        strategy: document.getElementById('goalProfile').value,
+        _fourPctBase: null,  
+        renderTable: true
+      };
+
+      const resultData = simulatePlatformLiquidationTrack(inputPackageConfig);
+      document.getElementById('projectionTableBody').innerHTML = resultData.tableHtml;
+
+      const banner = document.getElementById('readinessBanner');
+      const badge = document.getElementById('badgeReadiness');
+      const header = document.getElementById('txtStatusHeader');
+      const subtext = document.getElementById('txtStatusSub');
+      const display = document.getElementById('txtConfidenceMetric');
+
+      if (resultData.success) {
+        banner.className = "p-5 rounded-xl border-2 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all bg-emerald-50 border-emerald-700 text-emerald-950 shadow-sm";
+        badge.className = "px-2 py-0.5 text-[10px] font-bold uppercase rounded font-mono-custom bg-emerald-700 text-white tracking-wider";
+        badge.innerText = "PASSED";
+        header.innerText = "Target Strategy Fully Sustained";
+        subtext.innerText = `Your asset structures cleanly fulfill outlays across the selected horizons up to age ${inputPackageConfig.endAge}.`;
+        display.innerText = "READY";
+
+        document.getElementById('gapRetireAge').innerText = "Strategic Target Met";
+        document.getElementById('gapSavings').innerText = "$0 / mo";
+        document.getElementById('gapSpending').innerText = `$${Math.round(inputPackageConfig.spending).toLocaleString()} / yr`;
+      } else {
+        banner.className = "p-5 rounded-xl border-2 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all bg-amber-50 border-amber-700 text-amber-950 shadow-sm";
+        badge.className = "px-2 py-0.5 text-[10px] font-bold uppercase rounded font-mono-custom bg-amber-700 text-white tracking-wider";
+        badge.innerText = "SHORTFALL DETECTED";
+        header.innerText = "Capital Reserves Face Exhaustion";
+        subtext.innerText = `Portfolio structures deplete completely in the year husband hits Age ${resultData.failAge}.`;
+        display.innerText = "GAP DETECTED";
+
+        // =========================================================
+        // MULTI-VARIABLE REVERSE SEARCH ROOT OPTIMIZATION LOOPS
+        // =========================================================
+
+        let loopAlternativeRetireAge = inputPackageConfig.retireAge;
+        let clonedConfigA = Object.assign({}, inputPackageConfig);
+        clonedConfigA.renderTable = false;
+        clonedConfigA._fourPctBase = null;
+        
+        while (loopAlternativeRetireAge <= inputPackageConfig.endAge) {
+          clonedConfigA.retireAge = loopAlternativeRetireAge;
+          let testRun = simulatePlatformLiquidationTrack(clonedConfigA);
+          if (testRun.success) break;
+          loopAlternativeRetireAge += 1;
+        }
+        let timelineYearsRequiredDelta = loopAlternativeRetireAge - inputPackageConfig.retireAge;
+
+        let loopMaxSustainableSpending = inputPackageConfig.spending;
+        let clonedConfigB = Object.assign({}, inputPackageConfig);
+        clonedConfigB.renderTable = false;
+        clonedConfigB._fourPctBase = null;
+
+        while (loopMaxSustainableSpending > 0) {
+          clonedConfigB.spending = loopMaxSustainableSpending;
+          let testRun = simulatePlatformLiquidationTrack(clonedConfigB);
+          if (testRun.success) break;
+          loopMaxSustainableSpending -= 1000;
+        }
+
+        let targetMonthlyAccumulationAdditionOverride = 0;
+        let clonedConfigC = Object.assign({}, inputPackageConfig);
+        clonedConfigC.renderTable = false;
+        clonedConfigC._fourPctBase = null;
+        let successGoalMet = false;
+
+        for (let testSavingsAdd = 50; testSavingsAdd <= 10000; testSavingsAdd += 50) {
+          let testRun = simulatePlatformLiquidationTrack(clonedConfigC, testSavingsAdd * 12);
+          if (testRun.success) {
+            targetMonthlyAccumulationAdditionOverride = testSavingsAdd;
+            successGoalMet = true;
+            break;
+          }
+        }
+
+        document.getElementById('gapRetireAge').innerText = timelineYearsRequiredDelta > 0 ? `Age ${loopAlternativeRetireAge} (+${timelineYearsRequiredDelta} Yrs)` : "Timeline Exceeds Actuarial Limit";
+        document.getElementById('gapSavings').innerText = successGoalMet ? `+$${targetMonthlyAccumulationAdditionOverride.toLocaleString()} / mo` : "Inflow Shift Alone Insufficient";
+        document.getElementById('gapSpending').innerText = `$${Math.round(loopMaxSustainableSpending).toLocaleString()} / yr`;
+      }
+    }
+  </script>
+</body>
+</html>

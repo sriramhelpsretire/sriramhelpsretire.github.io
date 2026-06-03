@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roth Conversion Optimizer & Bracket Topping Tool | Retire Wise and Live Happy</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Optimize your annual Roth conversions by identifying remaining tax bracket headroom. Avoid IRMAA surcharges and minimize lifetime retirement taxes." />
+  <meta name="keywords" content="Roth conversion, bracket topping, tax bracket optimization, retirement tax strategy" />
+  <meta name="author" content="Sriram Gopalaratnam" />
+  <meta name="robots" content="index, follow" />
+  <link class="canonical" href="https://wise-retiree.com/roth_conversion_optimizer.html" />
+
+  <!-- Google Fonts & Tailwind Integration -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #DAE2EB;
+      color: #161b22;
+      padding-top: 72px;
+    }
+    body::after {
+      content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #c0392b; z-index: 10005;
+    }
+    /* ── TOP NAV ── */
+    .top-nav {
+      width:100%; background:#000; border-bottom:4px solid #a82222;
+      display:flex; align-items:stretch; justify-content:space-between;
+      padding:0 24px; position:fixed; top:0; left:0; z-index:10000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.35); box-sizing:border-box; height:52px;
+    }
+    .nav-left { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .nav-left img { height:34px; width:auto; display:block; }
+    .nav-brand-name {
+      color:#fff; font-size:clamp(13px,1.6vw,18px); font-weight:700;
+      letter-spacing:0.3px; white-space:nowrap; line-height:1.2;
+    }
+    .nav-brand-name span {
+      display:block; font-size:10px; font-weight:400;
+      color:#d4af37; letter-spacing:0.5px; margin-top:1px;
+    }
+    .nav-right { display:flex; align-items:stretch; gap:0; margin-left:auto; }
+    .nav-item { position:relative; list-style:none; display:flex; align-items:stretch; }
+    .nav-link {
+      display:flex; align-items:center; gap:5px; color:#fff; text-decoration:none; font-size:13.5px;
+      font-weight:600; padding:0 16px; height:100%; border-bottom:3px solid transparent;
+      transition:all .15s; white-space:nowrap; cursor:pointer;
+    }
+    .nav-item:hover > .nav-link {
+      color:#d4af37; border-bottom-color:#d4af37; background:rgba(212,175,55,0.08);
+    }
+    .chevron { font-size:10px; opacity:.7; }
+    .nav-dropdown {
+      display:none; position:absolute; top:100%; right:0; background:#1a1a1a; border:1px solid #333;
+      border-top:3px solid #d4af37; border-radius:0 0 10px 10px; min-width:260px;
+      box-shadow:0 8px 28px rgba(0,0,0,0.5); z-index:9999; padding:6px 0;
+    }
+    .nav-item:hover .nav-dropdown { display:block; }
+    .nav-dropdown a {
+      display:flex; align-items:flex-start; gap:10px; padding:9px 16px; color:#ddd;
+      text-decoration:none; font-size:13px; border-left:3px solid transparent; transition:all .15s;
+    }
+    .nav-dropdown a:hover { background:rgba(212,175,55,0.10); color:#d4af37; border-left-color:#d4af37; }
+    .dd-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
+    .dd-text { display:flex; flex-direction:column; gap:1px; }
+    .dd-text strong { font-size:13px; font-weight:600; color:inherit; }
+    .dd-text span { font-size:11px; color:#888; }
+    .nav-dd-divider { border-top:1px solid #2e2e2e; margin:4px 0; }
+    .nav-action-btns { display:flex; align-items:center; gap:8px; padding:0 8px; border-left:1px solid #2a2a2a; }
+    .print-btn {
+      background:transparent; color:#ccc; border:1px solid #444; border-radius:5px;
+      padding:5px 11px; font-size:12px; font-weight:600; cursor:pointer; transition:all .15s;
+    }
+    .print-btn:hover { background:#222; color:#d4af37; border-color:#d4af37; }
+    .home-btn {
+      display:flex; align-items:center; gap:5px; background:#a82222; color:#fff;
+      border:none; border-radius:5px; padding:5px 12px; font-size:12px; font-weight:700;
+      text-decoration:none; transition:background .15s;
+    }
+    .home-btn:hover { background:#c0392b; }
+    .nav-mobile-select {
+      display:none; background:#333; color:#fff; padding:5px 10px; border-radius:6px;
+      font-weight:bold; border:1px solid #d4af37; cursor:pointer; align-self:center; margin-left:8px; font-size:13px;
+    }
+    @media(max-width:768px){
+      .nav-item { display:none; } .nav-action-btns { display:none; } .nav-mobile-select { display:block; }
+    }
+    
+    /* ── LAYOUT EXTRA ── */
+    .font-mono-custom { font-family: 'DM Mono', monospace; }
+    .font-serif-custom { font-family: 'DM Serif Display', serif; }
+    .sidebar-box { background-color: #ffffff; border: 1px solid #c8d2dc; border-radius: 8px; padding: 14px; }
+    .sidebar-heading {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      color: #4a5568; border-bottom: 1px solid #edf2f7; padding-bottom: 4px; margin-bottom: 10px;
+    }
+    .input-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .input-label-row label { font-size: 12px; font-weight: 500; color: #2d3748; }
+    .input-field-style {
+      background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px;
+      padding: 4px 8px; font-size: 13px; width: 120px; text-align: right;
+    }
+    .input-field-style:focus { border-color: #a82222; outline: none; background-color: #fff; }
+    .bracket-bar { transition: width 0.4s ease-out; }
+  </style>
+</head>
+<body>
+
+  <!-- Universal Top Menu Layer -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <img src="logo_rwlh.svg" alt="Retire Wise and Live Happy Logo">
+      <div class="nav-brand-name">
+        Retire Wise and Live Happy&trade;
+        <span>Tax Optimization Framework</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <li class="nav-item">
+        <a href="transition_plan.html" class="nav-link">Planning <span class="chevron">▾</span></a>
+        <div class="nav-dropdown">
+          <a href="transition_plan.html"><span class="dd-icon">📌</span><div class="dd-text"><strong>Retirement Made Easy</strong><span>Transition framework</span></div></a>
+          <a href="steps_retirement.html"><span class="dd-icon">🪜</span><div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div></a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link"><span style="color:#d4af37">🧮</span> Calculators <span class="chevron">▾</span></a>
+        <div class="nav-dropdown">
+          <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track holdings, live prices</span></div></a>
+          <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Project portfolio growth</span></div></a>
+          <a href="Retirement_Readiness_Calculator.html"><span class="dd-icon">🎯</span><div class="dd-text"><strong>Readiness Analyzer</strong><span>Check timeline gaps</span></div></a>
+          <a href="tax_calculator.html"><span class="dd-icon">💰</span><div class="dd-text"><strong>Income Tax Calculator</strong><span>Tax structural scenarios</span></div></a>
+        </div>
+      </li>
+      <div class="nav-action-btns">
+        <button class="print-btn" onclick="window.print()">🖨 Print / PDF</button>
+        <a href="index.html" class="home-btn">HOME</a>
+      </div>
+    </nav>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <header class="mb-6 border-b border-gray-300 pb-4">
+      <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">Roth Conversion Optimizer &amp; Bracket Topping Tool</h1>
+      <p class="mt-1 text-xs text-gray-600">
+        Identify exactly how much room remains in your current marginal tax bracket and optimize single-year "bracket topping" execution values.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT COLUMN: INPUT PARAMETERS -->
+      <div class="lg:col-span-4 space-y-4">
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Filing &amp; Income Foundation</div>
+          
+          <div class="mb-3">
+            <label class="block text-[11px] font-bold text-gray-600 mb-1 uppercase tracking-wider font-mono-custom">Filing Status</label>
+            <select id="filingStatus" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1.5 text-xs outline-none font-mono-custom" onchange="calculateOptimization()">
+              <option value="MFJ" selected>Married Filing Jointly (MFJ)</option>
+              <option value="SINGLE">Single Filer</option>
+            </select>
+          </div>
+
+          <div class="input-label-row">
+            <label>Gross Wage / Ordinary Income ($)</label>
+            <input type="number" id="ordinaryIncome" value="85000" class="input-field-style font-mono-custom" oninput="calculateOptimization()">
+          </div>
+          <div class="input-label-row">
+            <label>Pensions / Social Security ($)</label>
+            <input type="number" id="pensionIncome" value="15000" class="input-field-style font-mono-custom" oninput="calculateOptimization()">
+          </div>
+          <div class="input-label-row">
+            <label>Interest &amp; Div. Income ($)</label>
+            <input type="number" id="dividendIncome" value="8000" class="input-field-style font-mono-custom" oninput="calculateOptimization()">
+          </div>
+        </div>
+
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Deductions &amp; Ceiling Caps</div>
+          <div class="input-label-row">
+            <label>Standard/Itemized Deduction ($)</label>
+            <input type="number" id="deductions" value="29200" class="input-field-style font-mono-custom" oninput="calculateOptimization()">
+          </div>
+          <div class="mt-3">
+            <label class="block text-[11px] font-bold text-gray-600 mb-1 uppercase tracking-wider font-mono-custom">Target Topping Ceiling</label>
+            <select id="targetBracketCeiling" class="w-full bg-slate-50 border border-slate-300 rounded px-2 py-1.5 text-xs outline-none font-mono-custom" onchange="calculateOptimization()">
+              <option value="CURRENT_TOP">Top off Current Bracket</option>
+              <option value="12">Fill through 12% Bracket</option>
+              <option value="22" selected>Fill through 22% Bracket</option>
+              <option value="24">Fill through 24% Bracket</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sidebar-box shadow-sm bg-[#fcf9e8] border border-amber-300">
+          <div class="sidebar-heading font-mono-custom text-amber-900">Interactive Conversion Sandbox</div>
+          <div class="p-2 bg-white rounded border border-amber-200 mb-3">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs font-bold text-gray-700">Proposed Conversion Amount:</span>
+              <span id="sandboxValueDisplay" class="text-xs font-bold text-amber-700 font-mono-custom">$40,000</span>
+            </div>
+            <input type="range" id="conversionSlider" min="0" max="150000" step="1000" value="40000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-amber-600" oninput="updateSandboxSlider()">
+          </div>
+          <p class="text-[10px] text-amber-800 leading-relaxed font-mono-custom">
+            Slide to dynamically test conversion impacts against tax thresholds and IRMAA premium surcharges.
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: DIAGNOSTICS & METRIC METERS -->
+      <div class="lg:col-span-8 space-y-4">
+        
+        <!-- TELEMETRY BANNER -->
+        <div id="optimizerBanner" class="p-5 rounded-xl border-2 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all bg-white border-gray-300 shadow-sm">
+          <div>
+            <span class="px-2 py-0.5 text-[10px] font-bold uppercase rounded font-mono-custom bg-slate-700 text-white tracking-wider">Optimization Run</span>
+            <h3 id="txtOptimizationHeader" class="text-xl font-black mt-1 text-gray-900 font-serif-custom">Available Headroom</h3>
+            <p id="txtOptimizationSub" class="text-xs text-gray-700">Calculate remaining limits to avoid unexpected tax friction hikes.</p>
+          </div>
+          <div class="text-left md:text-right">
+            <div class="text-[9px] uppercase text-gray-500 font-bold tracking-widest font-mono-custom">Max Room to Target Ceiling</div>
+            <div id="txtHeadroomMetric" class="text-3xl font-black text-gray-900 font-serif-custom">$0</div>
+          </div>
+        </div>
+
+        <!-- CONVERSION RUN STATISTICS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-xl border border-gray-300 shadow-sm">
+            <div class="text-[9px] font-bold uppercase text-gray-500 tracking-wider font-mono-custom">Base Taxable Income</div>
+            <div id="lblBaseTaxableIncome" class="text-xl font-black text-gray-800 mt-0.5 font-serif-custom">$0</div>
+            <div id="lblCurrentBracket" class="text-[10px] text-gray-500 font-mono-custom mt-1">Marginal Bracket: --</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-gray-300 shadow-sm">
+            <div class="text-[9px] font-bold uppercase text-gray-500 tracking-wider font-mono-custom">Sandbox Conversion Tax Cost</div>
+            <div id="lblSandboxTax" class="text-xl font-black text-amber-700 mt-0.5 font-serif-custom">$0</div>
+            <div id="lblEffectiveFriction" class="text-[10px] text-amber-600 font-mono-custom mt-1">Effective Blend Rate: 0.0%</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl border border-gray-300 shadow-sm bg-[#f3f7f2] border-emerald-300">
+            <div class="text-[9px] font-bold uppercase text-emerald-800 tracking-wider font-mono-custom">IRMAA Healthcare Safeguard</div>
+            <div id="lblIrmaaStatus" class="text-sm font-bold text-emerald-900 mt-1 font-mono-custom">Safe from Surcharges</div>
+            <div id="lblIrmaaSub" class="text-[10px] text-emerald-700 font-mono-custom mt-1">$0 under Tier 1 limit</div>
+          </div>
+        </div>
+
+        <!-- VISUAL TAX BRACKET STACK METER -->
+        <div class="bg-white p-5 rounded-xl border border-gray-300 shadow-sm">
+          <h3 class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-4 font-mono-custom">Visual Bracket Topping Structural Space</h3>
+          <div class="space-y-3 font-mono-custom text-xs">
+            
+            <!-- 24% Bar -->
+            <div>
+              <div class="flex justify-between text-[11px] mb-1"><span>24% Bracket Ceiling</span><span id="labelCap24">--</span></div>
+              <div class="w-full bg-slate-100 h-6 rounded overflow-hidden relative border border-slate-200">
+                <div id="bar24_base" class="absolute top-0 left-0 h-full bg-slate-400 bracket-bar" style="width: 0%"></div>
+                <div id="bar24_conv" class="absolute top-0 h-full bg-amber-500 bracket-bar" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <!-- 22% Bar -->
+            <div>
+              <div class="flex justify-between text-[11px] mb-1"><span>22% Bracket Ceiling</span><span id="labelCap22">--</span></div>
+              <div class="w-full bg-slate-100 h-6 rounded overflow-hidden relative border border-slate-200">
+                <div id="bar22_base" class="absolute top-0 left-0 h-full bg-blue-500 bracket-bar" style="width: 0%"></div>
+                <div id="bar22_conv" class="absolute top-0 h-full bg-amber-500 bracket-bar" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <!-- 12% Bar -->
+            <div>
+              <div class="flex justify-between text-[11px] mb-1"><span>12% Bracket Ceiling</span><span id="labelCap12">--</span></div>
+              <div class="w-full bg-slate-100 h-6 rounded overflow-hidden relative border border-slate-200">
+                <div id="bar12_base" class="absolute top-0 left-0 h-full bg-emerald-500 bracket-bar" style="width: 0%"></div>
+                <div id="bar12_conv" class="absolute top-0 h-full bg-amber-500 bracket-bar" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <div class="flex gap-4 text-[10px] pt-2 border-t border-slate-100">
+              <div class="flex items-center gap-1.5"><div class="w-3 h-3 bg-emerald-500 rounded-sm"></div>Base Income Area</div>
+              <div class="flex items-center gap-1.5"><div class="w-3 h-3 bg-amber-500 rounded-sm"></div>Proposed Conversion Fill</div>
+              <div class="flex items-center gap-1.5"><div class="w-3 h-3 bg-slate-100 border border-slate-300 rounded-sm"></div>Unused Remaining Headroom</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 2026 Federal Tax Bracket Parameters Structures (Inflation-Adjusted Estimates)
+    const TAX_BRACKETS_2026 = {
+      SINGLE: [
+        { rate: 0.10, min: 0,       max: 11925 },
+        { rate: 0.12, min: 11925,   max: 48475 },
+        { rate: 0.22, min: 48475,   max: 103350 },
+        { rate: 0.24, min: 103350,  max: 197300 }
+      ],
+      MFJ: [
+        { rate: 0.10, min: 0,       max: 23850 },
+        { rate: 0.12, min: 23850,   max: 96950 },
+        { rate: 0.22, min: 96950,   max: 206700 },
+        { rate: 0.24, min: 206700,  max: 394600 }
+      ]
+    };
+
+    // 2026 Estimated Medicare IRMAA Surcharge Threshold Base Limits (2-Year Lookback Year 2024 MAGI)
+    const IRMAA_LIMITS_2026 = { SINGLE: 106000, MFJ: 212000 };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      calculateOptimization();
+    });
+
+    function updateSandboxSlider() {
+      document.getElementById('sandboxValueDisplay').innerText = `$${parseInt(document.getElementById('conversionSlider').value).toLocaleString()}`;
+      calculateOptimization(true);
+    }
+
+    function calculateOptimization(sliderTriggered = false) {
+      const status = document.getElementById('filingStatus').value;
+      const ordinary = parseFloat(document.getElementById('ordinaryIncome').value) || 0;
+      const pension = parseFloat(document.getElementById('pensionIncome').value) || 0;
+      const dividend = parseFloat(document.getElementById('dividendIncome').value) || 0;
+      const deduct = parseFloat(document.getElementById('deductions').value) || 0;
+      const ceilingSelection = document.getElementById('targetBracketCeiling').value;
+
+      const grossIncome = ordinary + pension + dividend;
+      const baseTaxableIncome = Math.max(0, grossIncome - deduct);
+      document.getElementById('lblBaseTaxableIncome').innerText = `$${Math.round(baseTaxableIncome).toLocaleString()}`;
+
+      const brackets = TAX_BRACKETS_2026[status];
+      
+      // Compute Current Baseline Marginal Bracket Track
+      let currentRate = 0.10;
+      for (let b of brackets) {
+        if (baseTaxableIncome >= b.min) {
+          currentRate = b.rate;
+        }
+      }
+      document.getElementById('lblCurrentBracket').innerText = `Marginal Bracket: ${(currentRate * 100).toFixed(0)}%`;
+
+      // Determine Target Topping Capacity Limit Cap
+      let targetMaxCap = 0;
+      if (ceilingSelection === 'CURRENT_TOP') {
+        for (let b of brackets) {
+          if (baseTaxableIncome >= b.min) targetMaxCap = b.max;
+        }
+      } else if (ceilingSelection === '12') {
+        targetMaxCap = brackets[1].max;
+      } else if (ceilingSelection === '22') {
+        targetMaxCap = brackets[2].max;
+      } else if (ceilingSelection === '24') {
+        targetMaxCap = brackets[3].max;
+      }
+
+      const rawHeadroom = Math.max(0, targetMaxCap - baseTaxableIncome);
+      document.getElementById('txtHeadroomMetric').innerText = `$${Math.round(rawHeadroom).toLocaleString()}`;
+
+      // Adjust Slider Max boundary contextually if inputs adjust dynamically
+      const slider = document.getElementById('conversionSlider');
+      if (!sliderTriggered) {
+        const structuralMaxVal = Math.max(50000, Math.round(rawHeadroom * 1.5 / 10000) * 10000);
+        slider.max = structuralMaxVal;
+        slider.value = Math.min(Math.round(rawHeadroom), slider.max);
+        document.getElementById('sandboxValueDisplay').innerText = `$${parseInt(slider.value).toLocaleString()}`;
+      }
+
+      const proposedConversion = parseFloat(slider.value) || 0;
+      const totalTaxableWithConversion = baseTaxableIncome + proposedConversion;
+
+      // Compute Sandbox Precision Progressive Tax Friction Increments
+      const baseTaxValue = computeProgressiveTax(baseTaxableIncome, brackets);
+      const totalTaxValue = computeProgressiveTax(totalTaxableWithConversion, brackets);
+      const deltaConversionTaxCost = totalTaxValue - baseTaxValue;
+
+      document.getElementById('lblSandboxTax').innerText = `$${Math.round(deltaConversionTaxCost).toLocaleString()}`;
+      const blendRate = proposedConversion > 0 ? (deltaConversionTaxCost / proposedConversion) * 100 : 0;
+      document.getElementById('lblEffectiveFriction').innerText = `Effective Blend Rate: ${blendRate.toFixed(1)}%`;
+
+      // Check IRMAA Health Premium Vulnerabilities
+      // MAGI adds back tax-exempt interest if applicable; here tracked closely by Gross Income + Conversion
+      const projectedMagiValue = grossIncome + proposedConversion;
+      const irmaaBaseLimit = IRMAA_LIMITS_2026[status];
+      const irmaaBox = document.getElementById('lblIrmaaStatus').parentNode;
+
+      if (projectedMagiValue > irmaaBaseLimit) {
+        irmaaBox.className = "sidebar-box bg-red-50 border-red-300 shadow-sm p-4";
+        document.getElementById('lblIrmaaStatus').className = "text-sm font-bold text-red-900 mt-1 font-mono-custom";
+        document.getElementById('lblIrmaaStatus').innerText = "⚠️ IRMAA Surcharge Triggered";
+        document.getElementById('lblIrmaaSub').className = "text-[10px] text-red-700 font-mono-custom mt-1";
+        document.getElementById('lblIrmaaSub').innerText = `$${Math.round(projectedMagiValue - irmaaBaseLimit).toLocaleString()} over Tier 1 limit`;
+      } else {
+        irmaaBox.className = "sidebar-box bg-emerald-50 border-emerald-300 shadow-sm p-4";
+        document.getElementById('lblIrmaaStatus').className = "text-sm font-bold text-emerald-900 mt-1 font-mono-custom";
+        document.getElementById('lblIrmaaStatus').innerText = "✅ Safe from Surcharges";
+        document.getElementById('lblIrmaaSub').className = "text-[10px] text-emerald-700 font-mono-custom mt-1";
+        document.getElementById('lblIrmaaSub').innerText = `$${Math.round(irmaaBaseLimit - projectedMagiValue).toLocaleString()} under Tier 1 limit`;
+      }
+
+      // Render Bar Width Visuals
+      updateVisualMeters(baseTaxableIncome, proposedConversion, brackets);
+    }
+
+    function computeProgressiveTax(income, brackets) {
+      let tax = 0;
+      for (let b of brackets) {
+        if (income > b.min) {
+          let chunk = Math.min(income, b.max) - b.min;
+          tax += chunk * b.rate;
+        }
+      }
+      return tax;
+    }
+
+    function updateVisualMeters(baseIncome, conversion, brackets) {
+      document.getElementById('labelCap12').innerText = `Max: $${brackets[1].max.toLocaleString()}`;
+      document.getElementById('labelCap22').innerText = `Max: $${brackets[2].max.toLocaleString()}`;
+      document.getElementById('labelCap24').innerText = `Max: $${brackets[3].max.toLocaleString()}`;
+
+      renderSingleBarPair('12', baseIncome, conversion, brackets[1].max);
+      renderSingleBarPair('22', baseIncome, conversion, brackets[2].max);
+      renderSingleBarPair('24', baseIncome, conversion, brackets[3].max);
+    }
+
+    function renderSingleBarPair(id, base, conv, maxLimit) {
+      const baseEl = document.getElementById(`bar${id}_base`);
+      const convEl = document.getElementById(`bar${id}_conv`);
+
+      let basePct = (base / maxLimit) * 100;
+      let convPct = (conv / maxLimit) * 100;
+
+      if (basePct > 100) basePct = 100;
+      if (basePct + convPct > 100) convPct = 100 - basePct;
+
+      baseEl.style.width = `${basePct}%`;
+      convEl.style.left = `${basePct}%`;
+      convEl.style.width = `${convPct}%`;
+    }
+  </script>
+</body>
+</html>

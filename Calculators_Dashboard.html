@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculators — Wise Retiree</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F3ED;
+    --ink: #1A1614;
+    --muted: #6B6460;
+    --rule: #DDD8D0;
+
+    --gold: #C4913A;
+    --gold-light: #FBF3E4;
+    --teal: #2D7A73;
+    --teal-light: #D6EDEB;
+    --amber: #B86820;
+    --amber-light: #FAE8D4;
+    --navy: #1E3A5F;
+    --navy-light: #D5E0EE;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 100;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .header-sep { width: 1px; height: 16px; background: var(--rule); }
+  .header-tagline {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  /* Top Right Navigation */
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .dropbtn {
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--cream);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.06);
+    border: 1px solid var(--rule);
+    z-index: 110;
+  }
+  .dropdown-content a {
+    color: var(--ink);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    transition: background 0.15s;
+  }
+  .dropdown-content a:hover {
+    background-color: var(--gold-light);
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 72px 48px 0;
+  }
+  .eyebrow {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 4.5vw, 52px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -1.2px;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+  .hero-sub {
+    font-size: 15.5px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  /* ── Phase timeline strip ── */
+  .timeline {
+    display: flex;
+    align-items: center;
+    padding: 44px 48px 0;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .timeline::-webkit-scrollbar { display: none; }
+  .t-node {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px 6px 10px;
+    border-radius: 100px;
+    cursor: default;
+    white-space: nowrap;
+  }
+  .t-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .t-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .t-label.live { font-weight: 500; }
+  .t-connector {
+    width: 28px;
+    height: 1px;
+    background: var(--rule);
+    flex-shrink: 0;
+  }
+
+  /* ── Gatekeeper Analyzer Section (Top Level) ── */
+  .readiness-container {
+    padding: 48px 48px 0;
+  }
+  .readiness-card {
+    background: var(--cream);
+    border: 2px solid var(--teal);
+    padding: 40px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .readiness-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(45, 122, 115, 0.06);
+    background: var(--teal-light);
+  }
+  .readiness-content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .readiness-img-box {
+    width: 64px;
+    height: 64px;
+    background: rgba(45, 122, 115, 0.1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  .readiness-card:hover .readiness-img-box {
+    transform: scale(1.05);
+  }
+  .readiness-meta .p-num {
+    color: var(--teal);
+  }
+  .readiness-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .readiness-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 720px;
+  }
+  .readiness-arrow {
+    font-size: 28px;
+    color: var(--teal);
+    transition: transform 0.2s ease;
+  }
+  .readiness-card:hover .readiness-arrow {
+    transform: translateX(6px);
+  }
+
+  /* ── Grid ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 36px 48px 80px;
+    gap: 0;
+  }
+
+  /* ── Phase card ── */
+  .phase {
+    padding: 36px;
+    border: 1px solid var(--rule);
+    margin: -1px 0 0 -1px;
+    transition: background 0.22s ease;
+    animation: rise 0.5s ease both;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .phase:nth-child(1) { animation-delay: 0.04s; }
+  .phase:nth-child(2) { animation-delay: 0.10s; }
+  .phase:nth-child(3) { animation-delay: 0.16s; }
+  .phase:nth-child(4) { animation-delay: 0.22s; }
+
+  .p-num {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .p-bar {
+    width: 24px; height: 3px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .p-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+  }
+  .p-desc {
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.65;
+    padding-bottom: 22px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ── Calc rows ── */
+  .calc {
+    display: block;
+    text-decoration: none;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .calc:first-of-type { padding-top: 0; }
+  .calc:last-of-type  { border-bottom: none; padding-bottom: 0; }
+
+  .calc-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .calc-left-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .calc-img-box {
+    width: 44px;
+    height: 44px;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+    margin-top: 2px;
+  }
+  .calc-text-box {
+    flex: 1;
+  }
+  .c-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+    transition: color 0.15s;
+  }
+  .c-desc {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .c-arrow {
+    font-size: 15px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.15s, color 0.15s;
+  }
+
+  /* Phase colour tokens */
+  .ph-gold  { --ph: var(--gold);  --ph-bg: var(--gold-light);  }
+  .ph-teal  { --ph: var(--teal);  --ph-bg: var(--teal-light);  }
+  .ph-amber { --ph: var(--amber); --ph-bg: var(--amber-light); }
+  .ph-navy  { --ph: var(--navy);  --ph-bg: var(--navy-light);  }
+
+  .phase:hover { background: var(--ph-bg); }
+  .p-bar { background: var(--ph); }
+  .p-name { color: var(--ph); }
+  
+  /* Live Row Interactions */
+  .calc.live:hover .c-name { color: var(--ph); }
+  .calc.live:hover .c-arrow { color: var(--ph); transform: translateX(4px); }
+  .calc.live:hover .calc-img-box { 
+    transform: scale(1.05); 
+    background: rgba(255, 255, 255, 0.7);
+    border-color: var(--ph);
+  }
+  .calc.live .calc-img-box svg {
+    fill: var(--ph);
+  }
+
+  /* ── Footer ── */
+  .foot {
+    padding: 0 48px 56px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .foot-line { flex: 1; height: 1px; background: var(--rule); }
+  .foot-txt {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .header { padding: 16px 20px; }
+    .header-tagline { display: none; }
+    .hero   { padding: 44px 20px 0; }
+    .timeline { padding: 32px 20px 0; }
+    .readiness-container { padding: 32px 20px 0; }
+    .readiness-card { padding: 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .readiness-content-wrapper { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .readiness-arrow { align-self: flex-end; }
+    .grid   { grid-template-columns: 1fr; padding: 28px 20px 60px; }
+    .phase  { padding: 28px 20px; }
+    .foot   { padding: 0 20px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <a href="https://wise-retiree.com" class="logo">Wise Retiree</a>
+    <div class="header-sep"></div>
+    <span class="header-tagline">Retire Wise and Live Happy</span>
+  </div>
+  
+  <nav class="header-nav">
+    <div class="dropdown">
+      <button class="dropbtn">Home ▾</button>
+      <div class="dropdown-content">
+        <a href="https://wise-retiree.com">Main Website</a>
+        <a href="https://wiseretiree.substack.com" target="_blank">Substack Newsletter</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <p class="eyebrow">Planning Tools</p>
+  <h1 class="hero-title">Every tool for every phase of retirement.</h1>
+  <p class="hero-sub">From first contributions to final distributions — calculators organized around where you are in the journey.</p>
+</section>
+
+<!-- Timeline -->
+<nav class="timeline" aria-label="Planning phases">
+  <div class="t-node">
+    <div class="t-dot" style="background:var(--gold)"></div>
+    <span class="t-label live" style="color:var(--gold)">Build &amp; Grow</span>
+  </div>
+  <div class="t-connector"></div>
+  <div class="t-node">
+    <div class="t-dot" style="background:var(--teal)"></div>
+    <span class="t-label live" style="color:var(--teal)">Plan &amp; Project</span>
+  </div>
+  <div class="t-connector"></div>
+  <div class="t-node">
+    <div class="t-dot" style="background:var(--amber)"></div>
+    <span class="t-label live" style="color:var(--amber)">Optimize &amp; Transition</span>
+  </div>
+  <div class="t-connector"></div>
+  <div class="t-node">
+    <div class="t-dot" style="background:var(--navy)"></div>
+    <span class="t-label live" style="color:var(--navy)">Manage in Retirement</span>
+  </div>
+</nav>
+
+<!-- Baseline Assessment Zone -->
+<section class="readiness-container">
+  <a href="Retirement_Readiness_Calculator.html" class="readiness-card">
+    <div class="readiness-content-wrapper">
+      <div class="readiness-img-box">
+        <!-- Target/Bullseye Compass SVG -->
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+      </div>
+      <div class="readiness-meta">
+        <p class="p-num">Core Evaluation</p>
+        <h2 class="readiness-title">Retirement Readiness Analyzer</h2>
+        <p class="readiness-desc">The critical first step. Run comprehensive cross-phase analytics to answer the foundational questions: <strong>"Can I retire?"</strong> and <strong>"When can I retire?"</strong> before deep-diving into individual strategy modules.</p>
+      </div>
+    </div>
+    <span class="readiness-arrow">→</span>
+  </a>
+</section>
+
+<!-- Grid -->
+<main class="grid">
+
+  <!-- Phase 1 -->
+  <section class="phase ph-gold">
+    <p class="p-num">Phase 1</p>
+    <div class="p-bar"></div>
+    <h2 class="p-name">Build &amp; Grow</h2>
+    <p class="p-desc">For people still accumulating wealth and building their retirement portfolio.</p>
+
+    <a href="Portfolio_Tracker_Generic.html" class="calc live" target="_blank" rel="noopener">
+      <div class="calc-row">
+        <div class="calc-left-block">
+          <div class="calc-img-box">
+            <!-- Briefcase / Portfolio SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+          </div>
+          <div class="calc-text-box">
+            <p class="c-name">Portfolio Manager</p>
+            <p class="c-desc">Build your portfolio, track accounts, and monitor allocation across tax buckets.</p>
+          </div>
+        </div>
+        <span class="c-arrow">→</span>
+      </div>
+    </a>
+    
+    <a href="401k_compounding.html" class="calc live" target="_blank" rel="noopener">
+      <div class="calc-row">
+        <div class="calc-left-block">
+          <div class="calc-img-box">
+            <!-- Trending Up/Growth SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+          </div>
+          <div class="calc-text-box">
+            <p class="c-name">401k Compounding Calculator</p>
+            <p class="c-desc">See the power of compounding, model contribution scenarios, and project your balance at retirement.</p>
+          </div>
+        </div>
+        <span class="c-arrow">→</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- Phase 2 -->
+  <section class="phase ph-teal">
+    <p class="p-num">Phase 2</p>
+    <div class="p-bar"></div>
+    <h2 class="p-name">Plan &amp; Project</h2>
+    <p class="p-desc">For people 5–10 years out from retirement, stress-testing their readiness.</p>
+
+    <a href="retirement_calculator.html" class="calc live" target="_blank" rel="noopener">
+      <div class="calc-row">
+        <div class="calc-left-block">
+          <div class="calc-img-box">
+            <!-- Timeline/Calendar Projection SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+          </div>
+          <div class="calc-text-box">
+            <p class="c-name">Retirement Calculator</p>
+            <p class="c-desc">Project income, withdrawals, RMDs, and Social Security over 30+ years.</p>
+          </div>
+        </div>
+        <span class="c-arrow">→</span>
+      </div>
+    </a>
+    
+    <a href="montecarlo_retirement.html" class="calc live" target="_blank" rel="noopener">
+      <div class="calc-row">
+        <div class="calc-left-block">
+          <div class="calc-img-box">
+            <!-- Analytics/Bar Chart Confidence SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zM16.2 13H19v6h-2.8z"/></svg>
+          </div>
+          <div class="calc-text-box">
+            <p class="c-name">Retirement Confidence Calculator</p>
+            <p class="c-desc">Run Monte Carlo simulations to understand your probability of success across thousands of market scenarios.</p>
+          </div>
+        </div>
+        <span class="c-arrow">→</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- Phase 3 -->
+  <section class="phase ph-amber">
+    <p class="p-num">Phase 3</p>
+    <div class="p-bar"></div>
+    <h2 class="p-name">Optimize &amp; Transition</h2>
+    <p class="p-desc">For people at or near retirement, making key strategic decisions.</p>
+
+    <a href="Roth_Conversion_Optimizer.html" class="calc live" target="_blank" rel="noopener">
+      <div class="calc-row">
+        <div class="calc-left-block">
+          <div class="calc-img-box">
+            <!-- Balance/Scale/Optimization SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+          </div>
+          <div class="calc-text-box">
+            <p class="c-name">Roth Conversion Optimizer</p>
+            <p class="c-desc">Model annual conversion amounts to fill a target tax bracket, minimize lifetime taxes, and reduce future RMDs.</p>
+          </div>
+        </div>
+        <span class="c-arrow">→</span>
+      </div>
+    </a>
+    
+    <a href="SS_Claiming_Strategy.html" class="calc live" target="_blank" rel="noopener">
+      <div class="calc-row">
+        <div class="calc-left-block">
+          <div class="calc-img-box">
+            <!-- Shield/Security Optimization SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          </div>
+          <div class="calc-text-box">
+            <p class="c-name">Social Security Claiming Strategy</p>
+            <p class="c-desc">Compare claiming ages for you and your spouse, model break-even points, and optimize lifetime benefits.</p>
+          </div>
+        </div>
+        <span class="c-arrow">→</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- Phase 4 -->
+  <section class="phase ph-navy">
+    <p class="p-num">Phase 4</p>
+    <div class="p-bar"></div>
+    <h2 class="p-name">Manage in Retirement</h2>
+    <p class="p-desc">For people already retired, managing cash flow, healthcare costs, and account drawdowns.</p>
+
+    <a href="Healthcare_Cost_Premium_Predictor.html" class="calc live" target="_blank" rel="noopener">
+      <div class="calc-row">
+        <div class="calc-left-block">
+          <div class="calc-img-box">
+            <!-- Heart/Healthcare/Pulse SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+          <div class="calc-text-box">
+            <p class="c-name">Healthcare Cost &amp; Premium Predictor</p>
+            <p class="c-desc">Estimate ACA premiums pre-Medicare and Medicare IRMAA surcharges based on income, capital gains, and Roth conversions.</p>
+          </div>
+        </div>
+        <span class="c-arrow">→</span>
+      </div>
+    </a>
+    
+    <a href="RMD_drawdown_Planner.html" class="calc live" target="_blank" rel="noopener">
+      <div class="calc-row">
+        <div class="calc-left-block">
+          <div class="calc-img-box">
+            <!-- Account Drawdown / Pie/Layers SVG -->
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.91-4.33-3.56zm2.95-8H5.08c.96-1.65 2.49-2.93 4.33-3.56-.6 1.11-1.06 2.31-1.38 3.56zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm2.28 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+          </div>
+          <div class="calc-text-box">
+            <p class="c-name">RMD &amp; Account Drawdown Planner</p>
+            <p class="c-desc">Smooth lifetime withdrawal liabilities, neutralize mandatory RMD spikes, and plan account depletion order.</p>
+          </div>
+        </div>
+        <span class="c-arrow">→</span>
+      </div>
+    </a>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="foot">
+  <div class="foot-line"></div>
+  <span class="foot-txt">wise-retiree.com/calculators &middot; Updated June 2026</span>
+  <div class="foot-line"></div>
+</footer>
+
+</body>
+</html>

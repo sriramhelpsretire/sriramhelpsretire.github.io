@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RMD &amp; Account Drawdown Planner | Retire Wise and Live Happy</title>
+
+  <!-- Primary SEO -->
+  <meta name="description" content="Defuse the traditional IRA tax bomb. Model SECURE Act 2.0 Required Minimum Distributions (RMDs) and simulate systematic drawdown strategies." />
+  <meta name="keywords" content="RMD calculator, account drawdown, tax bomb mitigation, SECURE Act 2.0, Roth conversions" />
+  <meta name="author" content="Sriram Gopalaratnam" />
+  <meta name="robots" content="index, follow" />
+  <link class="canonical" href="https://wise-retiree.com/rmd_drawdown_planner.html" />
+
+  <!-- Google Fonts & Tailwind Integration -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #DAE2EB;
+      color: #161b22;
+      padding-top: 72px;
+    }
+    body::after {
+      content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #a82222; z-index: 10005;
+    }
+    /* ── TOP NAV ── */
+    .top-nav {
+      width:100%; background:#000; border-bottom:4px solid #a82222;
+      display:flex; align-items:stretch; justify-content:space-between;
+      padding:0 24px; position:fixed; top:0; left:0; z-index:10000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.35); box-sizing:border-box; height:52px;
+    }
+    .nav-left { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .nav-left img { height:34px; width:auto; display:block; }
+    .nav-brand-name {
+      color:#fff; font-size:clamp(13px,1.6vw,18px); font-weight:700;
+      letter-spacing:0.3px; white-space:nowrap; line-height:1.2;
+    }
+    .nav-brand-name span {
+      display:block; font-size:10px; font-weight:400;
+      color:#d4af37; letter-spacing:0.5px; margin-top:1px;
+    }
+    .nav-right { display:flex; align-items:stretch; gap:0; margin-left:auto; }
+    .nav-item { position:relative; list-style:none; display:flex; align-items:stretch; }
+    .nav-link {
+      display:flex; align-items:center; gap:5px; color:#fff; text-decoration:none; font-size:13.5px;
+      font-weight:600; padding:0 16px; height:100%; border-bottom:3px solid transparent;
+      transition:all .15s; white-space:nowrap; cursor:pointer;
+    }
+    .nav-item:hover > .nav-link {
+      color:#d4af37; border-bottom-color:#d4af37; background:rgba(212,175,55,0.08);
+    }
+    .chevron { font-size:10px; opacity:.7; }
+    .nav-dropdown {
+      display:none; position:absolute; top:100%; right:0; background:#1a1a1a; border:1px solid #333;
+      border-top:3px solid #d4af37; border-radius:0 0 10px 10px; min-width:260px;
+      box-shadow:0 8px 28px rgba(0,0,0,0.5); z-index:9999; padding:6px 0;
+    }
+    .nav-item:hover .nav-dropdown { display:block; }
+    .nav-dropdown a {
+      display:flex; align-items:flex-start; gap:10px; padding:9px 16px; color:#ddd;
+      text-decoration:none; font-size:13px; border-left:3px solid transparent; transition:all .15s;
+    }
+    .nav-dropdown a:hover { background:rgba(212,175,55,0.10); color:#d4af37; border-left-color:#d4af37; }
+    .dd-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
+    .dd-text { display:flex; flex-direction:column; gap:1px; }
+    .dd-text strong { font-size:13px; font-weight:600; color:inherit; }
+    .dd-text span { font-size:11px; color:#888; }
+    .nav-action-btns { display:flex; align-items:center; gap:8px; padding:0 8px; border-left:1px solid #2a2a2a; }
+    .print-btn {
+      background:transparent; color:#ccc; border:1px solid #444; border-radius:5px;
+      padding:5px 11px; font-size:12px; font-weight:600; cursor:pointer; transition:all .15s;
+    }
+    .print-btn:hover { background:#222; color:#d4af37; border-color:#d4af37; }
+    .home-btn {
+      display:flex; align-items:center; gap:5px; background:#a82222; color:#fff;
+      border:none; border-radius:5px; padding:5px 12px; font-size:12px; font-weight:700;
+      text-decoration:none; transition:background .15s;
+    }
+    .home-btn:hover { background:#c0392b; }
+    @media(max-width:768px) {
+      .nav-item, .nav-action-btns { display:none; }
+    }
+    
+    /* ── LAYOUT EXTRA ── */
+    .font-mono-custom { font-family: 'DM Mono', monospace; }
+    .font-serif-custom { font-family: 'DM Serif Display', serif; }
+    .sidebar-box { background-color: #ffffff; border: 1px solid #c8d2dc; border-radius: 8px; padding: 14px; }
+    .sidebar-heading {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      color: #4a5568; border-bottom: 1px solid #edf2f7; padding-bottom: 4px; margin-bottom: 10px;
+    }
+    .input-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .input-label-row label { font-size: 12px; font-weight: 500; color: #2d3748; }
+    .input-field-style {
+      background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px;
+      padding: 4px 8px; font-size: 13px; width: 110px; text-align: right;
+    }
+    .input-field-style:focus { border-color: #a82222; outline: none; background-color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Menu Layout Layer -->
+  <nav class="top-nav">
+    <div class="nav-left">
+      <img src="logo_rwlh.svg" alt="Retire Wise and Live Happy Logo">
+      <div class="nav-brand-name">
+        Retire Wise and Live Happy&trade;
+        <span>Tax Optimization Suite</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <li class="nav-item">
+        <a href="#" class="nav-link">Calculators <span class="chevron">▾</span></a>
+        <div class="nav-dropdown">
+          <a href="Portfolio_Tracker_Generic.html"><span class="dd-icon">📊</span><div class="dd-text"><strong>Portfolio Manager</strong><span>Track assets</span></div></a>
+          <a href="retirement_calculator.html"><span class="dd-icon">📈</span><div class="dd-text"><strong>Retirement Calculator</strong><span>Projections</span></div></a>
+          <a href="roth_conversion_optimizer.html"><span class="dd-icon">🎯</span><div class="dd-text"><strong>Roth Optimizer</strong><span>Bracket topping</span></div></a>
+          <a href="healthcare_premium_predictor.html"><span class="dd-icon">🏥</span><div class="dd-text"><strong>Healthcare Predictor</strong><span>ACA &amp; IRMAA</span></div></a>
+        </div>
+      </li>
+      <div class="nav-action-btns">
+        <button class="print-btn" onclick="window.print()">🖨 Print / PDF</button>
+        <a href="index.html" class="home-btn">HOME</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <header class="mb-6 border-b border-gray-300 pb-4">
+      <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">RMD &amp; Account Drawdown Planner</h1>
+      <p class="mt-1 text-xs text-gray-600">
+        Simulate traditional tax-deferred account drawdowns to smooth out lifetime tax liabilities and neutralize mandatory RMD structural spikes.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT COLUMN: SYSTEM CONTROLS & BALANCES -->
+      <div class="lg:col-span-4 space-y-4">
+        
+        <!-- BASELINE PROFILE STACK -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Filer Age &amp; Assets</div>
+          <div class="input-label-row">
+            <label>Current Age</label>
+            <input type="number" id="currentAge" value="60" min="50" max="100" class="input-field-style font-mono-custom" oninput="runDrawdownPlanner()">
+          </div>
+          <div class="input-label-row">
+            <label>Birth Year</label>
+            <input type="number" id="birthYear" value="1966" min="1930" max="2026" class="input-field-style font-mono-custom" oninput="handleBirthYearChange()">
+          </div>
+          <div class="input-label-row">
+            <label>Traditional IRA/401(k) ($)</label>
+            <input type="number" id="tradBalance" value="1500000" class="input-field-style font-mono-custom" oninput="runDrawdownPlanner()">
+          </div>
+        </div>
+
+        <!-- GROWTH & MARKET PARAMETERS -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Growth Assumptions</div>
+          <div class="input-label-row">
+            <label>Annual Growth Rate (%)</label>
+            <input type="number" id="growthRate" value="6.0" step="0.1" class="input-field-style font-mono-custom" oninput="runDrawdownPlanner()">
+          </div>
+        </div>
+
+        <!-- ACCELERATED DRAWDOWN STRATEGY (DECARBONIZATION) -->
+        <div class="sidebar-box shadow-sm">
+          <div class="sidebar-heading font-mono-custom">Systematic Drawdown Strategy</div>
+          <p class="text-[10px] text-gray-500 mb-3 leading-tight">
+            Voluntarily harvest traditional assets early (via withdrawals or Roth conversions) to shrink the baseline balance before statutory RMD tracking rules lock in.
+          </p>
+          
+          <div class="flex items-center gap-2 mb-3">
+            <input type="checkbox" id="enableDrawdown" class="w-4 h-4 checked:bg-amber-600 accent-amber-600 cursor-pointer" onchange="toggleStrategyUI()" checked>
+            <label for="enableDrawdown" class="text-xs font-bold text-gray-700 uppercase tracking-wider font-mono-custom cursor-pointer">Activate Strategic Plan</label>
+          </div>
+
+          <div id="strategyInputs" class="transition-all space-y-3">
+            <div class="input-label-row">
+              <label>Target Annual Drawdown ($)</label>
+              <input type="number" id="drawdownAmount" value="50000" class="input-field-style font-mono-custom" oninput="runDrawdownPlanner()">
+            </div>
+            <div class="input-label-row">
+              <label>Start Harvesting at Age</label>
+              <input type="number" id="drawdownStartAge" value="60" class="input-field-style font-mono-custom" oninput="runDrawdownPlanner()">
+            </div>
+            <div class="input-label-row">
+              <label>Stop Harvesting at Age</label>
+              <input type="number" id="drawdownEndAge" value="72" class="input-field-style font-mono-custom" oninput="runDrawdownPlanner()">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: PROJECTIONS & COMPARATIVE METRICS -->
+      <div class="lg:col-span-8 space-y-4">
+        
+        <!-- TARGET SUMMARY METRIC CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-xl border border-gray-300 bg-white shadow-sm font-mono-custom">
+            <span class="text-[9px] uppercase font-bold text-gray-500 tracking-wider">SECURE 2.0 RMD Milestone</span>
+            <div id="lblRmdAge" class="text-2xl font-black text-gray-900 font-serif-custom mt-0.5">Age 75</div>
+            <p class="text-[11px] text-gray-600 mt-1">Mandatory distributions kick in based on your birth year.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-gray-300 bg-white shadow-sm font-mono-custom">
+            <span class="text-[9px] uppercase font-bold text-red-700 tracking-wider">Age 80 RMD Shock Value</span>
+            <div id="lblRmdComparison" class="text-2xl font-black text-gray-900 font-serif-custom mt-0.5">$0 vs $0</div>
+            <p class="text-[11px] text-gray-600 mt-1">Baseline RMD vs. Optimized Strategic Plan RMD.</p>
+          </div>
+        </div>
+
+        <!-- MATRIX RUN TIME TABLE -->
+        <div class="bg-white rounded-xl border border-gray-300 shadow-sm overflow-hidden">
+          <div class="p-4 bg-slate-50 border-b border-gray-200 flex justify-between items-center">
+            <h4 class="text-xs font-bold text-gray-700 uppercase tracking-wider font-mono-custom">Comparative Lifetime Account Drawdown Matrix</h4>
+            <span class="text-[10px] text-gray-500 font-mono-custom">IRS Uniform Lifetime Table (ULT) Factors Applied</span>
+          </div>
+          
+          <div class="overflow-x-auto max-h-[520px] overflow-y-auto">
+            <table class="w-full text-left text-xs font-mono-custom relative">
+              <thead class="bg-slate-100 text-gray-700 border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+                <tr>
+                  <th class="p-3 font-semibold bg-slate-100">Age</th>
+                  <th class="p-3 font-semibold text-right bg-slate-100">Baseline Balance</th>
+                  <th class="p-3 font-semibold text-right bg-slate-100 text-red-700">Baseline RMD</th>
+                  <th class="p-3 font-semibold text-right bg-slate-100">Strategic Balance</th>
+                  <th class="p-3 font-semibold text-right bg-slate-100 text-emerald-800">Strategic RMD</th>
+                </tr>
+              </thead>
+              <tbody id="plannerTableBody" class="divide-y divide-gray-200 text-gray-800">
+                <!-- Appended dynamically via JS execution routines -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- EXPLANATORY DISCLOSURE CARD -->
+        <div class="bg-white p-4 rounded-xl border border-gray-300 shadow-sm text-xs text-gray-600 leading-relaxed font-mono-custom">
+          <strong>Strategic Takeaway:</strong> Drawing down tax-deferred accounts early inside low tax brackets purposefully restructures your asset mix. By reducing the terminal traditional IRA balance, you lower mandatory distributions later in retirement—protecting your social security benefits and Medicare premiums from artificial structural shocks.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // IRS Uniform Lifetime Table (ULT) factors for ages 72 through 95
+    const IRS_ULT_FACTORS = {
+      72: 27.4, 73: 26.5, 74: 25.5, 75: 24.6, 76: 23.7, 77: 22.9, 78: 22.0, 79: 21.1,
+      80: 20.2, 81: 19.4, 82: 18.5, 83: 17.7, 84: 16.8, 85: 16.0, 86: 15.2, 87: 14.4,
+      88: 13.7, 89: 12.9, 90: 12.2, 91: 11.5, 92: 10.8, 93: 10.1, 94: 9.5, 95: 8.9
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      runDrawdownPlanner();
+    });
+
+    function handleBirthYearChange() {
+      runDrawdownPlanner();
+    }
+
+    function toggleStrategyUI() {
+      const isChecked = document.getElementById('enableDrawdown').checked;
+      const container = document.getElementById('strategyInputs');
+      if (isChecked) {
+        container.classList.remove('opacity-30', 'pointer-events-none');
+      } else {
+        container.classList.add('opacity-30', 'pointer-events-none');
+      }
+      runDrawdownPlanner();
+    }
+
+    // Identify statutory statutory RMD start ages mandated by SECURE Act 2.0 legislation
+    function getRmdStartAge(birthYear) {
+      if (birthYear <= 1950) return 72;
+      if (birthYear >= 1951 && birthYear <= 1958) return 73;
+      return 75; // Default standard for birth years 1959 and later
+    }
+
+    function runDrawdownPlanner() {
+      const currentAge = parseInt(document.getElementById('currentAge').value) || 60;
+      const birthYear = parseInt(document.getElementById('birthYear').value) || 1966;
+      const initialTradBalance = parseFloat(document.getElementById('tradBalance').value) || 0;
+      const growthRate = (parseFloat(document.getElementById('growthRate').value) || 0) / 100;
+
+      const enableStrategy = document.getElementById('enableDrawdown').checked;
+      const drawAmount = parseFloat(document.getElementById('drawdownAmount').value) || 0;
+      const drawStart = parseInt(document.getElementById('drawdownStartAge').value) || 60;
+      const drawEnd = parseInt(document.getElementById('drawdownEndAge').value) || 72;
+
+      const rmdStartAge = getRmdStartAge(birthYear);
+      document.getElementById('lblRmdAge').innerText = `Age ${rmdStartAge}`;
+
+      const tableBody = document.getElementById('plannerTableBody');
+      tableBody.innerHTML = '';
+
+      let baseBalance = initialTradBalance;
+      let stratBalance = initialTradBalance;
+
+      let sampleBaseRmdAge80 = 0;
+      let sampleStratRmdAge80 = 0;
+
+      // Project tracks step-by-step from current age out to age 90 horizon
+      for (let age = currentAge; age <= 90; age++) {
+        let baseRmd = 0;
+        let stratRmd = 0;
+
+        // Extract applicable divisor values if user hits statutory RMD boundaries
+        if (age >= rmdStartAge) {
+          let divisor = IRS_ULT_FACTORS[age] || IRS_ULT_FACTORS[95];
+          baseRmd = baseBalance / divisor;
+          stratRmd = stratBalance / divisor;
+        }
+
+        // Track age 80 metric benchmarks for summary comparisons
+        if (age === 80) {
+          sampleBaseRmdAge80 = baseRmd;
+          sampleStratRmdAge80 = stratRmd;
+        }
+
+        // Render iterative row metrics 
+        const tr = document.createElement('tr');
+        if (age === rmdStartAge) {
+          tr.className = "bg-amber-50 font-bold border-l-4 border-amber-500";
+        }
+
+        tr.innerHTML = `
+          <td class="p-3 font-medium bg-white">${age}</td>
+          <td class="p-3 text-right text-slate-600">$${Math.round(baseBalance).toLocaleString()}</td>
+          <td class="p-3 text-right text-red-600 font-bold">$${baseRmd > 0 ? Math.round(baseRmd).toLocaleString() : '—'}</td>
+          <td class="p-3 text-right text-slate-600">$${Math.round(stratBalance).toLocaleString()}</td>
+          <td class="p-3 text-right text-emerald-800 font-bold">$${stratRmd > 0 ? Math.round(stratRmd).toLocaleString() : '—'}</td>
+        `;
+        tableBody.appendChild(tr);
+
+        // Process growth steps and execute strategic drawdowns for subsequent loops
+        let baseWithdrawal = baseRmd;
+        baseBalance = (baseBalance - baseWithdrawal) * (1 + growthRate);
+
+        let stratWithdrawal = stratRmd;
+        if (enableStrategy && age >= drawStart && age <= drawEnd) {
+          // Layer volatile voluntary harvesting drawdown target over any baseline RMD mandates
+          stratWithdrawal = Math.max(stratWithdrawal, drawAmount);
+        }
+        
+        // Prevent balances from dropping through sub-zero limits
+        if (stratWithdrawal > stratBalance) stratWithdrawal = stratBalance;
+        stratBalance = (stratBalance - stratWithdrawal) * (1 + growthRate);
+        
+        if (baseBalance < 0) baseBalance = 0;
+        if (stratBalance < 0) stratBalance = 0;
+      }
+
+      // Update targeted shock values inside comparative summary banners
+      document.getElementById('lblRmdComparison').innerText = 
+        `$${Math.round(sampleBaseRmdAge80).toLocaleString()} vs $${Math.round(sampleStratRmdAge80).toLocaleString()}`;
+    }
+  </script>
+</body>
+</html>
