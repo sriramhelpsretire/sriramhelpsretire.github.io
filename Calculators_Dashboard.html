@@ -29,89 +29,150 @@
     background: var(--cream);
     color: var(--ink);
     min-height: 100vh;
+    padding-top: 72px;
   }
 
-  /* ── Header ── */
-  .header {
+  /* ── Top Nav (matches index.html) ── */
+  .top-nav {
+    width: 100%;
+    background: #000;
+    border-bottom: 4px solid #a82222;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
-    padding: 24px 48px;
-    border-bottom: 1px solid var(--rule);
-    position: sticky;
+    padding: 0 28px;
+    position: fixed;
     top: 0;
-    background: var(--cream);
-    z-index: 100;
+    left: 0;
+    z-index: 10000;
+    gap: 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.35);
   }
-  .header-left {
+  .nav-brand {
+    color: #fff;
+    font-size: clamp(15px, 2.2vw, 22px);
+    font-weight: 700;
+    letter-spacing: 0.5px;
     display: flex;
     align-items: center;
-    gap: 16px;
-  }
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.2px;
-    color: var(--ink);
+    padding: 14px 0;
+    white-space: nowrap;
+    flex-shrink: 0;
     text-decoration: none;
   }
-  .header-sep { width: 1px; height: 16px; background: var(--rule); }
-  .header-tagline {
-    font-size: 13px;
-    color: var(--muted);
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  /* Top Right Navigation */
-  .header-nav {
+  .nav-links {
     display: flex;
-    align-items: center;
-    gap: 24px;
+    align-items: stretch;
+    list-style: none;
+    gap: 0;
+    margin-left: auto;
+    padding: 0;
   }
-  .dropdown {
+  .nav-item {
     position: relative;
-    display: inline-block;
   }
-  .dropbtn {
-    background: none;
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    color: var(--ink);
-    cursor: pointer;
-    padding: 8px 0;
+  .nav-item > a {
     display: flex;
     align-items: center;
-    gap: 4px;
-    text-transform: uppercase;
+    gap: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 20px;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    white-space: nowrap;
   }
-  .dropdown-content {
+  .nav-item > a .chevron {
+    font-size: 10px;
+    opacity: 0.7;
+    transition: transform 0.2s;
+    margin-left: 2px;
+  }
+  .nav-item:hover > a {
+    color: #d4af37;
+    border-bottom-color: #d4af37;
+    background: rgba(212,175,55,0.08);
+  }
+  .nav-item:hover > a .chevron {
+    transform: rotate(180deg);
+  }
+  .nav-dropdown {
     display: none;
     position: absolute;
-    right: 0;
-    background-color: var(--cream);
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.06);
-    border: 1px solid var(--rule);
-    z-index: 110;
+    top: 100%;
+    left: 0;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-top: 3px solid #d4af37;
+    border-radius: 0 0 10px 10px;
+    min-width: 240px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+    z-index: 999;
+    padding: 8px 0;
   }
-  .dropdown-content a {
-    color: var(--ink);
-    padding: 12px 16px;
+  .nav-item:hover .nav-dropdown { display: block; }
+  .nav-item:last-child .nav-dropdown { right: 0; left: auto; }
+  .nav-item:nth-last-child(2) .nav-dropdown { right: 0; left: auto; }
+  .nav-dropdown a {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 18px;
+    color: #ddd;
     text-decoration: none;
+    font-size: 13px;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .nav-dropdown a:hover {
+    background: rgba(212,175,55,0.10);
+    color: #d4af37;
+    border-left-color: #d4af37;
+  }
+  .nav-dropdown a .dd-icon {
+    font-size: 17px;
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .nav-dropdown a .dd-text strong {
     display: block;
     font-size: 13px;
-    transition: background 0.15s;
+    font-weight: 600;
+    line-height: 1.3;
   }
-  .dropdown-content a:hover {
-    background-color: var(--gold-light);
-  }
-  .dropdown:hover .dropdown-content {
+  .nav-dropdown a .dd-text span {
     display: block;
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .nav-dropdown a:hover .dd-text span { color: #b8922e; }
+  .nav-dd-divider {
+    height: 1px;
+    background: #333;
+    margin: 6px 14px;
+  }
+  .nav-mobile-select {
+    display: none;
+    background: #333;
+    color: white;
+    padding: 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: 1px solid #d4af37;
+    cursor: pointer;
+    align-self: center;
+    margin-left: auto;
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-mobile-select { display: block; }
   }
 
   /* ── Hero ── */
@@ -258,8 +319,8 @@
   /* ── Phase card ── */
   .phase {
     padding: 36px;
-    border: 1px solid var(--rule);
-    margin: -1px 0 0 -1px;
+    border: 3px solid var(--ph, var(--rule));
+    margin: -3px 0 0 -3px;
     transition: background 0.22s ease;
     animation: rise 0.5s ease both;
   }
@@ -397,8 +458,6 @@
 
   /* ── Mobile ── */
   @media (max-width: 768px) {
-    .header { padding: 16px 20px; }
-    .header-tagline { display: none; }
     .hero   { padding: 44px 20px 0; }
     .timeline { padding: 32px 20px 0; }
     .readiness-container { padding: 32px 20px 0; }
@@ -414,23 +473,125 @@
 <body>
 
 <!-- Header -->
-<header class="header">
-  <div class="header-left">
-    <a href="https://wise-retiree.com" class="logo">Wise Retiree</a>
-    <div class="header-sep"></div>
-    <span class="header-tagline">Retire Wise and Live Happy</span>
-  </div>
-  
-  <nav class="header-nav">
-    <div class="dropdown">
-      <button class="dropbtn">Home ▾</button>
-      <div class="dropdown-content">
-        <a href="https://wise-retiree.com">Main Website</a>
-        <a href="https://wiseretiree.substack.com" target="_blank">Substack Newsletter</a>
+<nav class="top-nav">
+
+  <a href="https://wise-retiree.com" class="nav-brand">
+    <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
+    Retire Wise and Live Happy&trade;
+  </a>
+
+  <ul class="nav-links">
+
+    <!-- Planning -->
+    <li class="nav-item">
+      <a href="transition_plan.html">Planning <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="transition_plan.html">
+          <span class="dd-icon">📌</span>
+          <div class="dd-text"><strong>Retirement Made Easy</strong><span>Working years → retirement transition</span></div>
+        </a>
+        <a href="steps_retirement.html">
+          <span class="dd-icon">🪜</span>
+          <div class="dd-text"><strong>Steps in Retirement</strong><span>12-step planning guide</span></div>
+        </a>
+        <a href="financial_plan.html">
+          <span class="dd-icon">💼</span>
+          <div class="dd-text"><strong>Financial Plan</strong><span>The 6 pillars of financial planning</span></div>
+        </a>
+        <div class="nav-dd-divider"></div>
+        <a href="terms.html">
+          <span class="dd-icon">📖</span>
+          <div class="dd-text"><strong>Terms Used</strong><span>Retirement glossary</span></div>
+        </a>
+        <a href="website.html">
+          <span class="dd-icon">🔗</span>
+          <div class="dd-text"><strong>Web Sites</strong><span>Curated external resources</span></div>
+        </a>
+        <a href="https://futureyou.wise-retiree.com">
+          <span class="dd-icon">💡</span>
+          <div class="dd-text"><strong>Early Age Planning</strong><span>Future You</span></div>
+        </a>
+        <a href="faq.html">
+          <span class="dd-icon">✨</span>
+          <div class="dd-text"><strong>FAQ</strong><span>Frequently Asked Questions</span></div>
+        </a>
       </div>
-    </div>
-  </nav>
-</header>
+    </li>
+
+    <!-- Healthcare -->
+    <li class="nav-item">
+      <a href="medicare_aca.html"><span style="color:#d4af37">🩺</span> Healthcare <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="medicare_aca.html">
+          <span class="dd-icon">🏥</span>
+          <div class="dd-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div>
+        </a>
+        <a href="healthcare_medicare.html">
+          <span class="dd-icon">💊</span>
+          <div class="dd-text"><strong>Healthcare – Medicare</strong><span>IRMAA, enrollment windows</span></div>
+        </a>
+        <a href="healthcare_aca.html">
+          <span class="dd-icon">🛡️</span>
+          <div class="dd-text"><strong>Healthcare – ACA</strong><span>Marketplace, subsidies, Covered CA</span></div>
+        </a>
+        <div class="nav-dd-divider"></div>
+        <a href="aca_vs_cobra.html">
+          <span class="dd-icon">⚖️</span>
+          <div class="dd-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div>
+        </a>
+        <a href="medicare_flowchart.html">
+          <span class="dd-icon">🗺️</span>
+          <div class="dd-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div>
+        </a>
+        <a href="long_term_care.html">
+          <span class="dd-icon">🏠</span>
+          <div class="dd-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div>
+        </a>
+      </div>
+    </li>
+
+    <!-- Home -->
+    <li class="nav-item">
+      <a href="https://wise-retiree.com">Home <span class="chevron">▾</span></a>
+      <div class="nav-dropdown">
+        <a href="https://wise-retiree.com">
+          <span class="dd-icon">🏠</span>
+          <div class="dd-text"><strong>Main Website</strong><span>wise-retiree.com</span></div>
+        </a>
+        <a href="https://wiseretiree.substack.com" target="_blank">
+          <span class="dd-icon">📬</span>
+          <div class="dd-text"><strong>Substack Newsletter</strong><span>Articles &amp; retirement insights</span></div>
+        </a>
+      </div>
+    </li>
+
+  </ul>
+
+  <!-- Mobile fallback -->
+  <select class="nav-mobile-select" onchange="if(this.value) window.location.href=this.value;">
+    <option value="">Explore Topics</option>
+    <optgroup label="Planning">
+      <option value="transition_plan.html">📌 Retirement Made Easy</option>
+      <option value="steps_retirement.html">📌 Steps in Retirement</option>
+      <option value="financial_plan.html">📌 Financial Plan</option>
+      <option value="terms.html">📌 Terms Used</option>
+      <option value="faq.html">📌 FAQ</option>
+    </optgroup>
+    <optgroup label="Healthcare">
+      <option value="medicare_aca.html">📌 Medicare Hub</option>
+      <option value="healthcare_medicare.html">📌 Healthcare – Medicare</option>
+      <option value="healthcare_aca.html">📌 Healthcare – ACA</option>
+      <option value="aca_vs_cobra.html">📌 ACA vs COBRA</option>
+      <option value="medicare_flowchart.html">📌 Medicare Flowchart</option>
+      <option value="long_term_care.html">📌 Long Term Care</option>
+    </optgroup>
+    <optgroup label="Home">
+      <option value="https://wise-retiree.com">🏠 Main Website</option>
+      <option value="https://wiseretiree.substack.com">📬 Substack Newsletter</option>
+    </optgroup>
+  </select>
+
+</nav>
 
 <!-- Hero -->
 <section class="hero">
