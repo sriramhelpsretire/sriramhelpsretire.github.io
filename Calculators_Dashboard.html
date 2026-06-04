@@ -170,6 +170,19 @@
     align-self: center;
     margin-left: auto;
   }
+  
+  
+  .nav-extra-text {
+  display: flex;
+  align-items: center;
+  color: #fdd017;
+  font-size: 20px;
+  margin-left: -20px; /* Pulls it closer to the brand, since the nav has a large gap */
+  opacity: 0.8;       /* Softens the text slightly */
+}
+  
+  
+  
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .nav-mobile-select { display: block; }
@@ -479,6 +492,7 @@
     <img src="logo_rwlh.svg" alt="Logo" style="height:40px;width:40px;margin-right:10px;vertical-align:middle;">
     Retire Wise and Live Happy&trade;
   </a>
+  <span class="nav-extra-text"> <strong>Comprehensive Tool Box - All calculators in one place</strong></span>
 
   <ul class="nav-links">
 
