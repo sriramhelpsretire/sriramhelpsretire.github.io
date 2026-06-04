@@ -4,29 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retire Wise and Live Happy | Retirement Planning Guide by Sriram G</title>
-
-    <!-- Primary SEO -->
     <meta name="description" content="Retire Wise and Live Happy — a comprehensive retirement planning guide covering 401k, Social Security, Medicare, tax planning, Monte Carlo simulation, and portfolio management for California retirees." />
     <meta name="keywords" content="retirement planning, retire wise, Social Security, Medicare, 401k calculator, Monte Carlo retirement, tax planning retirement, California retirement, retirement income, RMDs, long term care" />
     <meta name="author" content="Sriram Gopalaratnam" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://wise-retiree.com/" />
-
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://wise-retiree.com/" />
     <meta property="og:title" content="Retire Wise and Live Happy | Retirement Planning Guide" />
     <meta property="og:description" content="A pocket guide to retirement planning — Social Security, Medicare, tax strategy, portfolio management and more. Built for those approaching or in retirement." />
     <meta property="og:image" content="https://wise-retiree.com/index_pic.jpg" />
     <meta property="og:site_name" content="Retire Wise and Live Happy" />
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Retire Wise and Live Happy | Retirement Planning Guide" />
     <meta name="twitter:description" content="Comprehensive retirement planning tools and guides — Social Security, Medicare, tax strategy and portfolio management." />
     <meta name="twitter:image" content="https://wise-retiree.com/index_pic.jpg" />
-
-    <!-- Schema.org structured data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -40,47 +32,54 @@
       }
     }
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-page:      #E3F1FA;
-            --accent-gold:  #d4af37;
-            --text-dark:    #2c2c2c;
-            --bar-dark:     #1a1a1a;
-            --dropdown-dark: #333333;
+            --gold:        #d4af37;
+            --gold-dark:   #693909;
+            --gold-light:  #fdf6e3;
+            --ink:         #0f0f0f;
+            --body:        #374151;
+            --muted:       #6b7280;
+            --rule:        #e5e7eb;
+            --bg:          #ffffff;
+            --bg-off:      #f9fafb;
+            --navy:        #0d1b2a;
+            --teal:        #0d3b2e;
+            /* keep for tooltip / feedback compat */
+            --accent-gold: #d4af37;
+            --bar-dark:    #1a1a1a;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { height: 100%; }
 
-		body {
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		background-color: var(--bg-page);
-		color: var(--text-dark);
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		min-height: 100vh;
-		text-align: center;
-		padding-top: 72px;
-		}
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--body);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 72px;
+        }
 
-        /* ── Top Nav — Hover Dropdown Style (home page only) ── */
+        /* ── TOP NAV (unchanged) ── */
         .top-nav {
-		width: 100%;
-		background: #000;
-		border-bottom: 4px solid #a82222;
-		display: flex;
-		align-items: stretch;
-		justify-content: space-between;
-		padding: 0 28px;
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 10000;
-		gap: 40px;
-		box-shadow: 0 2px 10px rgba(0,0,0,0.35);
-		}
-
+            width: 100%;
+            background: #000;
+            border-bottom: 4px solid #a82222;
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 10000;
+            gap: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+        }
         .nav-brand {
             color: #fff;
             font-size: clamp(15px, 2.2vw, 22px);
@@ -92,21 +91,15 @@
             white-space: nowrap;
             flex-shrink: 0;
         }
-
-        /* ── Horizontal nav links ── */
-			.nav-links {
-			display: flex;
-			align-items: stretch;
-			list-style: none;
-			gap: 0;
-			margin-left: auto;
-			padding: 0;
-			}
-
-        .nav-item {
-            position: relative;
+        .nav-links {
+            display: flex;
+            align-items: stretch;
+            list-style: none;
+            gap: 0;
+            margin-left: auto;
+            padding: 0;
         }
-
+        .nav-item { position: relative; }
         .nav-item > a {
             display: flex;
             align-items: center;
@@ -121,30 +114,13 @@
             transition: color 0.15s, border-color 0.15s, background 0.15s;
             white-space: nowrap;
         }
-
-        .nav-item > a .chevron {
-            font-size: 10px;
-            opacity: 0.7;
-            transition: transform 0.2s;
-            margin-left: 2px;
-        }
-
-        .nav-item:hover > a {
-            color: #d4af37;
-            border-bottom-color: #d4af37;
-            background: rgba(212,175,55,0.08);
-        }
-
-        .nav-item:hover > a .chevron {
-            transform: rotate(180deg);
-        }
-
-        /* ── Dropdown panel ── */
+        .nav-item > a .chevron { font-size: 10px; opacity: 0.7; transition: transform 0.2s; margin-left: 2px; }
+        .nav-item:hover > a { color: #d4af37; border-bottom-color: #d4af37; background: rgba(212,175,55,0.08); }
+        .nav-item:hover > a .chevron { transform: rotate(180deg); }
         .nav-dropdown {
             display: none;
             position: absolute;
-            top: 100%;
-            left: 0;
+            top: 100%; left: 0;
             background: #1a1a1a;
             border: 1px solid #333;
             border-top: 3px solid #d4af37;
@@ -154,15 +130,9 @@
             z-index: 999;
             padding: 8px 0;
         }
-
-        /* Two-column layout removed — all dropdowns single column */
-        .nav-dropdown.two-col {
-            min-width: 260px;
-        }
-
-        .nav-item:hover .nav-dropdown          { display: block; }
-        .nav-item:hover .nav-dropdown.two-col  { display: block; }
-
+        .nav-dropdown.two-col { min-width: 260px; }
+        .nav-item:hover .nav-dropdown, .nav-item:hover .nav-dropdown.two-col { display: block; }
+        .nav-item:last-child .nav-dropdown, .nav-item:nth-last-child(2) .nav-dropdown { right: 0; left: auto; }
         .nav-dropdown a {
             display: flex;
             align-items: flex-start;
@@ -174,56 +144,12 @@
             border-left: 3px solid transparent;
             transition: background 0.15s, color 0.15s, border-color 0.15s;
         }
-
-        .nav-dropdown a:hover {
-            background: rgba(212,175,55,0.10);
-            color: #d4af37;
-            border-left-color: #d4af37;
-        }
-
-        .nav-dropdown a .dd-icon {
-            font-size: 17px;
-            width: 24px;
-            text-align: center;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
-
-        .nav-dropdown a .dd-text strong {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-
-        .nav-dropdown a .dd-text span {
-            display: block;
-            font-size: 11px;
-            color: #888;
-            margin-top: 2px;
-            line-height: 1.3;
-        }
-
+        .nav-dropdown a:hover { background: rgba(212,175,55,0.10); color: #d4af37; border-left-color: #d4af37; }
+        .nav-dropdown a .dd-icon { font-size: 17px; width: 24px; text-align: center; flex-shrink: 0; margin-top: 1px; }
+        .nav-dropdown a .dd-text strong { display: block; font-size: 13px; font-weight: 600; line-height: 1.3; }
+        .nav-dropdown a .dd-text span { display: block; font-size: 11px; color: #888; margin-top: 2px; line-height: 1.3; }
         .nav-dropdown a:hover .dd-text span { color: #b8922e; }
-		
-		/* Right-edge protection for dropdowns */
-		.nav-item:last-child .nav-dropdown {
-		right: 0;
-		left: auto;
-		}
-
-.nav-item:nth-last-child(2) .nav-dropdown {
-    right: 0;
-    left: auto;
-}
-
-        .nav-dd-divider {
-            height: 1px;
-            background: #333;
-            margin: 6px 14px;
-        }
-
-        /* ── Mobile: collapse to compact select ── */
+        .nav-dd-divider { height: 1px; background: #333; margin: 6px 14px; }
         .nav-mobile-select {
             display: none;
             background: #333;
@@ -236,313 +162,509 @@
             align-self: center;
             margin-left: auto;
         }
-
         @media (max-width: 768px) {
-            .nav-links        { display: none; }
+            .nav-links { display: none; }
             .nav-mobile-select { display: block; }
         }
 
-        /* ── Full Width Banner Image ── */
-        .banner-image {
+        /* ── HERO BANNER ── */
+        .hero {
             width: 100%;
+            background: var(--bg-off);
+            border-bottom: 1px solid var(--rule);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 32px 0;
+        }
+        .hero-inner {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        .hero-text {
+            text-align: center;
+        }
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 4vw, 48px);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.12;
+            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+        }
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        .hero-sub {
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 400;
+            color: var(--muted);
+            max-width: 560px;
+            line-height: 1.7;
+            margin: 0 auto 20px;
+        }
+        .hero-ctas {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 13px 28px;
+            border-radius: 8px;
+            border: 2px solid #000;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+        }
+        .btn-primary:hover { background: var(--gold-dark); color: #fff; transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 13px 28px;
+            border-radius: 8px;
+            border: 2px solid #000;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.15s;
+        }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold-dark); transform: translateY(-2px); }
+        .hero-illustration {
+            width: 100%;
+            max-width: 1100px;
+            border-radius: 12px 12px 0 0;
+            border: 2.5px solid #000;
+            border-bottom: none;
             display: block;
+            object-fit: cover;
         }
 
-        .banner-image img {
+        /* ── TRUST BAR ── */
+        .trust-bar {
             width: 100%;
-            height: auto;
-            display: block;
+            background: var(--bg-off);
+            border-bottom: 1px solid var(--rule);
+            padding: 18px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
         }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+        .trust-icon { font-size: 18px; }
 
-        /* ── Content Container ── */
+        /* ── PAGE BODY ── */
         .page-body {
             width: 100%;
             max-width: 1100px;
-            padding: 20px;
+            padding: 0 32px 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .content-text {
-            text-align: left;
-            margin: 20px 0;
+        /* ── SECTION LABEL ── */
+        .section-label {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 56px 0 24px;
+        }
+        .section-label-text {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+        .section-label-rule {
+            flex: 1;
+            height: 1px;
+            background: var(--rule);
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 3vw, 28px);
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.3px;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        .section-sub {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--muted);
+            line-height: 1.65;
+            width: 100%;
+            margin-bottom: 28px;
+            max-width: 680px;
+        }
+
+        /* ── WELCOME BLOCK ── */
+        .welcome-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            width: 100%;
+            border: 1px solid var(--rule);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        .welcome-text {
+            padding: 36px 40px;
+            background: var(--bg);
+        }
+        .welcome-text p {
+            font-size: 15.5px;
+            line-height: 1.75;
+            color: var(--body);
+            margin-bottom: 16px;
+        }
+        .welcome-text p:last-child { margin-bottom: 0; }
+        .welcome-text strong { color: var(--ink); font-weight: 600; }
+        .welcome-text u { text-decoration-color: var(--gold); }
+        .welcome-features {
+            padding: 36px 40px;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+        }
+        .w-feat {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .w-feat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(212,175,55,0.15);
+            border: 1px solid rgba(212,175,55,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+        .w-feat-body strong {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 3px;
+        }
+        .w-feat-body span {
+            font-size: 12.5px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.5;
+        }
+
+        /* ── HOW TO USE (3 steps) ── */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+        .step-card {
+            background: var(--bg);
+            border: 1px solid var(--rule);
+            border-radius: 12px;
+            padding: 28px 24px;
+            position: relative;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .step-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-3px); }
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--gold);
+            color: #000;
+            font-weight: 800;
+            font-size: 15px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+        }
+        .step-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+        .step-card p {
+            font-size: 13.5px;
+            line-height: 1.65;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        /* ── CALCULATORS BAND ── */
+        .calc-band {
+            width: 100%;
+            background: var(--navy);
+            border-radius: 14px;
+            padding: 40px 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .calc-band-text {  }
+        .calc-band-eyebrow {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .calc-band-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 2.5vw, 26px);
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+            line-height: 1.25;
+        }
+        .calc-band-sub {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
             line-height: 1.6;
-            font-size: 20px;
+            max-width: 480px;
         }
-
-        .content-text p {
-            margin-bottom: 18px;
+        .calc-band-btn {
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 15px 34px;
+            border-radius: 9px;
+            text-decoration: none;
+            white-space: nowrap;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+            transition: background 0.2s, color 0.2s;
         }
+        .calc-band-btn:hover { background: var(--gold-dark); color: #fff; }
 
-        .calc-desc {
-            background: #0A0A47;
-            border-left: 5px solid var(--accent-gold);
-            border-radius: 10px;
-            padding: 14px 18px;
-            color: #f0f0f0;
-        }
-
-        .calc-desc strong {
-            color: var(--accent-gold);
-            font-size: 1.05em;
-        }
-
-        /* ── Buttons & UI ── */
-        .top-buttons {
+        /* ── HEALTHCARE GRID ── */
+        .hc-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             width: 100%;
-            margin-top: 10px;
-            margin-bottom: 30px;
         }
-		 
-
-        .btn {
-            background-color: var(--accent-gold);
-            color: #000;
-            text-decoration: none;
-            padding: 14px 20px;
-            border-radius: 12px;
-            font-weight: bold;
-            border: 2px solid #000;
-            text-align: center;
-            transition: transform 0.2s;
-        }
-		.btn:hover { background: #693909; color: #fff; transform: scale(1.03); }
-
-        .calc-pad {
-            background: #0A0A47;
-            border: 2px solid var(--accent-gold);
-            border-radius: 16px;
-            padding: 30px 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            width: 100%;
-        }
-
-        .pad-btn {
-            background-color: var(--accent-gold);
-            color: #000;
-            text-decoration: none;
+        .hc-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
             padding: 18px 20px;
-            border-radius: 14px;
-            font-weight: bold;
-            border: 1px solid #000;
-            text-align: center;
-        }
-  .pad-btn:hover { background: #693909; border-color: var(--gold-lt); color: #fff; }
-        footer {
-            width: 100%;
-            background-color: var(--bar-dark);
-            color: #ffffff;
-            padding: 25px 0;
-            margin-top: 40px;
-            text-align: left;
-        }
-
-        .footer-inner { 
-            max-width: 1100px; 
-            margin: 0 auto; 
-            padding: 0 20px; 
-            font-size: 14px; 
-            line-height: 1.8;
-        }
-
-        /* ── Section Headings ── */
-        .section-heading {
-            width: 100%;
-            text-align: left;
-            font-size: 1.25em;
-            font-weight: 700;
-            color: var(--text-dark);
-            border-left: 5px solid var(--accent-gold);
-            padding-left: 12px;
-            margin: 28px 0 16px 0;
-            letter-spacing: 0.5px;
-        }
-
-        /* ── Getting Started Steps ── */
-        .getting-started {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .step-card {
-            background: #fff;
-            border: 2px solid var(--accent-gold);
-            border-radius: 14px;
-            padding: 20px 18px;
-            text-align: left;
-        }
-
-        .step-num {
-            display: inline-block;
-            background: var(--accent-gold);
-            color: #000;
-            font-weight: 800;
-            font-size: 1.1em;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 34px;
-            margin-bottom: 10px;
-        }
-
-        .step-card h3 {
-            font-size: 1em;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #0A0A47;
-        }
-
-        .step-card p {
-            font-size: 0.92em;
-            line-height: 1.5;
-            color: #444;
-            margin: 0;
-        }
-
-        /* ── Healthcare Pad ── */
-        .health-pad {
-            background: #0d3b2e;
-            border: 2px solid var(--accent-gold);
-            border-radius: 16px;
-            padding: 30px 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .health-btn {
-            background-color: var(--accent-gold);
-            color: #000;
+            background: var(--bg);
+            border: 1px solid var(--rule);
+            border-radius: 10px;
             text-decoration: none;
-            padding: 16px 18px;
-            border-radius: 14px;
-            font-weight: bold;
-            border: 1px solid #000;
+            color: var(--ink);
+            font-weight: 500;
+            font-size: 14px;
+            transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+        }
+        .hc-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+            transform: translateY(-2px);
+        }
+        .hc-icon { font-size: 22px; flex-shrink: 0; }
+        .hc-text strong { display: block; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+        .hc-text span { font-size: 12px; color: var(--muted); }
+
+        /* ── PLANNING LINKS ── */
+        .planning-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            width: 100%;
+        }
+        .plan-btn {
+            display: block;
             text-align: center;
-            font-size: 0.95em;
+            padding: 16px 20px;
+            background: var(--bg-off);
+            border: 1px solid var(--rule);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--ink);
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.18s, border-color 0.18s, transform 0.18s;
         }
-        .health-btn:hover { background: #693909; color: #fff; }
+        .plan-btn:hover {
+            background: var(--gold-light);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
 
-        /* ── Retirement Readiness Checklist ── */
+        /* ── CHECKLIST ── */
         .checklist-box {
-            background: #fff;
-            border: 2px solid var(--accent-gold);
-            border-radius: 16px;
-            padding: 24px 24px 20px;
+            background: var(--bg);
+            border: 1px solid var(--rule);
+            border-radius: 14px;
+            padding: 32px;
             width: 100%;
-            margin-bottom: 10px;
-            text-align: left;
         }
-
-        .checklist-progress-wrap {
-            margin-bottom: 20px;
-        }
-
+        .checklist-progress-wrap { margin-bottom: 28px; }
         .checklist-progress-label {
-            font-size: 0.92em;
-            color: #555;
-            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 8px;
         }
-
         .checklist-bar-bg {
-            background: #e0e0e0;
-            border-radius: 8px;
-            height: 12px;
+            background: var(--rule);
+            border-radius: 99px;
+            height: 8px;
             width: 100%;
         }
-
         .checklist-bar-fill {
-            background: #0A0A47;
-            height: 12px;
-            border-radius: 8px;
-            transition: width 0.3s ease;
+            background: var(--gold);
+            height: 8px;
+            border-radius: 99px;
+            transition: width 0.35s ease;
             width: 0%;
         }
-
-        .checklist-category {
-            margin-bottom: 18px;
-        }
-
+        .checklist-category { margin-bottom: 24px; }
+        .checklist-category:last-child { margin-bottom: 0; }
         .checklist-category h4 {
-            font-size: 0.95em;
+            font-size: 12px;
             font-weight: 700;
-            color: #0A0A47;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--rule);
         }
-
         .checklist-item {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 8px;
-            font-size: 0.93em;
-            line-height: 1.45;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.55;
             cursor: pointer;
+            color: var(--body);
         }
-
         .checklist-item input[type="checkbox"] {
             margin-top: 2px;
-            accent-color: #0A0A47;
+            accent-color: var(--gold);
             width: 16px;
             height: 16px;
             flex-shrink: 0;
             cursor: pointer;
         }
-
         .checklist-item.checked span {
             text-decoration: line-through;
-            color: #999;
+            color: #bbb;
         }
 
-        @media (max-width: 600px) {
-            .getting-started { grid-template-columns: 1fr; }
-            .health-pad { grid-template-columns: 1fr 1fr; }
+        /* ── SUBSTACK EMBED ── */
+        .substack-strip {
+            width: 100%;
+            background: var(--bg-off);
+            border: 1px solid var(--rule);
+            border-radius: 12px;
+            padding: 32px 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 0;
         }
-		
-		
-		.welcome-list {
-    text-align: left;
-    margin: 20px auto 25px;
-    max-width: 900px;
-    list-style: none;
-}
-
-.welcome-list li {
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 12px;
-    font-size: 19px;
-}
-
-.welcome-list li::before {
-    content: "✦";
-    position: absolute;
-    left: 0;
-    color: var(--accent-gold);
-    font-weight: bold;
-}
-
-
-/* ... existing styles ... */
-        
-        /* ── Tooltip Style for Wise Thoughts ── */
-        .tooltip-container {
-            position: relative;
+        .substack-text { flex: 1; min-width: 200px; }
+        .substack-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
         }
+        .substack-text p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ── DISCLAIMER ── */
+        .disclaimer {
+            width: 100%;
+            font-style: italic;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.65;
+            padding: 16px 0 0;
+            border-top: 1px solid var(--rule);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            width: 100%;
+            background: var(--navy);
+            color: rgba(255,255,255,0.7);
+            padding: 36px 0;
+            margin-top: auto;
+        }
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 32px;
+            font-size: 13px;
+            line-height: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 6px 40px;
+        }
+        .footer-inner p { color: rgba(255,255,255,0.6); }
+        .footer-inner strong { color: rgba(255,255,255,0.9); }
+
+        /* ── TOOLTIP (keep for Wise Thoughts) ── */
+        .tooltip-container { position: relative; }
         .tooltip-container .tooltip-text {
             visibility: hidden;
             width: 160px;
@@ -553,8 +675,7 @@
             padding: 6px 0;
             position: absolute;
             z-index: 10001;
-            bottom: 125%;
-            right: 10%;
+            bottom: 125%; right: 10%;
             opacity: 0;
             transition: opacity 0.2s;
             font-size: 13px;
@@ -565,23 +686,46 @@
         .tooltip-container .tooltip-text::after {
             content: "";
             position: absolute;
-            top: 100%;
-            left: 85%;
+            top: 100%; left: 85%;
             margin-left: -5px;
             border-width: 5px;
             border-style: solid;
             border-color: var(--bar-dark) transparent transparent transparent;
         }
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
+        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+        /* ── Bold black borders on all boxes ── */
+        .welcome-grid,
+        .step-card,
+        .calc-band,
+        .hc-card,
+        .plan-btn,
+        .checklist-box,
+        .substack-strip {
+            border: 2.5px solid #000 !important;
         }
-		
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .welcome-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .hc-grid { grid-template-columns: 1fr 1fr; }
+            .planning-row { grid-template-columns: 1fr; }
+            .calc-band { flex-direction: column; padding: 32px 28px; text-align: center; }
+            .calc-band-sub { max-width: 100%; }
+        }
+        @media (max-width: 600px) {
+            .page-body { padding: 0 20px 48px; }
+            .hc-grid { grid-template-columns: 1fr; }
+            .trust-bar { gap: 20px; padding: 16px 20px; }
+            .welcome-text, .welcome-features { padding: 28px 24px; }
+            .footer-inner { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">
+<nav class="top-nav">
 
         <div class="nav-brand">
 		<img src="logo_rwlh.svg" alt="Logo" style="height:40px; width:40px; margin-right:10px; vertical-align:middle;">
@@ -703,117 +847,201 @@
 
     </nav>
 
-    <div class="banner-image">
-        <img src="index_pic.jpg" alt="Retirement Banner">
+<!-- ── HERO ── -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-text">
+            <p class="hero-eyebrow">Retirement Planning Guide</p>
+            <h1 class="hero-title">Retire <em>wise</em>. Live happy.</h1>
+            <p class="hero-sub">A comprehensive guide to planning your retirement — from your first 401k contribution to managing RMDs in retirement.</p>
+            <div class="hero-ctas">
+                <a href="Calculators_Dashboard.html" class="btn-primary">🧮 Explore Calculators</a>
+                <a href="transition_plan.html" class="btn-outline">Start Planning →</a>
+            </div>
+        </div>
+        <img src="1780535492265_image.png" alt="Retirement Planner — A Pocket Guide by Sriram G" class="hero-illustration">
+    </div>
+</section>
+
+<!-- ── TRUST BAR ── -->
+<div class="trust-bar">
+    <div class="trust-item"><span class="trust-icon">🧮</span> 9+ Interactive Calculators</div>
+    <div class="trust-item"><span class="trust-icon">📚</span> End-to-End Planning Guide</div>
+    <div class="trust-item"><span class="trust-icon">🏥</span> Medicare &amp; ACA Coverage</div>
+    <div class="trust-item"><span class="trust-icon">🔒</span> No Personal Data Required</div>
+</div>
+
+<!-- ── PAGE BODY ── -->
+<div class="page-body">
+
+    <!-- Welcome -->
+    <div class="section-label" style="margin-top:48px;">
+        <span class="section-label-text">About this site</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <div class="welcome-grid">
+        <div class="welcome-text">
+            <p><strong>Welcome to a peaceful place where we discuss every aspect of retirement.</strong> The hope is to make you feel at peace financially — and retire comfortably.</p>
+            <p>The philosophy that <u>you don't retire <em>out of</em> something, but <em>into</em> something</u> emphasizes that retirement is a transition to a new phase with a bigger purpose.</p>
+            <p>Retirement Planner — A Pocket Guide is a compendium of information and calculations to help plan your retirement. Retirement is not all about finance; but once you secure your finances, you can plan all the good things you want to get into.</p>
+        </div>
+        <div class="welcome-features">
+            <div class="w-feat">
+                <div class="w-feat-icon">📖</div>
+                <div class="w-feat-body">
+                    <strong>Educational Insights</strong>
+                    <span>Simplified breakdowns of Social Security, Medicare, tax strategy, and more.</span>
+                </div>
+            </div>
+            <div class="w-feat">
+                <div class="w-feat-icon">🧮</div>
+                <div class="w-feat-body">
+                    <strong>Interactive Tools</strong>
+                    <span>Hands-on calculators to model your specific financial future — with more added regularly.</span>
+                </div>
+            </div>
+            <div class="w-feat">
+                <div class="w-feat-icon">🪜</div>
+                <div class="w-feat-body">
+                    <strong>Step-by-Step Guidance</strong>
+                    <span>A logical roadmap from your working years into a purposeful retirement.</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="page-body">
-        <div class="content-text">
-            <p><strong>Welcome to a peaceful place where we discuss various aspects of retirement, and the hope is to make you feel at peace financially and retire comfortably.</strong></p>
-            
-            <p>The philosophy that <u>you don't retire <em>out of</em> something, but <em>into</em> something</u>, emphasizes that retirement is a transition to a new phase in life with a bigger purpose.</p>
-            
-            <p>Retirement Planner – A Pocket Guide is a compendium of information and calculations that will help plan your retirement. Retirement is not all about finance, however, once you secure your finance you can plan all the good things you want to get into.</p>
-            
-            
-			<ul class="welcome-list">
-    <li>Understand the "Three-Account" system for tax-efficient withdrawals.</li>
-    <li>Navigate the transition from employer coverage to ACA or Medicare.</li>
-    <li>Project your portfolio's longevity using historical market data.</li>
-</ul>
-			
-			
-			
-			
-			<ul style="text-align: left; margin: 0 0 20px 40px; list-style-type: disc; font-size: 18px; color: #333;">
-    <li><strong>Educational Insights:</strong> Simplified breakdowns of complex topics like Social Security and Medicare.</li>
-    <li><strong>Interactive Tools:</strong> Hands-on calculators to model your specific financial future.</li>
-    <li><strong>Step-by-Step Guidance:</strong> A logical roadmap to transition from your working years into a purposeful retirement.</li>
-</ul>
-			
-			
-			<p>Calculators are getting added based on usefulness and trials. They will help understand the situation, project for years to come and help in the decision making process</p>
+    <!-- How to Use -->
+    <div class="section-label">
+        <span class="section-label-text">How to use this site</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-num">1</div>
+            <h3>Learn the Concepts</h3>
+            <p>Start with <em>Retirement Made Easy</em> and <em>Steps in Retirement</em> to build your foundational understanding — timelines, buckets, Social Security, and more.</p>
         </div>
-
-        <!-- ── Getting Started ── -->
-        <h2 class="section-heading">🚀 How to Use This Site</h2>
-        <div class="getting-started">
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <h3>Learn the Concepts</h3>
-                <p>Start with <em>Retirement Made Easy</em> and <em>Steps in Retirement</em> to build your foundational understanding — timelines, buckets, Social Security, and more.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <h3>Run the Numbers</h3>
-                <p>Use the calculators to project your portfolio, stress-test it with Monte Carlo simulation, and model your tax burden across different withdrawal strategies.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <h3>Plan for Healthcare</h3>
-                <p>Healthcare is often the biggest surprise cost in early retirement. Explore the Medicare and ACA pages to understand your options before and after age 65.</p>
-            </div>
+        <div class="step-card">
+            <div class="step-num">2</div>
+            <h3>Run the Numbers</h3>
+            <p>Use the calculators to project your portfolio, stress-test it with Monte Carlo simulation, and model your tax burden across different withdrawal strategies.</p>
         </div>
-
-        
-
-        <!-- ── Healthcare Highlight ── -->
-        <h2 class="section-heading">🏥 Healthcare Planning</h2>
-        <p style="text-align:left; width:100%; font-size:0.97em; margin-bottom:14px; color:#444;">
-            Healthcare in retirement is a two-chapter story: <strong>before 65</strong> (ACA marketplace or COBRA bridging the gap) and <strong>after 65</strong> (Medicare Parts A, B, D and supplemental Medigap). Getting this wrong is costly — plan early.
-        </p>
-        <div class="health-pad">
-            <a href="medicare_aca.html" class="health-btn">🏥 Medicare Hub</a>
-            <a href="healthcare_medicare.html" class="health-btn">Medicare Deep Dive</a>
-            <a href="healthcare_aca.html" class="health-btn">ACA Marketplace</a>
-            <a href="aca_vs_cobra.html" class="health-btn">ACA vs COBRA</a>
-            <a href="medicare_flowchart.html" class="health-btn">Medicare Flowchart</a>
-            <a href="long_term_care.html" class="health-btn">Long Term Care</a>
+        <div class="step-card">
+            <div class="step-num">3</div>
+            <h3>Plan for Healthcare</h3>
+            <p>Healthcare is often the biggest surprise cost in early retirement. Explore the Medicare and ACA pages to understand your options before and after age 65.</p>
         </div>
+    </div>
 
-        <!-- ── Retirement Readiness Checklist ── -->
-        <h2 class="section-heading">✅ Retirement Readiness Checklist</h2>
-        <p style="text-align:left; width:100%; font-size:0.97em; margin-bottom:14px; color:#444;">
-            Use this self-assessment to see where you stand. Check off items as you complete them — your progress is saved in this session.
-        </p>
-        <div class="checklist-box">
-            <div class="checklist-progress-wrap">
-                <div class="checklist-progress-label" id="progress-label">0 of 14 items completed</div>
-                <div class="checklist-bar-bg"><div class="checklist-bar-fill" id="progress-bar"></div></div>
-            </div>
-
-            <div class="checklist-category">
-                <h4>💰 Financial Foundation</h4>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I know my estimated monthly retirement expenses</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have 12 months of expenses in an emergency fund</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a plan to pay off high-interest debt before retiring</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've estimated my Social Security benefit at ssa.gov</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've calculated my portfolio withdrawal rate (target ≤ 4%)</span></label>
-            </div>
-
-            <div class="checklist-category">
-                <h4>🏥 Healthcare</h4>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I know when I become eligible for Medicare (age 65)</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a plan for coverage if retiring before 65 (ACA or COBRA)</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've considered long-term care insurance or a self-funding strategy</span></label>
-            </div>
-
-            <div class="checklist-category">
-                <h4>📊 Tax Planning</h4>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I understand how 401k, IRA, and Roth withdrawals are taxed differently</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've explored Roth conversion opportunities before RMDs begin at 73</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a withdrawal sequencing strategy (taxable → tax-deferred → Roth)</span></label>
-            </div>
-
-            <div class="checklist-category">
-                <h4>🌱 Life Planning</h4>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a clear vision of how I'll spend my time in retirement</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've discussed retirement plans with my spouse/partner</span></label>
-                <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have an up-to-date will, trust, and healthcare directive</span></label>
-            </div>
+    <!-- Calculators Band -->
+    <div class="section-label">
+        <span class="section-label-text">Calculators</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <div class="calc-band">
+        <div class="calc-band-text">
+            <p class="calc-band-eyebrow">9 Calculators &amp; Growing</p>
+            <h2 class="calc-band-title">Every tool for every phase of retirement</h2>
+            <p class="calc-band-sub">From portfolio building to RMD management — all organized by life phase. Start with "Can I retire?" and "When can I retire?"</p>
         </div>
+        <a href="Calculators_Dashboard.html" class="calc-band-btn">View All Calculators →</a>
+    </div>
 
-        <script>
+    <!-- Healthcare -->
+    <div class="section-label">
+        <span class="section-label-text">Healthcare Planning</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <p class="section-sub">Healthcare in retirement is a two-chapter story: <strong>before 65</strong> (ACA marketplace or COBRA) and <strong>after 65</strong> (Medicare Parts A, B, D and Medigap). Getting this wrong is costly — plan early.</p>
+    <div class="hc-grid">
+        <a href="medicare_aca.html" class="hc-card"><span class="hc-icon">🏥</span><div class="hc-text"><strong>Medicare Hub</strong><span>All 4 parts explained</span></div></a>
+        <a href="healthcare_medicare.html" class="hc-card"><span class="hc-icon">💊</span><div class="hc-text"><strong>Healthcare – Medicare</strong><span>IRMAA, enrollment windows</span></div></a>
+        <a href="healthcare_aca.html" class="hc-card"><span class="hc-icon">🛡️</span><div class="hc-text"><strong>Healthcare – ACA</strong><span>Marketplace, subsidies, Covered CA</span></div></a>
+        <a href="aca_vs_cobra.html" class="hc-card"><span class="hc-icon">⚖️</span><div class="hc-text"><strong>ACA vs COBRA</strong><span>When to pick each</span></div></a>
+        <a href="medicare_flowchart.html" class="hc-card"><span class="hc-icon">🗺️</span><div class="hc-text"><strong>Medicare Flowchart</strong><span>Medigap and coverage details</span></div></a>
+        <a href="long_term_care.html" class="hc-card"><span class="hc-icon">🏠</span><div class="hc-text"><strong>Long Term Care</strong><span>Types, costs, who pays</span></div></a>
+    </div>
+
+    <!-- Core Planning Pages -->
+    <div class="section-label">
+        <span class="section-label-text">Core Planning Pages</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <div class="planning-row">
+        <a href="transition_plan.html" class="plan-btn">📌 Retirement Made Easy</a>
+        <a href="website.html" class="plan-btn">🔗 Web Sites</a>
+        <a href="terms.html" class="plan-btn">📖 Terms Used</a>
+    </div>
+
+    <!-- Readiness Checklist -->
+    <div class="section-label">
+        <span class="section-label-text">Retirement Readiness Checklist</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <p class="section-sub">Use this self-assessment to see where you stand. Check off items as you complete them — your progress is saved in this session.</p>
+    <div class="checklist-box">
+        <div class="checklist-progress-wrap">
+            <div class="checklist-progress-label" id="progress-label">0 of 14 items completed</div>
+            <div class="checklist-bar-bg"><div class="checklist-bar-fill" id="progress-bar"></div></div>
+        </div>
+        <div class="checklist-category">
+            <h4>💰 Financial Foundation</h4>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I know my estimated monthly retirement expenses</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have 12 months of expenses in an emergency fund</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a plan to pay off high-interest debt before retiring</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've estimated my Social Security benefit at ssa.gov</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've calculated my portfolio withdrawal rate (target ≤ 4%)</span></label>
+        </div>
+        <div class="checklist-category">
+            <h4>🏥 Healthcare</h4>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I know when I become eligible for Medicare (age 65)</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a plan for coverage if retiring before 65 (ACA or COBRA)</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've considered long-term care insurance or a self-funding strategy</span></label>
+        </div>
+        <div class="checklist-category">
+            <h4>📊 Tax Planning</h4>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I understand how 401k, IRA, and Roth withdrawals are taxed differently</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've explored Roth conversion opportunities before RMDs begin at 73</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a withdrawal sequencing strategy (taxable → tax-deferred → Roth)</span></label>
+        </div>
+        <div class="checklist-category">
+            <h4>🌱 Life Planning</h4>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have a clear vision of how I'll spend my time in retirement</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I've discussed retirement plans with my spouse/partner</span></label>
+            <label class="checklist-item"><input type="checkbox" onchange="updateProgress(this)"><span>I have an up-to-date will, trust, and healthcare directive</span></label>
+        </div>
+    </div>
+
+    <!-- Substack -->
+    <div class="section-label">
+        <span class="section-label-text">Newsletter</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <div class="substack-strip">
+        <div class="substack-text">
+            <h3>Wise Thoughts — on Substack</h3>
+            <p>Articles, insights, and retirement perspectives delivered straight to your inbox.</p>
+        </div>
+        <iframe src="https://wiseretiree.substack.com/embed" width="240" height="160" style="border: 1px solid #e5e7eb; border-radius: 8px; background: white; flex-shrink:0;" frameborder="0" scrolling="no"></iframe>
+    </div>
+
+    <p class="disclaimer" style="margin-top:32px;">
+        <em>Disclaimer: Content is actively being improved. Repetitive information will be removed and logically flowing pages retained. More content is added regularly.</em>
+    </p>
+
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <p><strong>Copyright</strong> © 2026 Sriram Gopalaratnam. All Rights Reserved. 📝</p>
+        <p><strong>Last Updated</strong> May 2026</p>
+        <p><strong>Disclaimer</strong> For educational purposes only — not financial or legal advice.</p>
+        <p><strong>Privacy</strong> No personal information required to use the calculators.</p>
+        <p><strong>Mobile</strong> Optimized for desktop and mobile (calculators work best on desktop).</p>
+    </div>
+</footer>
+
+<script>
 (function() {
   var style = document.createElement('style');
   style.textContent = '.fb-chk{display:flex;align-items:center;gap:7px;font-size:13px;color:#333;cursor:pointer;padding:6px 8px;border-radius:6px;border:1.5px solid #e0e0e0;transition:border-color .15s,background .15s;}.fb-chk:hover{border-color:#d4af37;background:#fffbf0;}.fb-chk input[type=checkbox]{accent-color:#d4af37;width:15px;height:15px;cursor:pointer;}.fb-chk.checked{border-color:#d4af37;background:#fffbf0;}';
@@ -883,36 +1111,18 @@ function submitFeedback(){
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeFeedback();});
 </script>
 
-        <h2 class="section-heading">📚 Core Planning Pages</h2>
-        <div class="top-buttons">
-            <a href="transition_plan.html" class="btn">Retirement Made Easy</a>
-            <a href="website.html" class="btn">Web Sites</a>
-            <a href="terms.html" class="btn">Terms Used</a>
-        </div>
+<script>
+function updateProgress(cb) {
+    const all = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+    const checked = document.querySelectorAll('.checklist-item input[type="checkbox"]:checked').length;
+    const total = all.length;
+    document.getElementById('progress-label').textContent = checked + ' of ' + total + ' items completed';
+    document.getElementById('progress-bar').style.width = (checked / total * 100) + '%';
+    const item = cb.closest('.checklist-item');
+    if (item) item.classList.toggle('checked', cb.checked);
+}
+</script>
 
-        <h2 class="section-heading">🧮 Jump to the Calculator Dashboard - 9 calculators already and more coming!</h2>
-        <div class="calc-pad">
-            <a href="Calculators_Dashboard.html" class="pad-btn">All Calculators in one place.<br> Start with "Can I retire?" and "When can I retire?"</a>
-            
-        </div>
-		
-		<p style="font-style: italic; font-size: 16px; margin-top: 10px; width:100%; text-align:left;">
-    <u>Disclaimer: I am working on the content; please excuse if you find repetition. Repetitive information will be removed and logically flowing web pages will be retained. More information is also getting added as appropriate</u>
-</p>
-		<iframe src="https://wiseretiree.substack.com/embed" width="240" height="160" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>
-		
-    </div>
-
-    <footer>
-        <div class="footer-inner">
-            <p><strong>Copyright</strong>: © 2026 Sriram Gopalaratnam. All Rights Reserved. 📝</p>
-			<p><strong>Site Content Last Updated</strong>: May 2026</p>
-            <p><strong>Disclaimer</strong>: This tool is for educational purposes only and does not constitute financial or legal advice.</p>
-			<p><strong>Privacy</strong>: No personal information is required to use the calculators on this website.</p>
-            <p><strong>Important Info</strong>: This website has been optimized for both mobile and desktop use (calculators work best on desktop).</p>
-        </div>
-    </footer>
-	
 <a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
   style="
     position: fixed;
@@ -943,16 +1153,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeFeedback();});
   <span class="tooltip-text">Subscribe on Substack</span>
 </a>
 
-
-
-  <span style="font-size:22px;">✍️</span>
-  <span>Wise Thoughts</span>
-  <span class="tooltip-text">Subscribe on Substack</span>
-</a>
-
-
-
-	<button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
+<button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
 	
   style="
     position: fixed;
@@ -1070,8 +1271,5 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeFeedback();});
   </div>
 </div>
 
-
 </body>
-
-
 </html>
