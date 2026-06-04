@@ -259,59 +259,114 @@
     </div>
   </div>
 
-  <!-- ── How-To Info Card ── -->
-  <div style="background: #ffffff; border: 2px solid #000; border-left: 6px solid #d4af37; border-radius: 10px; padding: 20px 24px; margin: 12px 0 20px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; line-height: 1.7; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-    <!-- Section 1: Getting Started -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
-        📂 Getting Started with Your Portfolio
+  <!-- ── How-To Info Card + Features Card (two-column) ── -->
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin: 12px 0 20px; align-items:start;">
+
+    <!-- LEFT: Getting Started / How-To -->
+    <div style="background: #ffffff; border: 2px solid #000; border-left: 6px solid #d4af37; border-radius: 10px; padding: 20px 24px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; line-height: 1.7; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+      <!-- Section 1: Getting Started -->
+      <div style="margin-bottom:16px;">
+        <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
+          📂 Getting Started with Your Portfolio
+        </div>
+        <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
+          <span>1.</span><span>Click the <strong>Download CSV Template</strong> button at the top right to get a sample structured file.</span>
+          <span>2.</span><span>Open it in Excel, Google Sheets, or a text editor to input your personal holdings, keeping the column headers exactly as they are.</span>
+          <span>3.</span><span>Click <strong>Import CSV File</strong> in the control toolbar below to instantly populate your tracker dashboard.</span>
+          <span>4.</span><span>Alternatively, dynamically add or edit lines using the on-screen form, then use <strong>Export CSV</strong> to save your work for future sessions.</span>
+        </div>
       </div>
-      <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
-        <span>1.</span><span>Click the <strong>Download CSV Template</strong> button at the top right to get a sample structured file.</span>
-        <span>2.</span><span>Open it in Excel, Google Sheets, or a text editor to input your personal holdings, keeping the column headers exactly as they are.</span>
-        <span>3.</span><span>Click <strong>Import CSV File</strong> in the control toolbar below to instantly populate your tracker dashboard.</span>
-        <span>4.</span><span>Alternatively, dynamically add or edit lines using the on-screen form, then use <strong>Export CSV</strong> to save your work for future sessions.</span>
+
+      <!-- Section 2: Reset & Reload -->
+      <div style="margin-bottom:16px;">
+        <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
+          🔄 Resetting or Reloading Data
+        </div>
+        <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
+          <span>1.</span><span>Click <strong>Clear All</strong> to wipe all current session data and start with an empty board.</span>
+          <span>2.</span><span>Click <strong>Import CSV File</strong> and open your custom saved <code style="background:#f3f4f6; padding:1px 5px; border-radius:3px;">*.csv</code> asset file to completely load your previous setup.</span>
+        </div>
+      </div>
+
+      <!-- Section 3: API Key -->
+      <div style="margin-bottom:16px;">
+        <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
+          🔑 Setting Up Live Price Refresh (API Key)
+        </div>
+        <div style="color:#000; font-style:italic; margin-bottom:8px;"><strong>You need a free API key from Finnhub:</strong></div>
+        <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
+          <span>1.</span><span>Go to <a href="https://finnhub.io" target="_blank" style="color:#1a6fa8;">finnhub.io</a></span>
+          <span>2.</span><span>Click <strong>"Get free API key"</strong> and sign up.</span>
+          <span>3.</span><span>Paste the key into the <strong>API Key</strong> box on this page and click <strong>Save API Key</strong>.</span>
+        </div>
+      </div>
+
+      <!-- Section 4: Portfolio Query -->
+      <div style="margin-bottom:16px;">
+        <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
+          🔍 Using Portfolio Query
+        </div>
+        <div style="color:#1a1a1a;">
+          Use <strong>Portfolio Query</strong> to filter and search your investments by Ticker, Account, or Asset Type. Click <strong>Run Query</strong> to see all matching holdings — great for answering quick questions about your portfolio.
+        </div>
+      </div>
+
+      <!-- Section 5: Important tip -->
+      <div style="background:#fffbe6; border:1.5px solid #d4af37; border-radius:6px; padding:12px 16px; color:#1a1a1a;">
+        <span style="font-weight:700; color:#8b6914;">💵 Pro Tip — Calculator Integration</span><br>
+        Keep this Portfolio Tracker open while using the <strong>Retirement Calculator</strong> or <strong>Retirement Confidence</strong> calculator — key values from your portfolio will be pre-filled automatically, saving you time.
       </div>
     </div>
 
-    <!-- Section 2: Reset & Reload -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
-        🔄 Resetting or Reloading Data
-      </div>
-      <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
-        <span>1.</span><span>Click <strong>Clear All</strong> to wipe all current session data and start with an empty board.</span>
-        <span>2.</span><span>Click <strong>Import CSV File</strong> and open your custom saved <code style="background:#f3f4f6; padding:1px 5px; border-radius:3px;">*.csv</code> asset file to completely load your previous setup.</span>
-      </div>
-    </div>
+    <!-- RIGHT: Salient Features Card -->
+    <div style="background: linear-gradient(160deg, #0f1c2e 0%, #1a2d45 100%); border: 2px solid #d4af37; border-radius: 10px; padding: 20px 24px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; line-height: 1.6; box-shadow: 0 4px 16px rgba(0,0,0,0.25); color: #e8e0cc;">
 
-    <!-- Section 3: API Key -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
-        🔑 Setting Up Live Price Refresh (API Key)
-      </div>
-      <div style="color:#555; font-style:italic; margin-bottom:8px;">If prices are not refreshing, you need a free API key from Finnhub:</div>
-      <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
-        <span>1.</span><span>Go to <a href="https://finnhub.io" target="_blank" style="color:#1a6fa8;">finnhub.io</a></span>
-        <span>2.</span><span>Click <strong>"Get free API key"</strong> and sign up.</span>
-        <span>3.</span><span>Paste the key into the <strong>API Key</strong> box on this page and click <strong>Save API Key</strong>.</span>
-      </div>
-    </div>
+      <div style="font-weight:700; font-size:15px; color:#d4af37; border-bottom:1px solid rgba(212,175,55,0.35); padding-bottom:6px; margin-bottom:14px; letter-spacing:0.02em;">
+         Key Features at a Glance
+      </div><br>
 
-    <!-- Section 4: Portfolio Query -->
-    <div style="margin-bottom:16px;">
-      <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
-        🔍 Using Portfolio Query
+      <!-- Feature 1 -->
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">📡 Live Pricing &amp; Auto-Refresh</div>
+        <div style="color:#c8bfa8; font-size:12.5px;">Finnhub API integration fetches real-time market prices, auto-polling every 60 seconds. Smart name auto-fill populates company names as you type tickers.</div><br>
       </div>
-      <div style="color:#1a1a1a;">
-        Use <strong>Portfolio Query</strong> to filter and search your investments by Ticker, Account, or Asset Type. Click <strong>Run Query</strong> to see all matching holdings — great for answering quick questions about your portfolio.
-      </div>
-    </div>
 
-    <!-- Section 5: Important tip -->
-    <div style="background:#fffbe6; border:1.5px solid #d4af37; border-radius:6px; padding:12px 16px; color:#1a1a1a;">
-      <span style="font-weight:700; color:#8b6914;">💵 Pro Tip — Calculator Integration</span><br>
-      Keep this Portfolio Tracker open while using the <strong>Retirement Calculator</strong> or <strong>Retirement Confidence</strong> calculator — key values from your portfolio will be pre-filled automatically, saving you time.
+      <!-- Feature 2 -->
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">📊 Rich Visual Analytics</div>
+        <div style="color:#c8bfa8; font-size:12.5px;">Asset allocation pie chart by category (Large Cap, Bonds, International…) plus a tax-bucket bar chart mapping accounts to Tax-Deferred, Tax-Free, and Taxable buckets.</div><br>
+      </div>
+
+      <!-- Feature 3 -->
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">⚖️ Dynamic Rebalancing Engine</div>
+        <div style="color:#c8bfa8; font-size:12.5px;">Set custom allocation targets and see exact dollar deviations. Each asset class gets a clear <strong style="color:#4ade80;">Buy</strong>, <strong style="color:#f87171;">Sell</strong>, or <strong style="color:#94a3b8;">On Target</strong> directive instantly.</div><br>
+      </div>
+
+      <!-- Feature 4 -->
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">🔎 Intelligent Query Panel</div>
+        <div style="color:#c8bfa8; font-size:12.5px;">Filter holdings by Ticker, Name, Account, or Asset Type. Surface top-N positions by value, or flag holdings drifting past custom gain/loss thresholds.</div><br>
+      </div>
+
+      <!-- Feature 5 -->
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">🚨 Concentration Risk Alerts</div>
+        <div style="color:#c8bfa8; font-size:12.5px;">Automatically flags any single stock exceeding 5% of total portfolio value with a visible warning banner — keeping you aware of outsized positions.</div><br>
+      </div>
+
+      <!-- Feature 6 -->
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">💾 Frictionless Data Management</div>
+        <div style="color:#c8bfa8; font-size:12.5px;">Bulk CSV import/export, inline row editing, and accordion-style breakdowns. Accordion rows expand to reveal per-holding detail without cluttering the main view.</div><br>
+      </div>
+
+      <!-- Feature 7 -->
+      <div style="border-top:1px solid rgba(212,175,55,0.25); padding-top:10px; margin-top:2px;">
+        <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">🔗 Retirement Calculator Sync</div>
+        <div style="color:#c8bfa8; font-size:12.5px;">Pushes portfolio totals into <code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px; color:#d4af37;">localStorage</code> so the Retirement Calculator and Monte Carlo simulator pre-fill automatically — no re-entry needed.</div><br>
+      </div>
+
     </div>
   </div>
 
