@@ -372,15 +372,66 @@
         }
         .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
 
+        /* ── COMPARISON TABLE ── */
+        .compare-table-wrap { width: 100%; overflow-x: auto; margin-bottom: 24px; }
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .compare-table thead th { background: var(--navy); color: #fff; padding: 14px 18px; text-align: left; font-weight: 700; font-size: 13px; letter-spacing: 0.03em; }
+        .compare-table thead th:first-child { border-radius: 10px 0 0 0; }
+        .compare-table thead th:last-child  { border-radius: 0 10px 0 0; }
+        .compare-table thead th.cobra-col { background: #2d1a00; border-left: 3px solid var(--gold); }
+        .compare-table thead th.aca-col   { background: #0d2e1e; border-left: 3px solid #34d399; }
+        .compare-table tbody tr:nth-child(even) { background: var(--bg-off); }
+        .compare-table tbody tr:nth-child(odd)  { background: var(--bg); }
+        .compare-table tbody tr:hover { background: var(--gold-light); }
+        .compare-table td { padding: 12px 18px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.55; color: var(--body); }
+        .compare-table td.row-label { font-weight: 700; color: var(--ink); font-size: 13px; width: 22%; }
+        .compare-table td.cobra-col { border-left: 3px solid var(--gold); font-size: 13.5px; }
+        .compare-table td.aca-col   { border-left: 3px solid #34d399;    font-size: 13.5px; }
+        .tag-better  { display: inline-block; background: #d1fae5; color: #065f46; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; margin-left: 6px; vertical-align: middle; }
+        .tag-worse   { display: inline-block; background: #fee2e2; color: #991b1b; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; margin-left: 6px; vertical-align: middle; }
+        .tag-neutral { display: inline-block; background: #e5e7eb; color: #374151; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 12px; margin-left: 6px; vertical-align: middle; }
+
+        /* ── INFO PANELS ── */
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; margin-bottom: 24px; }
+        .info-panel { background: var(--bg); border: 2px solid #000; border-radius: 12px; padding: 24px 24px 20px; }
+        .info-panel-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .info-panel ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+        .info-panel ul li { font-size: 13.5px; color: var(--body); line-height: 1.55; padding-left: 20px; position: relative; }
+        .info-panel ul li::before { content: "▸"; position: absolute; left: 0; color: var(--gold); font-size: 12px; top: 2px; }
+        .info-panel ul li strong { color: var(--ink); }
+
+        /* ── SCENARIO CARDS ── */
+        .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; width: 100%; margin-bottom: 24px; }
+        .scenario-card { background: var(--bg); border: 2px solid #000; border-radius: 12px; padding: 20px 18px; }
+        .scenario-card .sc-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+        .scenario-card .sc-situation { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 10px; line-height: 1.4; }
+        .scenario-card .sc-verdict { display: inline-block; font-size: 12px; font-weight: 800; padding: 4px 14px; border-radius: 20px; margin-bottom: 10px; letter-spacing: 0.04em; text-transform: uppercase; }
+        .sc-cobra  { background: #fef3c7; color: #92400e; border: 1.5px solid #d97706; }
+        .sc-aca    { background: #d1fae5; color: #065f46; border: 1.5px solid #34d399; }
+        .sc-hybrid { background: #ede9fe; color: #4c1d95; border: 1.5px solid #8b5cf6; }
+        .scenario-card .sc-reason { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+        /* ── CALLOUT BOX ── */
+        .callout-box { width: 100%; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; display: flex; gap: 16px; align-items: flex-start; box-sizing: border-box; }
+        .callout-box.gold { background: #fffbeb; border: 2px solid var(--gold); }
+        .callout-box.teal { background: #f0fdf4; border: 2px solid #34d399; }
+        .callout-box.red  { background: #fff1f2; border: 2px solid #f87171; }
+        .callout-box .cb-icon { font-size: 26px; flex-shrink: 0; margin-top: -2px; }
+        .callout-box .cb-body strong { display: block; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+        .callout-box .cb-body p { font-size: 13.5px; color: var(--body); line-height: 1.6; }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
             .comparison-grid { grid-template-columns: 1fr; gap: 20px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .scenario-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
             .page-body { padding: 0 16px 60px; }
             .guidance-box { padding: 24px 20px; }
             .hybrid-box { flex-direction: column; text-align: center; padding: 24px; }
             .bottom-nav { justify-content: center; }
+            .callout-box { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
@@ -548,6 +599,264 @@
         <div class="hybrid-text">
             <h3>Smart Hybrid Strategy</h3>
             <p>Start with COBRA for your first few months of transition out of work, then formally shift your coverage over to an optimized ACA plan during the standard open enrollment period.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECTION: SIDE-BY-SIDE COMPARISON TABLE
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="section-label-text">Side-by-Side Comparison</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <p class="section-sub">Every dimension that matters to an early retiree, in one place.</p>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th class="cobra-col">⚖️ COBRA</th>
+            <th class="aca-col">🛡️ ACA Marketplace</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-label">Eligibility</td>
+            <td class="cobra-col">Employees who lose job-based coverage through quitting, retirement, layoff, or reduction in hours. Dependents covered under original plan also qualify.</td>
+            <td class="aca-col">Any U.S. resident not eligible for Medicare or affordable employer coverage. Losing job-based coverage triggers a 60-day Special Enrollment Period.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Monthly Cost</td>
+            <td class="cobra-col"><strong>100% of premium + 2% admin fee.</strong> <span class="tag-worse">High</span><br>If your employer paid $1,200/mo and you paid $200, your COBRA cost is ~$1,428/mo.</td>
+            <td class="aca-col"><strong>Income-based subsidies (PTCs) can dramatically reduce cost.</strong> <span class="tag-better">Can be very low</span><br>At 150% FPL, premiums can be $0. Even at higher incomes, subsidies apply up to 400%+ FPL.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Duration</td>
+            <td class="cobra-col">18 months standard. Extended to 36 months for dependents in cases of divorce, death, or Medicare entitlement of the covered employee.</td>
+            <td class="aca-col">No time limit. You can maintain ACA coverage every year until you turn 65 and enroll in Medicare — potentially 10–15 years of coverage.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Network & Doctors</td>
+            <td class="cobra-col"><strong>Identical to your employer plan.</strong> <span class="tag-better">Best continuity</span><br>Same doctors, hospitals, specialists, and formulary. Critical if you're mid-treatment.</td>
+            <td class="aca-col">Networks vary widely by plan and insurer. <span class="tag-neutral">Varies</span><br>Silver and Gold plans often have broader networks. Verify your doctors are in-network before enrolling.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Subsidies</td>
+            <td class="cobra-col">None. <span class="tag-worse">No subsidy</span><br>The full premium is entirely out-of-pocket, regardless of your income level.</td>
+            <td class="aca-col">Premium Tax Credits (PTCs) and Cost-Sharing Reductions (CSRs). <span class="tag-better">Potentially large</span><br>Subsidies are based on MAGI. In early retirement, you can often control income to maximize them.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Enrollment Window</td>
+            <td class="cobra-col">You have <strong>60 days</strong> from losing coverage to elect COBRA. Coverage is retroactive to the date of loss — so you can wait to decide if you need it.</td>
+            <td class="aca-col">Open Enrollment: <strong>Nov 1 – Jan 15</strong> (most states). Losing job-based coverage triggers a 60-day Special Enrollment Period any time of year.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Dental &amp; Vision</td>
+            <td class="cobra-col">Included if your employer plan included dental/vision. You can elect dental/vision COBRA separately from medical COBRA.</td>
+            <td class="aca-col">Medical plans do not include dental/vision. Separate stand-alone dental and vision plans must be purchased on the marketplace or directly from insurers.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Pre-existing Conditions</td>
+            <td class="cobra-col">Fully covered — you keep your existing plan with no underwriting.</td>
+            <td class="aca-col">Fully covered — ACA prohibits denial or higher premiums based on health status.</td>
+          </tr>
+          <tr>
+            <td class="row-label">HSA Compatibility</td>
+            <td class="cobra-col">Only compatible if the underlying employer plan was an HDHP. You can contribute to an HSA while on COBRA-continuation of an HDHP.</td>
+            <td class="aca-col">Must enroll in an HSA-eligible High Deductible Health Plan (HDHP) on the marketplace to contribute to an HSA. Not all ACA plans are HSA-compatible.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Impact on Taxes</td>
+            <td class="cobra-col">COBRA premiums are not deductible unless you itemize and total medical expenses exceed 7.5% of AGI. No subsidy interaction.</td>
+            <td class="aca-col">PTCs reconciled at tax time. <strong>Income management is critical</strong> — large capital gains or Roth conversions can reduce or eliminate subsidies mid-year (clawback risk).</td>
+          </tr>
+          <tr>
+            <td class="row-label">Switching to Medicare</td>
+            <td class="cobra-col">COBRA does not delay Medicare enrollment deadlines. You must enroll in Medicare Part B within your Initial Enrollment Period or face late penalties.</td>
+            <td class="aca-col">Same rule applies. Turning 65 qualifies you to enroll in Medicare; you must do so on time regardless of current ACA coverage.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECTION: COST MECHANICS IN DEPTH
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="section-label-text">Understanding the Cost Mechanics</span>
+        <div class="section-label-rule"></div>
+    </div>
+
+    <div class="info-grid">
+        <!-- COBRA Cost Mechanics -->
+        <div class="info-panel">
+            <div class="info-panel-title">⚖️ How COBRA Premiums Work</div>
+            <ul>
+                <li>Your employer pays a share of the group premium during employment — often 70–85%. On COBRA, <strong>you pay 100% of that group rate</strong> plus a 2% administrative surcharge.</li>
+                <li>Example: If the total plan premium is <strong>$1,800/month</strong> for a family and your employer paid $1,400, your COBRA cost is <strong>~$1,836/month</strong>.</li>
+                <li>COBRA rates are set annually by your employer's insurer, not by the government. They can be significantly higher than ACA equivalents.</li>
+                <li>Payments are due monthly. If you miss a payment by more than 30 days, COBRA coverage terminates and <strong>cannot be reinstated</strong>.</li>
+                <li>COBRA is often the most expensive individual health coverage available — but it's the only option that gives you identical coverage with zero network disruption.</li>
+            </ul>
+        </div>
+
+        <!-- ACA Subsidy Mechanics -->
+        <div class="info-panel">
+            <div class="info-panel-title">🛡️ How ACA Subsidies Work</div>
+            <ul>
+                <li><strong>Premium Tax Credits (PTCs)</strong> reduce your monthly premium. They are based on your household's Modified Adjusted Gross Income (MAGI) relative to the Federal Poverty Level (FPL).</li>
+                <li>The subsidy is calculated so your premium for a benchmark Silver plan doesn't exceed a set percentage of your income — from <strong>0% at 100–150% FPL</strong> to <strong>~8.5% above 400% FPL</strong>.</li>
+                <li><strong>Cost-Sharing Reductions (CSRs)</strong> lower your deductible, copays, and out-of-pocket maximum — but only if you enroll in a Silver-tier plan.</li>
+                <li>In early retirement, many people can <strong>engineer their MAGI</strong>: living off savings, Roth distributions, or after-tax accounts keeps reportable income low, maximizing subsidies.</li>
+                <li>Subsidies are reconciled on your tax return (Form 8962). If your actual income exceeds estimates, you may owe some back — <strong>plan conservatively</strong>.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECTION: ENROLLMENT & ELECTION RULES
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="section-label-text">Enrollment Rules &amp; Deadlines</span>
+        <div class="section-label-rule"></div>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-panel">
+            <div class="info-panel-title">📅 COBRA Election Rules</div>
+            <ul>
+                <li><strong>60-day election window</strong> from the date of coverage loss (or the date you receive your COBRA election notice, whichever is later).</li>
+                <li>Coverage is <strong>retroactive</strong> — if you don't have medical claims in the first 30 days, you can wait before electing and still get covered back to day one.</li>
+                <li>Qualifying events: voluntary or involuntary job loss, reduction in hours, retirement, divorce, death of the covered employee, or a dependent child aging off the plan.</li>
+                <li>Your employer's HR or plan administrator must send you a COBRA notice within <strong>14 days</strong> of being notified of a qualifying event (they have 30 days to notify the plan).</li>
+                <li>You can <strong>drop COBRA at any time</strong> — doing so before the 18-month period ends triggers a Special Enrollment Period for ACA marketplace plans.</li>
+            </ul>
+        </div>
+
+        <div class="info-panel">
+            <div class="info-panel-title">📅 ACA Enrollment Windows</div>
+            <ul>
+                <li><strong>Open Enrollment Period (OEP):</strong> November 1 to January 15 in most states (some state exchanges extend to January 31). Coverage starts February 1 for late enrollees.</li>
+                <li><strong>Special Enrollment Period (SEP):</strong> Triggered by losing job-based coverage. You have <strong>60 days</strong> from the loss event to enroll in an ACA plan with coverage starting the first of the following month.</li>
+                <li>Other SEP triggers: moving to a new coverage area, marriage, divorce, birth/adoption, gaining citizenship, or leaving incarceration.</li>
+                <li>California uses Covered California — the state exchange. Subsidies are the same, but the plans and insurers available may differ from healthcare.gov.</li>
+                <li>You can change your plan level (Bronze/Silver/Gold) during OEP each year, allowing you to adjust coverage as your health or income situation changes.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECTION: INCOME PLANNING CALLOUTS
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="callout-box gold">
+        <span class="cb-icon">💰</span>
+        <div class="cb-body">
+            <strong>The ACA Subsidy-Income Sweet Spot for Early Retirees</strong>
+            <p>In early retirement, your taxable income is often whatever you choose it to be — you control when to take IRA withdrawals, realize capital gains, or do Roth conversions. Keeping MAGI between <strong>200–300% of FPL</strong> (roughly $29,000–$43,000 for a single person in 2025) can yield substantial subsidies, potentially bringing net ACA premiums well under $200/month for solid Silver coverage. The key is to account for all MAGI sources: Traditional IRA withdrawals, Social Security (if any), capital gains distributions from funds, and interest income all count.</p>
+        </div>
+    </div>
+
+    <div class="callout-box red">
+        <span class="cb-icon">⚠️</span>
+        <div class="cb-body">
+            <strong>The Subsidy Cliff &amp; Roth Conversion Trap</strong>
+            <p>Doing a large Roth conversion in the same year you're collecting ACA subsidies can push your MAGI over the threshold mid-year, triggering a <strong>subsidy clawback</strong> at tax time. If you plan to do Roth conversions during early retirement, carefully model the MAGI impact before December 31 of each year. Consider spreading conversions over multiple years, and always run the numbers before exceeding key thresholds. The ACA's "subsidy cliff" was softened by the Inflation Reduction Act (no hard cutoff above 400% FPL), but cost still rises sharply with income.</p>
+        </div>
+    </div>
+
+    <div class="callout-box teal">
+        <span class="cb-icon">🏥</span>
+        <div class="cb-body">
+            <strong>HSA Strategy: Use COBRA's First Months to Fund Your HSA</strong>
+            <p>If your employer plan was an HSA-eligible High Deductible Health Plan (HDHP), you can continue contributing to your HSA while on COBRA (as long as the COBRA plan itself is still an HDHP). This gives you a brief window — typically the months between retirement and your ACA enrollment — to max out your annual HSA contribution. In 2025, the HSA limit is <strong>$4,300 for self-only</strong> and <strong>$8,550 for family</strong> (plus $1,000 catch-up if 55+). HSA funds roll over indefinitely and can be used tax-free for Medicare premiums and medical expenses in retirement.</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECTION: SCENARIO DECISION GUIDE
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="section-label-text">Real-World Decision Scenarios</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <p class="section-sub">What most early retirees actually face — and which path fits each situation.</p>
+
+    <div class="scenario-grid">
+        <div class="scenario-card">
+            <div class="sc-label">Scenario 1</div>
+            <div class="sc-situation">You retire in July, mid-year, with ongoing specialist care.</div>
+            <div class="sc-verdict sc-cobra">→ COBRA</div>
+            <div class="sc-reason">Continuity of care is paramount. COBRA keeps your doctors, drugs, and in-progress treatment with zero disruption. Switch to ACA at the next Open Enrollment if cost is an issue.</div>
+        </div>
+        <div class="scenario-card">
+            <div class="sc-label">Scenario 2</div>
+            <div class="sc-situation">You retire at 58, healthy, income controllable below 300% FPL.</div>
+            <div class="sc-verdict sc-aca">→ ACA</div>
+            <div class="sc-reason">ACA subsidies can be enormous at low-to-moderate MAGI. Skip COBRA entirely and enroll via the SEP triggered by losing employer coverage. Save potentially $1,000+/month.</div>
+        </div>
+        <div class="scenario-card">
+            <div class="sc-label">Scenario 3</div>
+            <div class="sc-situation">You retire in October, 13 months before Medicare.</div>
+            <div class="sc-verdict sc-hybrid">→ Hybrid</div>
+            <div class="sc-reason">Use COBRA through December, then switch to ACA during Open Enrollment starting January 1. You get continuity through year-end and then optimize with subsidies for your final stretch.</div>
+        </div>
+        <div class="scenario-card">
+            <div class="sc-label">Scenario 4</div>
+            <div class="sc-situation">High income year due to large capital gain or Roth conversion.</div>
+            <div class="sc-verdict sc-cobra">→ COBRA</div>
+            <div class="sc-reason">If your MAGI will be very high this year (e.g. selling a business, large portfolio gain), ACA subsidies are minimal. COBRA's group rate may actually be comparable or better than unsubsidized ACA plans.</div>
+        </div>
+        <div class="scenario-card">
+            <div class="sc-label">Scenario 5</div>
+            <div class="sc-situation">Retiring at 63, Medicare starts in 2 years.</div>
+            <div class="sc-verdict sc-hybrid">→ Hybrid</div>
+            <div class="sc-reason">COBRA covers up to 18 months — enough to bridge to Medicare if you retire at 63½. Use COBRA first; if your employer had great plan benefits, this is the most seamless path to 65.</div>
+        </div>
+        <div class="scenario-card">
+            <div class="sc-label">Scenario 6</div>
+            <div class="sc-situation">Self-employed spouse already has ACA family plan.</div>
+            <div class="sc-verdict sc-aca">→ ACA</div>
+            <div class="sc-reason">Add yourself to the existing family ACA plan via a qualifying life event (loss of employer coverage). Avoid COBRA entirely — the family ACA plan already provides the coverage you need.</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECTION: MEDICARE TRANSITION
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="section-label-text">Transitioning to Medicare at 65</span>
+        <div class="section-label-rule"></div>
+    </div>
+
+    <div class="guidance-box">
+        <div class="guidance-item">
+            <span class="guidance-icon">⏰</span>
+            <div class="guidance-text">
+                <strong>Don't Let COBRA or ACA Delay Your Medicare Enrollment</strong>
+                <p>Neither COBRA nor ACA coverage counts as "creditable coverage" that allows you to defer Medicare Part B without penalty. Your Initial Enrollment Period (IEP) is a fixed 7-month window around your 65th birthday. Missing it means a <strong>10% permanent premium surcharge per year delayed</strong>. Cancel COBRA or ACA the month before Part B starts — do not keep them as primary coverage after Medicare begins.</p>
+            </div>
+        </div>
+        <div class="guidance-item">
+            <span class="guidance-icon">📋</span>
+            <div class="guidance-text">
+                <strong>Timing ACA Cancellation When Medicare Starts</strong>
+                <p>When you enroll in Medicare Part A and Part B, notify your ACA marketplace to cancel your plan. If you enrolled through healthcare.gov or Covered California, you must actively cancel — it does not happen automatically. If you're receiving PTCs, report your Medicare enrollment so subsidies stop; otherwise you may need to repay them on your tax return.</p>
+            </div>
+        </div>
+        <div class="guidance-item">
+            <span class="guidance-icon">💊</span>
+            <div class="guidance-text">
+                <strong>Prescription Drug Coverage: Part D vs ACA</strong>
+                <p>ACA plans include prescription drug coverage in every metal tier. Medicare does not — you must separately enroll in a Part D plan (or a Medicare Advantage plan that includes drugs). When transitioning from ACA to Medicare, review your current prescriptions and compare Part D formularies before your enrollment date. Delaying Part D enrollment also triggers a permanent penalty if you go more than 63 days without creditable drug coverage.</p>
+            </div>
+        </div>
+        <div class="guidance-item">
+            <span class="guidance-icon">📊</span>
+            <div class="guidance-text">
+                <strong>IRMAA: Your Last Two Years of ACA Income Matter</strong>
+                <p>Medicare Part B and Part D premiums are based on your income from <strong>two years prior</strong> (the IRMAA lookback). If you are on ACA with low income during early retirement but then take a large distribution in year 63–64, that income shows up in your Medicare premiums at 65–66. Conversely, keeping MAGI low in the two years before Medicare can keep your Part B premium at the base rate (~$185/month in 2025) rather than the IRMAA-surcharge tiers.</p>
+            </div>
         </div>
     </div>
 
