@@ -63,6 +63,49 @@
     .muted { color: #000; font-size: 16px;font-weight: bold; }
     .account-title { margin: 18px 0 8px; font-size: 18px; font-weight: bold; }
 
+    /* ── Account Card Headers ── */
+    .account-card {
+      background: #fff;
+      border: 2px solid #000;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.13);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+    .account-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 20px;
+      border-bottom: 2px solid rgba(0,0,0,0.12);
+    }
+    .account-card-header .acct-icon { font-size: 22px; line-height: 1; }
+    .account-card-header .acct-name {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      flex: 1;
+    }
+    .account-card-header .acct-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .account-card-body { padding: 14px 16px 10px; background: #FFFFCC; }
+
+    /* Tax-bucket colour themes */
+    .acct-theme-deferred { background: linear-gradient(135deg, #1a3a5c 0%, #0f2540 100%); color: #fff; border-bottom-color: #d4af37; }
+    .acct-theme-deferred .acct-badge { background: #d4af37; color: #0f2540; }
+    .acct-theme-free     { background: linear-gradient(135deg, #0d4a3a 0%, #08311f 100%); color: #fff; border-bottom-color: #34d399; }
+    .acct-theme-free     .acct-badge { background: #34d399; color: #083d24; }
+    .acct-theme-taxable  { background: linear-gradient(135deg, #4a2060 0%, #2e1240 100%); color: #fff; border-bottom-color: #c084fc; }
+    .acct-theme-taxable  .acct-badge { background: #c084fc; color: #2e1240; }
+    .acct-theme-other    { background: linear-gradient(135deg, #3a3a3a 0%, #1e1e1e 100%); color: #fff; border-bottom-color: #9ca3af; }
+    .acct-theme-other    .acct-badge { background: #9ca3af; color: #1e1e1e; }
+
     /* Drill down details styling */
     .clickable-row { cursor: pointer; transition: background 0.2s; }
     .clickable-row:hover { background: #f0f3b7 !important; }
@@ -293,7 +336,7 @@
         <div style="font-weight:700; font-size:15px; color:#8b6914; border-bottom:1px solid #e0c97a; padding-bottom:4px; margin-bottom:10px;">
           🔑 Setting Up Live Price Refresh (API Key)
         </div>
-        <div style="color:#000; font-style:italic; margin-bottom:8px;"><strong>You need a free API key from Finnhub:</strong></div>
+        <div style="color:#555; font-style:italic; margin-bottom:8px;">If prices are not refreshing, you need a free API key from Finnhub:</div>
         <div style="display:grid; grid-template-columns: 24px 1fr; gap:4px 8px; color:#1a1a1a;">
           <span>1.</span><span>Go to <a href="https://finnhub.io" target="_blank" style="color:#1a6fa8;">finnhub.io</a></span>
           <span>2.</span><span>Click <strong>"Get free API key"</strong> and sign up.</span>
@@ -322,49 +365,49 @@
     <div style="background: linear-gradient(160deg, #0f1c2e 0%, #1a2d45 100%); border: 2px solid #d4af37; border-radius: 10px; padding: 20px 24px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; line-height: 1.6; box-shadow: 0 4px 16px rgba(0,0,0,0.25); color: #e8e0cc;">
 
       <div style="font-weight:700; font-size:15px; color:#d4af37; border-bottom:1px solid rgba(212,175,55,0.35); padding-bottom:6px; margin-bottom:14px; letter-spacing:0.02em;">
-         Key Features at a Glance
-      </div><br>
+        ⭐ Key Features at a Glance
+      </div>
 
       <!-- Feature 1 -->
       <div style="margin-bottom:12px;">
         <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">📡 Live Pricing &amp; Auto-Refresh</div>
-        <div style="color:#c8bfa8; font-size:12.5px;">Finnhub API integration fetches real-time market prices, auto-polling every 60 seconds. Smart name auto-fill populates company names as you type tickers.</div><br>
+        <div style="color:#c8bfa8; font-size:12.5px;">Finnhub API integration fetches real-time market prices, auto-polling every 60 seconds. Smart name auto-fill populates company names as you type tickers.</div>
       </div>
 
       <!-- Feature 2 -->
       <div style="margin-bottom:12px;">
         <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">📊 Rich Visual Analytics</div>
-        <div style="color:#c8bfa8; font-size:12.5px;">Asset allocation pie chart by category (Large Cap, Bonds, International…) plus a tax-bucket bar chart mapping accounts to Tax-Deferred, Tax-Free, and Taxable buckets.</div><br>
+        <div style="color:#c8bfa8; font-size:12.5px;">Asset allocation pie chart by category (Large Cap, Bonds, International…) plus a tax-bucket bar chart mapping accounts to Tax-Deferred, Tax-Free, and Taxable buckets.</div>
       </div>
 
       <!-- Feature 3 -->
       <div style="margin-bottom:12px;">
         <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">⚖️ Dynamic Rebalancing Engine</div>
-        <div style="color:#c8bfa8; font-size:12.5px;">Set custom allocation targets and see exact dollar deviations. Each asset class gets a clear <strong style="color:#4ade80;">Buy</strong>, <strong style="color:#f87171;">Sell</strong>, or <strong style="color:#94a3b8;">On Target</strong> directive instantly.</div><br>
+        <div style="color:#c8bfa8; font-size:12.5px;">Set custom allocation targets and see exact dollar deviations. Each asset class gets a clear <strong style="color:#4ade80;">Buy</strong>, <strong style="color:#f87171;">Sell</strong>, or <strong style="color:#94a3b8;">On Target</strong> directive instantly.</div>
       </div>
 
       <!-- Feature 4 -->
       <div style="margin-bottom:12px;">
         <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">🔎 Intelligent Query Panel</div>
-        <div style="color:#c8bfa8; font-size:12.5px;">Filter holdings by Ticker, Name, Account, or Asset Type. Surface top-N positions by value, or flag holdings drifting past custom gain/loss thresholds.</div><br>
+        <div style="color:#c8bfa8; font-size:12.5px;">Filter holdings by Ticker, Name, Account, or Asset Type. Surface top-N positions by value, or flag holdings drifting past custom gain/loss thresholds.</div>
       </div>
 
       <!-- Feature 5 -->
       <div style="margin-bottom:12px;">
         <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">🚨 Concentration Risk Alerts</div>
-        <div style="color:#c8bfa8; font-size:12.5px;">Automatically flags any single stock exceeding 5% of total portfolio value with a visible warning banner — keeping you aware of outsized positions.</div><br>
+        <div style="color:#c8bfa8; font-size:12.5px;">Automatically flags any single stock exceeding 5% of total portfolio value with a visible warning banner — keeping you aware of outsized positions.</div>
       </div>
 
       <!-- Feature 6 -->
       <div style="margin-bottom:12px;">
         <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">💾 Frictionless Data Management</div>
-        <div style="color:#c8bfa8; font-size:12.5px;">Bulk CSV import/export, inline row editing, and accordion-style breakdowns. Accordion rows expand to reveal per-holding detail without cluttering the main view.</div><br>
+        <div style="color:#c8bfa8; font-size:12.5px;">Bulk CSV import/export, inline row editing, and accordion-style breakdowns. Accordion rows expand to reveal per-holding detail without cluttering the main view.</div>
       </div>
 
       <!-- Feature 7 -->
       <div style="border-top:1px solid rgba(212,175,55,0.25); padding-top:10px; margin-top:2px;">
         <div style="font-weight:700; font-size:13px; color:#f0c040; margin-bottom:3px;">🔗 Retirement Calculator Sync</div>
-        <div style="color:#c8bfa8; font-size:12.5px;">Pushes portfolio totals into <code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px; color:#d4af37;">localStorage</code> so the Retirement Calculator and Monte Carlo simulator pre-fill automatically — no re-entry needed.</div><br>
+        <div style="color:#c8bfa8; font-size:12.5px;">Pushes portfolio totals into <code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px; color:#d4af37;">localStorage</code> so the Retirement Calculator and Monte Carlo simulator pre-fill automatically — no re-entry needed.</div>
       </div>
 
     </div>
@@ -990,9 +1033,38 @@
         const rows = grouped[account];
         let acctInvested = 0, acctValue = 0;
 
+        // Determine tax bucket for theming
+        const TAX_BUCKET_MAP_RENDER = {
+          'Tax-Deferred': ['Employer 401k', 'Treasury Direct'],
+          'Tax-Free':     ['Health Savings Account', 'Roth IRA'],
+          'Taxable':      ['Charles Schwab', 'Robinhood', 'Individual Brokerage', 'Brokerage'],
+        };
+        let bucketTheme = 'other', bucketLabel = 'Other', bucketIcon = '🏦';
+        for (const [bkt, accts] of Object.entries(TAX_BUCKET_MAP_RENDER)) {
+          if (accts.some(a => account.toLowerCase().includes(a.toLowerCase()))) {
+            bucketTheme = bkt === 'Tax-Deferred' ? 'deferred' : bkt === 'Tax-Free' ? 'free' : 'taxable';
+            bucketLabel = bkt;
+            bucketIcon  = bkt === 'Tax-Deferred' ? '🏛️' : bkt === 'Tax-Free' ? '🌿' : '📈';
+            break;
+          }
+        }
+        // Icon overrides for well-known account types
+        if (/401k/i.test(account))             bucketIcon = '🏛️';
+        if (/roth/i.test(account))             bucketIcon = '🌿';
+        if (/health|hsa/i.test(account))       bucketIcon = '🏥';
+        if (/treasury/i.test(account))         bucketIcon = '🇺🇸';
+        if (/schwab|robinhood|brokerage/i.test(account)) bucketIcon = '📈';
+
         const section = document.createElement('div');
-        section.className = 'card';
-        section.innerHTML = `<div class="account-title">${account}</div>`;
+        section.className = 'account-card';
+        section.innerHTML = `
+          <div class="account-card-header acct-theme-${bucketTheme}">
+            <span class="acct-icon">${bucketIcon}</span>
+            <span class="acct-name">${account}</span>
+            <span class="acct-badge">${bucketLabel}</span>
+          </div>
+          <div class="account-card-body"></div>
+        `;
 
         const table = document.createElement('table');
         table.innerHTML = `
@@ -1049,7 +1121,8 @@
           tbody.appendChild(tr);
         });
 
-        section.appendChild(table);
+        const cardBody = section.querySelector('.account-card-body');
+        cardBody.appendChild(table);
 
         const acctGain = acctValue - acctInvested;
         const acctGainPct = acctInvested ? (acctGain / acctInvested) * 100 : 0;
@@ -1057,7 +1130,7 @@
         summary.className = 'muted';
         summary.style.marginTop = '8px';
         summary.innerHTML = `Account Total: <strong>${money(acctValue)}</strong> | Invested: <strong>${money(acctInvested)}</strong> | Gain/Loss: <strong class="${acctGain >= 0 ? 'positive' : 'negative'}">${money(acctGain)}</strong> | <strong class="${acctGainPct >= 0 ? 'positive' : 'negative'}">${acctGainPct.toFixed(2)}%</strong> | Total Expense: <strong style="color:#b45309">${money(acctExpensePerYear)}</strong>`;
-        section.appendChild(summary);
+        cardBody.appendChild(summary);
         container.appendChild(section);
       });
 
