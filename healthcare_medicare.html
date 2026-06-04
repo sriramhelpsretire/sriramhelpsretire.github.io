@@ -4,226 +4,502 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medicare Explained — Parts A, B, C, D | Retire Wise and Live Happy</title>
-
-<!-- Primary SEO -->
 <meta name="description" content="Complete guide to Medicare for retirees — Part A hospital coverage, Part B medical, Part C Medicare Advantage, Part D prescription drugs, enrollment windows, IRMAA surcharges and Medigap supplements." />
-<meta name="keywords" content="Medicare explained, Medicare Part A, Medicare Part B, Medicare Part C, Medicare Advantage, Medicare Part D, Medicare enrollment, IRMAA Medicare, Medigap supplement, Medicare coverage retirement, Medicare 2025" />
+<meta name="keywords" content="Medicare explained, Medicare Part A, Medicare Part B, Medicare Part C, Medicare Advantage, Medicare Part D, Medicare enrollment, IRMAA Medicare, Medigap supplement, Medicare coverage retirement, Medicare 2026" />
 <meta name="author" content="Sriram Gopalaratnam" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://wise-retiree.com/healthcare_medicare.html" />
-
-<!-- Open Graph -->
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://wise-retiree.com/healthcare_medicare.html" />
 <meta property="og:title" content="Medicare Explained — Parts A, B, C, D | Retire Wise and Live Happy" />
 <meta property="og:description" content="Understand Medicare Parts A, B, C and D — enrollment windows, IRMAA surcharges, Medigap supplements and Medicare Advantage." />
 <meta property="og:site_name" content="Retire Wise and Live Happy" />
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Medicare Explained — Parts A, B, C, D | Retire Wise and Live Happy" />
 <meta name="twitter:description" content="Complete Medicare guide — Parts A, B, C, D, enrollment windows, IRMAA and Medigap for retirees." />
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-    --bg-page:     #f2f4f7;
-    --bg-card:     #ffffff;
-    --accent-gold: #c9933a;
-    --gold-dark:   #8b6914;
-    --text-dark:   #000;
-    --text-mid:    #000;
-    --red-accent:  #a82222;
-}
+    :root {
+        --gold:       #d4af37;
+        --gold-dark:  #693909;
+        --gold-light: #fdf6e3;
+        --ink:        #0f0f0f;
+        --body:       #374151;
+        --muted:      #6b7280;
+        --rule:       #e5e7eb;
+        --bg:         #ffffff;
+        --bg-off:     #f9fafb;
+        --navy:       #0d1b2a;
+        --red:        #a82222;
+        --accent-gold:#d4af37;
+        --bar-dark:   #1a1a1a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        background: var(--bg-off);
+        color: var(--body);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding-top: 72px;
+    }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ── TOP NAV (preserved) ── */
+    .top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
+    .nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
+    .nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
+    .nav-item{position:relative;}
+    .nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
+    .nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
+    .nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
+    .nav-item:hover>a .chevron{transform:rotate(180deg);}
+    .nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
+    .nav-dropdown.two-col{min-width:260px;}
+    .nav-item:hover .nav-dropdown,.nav-item:hover .nav-dropdown.two-col{display:block;}
+    .nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
+    .nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
+    .nav-dropdown a .dd-icon{font-size:17px;width:24px;text-align:center;flex-shrink:0;margin-top:1px;}
+    .nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
+    .nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
+    .nav-dropdown a:hover .dd-text span{color:#b8922e;}
+    .nav-item:last-child .nav-dropdown,.nav-item:nth-last-child(2) .nav-dropdown{right:0;left:auto;}
+    .nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
+    .nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
+    @media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
 
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: var(--bg-page);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 72px;
-}
+    /* ── HERO ── */
+    .page-hero {
+        width: 100%;
+        background: var(--navy);
+        padding: 56px 32px 52px;
+        display: flex;
+        justify-content: center;
+    }
+    .page-hero-inner {
+        max-width: 1100px;
+        width: 100%;
+        text-align: center;
+    }
+    .hero-eyebrow {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 14px;
+    }
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.12;
+        letter-spacing: -0.5px;
+        margin-bottom: 16px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+        font-size: clamp(14px, 1.8vw, 16px);
+        font-weight: 300;
+        color: rgba(255,255,255,0.72);
+        max-width: 620px;
+        margin: 0 auto 28px;
+        line-height: 1.7;
+    }
+    .hero-badges {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .hero-badge {
+        background: rgba(212,175,55,0.15);
+        border: 1px solid rgba(212,175,55,0.4);
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: 100px;
+    }
 
-/* Top Nav */
-.top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
-.nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
-.nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
-.nav-item{position:relative;}
-.nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
-.nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
-.nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
-.nav-item:hover>a .chevron{transform:rotate(180deg);}
-.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
-.nav-dropdown.two-col{min-width:260px;}
-.nav-item:hover .nav-dropdown,.nav-item:hover .nav-dropdown.two-col{display:block;}
-.nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
-.nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
-.nav-dropdown a .dd-icon{font-size:17px;width:24px;text-align:center;flex-shrink:0;margin-top:1px;}
-.nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
-.nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
-.nav-dropdown a:hover .dd-text span{color:#b8922e;}
-.nav-item:last-child .nav-dropdown,.nav-item:nth-last-child(2) .nav-dropdown{right:0;left:auto;}
-.nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
-.nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
-@media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
+    /* ── LAYOUT ── */
+    .page-body {
+        width: 100%;
+        max-width: 1100px;
+        padding: 0 32px 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-/* Page Wrapper */
-.page-wrapper {
-    width: 100%;
-    max-width: 700px;
-    background: var(--bg-card);
-    color: var(--text-dark);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 20px;
-    border-left: 1px solid rgba(0,0,0,0.07);
-    border-right: 1px solid rgba(0,0,0,0.07);
-    box-shadow: 0 0 30px rgba(0,0,0,0.10);
-}
+    /* ── SECTION LABELS ── */
+    .section-label {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 52px 0 20px;
+    }
+    .sl-text {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        white-space: nowrap;
+    }
+    .sl-rule { flex: 1; height: 1px; background: var(--rule); }
+    .section-sub {
+        font-size: 15px;
+        color: var(--muted);
+        line-height: 1.65;
+        width: 100%;
+        margin-bottom: 24px;
+    }
 
-/* Header */
-header {
-    text-align: center;
-    padding: 30px 20px 10px;
-}
+    /* ── INTRO BOX ── */
+    .intro-box {
+        width: 100%;
+        background: var(--bg);
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        padding: 32px 36px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+    .intro-text p {
+        font-size: 15px;
+        line-height: 1.75;
+        color: var(--body);
+        margin-bottom: 14px;
+    }
+    .intro-text p:last-child { margin-bottom: 0; }
+    .intro-text strong { color: var(--ink); font-weight: 600; }
+    .intro-aside {
+        background: var(--navy);
+        border-radius: 8px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        justify-content: center;
+    }
+    .aside-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .aside-icon {
+        width: 32px; height: 32px;
+        border-radius: 8px;
+        background: rgba(212,175,55,0.15);
+        border: 1px solid rgba(212,175,55,0.3);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 15px; flex-shrink: 0;
+    }
+    .aside-body strong {
+        display: block; font-size: 13px; font-weight: 600;
+        color: #fff; margin-bottom: 3px;
+    }
+    .aside-body span {
+        font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5;
+    }
 
-header h1 {
-    font-size: 30px;
-    font-weight: bold;
-}
+    /* ── IRMAA TABLE ── */
+    .table-wrap {
+        width: 100%;
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .table-caption {
+        background: var(--navy);
+        color: #fff;
+        padding: 14px 24px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .table-caption span { color: var(--gold); font-size: 16px; }
+    table.irmaa {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+        background: var(--bg);
+    }
+    table.irmaa th {
+        background: #111;
+        color: #fff;
+        padding: 12px 16px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        border-bottom: 2.5px solid #000;
+    }
+    table.irmaa th:first-child { text-align: left; }
+    table.irmaa td {
+        padding: 13px 16px;
+        border-bottom: 1px solid var(--rule);
+        text-align: center;
+        color: var(--body);
+        font-size: 13.5px;
+    }
+    table.irmaa td:first-child { text-align: left; font-weight: 600; color: var(--ink); }
+    table.irmaa tr:last-child td { border-bottom: none; }
+    table.irmaa tr:nth-child(even) td { background: var(--bg-off); }
+    table.irmaa tr:hover td { background: var(--gold-light); }
+    .irmaa-note {
+        padding: 12px 20px;
+        background: #fffbf0;
+        border-top: 1px solid #f0e0a0;
+        font-size: 12.5px;
+        color: #7a5c00;
+        line-height: 1.6;
+    }
 
-/* Content */
-.content {
-    padding: 20px;
-    line-height: 1.6;
-    font-size: 15px;
-}
+    /* ── WHAT COUNTS GRID ── */
+    .counts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        width: 100%;
+    }
+    .counts-card {
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .counts-header {
+        padding: 14px 20px;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 2px solid #000;
+    }
+    .counts-header.includes { background: #dcfce7; color: #166534; }
+    .counts-header.excludes { background: #fee2e2; color: #991b1b; }
+    .counts-body { background: var(--bg); }
+    .counts-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 20px;
+        border-bottom: 1px solid var(--rule);
+        font-size: 13.5px;
+        color: var(--body);
+        line-height: 1.5;
+    }
+    .counts-item:last-child { border-bottom: none; }
+    .counts-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 
-.content p {
-    margin-bottom: 14px;
-    color: var(--text-mid);
-}
+    /* ── ENROLLMENT WINDOWS ── */
+    .windows-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        width: 100%;
+    }
+    .window-card {
+        background: var(--bg);
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        padding: 24px 20px;
+        transition: background 0.18s, transform 0.18s;
+    }
+    .window-card:hover { background: var(--gold-light); transform: translateY(-3px); }
+    .window-tag {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 100px;
+        margin-bottom: 14px;
+    }
+    .window-tag.iep  { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+    .window-tag.gep  { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .window-tag.oep  { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .window-card h3 {
+        font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px;
+    }
+    .window-date {
+        font-size: 13px; font-weight: 600; color: var(--gold-dark); margin-bottom: 10px;
+    }
+    .window-card p {
+        font-size: 13px; color: var(--muted); line-height: 1.6;
+    }
 
-/* Table Styling */
-.table-container {
-    overflow-x: auto;
-    margin: 10px 0;
-}
+    /* ── CAUTION BOX ── */
+    .caution-box {
+        width: 100%;
+        background: #fff8f0;
+        border: 2.5px solid #000;
+        border-left: 5px solid var(--red);
+        border-radius: 12px;
+        padding: 24px 28px;
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+    }
+    .caution-icon { font-size: 28px; flex-shrink: 0; }
+    .caution-body h4 {
+        font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px;
+    }
+    .caution-body p {
+        font-size: 13.5px; color: var(--body); line-height: 1.65; margin-bottom: 8px;
+    }
+    .caution-body p:last-child { margin-bottom: 0; }
+    .caution-body a {
+        color: var(--gold-dark); font-weight: 600; text-decoration: underline;
+    }
+    .caution-body a:hover { color: var(--red); }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-}
+    /* ── LOOKBACK BOX ── */
+    .lookback-box {
+        width: 100%;
+        background: var(--bg);
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        padding: 28px 32px;
+        display: flex;
+        gap: 32px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .lookback-stat {
+        text-align: center;
+        flex-shrink: 0;
+    }
+    .lookback-num {
+        font-family: 'Playfair Display', serif;
+        font-size: 52px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 6px;
+    }
+    .lookback-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .lookback-divider {
+        width: 1px;
+        background: var(--rule);
+        align-self: stretch;
+        min-height: 60px;
+        flex-shrink: 0;
+    }
+    .lookback-text { flex: 1; min-width: 200px; }
+    .lookback-text h4 {
+        font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px;
+    }
+    .lookback-text p {
+        font-size: 13.5px; color: var(--body); line-height: 1.65;
+    }
 
-th, td {
-    border: 1px solid rgba(0,0,0,0.95);
-    padding: 8px;
-    text-align: center;
-    color: var(--text-dark);
-}
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 48px;
+        padding-top: 28px;
+        border-top: 1px solid var(--rule);
+    }
+    .gold-btn {
+        background: var(--gold);
+        color: #000;
+        padding: 12px 22px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        text-decoration: none;
+        border: 2.5px solid #000;
+        transition: background 0.2s, color 0.2s;
+    }
+    .gold-btn:hover { background: var(--gold-dark); color: #fff; }
+    .home-btn {
+        background: var(--bg);
+        border: 2.5px solid #000;
+        border-radius: 8px;
+        width: 46px; height: 46px;
+        display: flex; align-items: center; justify-content: center;
+        text-decoration: none; font-size: 20px;
+        transition: background 0.2s;
+    }
+    .home-btn:hover { background: var(--gold-light); }
 
-th {
-    background-color: var(--text-dark);
-    color: #ffffff;
-}
+    /* ── FOOTER ── */
+    footer {
+        width: 100%;
+        background: var(--navy);
+        color: rgba(255,255,255,0.7);
+        padding: 32px 0;
+        margin-top: auto;
+    }
+    .footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 32px;
+        font-size: 13px;
+        line-height: 2;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 6px 40px;
+    }
+    .footer-inner p { color: rgba(255,255,255,0.6); }
+    .footer-inner strong { color: rgba(255,255,255,0.9); }
 
-tr:nth-child(even) {
-    background-color: rgba(139,105,20,0.08);
-}
+    /* ── TOOLTIP ── */
+    .tooltip-container { position: relative; }
+    .tooltip-container .tooltip-text {
+        visibility: hidden; width: 160px; background-color: #000; color: #fff;
+        text-align: center; border-radius: 6px; padding: 6px 0;
+        position: absolute; z-index: 10001; bottom: 125%; right: 10%;
+        opacity: 0; transition: opacity 0.2s; font-size: 13px; font-weight: 500;
+        border: 1px solid var(--accent-gold); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .tooltip-container .tooltip-text::after {
+        content: ""; position: absolute; top: 100%; left: 85%; margin-left: -5px;
+        border-width: 5px; border-style: solid;
+        border-color: #000 transparent transparent transparent;
+    }
+    .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
 
-tr:nth-child(odd) {
-    background-color: #ffffff;
-}
-
-/* Bullet Points */
-ul {
-    margin-top: 10px;
-    padding-left: 20px;
-}
-
-li {
-    margin-bottom: 8px;
-    color: var(--text-mid);
-}
-
-/* Bottom Nav */
-.nav-area {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    margin-top: auto;
-}
-
-.gold-btn {
-    background: var(--accent-gold);
-    color: black;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-    border: 2px solid black;
-}
-
-.home-btn {
-    background: white;
-    border: 2px solid black;
-    border-radius: 4px;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-}
-
-/* ... existing styles on your page ... */
-        
-        /* ── Tooltip Style for Wise Thoughts ── */
-        .tooltip-container {
-            position: relative;
-        }
-        .tooltip-container .tooltip-text {
-            visibility: hidden;
-            width: 160px;
-            background-color: #000000;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 6px 0;
-            position: absolute;
-            z-index: 10001;
-            bottom: 125%;
-            right: 10%;
-            opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .tooltip-container .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 85%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #000000 transparent transparent transparent;
-        }
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+        .intro-box { grid-template-columns: 1fr; }
+        .counts-grid { grid-template-columns: 1fr; }
+        .windows-grid { grid-template-columns: 1fr 1fr; }
+        .lookback-divider { display: none; }
+    }
+    @media (max-width: 600px) {
+        .page-body { padding: 0 16px 60px; }
+        .windows-grid { grid-template-columns: 1fr; }
+        .lookback-box { flex-direction: column; }
+        .intro-box { padding: 24px 20px; }
+        .bottom-nav { justify-content: center; }
+    }
 </style>
 </head>
-
 <body>
 
 <nav class="top-nav">
@@ -296,104 +572,332 @@ li {
   </select>
 </nav>
 
-<div class="page-wrapper">
+<!-- HERO -->
+<section class="page-hero">
+    <div class="page-hero-inner">
+        <p class="hero-eyebrow">Retirement Healthcare</p>
+        <h1 class="hero-title">Healthcare Coverage — <em>Medicare</em></h1>
+        <p class="hero-sub">From the day you retire to age 65 and beyond — understanding Medicare, IRMAA, and enrollment windows is one of the most valuable things you can do for your financial plan.</p>
+        <div class="hero-badges">
+            <span class="hero-badge">💊 Parts A · B · C · D</span>
+            <span class="hero-badge">📊 2026 IRMAA Premiums</span>
+            <span class="hero-badge">🗓️ Enrollment Windows</span>
+            <span class="hero-badge">⚠️ Late Penalty Avoidance</span>
+        </div>
+    </div>
+</section>
 
-<header>
-    <h1>Healthcare Coverage (Medicare)</h1>
-</header>
+<!-- PAGE BODY -->
+<div class="page-body">
 
-<div class="content">
+    <!-- Intro -->
+    <div class="section-label">
+        <span class="sl-text">Overview</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="intro-box">
+        <div class="intro-text">
+            <p>During working years, your employer handles health insurance. In retirement, <strong>Medicare becomes your primary coverage</strong> — but navigating it well requires understanding its four parts, the income-based surcharges, and the time-sensitive enrollment windows.</p>
+            <p>One critical note: <strong>applications should begin during the 7-month Initial Enrollment Period</strong> surrounding your 65th birthday. Missing it can result in permanent premium penalties. Always verify your situation at <a href="https://www.medicare.gov" target="_blank" style="color:var(--gold-dark);font-weight:600;">medicare.gov</a>.</p>
+        </div>
+        <div class="intro-aside">
+            <div class="aside-item">
+                <div class="aside-icon">📅</div>
+                <div class="aside-body">
+                    <strong>Start planning at 64</strong>
+                    <span>Your IRMAA is based on income from 2 years prior — plan withdrawals accordingly.</span>
+                </div>
+            </div>
+            <div class="aside-item">
+                <div class="aside-icon">💡</div>
+                <div class="aside-body">
+                    <strong>Roth conversions affect premiums</strong>
+                    <span>Conversions count as MAGI and can push you into a higher IRMAA bracket.</span>
+                </div>
+            </div>
+            <div class="aside-item">
+                <div class="aside-icon">🗺️</div>
+                <div class="aside-body">
+                    <strong>See the Medicare Flowchart</strong>
+                    <span>Understand what each part covers — and what gaps Medigap fills.</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<p>During work years, we pick a health insurance covered by employer for ourselves and family and take care of health coverage. What happens during retirement?</p>
+    <!-- 2026 Premium Table -->
+    <div class="section-label">
+        <span class="sl-text">2026 IRMAA Premium Costs</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">Medicare Part B and Part D premiums increase at higher income levels. The surcharge added to the base premium is called IRMAA — Income-Related Monthly Adjustment Amount. Use these 2026 figures for estimation purposes.</p>
 
-<p>What is Medicare? What are the components of Medicare? We have already seen in the Medicare page. Let us spend some time on the details around it. One important note: application should start during the 7-month initial enrollment period. Details are available on Medicare web site.</p>
+    <div class="table-wrap">
+        <div class="table-caption">
+            <span>📊</span> 2026 Medicare Part B + Part D Premiums by Income (MAGI) — Per Person
+        </div>
+        <table class="irmaa">
+            <thead>
+                <tr>
+                    <th>Income (MAGI)</th>
+                    <th>Part B / mo</th>
+                    <th>Part D / mo</th>
+                    <th>IRMAA</th>
+                    <th>Total / mo</th>
+                    <th>Per Person / yr</th>
+                    <th>Couple / yr</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$218k or less</td>
+                    <td>$202.90</td>
+                    <td>$35</td>
+                    <td>$0</td>
+                    <td>$237.90</td>
+                    <td>$2,854.80</td>
+                    <td>$5,709.60</td>
+                </tr>
+                <tr>
+                    <td>$218k – $274k</td>
+                    <td>$284.10</td>
+                    <td>$35</td>
+                    <td>$14.50</td>
+                    <td>$333.60</td>
+                    <td>$4,003.20</td>
+                    <td>$8,006.40</td>
+                </tr>
+                <tr>
+                    <td>$274k – $342k</td>
+                    <td>$405.80</td>
+                    <td>$35</td>
+                    <td>$37.50</td>
+                    <td>$478.30</td>
+                    <td>$5,739.60</td>
+                    <td>$11,479.20</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="irmaa-note">
+            ⚠️ These figures are for estimation purposes only. Verify current premiums at <strong>medicare.gov</strong> before making decisions. Premiums adjust annually.
+        </div>
+    </div>
 
-<p><strong>Given below are some premium costs based on 2026 numbers (use for estimation purposes)</strong></p>
+    <!-- 2-Year Lookback -->
+    <div class="section-label">
+        <span class="sl-text">The 2-Year Lookback Rule</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="lookback-box">
+        <div class="lookback-stat">
+            <div class="lookback-num">2</div>
+            <div class="lookback-label">Year Lookback</div>
+        </div>
+        <div class="lookback-divider"></div>
+        <div class="lookback-text">
+            <h4>Medicare uses your tax return from 2 years prior to set your premiums</h4>
+            <p>If you retire in 2026, your 2026 Medicare premiums are based on your 2024 tax return. This is why planning Roth conversions, portfolio withdrawals, and capital gains timing well before retirement is essential — high income today means higher premiums two years from now.</p>
+        </div>
+    </div>
 
-<div class="table-container">
-<table>
-<tr>
-<th>Income (MAGI)</th>
-<th>Part B</th>
-<th>Part D</th>
-<th>IRMAA</th>
-<th>Total / Month</th>
-<th>Per Person / Year</th>
-<th>Couple / Year</th>
-</tr>
+    <!-- What counts toward MAGI -->
+    <div class="section-label">
+        <span class="sl-text">What Counts Toward MAGI for IRMAA?</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="counts-grid">
+        <div class="counts-card">
+            <div class="counts-header includes">✅ Included in MAGI</div>
+            <div class="counts-body">
+                <div class="counts-item"><span class="counts-icon">📦</span>401k / IRA withdrawals (traditional)</div>
+                <div class="counts-item"><span class="counts-icon">🔄</span>Roth conversion amounts</div>
+                <div class="counts-item"><span class="counts-icon">💰</span>Interest and dividend income</div>
+                <div class="counts-item"><span class="counts-icon">📈</span>Realized capital gains</div>
+                <div class="counts-item"><span class="counts-icon">🏠</span>Rental income</div>
+                <div class="counts-item"><span class="counts-icon">💼</span>Business / self-employment income</div>
+            </div>
+        </div>
+        <div class="counts-card">
+            <div class="counts-header excludes">❌ Not Included in MAGI</div>
+            <div class="counts-body">
+                <div class="counts-item"><span class="counts-icon">🌱</span>Roth IRA qualified withdrawals</div>
+                <div class="counts-item"><span class="counts-icon">🏥</span>HSA reimbursements</div>
+                <div class="counts-item"><span class="counts-icon">↩️</span>Return of principal / cost basis</div>
+                <div class="counts-item"><span class="counts-icon">🎁</span>Gifts and inheritances</div>
+                <div class="counts-item"><span class="counts-icon">🛡️</span>Life insurance proceeds</div>
+                <div class="counts-item"><span class="counts-icon">📋</span>Municipal bond interest (generally)</div>
+            </div>
+        </div>
+    </div>
 
-<tr>
-<td>$218k or less</td>
-<td>$202.90</td>
-<td>$35</td>
-<td>$0</td>
-<td>$237.90</td>
-<td>$2,854.80</td>
-<td>$5,709.60</td>
-</tr>
+    <!-- Enrollment Windows -->
+    <div class="section-label">
+        <span class="sl-text">Key Enrollment Windows</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">Timing is critical — missing the right window can result in <strong>permanent lifetime penalties</strong> added to your monthly premiums. Know your windows before you retire.</p>
+    <div class="windows-grid">
+        <div class="window-card">
+            <span class="window-tag iep">Initial Enrollment</span>
+            <h3>Initial Enrollment Period</h3>
+            <p class="window-date">3 months before · birthday month · 3 months after (7 months total)</p>
+            <p>Your primary enrollment opportunity. Sign up for Parts A and B during this window to avoid late penalties. Most people should enroll even if still working — verify with your HR department.</p>
+        </div>
+        <div class="window-card">
+            <span class="window-tag gep">General Enrollment</span>
+            <h3>General Enrollment Period</h3>
+            <p class="window-date">January 1 – March 31 each year</p>
+            <p>For those who missed their IEP and don't qualify for a Special Enrollment Period. Coverage typically begins July 1. Late enrollment penalties for Part B and Part D apply and are permanent.</p>
+        </div>
+        <div class="window-card">
+            <span class="window-tag oep">Open Enrollment</span>
+            <h3>Open Enrollment Period</h3>
+            <p class="window-date">October 15 – December 7 each year</p>
+            <p>Annual window for current Medicare beneficiaries to switch between Original Medicare, Medicare Advantage, or Part D drug plans. Changes take effect January 1 of the following year.</p>
+        </div>
+    </div>
 
-<tr>
-<td>$218k–$274k</td>
-<td>$284.10</td>
-<td>$35</td>
-<td>$14.50</td>
-<td>$333.60</td>
-<td>$4,003.20</td>
-<td>$8,006.40</td>
-</tr>
+    <!-- Caution -->
+    <div class="section-label">
+        <span class="sl-text">Important Cautions</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="caution-box">
+        <div class="caution-icon">⚠️</div>
+        <div class="caution-body">
+            <h4>Still Working at 65? Verify Before Delaying</h4>
+            <p>If you or your spouse are still covered by employer-sponsored insurance at 65, you may be able to delay Part B without penalty — but rules vary. Always verify your specific situation with your HR department and Social Security before deciding to delay.</p>
+            <p>Please visit <a href="https://www.medicare.gov" target="_blank">medicare.gov</a> to understand all penalties, including the <strong>10% per year Part B penalty</strong> and the <strong>1% per month Part D penalty</strong> that apply for missed enrollment windows and are levied for life.</p>
+            <p>This is a simplified introduction. More detail is available and should be reviewed before making any decisions. The <a href="medicare_flowchart.html">Medicare Flowchart</a> gives a clear picture of what each part covers and what requires supplemental Medigap coverage.</p>
+        </div>
+    </div>
 
-<tr>
-<td>$274k–$342k</td>
-<td>$405.80</td>
-<td>$35</td>
-<td>$37.50</td>
-<td>$478.30</td>
-<td>$5,739.60</td>
-<td>$11,479.20</td>
-</tr>
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+        <a href="healthcare_aca.html" class="gold-btn">🛡️ ACA Marketplace</a>
+        <a href="medicare_aca.html" class="gold-btn">🏥 Medicare Hub</a>
+        <a href="medicare_flowchart.html" class="gold-btn">🗺️ Medicare Flowchart</a>
+        <a href="index.html" class="home-btn" title="Home">🏠</a>
+    </div>
 
-</table>
 </div>
 
-<p>IRMAA is a surcharge (Income Related Monthly Adjustment Amount) added to Medicare Part B and Part D premiums based on income levels (MAGI). This is a key parameter to watch during retirement projections.</p>
+<footer>
+    <div class="footer-inner">
+        <p><strong>Copyright</strong> © 2026 Sriram Gopalaratnam. All Rights Reserved.</p>
+        <p><strong>Last Updated</strong> May 2026</p>
+        <p><strong>Disclaimer</strong> For educational purposes only — not financial or legal advice.</p>
+        <p><strong>Privacy</strong> No personal data required to use this site.</p>
+    </div>
+</footer>
 
-<ul>
-<li>Medicare uses a <strong>2-year look back rule</strong> to determine premiums.</li>
-<li>MAGI includes: 401k withdrawals, Roth conversions, interest/dividends, capital gains, rental income.</li>
-<li>Does NOT include: Roth withdrawals, HSA reimbursements, return of principal.</li>
-<br>
+<script>
+// ── Star rating ──────────────────────────────────────────────────────────────
+let selectedRating = 0;
+const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
 
-<li><u>Note</u>: Given here is a simple introduction of Medicare. More details are available and should be looked into before making decisions.</li><br>
+function setRating(val) {
+  selectedRating = val;
+  document.querySelectorAll('.star').forEach(s => {
+    s.classList.toggle('lit', +s.dataset.val <= val);
+    s.textContent = +s.dataset.val <= val ? '★' : '☆';
+  });
+  document.getElementById('star-label').textContent = starLabels[val] || '';
+}
 
-<li><a href=medicare_flowchart.html><strong>Medicare Flowchart </strong></a>gives you a clear idea what is covered by which part & what is not covered. One needs to look at it in a wholistic manner</li>
+// ── Checkbox highlight ───────────────────────────────────────────────────────
+document.querySelectorAll('.fb-checks label').forEach(lbl => {
+  lbl.querySelector('input').addEventListener('change', function() {
+    lbl.classList.toggle('checked', this.checked);
+  });
+});
 
-<br><p> <u><strong>Medicare Key Enrollment Windows</strong></u></p>
-Timing is critical to avoid lifelong late-enrollment policies. <br><br>
-<li> <strong>Initial Enrollment Period:</strong></li> The 7-month window surrounding your 65th birthday (3 months before, the month of , and 3 months after)
-<p></p>
-<li> <strong>General Enrollment Period (Jan 1 - Mar 31):</strong></li> For those who missed their initial window; coverage typically begins the first of the month after you sign up 
-<p></p>
-<li> <strong>Open Enrollment Period (Oct 15 - Dec 7):</strong></li> The annual time when current beneficiaries can switch plans for the following year.
+// ── Page-aware auto-check ────────────────────────────────────────────────────
+const pageMap = {
+  'medicare': ['Medicare / ACA'],
+  'healthcare_medicare': ['Medicare / ACA'],
+  'healthcare_aca': ['Medicare / ACA'],
+  'aca_vs_cobra': ['Medicare / ACA'],
+  'medicare_flowchart': ['Medicare / ACA'],
+  'long_term_care': ['Long term care'],
+  'tax_calculator': ['Tax planning'],
+  'retirement_calculator': ['Withdrawal strategy','Investment / Portfolio'],
+  'montecarlo': ['Withdrawal strategy','Investment / Portfolio'],
+  '401k': ['401k / Savings'],
+  'portfolio': ['Investment / Portfolio'],
+  'transition_plan': ['Withdrawal strategy'],
+  'financial_plan': ['Investment / Portfolio'],
+};
+const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
+Object.keys(pageMap).forEach(key => {
+  if (page.includes(key)) {
+    pageMap[key].forEach(topic => {
+      document.querySelectorAll('.fb-checks input').forEach(inp => {
+        if (inp.value === topic) {
+          inp.checked = true;
+          inp.closest('label').classList.add('checked');
+        }
+      });
+    });
+  }
+});
 
-<p></p>
-<strong>Note:</strong> If you are still working and have employer-sponsored health insurance, you may be able to delay Part B without penalty, but is always best to verify with your 
-HR department or Social Security.<br><br>
+// ── Submit ───────────────────────────────────────────────────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
 
-<strong>Caution:</strong> Please visit medicare.gov to understand penalties if you miss the window and also the period for which you have penalties levied on your coverage amounts.
+function submitFeedback() {
+  const improve = document.getElementById('fb-improve').value.trim();
+  const status  = document.getElementById('fb-status');
+  const btn     = document.getElementById('fb-submit');
 
-</ul>
+  if (!improve) {
+    status.style.color = '#a82222';
+    status.textContent = 'Please share how we can improve — that field is required.';
+    return;
+  }
 
-</div>
+  const topics = [...document.querySelectorAll('.fb-checks input:checked')].map(i => i.value).join(', ');
+  const q1 = document.querySelector('input[name="q1"]:checked')?.value || '';
+  const q2 = document.querySelector('input[name="q2"]:checked')?.value || '';
+  const q3 = document.querySelector('input[name="q3"]:checked')?.value || '';
+  const q4 = document.querySelector('input[name="q4"]:checked')?.value || '';
 
-<div class="nav-area">
-    <a href="healthcare_aca.html" class="gold-btn">🩺 ACA Marketplace</a>
-    <a href="medicare_aca.html" class="gold-btn">Medicare Hub</a>
-    <a href="index.html" class="home-btn">🏠</a>
-</div>
+  const payload = {
+    page:    window.location.pathname.split('/').pop() || 'unknown',
+    rating:  selectedRating ? selectedRating + ' ★' : 'Not rated',
+    topics,
+    q_easy:        q1,
+    q_found:       q2,
+    q_calculators: q3,
+    q_recommend:   q4,
+    useful:  document.getElementById('fb-useful').value.trim(),
+    area:    document.getElementById('fb-area').value,
+    improve,
+    add:     document.getElementById('fb-add').value.trim(),
+    name:    document.getElementById('fb-name').value.trim(),
+    email:   document.getElementById('fb-email').value.trim(),
+  };
 
-</div>
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  status.style.color = '#555';
+  status.textContent = '';
 
-<!-- Floating Feedback Button with Text -->
+  fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
+    .then(() => {
+      status.style.color = '#2e7d32';
+      status.textContent = '✅ Thank you! Your feedback has been received.';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
+    })
+    .catch(() => {
+      status.style.color = '#a82222';
+      status.textContent = '⚠️ Could not send — please try again.';
+      btn.textContent = 'Send Feedback';
+      btn.disabled = false;
+    });
+}
+</script>
 
 <a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
   style="
@@ -424,7 +928,6 @@ HR department or Social Security.<br><br>
   <span>Wise Thoughts</span>
   <span class="tooltip-text">Subscribe on Substack</span>
 </a>
-
 
 <button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
   style="
@@ -655,5 +1158,6 @@ function submitFeedback() {
     <div id="fb-status" style="margin-top:10px;font-size:13px;text-align:center;min-height:18px;"></div>
   </div>
 </div>
+
 </body>
 </html>
