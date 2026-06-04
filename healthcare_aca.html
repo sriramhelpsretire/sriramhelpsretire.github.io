@@ -4,189 +4,373 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ACA Health Insurance for Early Retirees | Retire Wise and Live Happy</title>
-
-<!-- Primary SEO -->
 <meta name="description" content="Guide to ACA marketplace health insurance for early retirees — income-based subsidies, plan tiers (Bronze, Silver, Gold), premium tax credits, open enrollment, and how to optimize ACA coverage before Medicare at 65." />
 <meta name="keywords" content="ACA health insurance retirement, ACA early retirement, healthcare.gov retirement, ACA subsidies retiree, premium tax credit retirement, ACA before Medicare, early retirement health insurance, ACA open enrollment, Silver plan retirement" />
 <meta name="author" content="Sriram Gopalaratnam" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://wise-retiree.com/healthcare_aca.html" />
-
-<!-- Open Graph -->
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://wise-retiree.com/healthcare_aca.html" />
 <meta property="og:title" content="ACA Health Insurance for Early Retirees | Retire Wise and Live Happy" />
 <meta property="og:description" content="Navigate ACA marketplace coverage for early retirement — subsidies, plan tiers, premium tax credits and how to bridge to Medicare." />
 <meta property="og:site_name" content="Retire Wise and Live Happy" />
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="ACA Health Insurance for Early Retirees | Retire Wise and Live Happy" />
 <meta name="twitter:description" content="ACA health insurance guide for early retirees — subsidies, plan tiers, premium tax credits and bridging to Medicare." />
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-    --bg-page:     #f2f4f7;
-    --bg-card:     #ffffff;
-    --accent-gold: #c9933a;
-    --gold-dark:   #8b6914;
-    --text-dark:   #1a2a3a;
-    --text-mid:    #3d5166;
-    --red-accent:  #a82222;
-}
+    :root {
+        --gold:       #d4af37;
+        --gold-dark:  #693909;
+        --gold-light: #fdf6e3;
+        --ink:        #0f0f0f;
+        --body:       #374151;
+        --muted:      #6b7280;
+        --rule:       #e5e7eb;
+        --bg:         #ffffff;
+        --bg-off:     #f9fafb;
+        --navy:       #0d1b2a;
+        --teal:       #0d4a3a;
+        --red:        #a82222;
+        --accent-gold:#d4af37;
+        --bar-dark:   #1a1a1a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        background: var(--bg-off);
+        color: var(--body);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding-top: 72px;
+    }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ── TOP NAV (preserved) ── */
+    .top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
+    .nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
+    .nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
+    .nav-item{position:relative;}
+    .nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
+    .nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
+    .nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
+    .nav-item:hover>a .chevron{transform:rotate(180deg);}
+    .nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
+    .nav-dropdown.two-col{min-width:260px;}
+    .nav-item:hover .nav-dropdown,.nav-item:hover .nav-dropdown.two-col{display:block;}
+    .nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
+    .nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
+    .nav-dropdown a .dd-icon{font-size:17px;width:24px;text-align:center;flex-shrink:0;margin-top:1px;}
+    .nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
+    .nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
+    .nav-dropdown a:hover .dd-text span{color:#b8922e;}
+    .nav-item:last-child .nav-dropdown,.nav-item:nth-last-child(2) .nav-dropdown{right:0;left:auto;}
+    .nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
+    .nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
+    @media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
 
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: var(--bg-page);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 72px;
-}
+    /* ── HERO ── */
+    .page-hero {
+        width: 100%;
+        background: var(--teal);
+        padding: 56px 32px 52px;
+        display: flex;
+        justify-content: center;
+    }
+    .page-hero-inner { max-width: 1100px; width: 100%; text-align: center; }
+    .hero-eyebrow {
+        font-size: 11px; font-weight: 600; letter-spacing: 3px;
+        text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+    }
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(28px, 4vw, 48px); font-weight: 700;
+        color: #fff; line-height: 1.12; letter-spacing: -0.5px; margin-bottom: 16px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+        font-size: clamp(14px, 1.8vw, 16px); font-weight: 300;
+        color: rgba(255,255,255,0.75); max-width: 620px;
+        margin: 0 auto 28px; line-height: 1.7;
+    }
+    .hero-badges {
+        display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .hero-badge {
+        background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.4);
+        color: var(--gold); font-size: 12px; font-weight: 600;
+        padding: 6px 16px; border-radius: 100px;
+    }
 
-/* Top Nav */
-.top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
-.nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
-.nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
-.nav-item{position:relative;}
-.nav-item>a{display:flex;align-items:center;gap:5px;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:0 20px;height:100%;border-bottom:3px solid transparent;transition:color .15s,border-color .15s,background .15s;white-space:nowrap;}
-.nav-item>a .chevron{font-size:10px;opacity:0.7;transition:transform .2s;margin-left:2px;}
-.nav-item:hover>a{color:#d4af37;border-bottom-color:#d4af37;background:rgba(212,175,55,0.08);}
-.nav-item:hover>a .chevron{transform:rotate(180deg);}
-.nav-dropdown{display:none;position:absolute;top:100%;left:0;background:#1a1a1a;border:1px solid #333;border-top:3px solid #d4af37;border-radius:0 0 10px 10px;min-width:240px;box-shadow:0 8px 28px rgba(0,0,0,0.45);z-index:999;padding:8px 0;}
-.nav-dropdown.two-col{min-width:260px;}
-.nav-item:hover .nav-dropdown,.nav-item:hover .nav-dropdown.two-col{display:block;}
-.nav-dropdown a{display:flex;align-items:flex-start;gap:10px;padding:10px 18px;color:#ddd;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s;}
-.nav-dropdown a:hover{background:rgba(212,175,55,0.10);color:#d4af37;border-left-color:#d4af37;}
-.nav-dropdown a .dd-icon{font-size:17px;width:24px;text-align:center;flex-shrink:0;margin-top:1px;}
-.nav-dropdown a .dd-text strong{display:block;font-size:13px;font-weight:600;line-height:1.3;}
-.nav-dropdown a .dd-text span{display:block;font-size:11px;color:#888;margin-top:2px;line-height:1.3;}
-.nav-dropdown a:hover .dd-text span{color:#b8922e;}
-.nav-item:last-child .nav-dropdown,.nav-item:nth-last-child(2) .nav-dropdown{right:0;left:auto;}
-.nav-dd-divider{height:1px;background:#333;margin:6px 14px;}
-.nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
-@media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
+    /* ── LAYOUT ── */
+    .page-body {
+        width: 100%; max-width: 1100px;
+        padding: 0 32px 80px;
+        display: flex; flex-direction: column; align-items: center;
+    }
 
-/* Page Wrapper */
-.page-wrapper {
-    width: 100%;
-    max-width: 700px;
-    background: var(--bg-card);
-    color: #000;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 20px;
-    border-left: 1px solid rgba(0,0,0,0.07);
-    border-right: 1px solid rgba(0,0,0,0.07);
-    box-shadow: 0 0 30px rgba(0,0,0,0.10);
-}
+    /* ── SECTION LABELS ── */
+    .section-label {
+        width: 100%; display: flex; align-items: center;
+        gap: 14px; margin: 52px 0 20px;
+    }
+    .sl-text {
+        font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+        text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    }
+    .sl-rule { flex: 1; height: 1px; background: var(--rule); }
+    .section-sub {
+        font-size: 15px; color: var(--muted);
+        line-height: 1.65; width: 100%; margin-bottom: 24px;
+    }
 
-/* Header */
-header {
-    text-align: center;
-    padding: 30px 20px 10px;
-}
+    /* ── WHAT IS ACA — two-panel ── */
+    .intro-box {
+        width: 100%; background: var(--bg);
+        border: 2.5px solid #000; border-radius: 12px;
+        padding: 36px; display: grid;
+        grid-template-columns: 1fr 1fr; gap: 36px;
+    }
+    .intro-text p {
+        font-size: 15px; line-height: 1.75; color: var(--body); margin-bottom: 14px;
+    }
+    .intro-text p:last-child { margin-bottom: 0; }
+    .intro-text strong { color: var(--ink); font-weight: 600; }
+    .intro-text a { color: var(--gold-dark); font-weight: 600; text-decoration: underline; }
+    .intro-aside {
+        background: var(--navy); border-radius: 8px;
+        padding: 24px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .aside-item { display: flex; align-items: flex-start; gap: 12px; }
+    .aside-icon {
+        width: 32px; height: 32px; border-radius: 8px;
+        background: rgba(212,175,55,0.15); border: 1px solid rgba(212,175,55,0.3);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 15px; flex-shrink: 0;
+    }
+    .aside-body strong {
+        display: block; font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px;
+    }
+    .aside-body span { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; }
 
-header h1 {
-    font-size: 30px;
-    font-weight: bold;
-}
+    /* ── ACA 5 PILLARS ── */
+    .pillars-grid {
+        display: grid; grid-template-columns: repeat(5, 1fr);
+        gap: 0; width: 100%;
+        border: 2.5px solid #000; border-radius: 12px; overflow: hidden;
+    }
+    .pillar-card {
+        padding: 24px 18px; border-right: 2.5px solid #000;
+        background: var(--bg); transition: background 0.2s;
+        display: flex; flex-direction: column;
+    }
+    .pillar-card:last-child { border-right: none; }
+    .pillar-card:hover { background: var(--gold-light); }
+    .pillar-icon {
+        font-size: 26px; margin-bottom: 12px;
+    }
+    .pillar-card h3 {
+        font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.3;
+    }
+    .pillar-card p {
+        font-size: 12px; color: var(--muted); line-height: 1.6;
+    }
 
-/* Content */
-.content {
-    padding: 20px;
-    line-height: 1.6;
-    font-size: 15px;
-}
+    /* ── PLAN TIERS ── */
+    .tiers-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 14px; width: 100%;
+    }
+    .tier-card {
+        border: 2.5px solid #000; border-radius: 12px; overflow: hidden;
+        transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .tier-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
+    .tier-header {
+        padding: 16px 18px; text-align: center;
+        border-bottom: 2.5px solid #000;
+    }
+    .tier-header h3 { font-size: 16px; font-weight: 800; margin-bottom: 2px; }
+    .tier-header span { font-size: 11px; font-weight: 500; opacity: 0.75; }
+    .tier-bronze .tier-header { background: #fef3e2; color: #92400e; }
+    .tier-silver .tier-header { background: #f1f5f9; color: #334155; }
+    .tier-gold   .tier-header { background: #fefce8; color: #713f12; }
+    .tier-plat   .tier-header { background: #eff6ff; color: #1e3a8a; }
+    .tier-body { background: var(--bg); padding: 16px 18px; }
+    .tier-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 7px 0; border-bottom: 1px solid var(--rule);
+        font-size: 12.5px;
+    }
+    .tier-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .tier-row .label { color: var(--muted); }
+    .tier-row .value { font-weight: 700; color: var(--ink); }
 
-.content p {
-    margin-bottom: 16px;
-    color: var(--text-mid);
-}
+    /* ── SUBSIDY BAND ── */
+    .subsidy-band {
+        width: 100%; background: var(--navy);
+        border: 2.5px solid #000; border-radius: 12px;
+        padding: 36px 40px;
+        display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+        align-items: center;
+    }
+    .subsidy-text h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 12px;
+    }
+    .subsidy-text p {
+        font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 10px;
+    }
+    .subsidy-text p:last-child { margin-bottom: 0; }
+    .subsidy-text strong { color: var(--gold); }
+    .subsidy-stats {
+        display: flex; flex-direction: column; gap: 16px;
+    }
+    .subsidy-stat {
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 10px; padding: 16px 20px;
+        display: flex; align-items: center; gap: 16px;
+    }
+    .ss-num {
+        font-family: 'Playfair Display', serif;
+        font-size: 28px; font-weight: 700; color: var(--gold);
+        flex-shrink: 0; min-width: 60px; text-align: center;
+    }
+    .ss-label { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+    .ss-label strong { color: #fff; display: block; margin-bottom: 2px; }
 
-/* Highlight headings inside text */
-.highlight {
-    color: #b91c1c;
-    font-weight: bold;
-}
+    /* ── ENROLLMENT DATES ── */
+    .dates-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 14px; width: 100%;
+    }
+    .date-card {
+        background: var(--bg); border: 2.5px solid #000;
+        border-radius: 12px; padding: 22px 18px;
+        transition: background 0.18s, transform 0.18s;
+        position: relative; overflow: hidden;
+    }
+    .date-card:hover { background: var(--gold-light); transform: translateY(-3px); }
+    .date-pill {
+        display: inline-block; background: var(--gold); color: #000;
+        font-size: 12px; font-weight: 800; padding: 4px 12px;
+        border-radius: 100px; border: 1.5px solid #000; margin-bottom: 12px;
+    }
+    .date-card h3 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .date-card p { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
 
-/* Bottom Nav */
-.nav-area {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    margin-top: auto;
-}
+    /* ── RETIREMENT SCENARIOS ── */
+    .scenarios-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%;
+    }
+    .scenario-card {
+        background: var(--bg); border: 2.5px solid #000;
+        border-radius: 12px; overflow: hidden;
+    }
+    .scenario-header {
+        padding: 16px 22px; background: var(--navy);
+        border-bottom: 2.5px solid #000;
+        display: flex; align-items: center; gap: 10px;
+    }
+    .scenario-header span { font-size: 22px; }
+    .scenario-header h3 { font-size: 14px; font-weight: 700; color: #fff; }
+    .scenario-body { padding: 20px 22px; }
+    .scenario-body p {
+        font-size: 13.5px; color: var(--body); line-height: 1.7; margin-bottom: 10px;
+    }
+    .scenario-body p:last-child { margin-bottom: 0; }
+    .scenario-body strong { color: var(--ink); font-weight: 600; }
 
-.gold-btn {
-    background: var(--accent-gold);
-    color: black;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-    border: 2px solid black;
-}
+    /* ── TIP BOX ── */
+    .tip-box {
+        width: 100%; background: #f0fdf4;
+        border: 2.5px solid #000; border-left: 5px solid #16a34a;
+        border-radius: 12px; padding: 24px 28px;
+        display: flex; gap: 18px; align-items: flex-start;
+    }
+    .tip-icon { font-size: 28px; flex-shrink: 0; }
+    .tip-body h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .tip-body p { font-size: 13.5px; color: var(--body); line-height: 1.65; margin-bottom: 8px; }
+    .tip-body p:last-child { margin-bottom: 0; }
+    .tip-body a { color: var(--gold-dark); font-weight: 600; text-decoration: underline; }
 
-.home-btn {
-    background: white;
-    border: 2px solid black;
-    border-radius: 4px;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-}
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+        display: flex; align-items: center; justify-content: space-between;
+        width: 100%; gap: 12px; flex-wrap: wrap;
+        margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--rule);
+    }
+    .gold-btn {
+        background: var(--gold); color: #000; padding: 12px 22px;
+        border-radius: 8px; font-weight: 700; font-size: 14px;
+        text-decoration: none; border: 2.5px solid #000;
+        transition: background 0.2s, color 0.2s;
+    }
+    .gold-btn:hover { background: var(--gold-dark); color: #fff; }
+    .home-btn {
+        background: var(--bg); border: 2.5px solid #000; border-radius: 8px;
+        width: 46px; height: 46px; display: flex; align-items: center;
+        justify-content: center; text-decoration: none; font-size: 20px;
+        transition: background 0.2s;
+    }
+    .home-btn:hover { background: var(--gold-light); }
 
-/* ... existing styles on your page ... */
-        
-        /* ── Tooltip Style for Wise Thoughts ── */
-        .tooltip-container {
-            position: relative;
-        }
-        .tooltip-container .tooltip-text {
-            visibility: hidden;
-            width: 160px;
-            background-color: #000000;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 6px 0;
-            position: absolute;
-            z-index: 10001;
-            bottom: 125%;
-            right: 10%;
-            opacity: 0;
-            transition: opacity 0.2s;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .tooltip-container .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 85%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #000000 transparent transparent transparent;
-        }
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
+    /* ── FOOTER ── */
+    footer {
+        width: 100%; background: var(--navy);
+        color: rgba(255,255,255,0.7); padding: 32px 0; margin-top: auto;
+    }
+    .footer-inner {
+        max-width: 1100px; margin: 0 auto; padding: 0 32px;
+        font-size: 13px; line-height: 2;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 6px 40px;
+    }
+    .footer-inner p { color: rgba(255,255,255,0.6); }
+    .footer-inner strong { color: rgba(255,255,255,0.9); }
 
+    /* ── TOOLTIP ── */
+    .tooltip-container { position: relative; }
+    .tooltip-container .tooltip-text {
+        visibility: hidden; width: 160px; background-color: #000; color: #fff;
+        text-align: center; border-radius: 6px; padding: 6px 0; position: absolute;
+        z-index: 10001; bottom: 125%; right: 10%; opacity: 0; transition: opacity 0.2s;
+        font-size: 13px; font-weight: 500; border: 1px solid var(--accent-gold);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .tooltip-container .tooltip-text::after {
+        content: ""; position: absolute; top: 100%; left: 85%; margin-left: -5px;
+        border-width: 5px; border-style: solid;
+        border-color: #000 transparent transparent transparent;
+    }
+    .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+        .pillars-grid { grid-template-columns: 1fr 1fr 1fr; }
+        .pillar-card:nth-child(3) { border-right: none; }
+        .pillar-card:nth-child(1), .pillar-card:nth-child(2),
+        .pillar-card:nth-child(3) { border-bottom: 2.5px solid #000; }
+        .tiers-grid { grid-template-columns: 1fr 1fr; }
+        .dates-grid { grid-template-columns: 1fr 1fr; }
+        .subsidy-band { grid-template-columns: 1fr; gap: 24px; }
+    }
+    @media (max-width: 700px) {
+        .page-body { padding: 0 16px 60px; }
+        .intro-box { grid-template-columns: 1fr; padding: 24px 20px; }
+        .pillars-grid { grid-template-columns: 1fr; }
+        .pillar-card { border-right: none !important; border-bottom: 2.5px solid #000; }
+        .pillar-card:last-child { border-bottom: none; }
+        .tiers-grid { grid-template-columns: 1fr; }
+        .dates-grid { grid-template-columns: 1fr; }
+        .scenarios-grid { grid-template-columns: 1fr; }
+        .bottom-nav { justify-content: center; }
+    }
 </style>
 </head>
-
 <body>
 
 <nav class="top-nav">
@@ -259,64 +443,415 @@ header h1 {
   </select>
 </nav>
 
-<div class="page-wrapper">
+<!-- HERO -->
+<section class="page-hero">
+    <div class="page-hero-inner">
+        <p class="hero-eyebrow">Retirement Healthcare</p>
+        <h1 class="hero-title">ACA — Your Bridge to <em>Medicare</em></h1>
+        <p class="hero-sub">The Affordable Care Act marketplace is the most important healthcare tool for anyone retiring before age 65. Understand it well — the subsidies alone can be worth thousands a year.</p>
+        <div class="hero-badges">
+            <span class="hero-badge">🛡️ Income-Based Subsidies</span>
+            <span class="hero-badge">🏥 Bronze · Silver · Gold · Platinum</span>
+            <span class="hero-badge">📅 Open Enrollment Dates</span>
+            <span class="hero-badge">🌉 Bridging to Medicare</span>
+        </div>
+    </div>
+</section>
 
-<header>
-    <h1>Healthcare Coverage (ACA)</h1>
-</header>
+<!-- PAGE BODY -->
+<div class="page-body">
 
-<div class="content">
+    <!-- What is ACA -->
+    <div class="section-label">
+        <span class="sl-text">What is the ACA?</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="intro-box">
+        <div class="intro-text">
+            <p>The <strong>Affordable Care Act (ACA)</strong>, legislated in 2010, was designed to increase health insurance coverage, reduce costs, and establish consumer protections. It created the Health Insurance Marketplace — a central platform where individuals can compare and purchase private insurance plans.</p>
+            <p>The federal government operates <strong><a href="https://www.healthcare.gov" target="_blank">healthcare.gov</a></strong>. California runs its own exchange: <strong><a href="https://www.coveredca.com" target="_blank">coveredca.com</a></strong>. Other states may have their own portals or use the federal site.</p>
+            <p>For early retirees — those who leave work <strong>before age 65</strong> — the ACA marketplace is often the only viable path to comprehensive, affordable health coverage until Medicare kicks in.</p>
+        </div>
+        <div class="intro-aside">
+            <div class="aside-item">
+                <div class="aside-icon">🌉</div>
+                <div class="aside-body">
+                    <strong>Bridge to Medicare</strong>
+                    <span>ACA covers the gap years between retirement and age 65, when Medicare eligibility begins.</span>
+                </div>
+            </div>
+            <div class="aside-item">
+                <div class="aside-icon">💰</div>
+                <div class="aside-body">
+                    <strong>Income-Driven Subsidies</strong>
+                    <span>Your premium tax credits are based on MAGI — careful income planning can dramatically lower your costs.</span>
+                </div>
+            </div>
+            <div class="aside-item">
+                <div class="aside-icon">🔒</div>
+                <div class="aside-body">
+                    <strong>No Pre-existing Condition Limits</strong>
+                    <span>Insurers cannot deny coverage or charge more based on health history under ACA rules.</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<p><span class="highlight">What is Affordable Care Act (ACA)?</span> It was legislated in 2010 to increase health insurance coverage, reduce costs, and implement consumer protections.
+    <!-- 5 Pillars -->
+    <div class="section-label">
+        <span class="sl-text">5 Core ACA Protections</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="pillars-grid">
+        <div class="pillar-card">
+            <div class="pillar-icon">🏪</div>
+            <h3>Health Insurance Marketplace</h3>
+            <p>A central platform (healthcare.gov or state exchange) to compare and purchase private plans side by side.</p>
+        </div>
+        <div class="pillar-card">
+            <div class="pillar-icon">💸</div>
+            <h3>Subsidies &amp; Tax Credits</h3>
+            <p>If your income is between 100%–400% of the Federal Poverty Level, you may qualify for premium subsidies and cost-sharing reductions.</p>
+        </div>
+        <div class="pillar-card">
+            <div class="pillar-icon">📋</div>
+            <h3>Essential Health Benefits</h3>
+            <p>All ACA plans must cover 10 core areas including emergency care, prescription drugs, maternity care, and mental health services.</p>
+        </div>
+        <div class="pillar-card">
+            <div class="pillar-icon">🛡️</div>
+            <h3>Consumer Protections</h3>
+            <p>Insurers cannot deny coverage or charge higher premiums based on pre-existing conditions, and cannot set lifetime or annual limits.</p>
+        </div>
+        <div class="pillar-card">
+            <div class="pillar-icon">🔄</div>
+            <h3>Special Enrollment</h3>
+            <p>Life events like retirement, job loss, or moving trigger a Special Enrollment Period so you can enroll outside the standard open window.</p>
+        </div>
+    </div>
 
-<br> <br>It is a service that helps people shop for and enroll in affordable health insurance. The federal government operated Healthcare.gov, while some
-states run their own exchanges.
+    <!-- Plan Tiers -->
+    <div class="section-label">
+        <span class="sl-text">ACA Plan Tiers — Metal Levels</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">All ACA plans cover the same essential benefits — the tiers differ in how costs are split between your premium and out-of-pocket expenses. <strong>Silver plans</strong> are often the sweet spot for early retirees eligible for subsidies.</p>
+    <div class="tiers-grid">
+        <div class="tier-card tier-bronze">
+            <div class="tier-header">
+                <h3>🥉 Bronze</h3>
+                <span>Lowest premium</span>
+            </div>
+            <div class="tier-body">
+                <div class="tier-row"><span class="label">Insurer pays</span><span class="value">60%</span></div>
+                <div class="tier-row"><span class="label">You pay</span><span class="value">40%</span></div>
+                <div class="tier-row"><span class="label">Premium</span><span class="value">Lowest</span></div>
+                <div class="tier-row"><span class="label">Deductible</span><span class="value">Highest</span></div>
+                <div class="tier-row"><span class="label">Best for</span><span class="value">Healthy, low use</span></div>
+            </div>
+        </div>
+        <div class="tier-card tier-silver">
+            <div class="tier-header">
+                <h3>🥈 Silver</h3>
+                <span>Best for subsidies</span>
+            </div>
+            <div class="tier-body">
+                <div class="tier-row"><span class="label">Insurer pays</span><span class="value">70%</span></div>
+                <div class="tier-row"><span class="label">You pay</span><span class="value">30%</span></div>
+                <div class="tier-row"><span class="label">Premium</span><span class="value">Moderate</span></div>
+                <div class="tier-row"><span class="label">Deductible</span><span class="value">Moderate</span></div>
+                <div class="tier-row"><span class="label">Best for</span><span class="value">Most early retirees</span></div>
+            </div>
+        </div>
+        <div class="tier-card tier-gold">
+            <div class="tier-header">
+                <h3>🥇 Gold</h3>
+                <span>Higher premium, lower cost share</span>
+            </div>
+            <div class="tier-body">
+                <div class="tier-row"><span class="label">Insurer pays</span><span class="value">80%</span></div>
+                <div class="tier-row"><span class="label">You pay</span><span class="value">20%</span></div>
+                <div class="tier-row"><span class="label">Premium</span><span class="value">Higher</span></div>
+                <div class="tier-row"><span class="label">Deductible</span><span class="value">Lower</span></div>
+                <div class="tier-row"><span class="label">Best for</span><span class="value">Frequent care users</span></div>
+            </div>
+        </div>
+        <div class="tier-card tier-plat">
+            <div class="tier-header">
+                <h3>💎 Platinum</h3>
+                <span>Highest premium</span>
+            </div>
+            <div class="tier-body">
+                <div class="tier-row"><span class="label">Insurer pays</span><span class="value">90%</span></div>
+                <div class="tier-row"><span class="label">You pay</span><span class="value">10%</span></div>
+                <div class="tier-row"><span class="label">Premium</span><span class="value">Highest</span></div>
+                <div class="tier-row"><span class="label">Deductible</span><span class="value">Lowest</span></div>
+                <div class="tier-row"><span class="label">Best for</span><span class="value">High medical needs</span></div>
+            </div>
+        </div>
+    </div>
 
-<br> California has a program "Covered California" which can be reached at coveredca.com</p>
+    <!-- Subsidies -->
+    <div class="section-label">
+        <span class="sl-text">Subsidies &amp; Income Planning</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="subsidy-band">
+        <div class="subsidy-text">
+            <h3>Your Income Controls Your Premium</h3>
+            <p>ACA subsidies — called <strong>Premium Tax Credits</strong> — are calculated based on your Modified Adjusted Gross Income (MAGI) relative to the Federal Poverty Level (FPL). Early retirees have a rare opportunity: by carefully managing withdrawals, Roth conversions, and capital gains, you can often qualify for significant subsidies.</p>
+            <p>Key insight: <strong>Roth IRA withdrawals do not count toward ACA MAGI</strong>, making them a powerful tool for keeping income in subsidy-eligible ranges while still funding your retirement lifestyle.</p>
+        </div>
+        <div class="subsidy-stats">
+            <div class="subsidy-stat">
+                <div class="ss-num">100%</div>
+                <div class="ss-label"><strong>Minimum FPL for subsidies</strong>Below this, you may qualify for Medicaid (state-dependent)</div>
+            </div>
+            <div class="subsidy-stat">
+                <div class="ss-num">400%</div>
+                <div class="ss-label"><strong>Original subsidy cliff (pre-ARP)</strong>Enhanced credits now available above 400% FPL — verify current rules at healthcare.gov</div>
+            </div>
+            <div class="subsidy-stat">
+                <div class="ss-num">8.5%</div>
+                <div class="ss-label"><strong>Premium cap (enhanced ARP)</strong>Under enhanced rules, no one pays more than 8.5% of income for a benchmark Silver plan</div>
+            </div>
+        </div>
+    </div>
 
-<p><span class="highlight">Health Insurance Marketplace:</span> A central platform (such as healthcare.gov) where individuals can compare and purchase private insurance plans.</p>
+    <!-- Open Enrollment Dates -->
+    <div class="section-label">
+        <span class="sl-text">Open Enrollment Dates</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">Miss these windows and you'll need a qualifying life event (like retirement or job loss) to trigger a Special Enrollment Period. Plan ahead — especially if retiring mid-year.</p>
+    <div class="dates-grid">
+        <div class="date-card">
+            <div class="date-pill">Nov 1</div>
+            <h3>Open Enrollment Begins</h3>
+            <p>First day you can enroll in, renew, or change your health plan for the coming year.</p>
+        </div>
+        <div class="date-card">
+            <div class="date-pill">Dec 15</div>
+            <h3>Coverage Starts Jan 1</h3>
+            <p>Last day to enroll if you want coverage to begin on January 1 of the following year.</p>
+        </div>
+        <div class="date-card">
+            <div class="date-pill">Jan 1</div>
+            <h3>Coverage Starts</h3>
+            <p>Coverage begins for those who enrolled by December 15. Your plan year resets.</p>
+        </div>
+        <div class="date-card">
+            <div class="date-pill">Jan 15</div>
+            <h3>Open Enrollment Ends</h3>
+            <p>Last day to enroll or change plans. After this you need a Special Enrollment Period to make changes.</p>
+        </div>
+    </div>
 
-<p><span class="highlight">Subsidies and tax credits:</span> If your incomes are between 100% and 400% of the federal poverty level, you may be eligible for subsidies and tax credits.</p>
+    <!-- Retirement Scenarios -->
+    <div class="section-label">
+        <span class="sl-text">Common Retirement Scenarios</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="scenarios-grid">
+        <div class="scenario-card">
+            <div class="scenario-header">
+                <span>👫</span>
+                <h3>One Spouse Retires, One Is Not Working</h3>
+            </div>
+            <div class="scenario-body">
+                <p>If neither spouse has employer coverage, <strong>timing retirement at or after 65</strong> lets you move directly to Medicare during the Initial Enrollment Period — the cleanest path.</p>
+                <p>If the non-working spouse is <strong>under 65</strong>, ACA marketplace coverage bridges the gap until they reach Medicare eligibility. If they are <strong>already 65 or older</strong>, they can be on Medicare while the retired spouse uses ACA.</p>
+            </div>
+        </div>
+        <div class="scenario-card">
+            <div class="scenario-header">
+                <span>📅</span>
+                <h3>Retiring Mid-Year</h3>
+            </div>
+            <div class="scenario-body">
+                <p>Retiring mid-year triggers a <strong>Special Enrollment Period</strong> — you have 60 days from your job loss/retirement to enroll in an ACA plan without waiting for open enrollment.</p>
+                <p>A practical strategy: use <strong>COBRA to continue your employer plan</strong> through year-end (up to 18 months), research ACA plans carefully, then switch to your chosen marketplace plan starting January 1. This avoids rushed decisions under deadline pressure.</p>
+            </div>
+        </div>
+    </div>
 
-<p><span class="highlight">Essential health benefits:</span> All ACA compliant plans must cover ten core areas, including emergency services, prescription drugs, maternity care, and mental health services.</p>
+    <!-- Tip -->
+    <div class="section-label">
+        <span class="sl-text">Strategic Tip</span>
+        <div class="sl-rule"></div>
+    </div>
+    <div class="tip-box">
+        <div class="tip-icon">💡</div>
+        <div class="tip-body">
+            <h4>Manage Your MAGI — It's the Most Powerful ACA Lever</h4>
+            <p>Your ACA subsidy is determined entirely by your MAGI. In retirement, you have more control over your income than you did while working. By blending Roth withdrawals (which don't count), managing capital gains realization, and carefully timing traditional IRA withdrawals, many early retirees can keep their MAGI in a range that qualifies for substantial premium tax credits.</p>
+            <p>Visit <a href="https://www.coveredca.com" target="_blank">coveredca.com</a> (California) or <a href="https://www.healthcare.gov" target="_blank">healthcare.gov</a> to shop plans and estimate your subsidy. Also see our <a href="aca_vs_cobra.html">ACA vs COBRA comparison</a> to decide which path fits your retirement timeline.</p>
+        </div>
+    </div>
 
-<p><span class="highlight">Consumer protections:</span> Insurance companies cannot deny coverage or charge more for pre-existing conditions, nor can they set annual or lifetime limits on essential health benefits.</p>
-
-<br>
-
-<p><span class="highlight"><u>How is ACA used by people who are planning for retirement?</u></span></p>
-
-<p>For example, let’s assume that one of the spouses is planning to retire while the other is not working (otherwise they could have used the working spouse’s health insurance). They can time it such that the retirement is at age 65 or later, apply for Medicare in the initial enrollment period, and avail it later.</p>
-
-<p>If the non-working spouse is younger than 65, ACA could be used to bridge the gap. If the non-working spouse is 65 or older, they could have started their Medicare.</p>
-
-<p>You can go to Covered California Plans (if you are a resident of CA) and shop for plans which suit your needs.</p>
-
-<br>
-
-<p><span class="highlight"><u>Key Information</u></span></p>
-<p>As mentioned above health insurance is available through the marketplace. You can also visit your state's health insurance exchange for additional
-local details. Many states use the federal site, while others have their own dedicated portals accessible via the dropdown on the main page.</p>
-<br> <u>Important Enrollment Dates</u><br>
-<br> <u>November 1</u>: Open Enrollment starts - first day you can enroll in, renew, or change health plans.
-<br><br> <u>December 15</u>: Last day to enroll for coverage to start January 1
-<br><br> <u>January 1</u>: Coverage starts for those who enrolled by December 15.
-<br><br> <u>January 15</u>: Open Enrollment ends. After this date, you generally need a Special Enrollment Period (e.g. job loss, moving) to enroll.<br><br>
-
-<p><span class="highlight"><u>Special Note</u></span></p>
-<p> Since the enrollment ends mid Dec and coverage starts the following Jan, people who retire mid year, have the flexibility to continue same coverage 
-with COBRA so they don't have to spend time and effort, instead do their research. Towards the end of the year, they pick the coverage from plans 
-offered by Medicare
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+        <a href="medicare_aca.html" class="gold-btn">🏥 Medicare Hub</a>
+        <a href="aca_vs_cobra.html" class="gold-btn">⚖️ ACA vs COBRA</a>
+        <a href="healthcare_medicare.html" class="gold-btn">💊 Medicare Detail</a>
+        <a href="index.html" class="home-btn" title="Home">🏠</a>
+    </div>
 
 </div>
 
-<div class="nav-area">
-    <a href="medicare_aca.html" class="gold-btn">Medicare Hub</a>
-    <a href="transition_plan.html" class="gold-btn">Retirement Plan</a>
-    <a href="index.html" class="home-btn">🏠</a>
-</div>
+<footer>
+    <div class="footer-inner">
+        <p><strong>Copyright</strong> © 2026 Sriram Gopalaratnam. All Rights Reserved.</p>
+        <p><strong>Last Updated</strong> May 2026</p>
+        <p><strong>Disclaimer</strong> For educational purposes only — not financial or legal advice.</p>
+        <p><strong>Privacy</strong> No personal data required to use this site.</p>
+    </div>
+</footer>
 
-<!-- Floating Feedback Button with Text -->
+<script>
+  // ── Checkbox style ────────────────────────────────────────────
+  (function() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .fb-chk { display:flex;align-items:center;gap:7px;font-size:13px;color:#333;
+                 cursor:pointer;padding:6px 8px;border-radius:6px;
+                 border:1.5px solid #e0e0e0;transition:border-color .15s,background .15s; }
+      .fb-chk:hover { border-color:#d4af37;background:#fffbf0; }
+      .fb-chk input[type=checkbox] { accent-color:#d4af37;width:15px;height:15px;cursor:pointer; }
+      .fb-chk.checked { border-color:#d4af37;background:#fffbf0; }
+    `;
+    document.head.appendChild(style);
+    document.querySelectorAll('.fb-chk').forEach(lbl => {
+      lbl.querySelector('input').addEventListener('change', function() {
+        lbl.classList.toggle('checked', this.checked);
+      });
+    });
+  })();
+
+  // ── Page-aware auto-check ─────────────────────────────────────
+  (function() {
+    const pageMap = {
+      'medicare_aca':        ['Medicare / ACA'],
+      'healthcare_medicare': ['Medicare / ACA'],
+      'healthcare_aca':      ['Medicare / ACA'],
+      'aca_vs_cobra':        ['Medicare / ACA'],
+      'medicare_flowchart':  ['Medicare / ACA'],
+      'long_term_care':      ['Long term care'],
+      'tax_calculator':      ['Tax planning'],
+      'retirement_calculator':['Withdrawal strategy','Investment / Portfolio'],
+      'montecarlo':          ['Withdrawal strategy','Investment / Portfolio'],
+      '401k':                ['401k / Savings'],
+      'portfolio':           ['Investment / Portfolio'],
+      'transition_plan':     ['Withdrawal strategy'],
+      'financial_plan':      ['Investment / Portfolio'],
+    };
+    const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
+    Object.keys(pageMap).forEach(key => {
+      if (page.includes(key)) {
+        pageMap[key].forEach(topic => {
+          document.querySelectorAll('.fb-chk input').forEach(inp => {
+            if (inp.value === topic) { inp.checked = true; inp.closest('.fb-chk').classList.add('checked'); }
+          });
+        });
+      }
+    });
+  })();
+
+  // ── Config ────────────────────────────────────────────────────
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
+  const PAGE_NAME  = document.title || window.location.pathname;
+
+  // ── Star rating ───────────────────────────────────────────────
+  let selectedRating = 0;
+  const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
+  function setRating(val) {
+    selectedRating = val;
+    document.querySelectorAll(".star").forEach(s => {
+      const v = parseInt(s.dataset.val);
+      s.textContent = v <= val ? "★" : "☆";
+      s.style.color = v <= val ? "#d4af37" : "#aaa";
+    });
+    const lbl = document.getElementById("star-label");
+    if (lbl) lbl.textContent = starLabels[val] || "";
+  }
+
+  // ── Open / Close ──────────────────────────────────────────────
+  function openFeedback() {
+    const overlay = document.getElementById("feedback-overlay");
+    overlay.style.display = "flex";
+    document.getElementById("fb-status").textContent = "";
+  }
+  function closeFeedback() {
+    document.getElementById("feedback-overlay").style.display = "none";
+  }
+  function closeFeedbackOutside(e) {
+    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
+  }
+
+  // ── Submit ────────────────────────────────────────────────────
+  function submitFeedback() {
+    const improve = document.getElementById("fb-improve").value.trim();
+    const status  = document.getElementById("fb-status");
+    const btn     = document.getElementById("fb-submit");
+
+    if (!improve) {
+      status.style.color = "#a82222";
+      status.textContent = "Please share how we can improve — that field is required.";
+      return;
+    }
+
+    const topics = [...document.querySelectorAll('.fb-chk input:checked')].map(i => i.value).join(', ');
+    const payload = {
+      page:          PAGE_NAME,
+      rating:        selectedRating ? selectedRating + " ★" : "Not rated",
+      topics,
+      q_easy:        document.querySelector('input[name="q1"]:checked')?.value || '',
+      q_found:       document.querySelector('input[name="q2"]:checked')?.value || '',
+      q_calculators: document.querySelector('input[name="q3"]:checked')?.value || '',
+      q_recommend:   document.querySelector('input[name="q4"]:checked')?.value || '',
+      useful:        document.getElementById("fb-useful").value.trim(),
+      area:          document.getElementById("fb-area").value,
+      improve,
+      add:           document.getElementById("fb-add").value.trim(),
+      name:          document.getElementById("fb-name").value.trim(),
+      email:         document.getElementById("fb-email").value.trim(),
+    };
+
+    btn.disabled    = true;
+    btn.textContent = "Sending…";
+    status.textContent = "";
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode:   "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body:   JSON.stringify(payload)
+    })
+    .then(() => {
+      status.style.color = "#2a7a2a";
+      status.textContent = "✅ Thank you! Your feedback has been received.";
+      btn.textContent    = "Send Feedback";
+      btn.disabled       = false;
+      // Reset
+      document.querySelectorAll('.fb-chk input').forEach(i => { i.checked = false; i.closest('.fb-chk').classList.remove('checked'); });
+      ['q1','q2','q3','q4'].forEach(n => { const r = document.querySelector(`input[name="${n}"]:checked`); if(r) r.checked=false; });
+      ['fb-useful','fb-area','fb-improve','fb-add','fb-name','fb-email'].forEach(id => {
+        const el = document.getElementById(id); if(el) el.value='';
+      });
+      setRating(0);
+      setTimeout(closeFeedback, 2500);
+    })
+    .catch(() => {
+      status.style.color = "#a82222";
+      status.textContent = "Something went wrong — please try again.";
+      btn.textContent    = "Send Feedback";
+      btn.disabled       = false;
+    });
+  }
+
+  // ── Escape to close ───────────────────────────────────────────
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeFeedback(); });
+</script>
 
 <a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
   style="
@@ -347,7 +882,6 @@ offered by Medicare
   <span>Wise Thoughts</span>
   <span class="tooltip-text">Subscribe on Substack</span>
 </a>
-
 
 <button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
   style="
@@ -558,156 +1092,6 @@ offered by Medicare
 
   </div>
 </div>
-
-
-
-
-
-
-<script>
-  // ── Checkbox style ────────────────────────────────────────────
-  (function() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .fb-chk { display:flex;align-items:center;gap:7px;font-size:13px;color:#333;
-                 cursor:pointer;padding:6px 8px;border-radius:6px;
-                 border:1.5px solid #e0e0e0;transition:border-color .15s,background .15s; }
-      .fb-chk:hover { border-color:#d4af37;background:#fffbf0; }
-      .fb-chk input[type=checkbox] { accent-color:#d4af37;width:15px;height:15px;cursor:pointer; }
-      .fb-chk.checked { border-color:#d4af37;background:#fffbf0; }
-    `;
-    document.head.appendChild(style);
-    document.querySelectorAll('.fb-chk').forEach(lbl => {
-      lbl.querySelector('input').addEventListener('change', function() {
-        lbl.classList.toggle('checked', this.checked);
-      });
-    });
-  })();
-
-  // ── Page-aware auto-check ─────────────────────────────────────
-  (function() {
-    const pageMap = {
-      'medicare_aca':        ['Medicare / ACA'],
-      'healthcare_medicare': ['Medicare / ACA'],
-      'healthcare_aca':      ['Medicare / ACA'],
-      'aca_vs_cobra':        ['Medicare / ACA'],
-      'medicare_flowchart':  ['Medicare / ACA'],
-      'long_term_care':      ['Long term care'],
-      'tax_calculator':      ['Tax planning'],
-      'retirement_calculator':['Withdrawal strategy','Investment / Portfolio'],
-      'montecarlo':          ['Withdrawal strategy','Investment / Portfolio'],
-      '401k':                ['401k / Savings'],
-      'portfolio':           ['Investment / Portfolio'],
-      'transition_plan':     ['Withdrawal strategy'],
-      'financial_plan':      ['Investment / Portfolio'],
-    };
-    const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
-    Object.keys(pageMap).forEach(key => {
-      if (page.includes(key)) {
-        pageMap[key].forEach(topic => {
-          document.querySelectorAll('.fb-chk input').forEach(inp => {
-            if (inp.value === topic) { inp.checked = true; inp.closest('.fb-chk').classList.add('checked'); }
-          });
-        });
-      }
-    });
-  })();
-
-  // ── Config ────────────────────────────────────────────────────
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-  const PAGE_NAME  = document.title || window.location.pathname;
-
-  // ── Star rating ───────────────────────────────────────────────
-  let selectedRating = 0;
-  const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
-  function setRating(val) {
-    selectedRating = val;
-    document.querySelectorAll(".star").forEach(s => {
-      const v = parseInt(s.dataset.val);
-      s.textContent = v <= val ? "★" : "☆";
-      s.style.color = v <= val ? "#d4af37" : "#aaa";
-    });
-    const lbl = document.getElementById("star-label");
-    if (lbl) lbl.textContent = starLabels[val] || "";
-  }
-
-  // ── Open / Close ──────────────────────────────────────────────
-  function openFeedback() {
-    const overlay = document.getElementById("feedback-overlay");
-    overlay.style.display = "flex";
-    document.getElementById("fb-status").textContent = "";
-  }
-  function closeFeedback() {
-    document.getElementById("feedback-overlay").style.display = "none";
-  }
-  function closeFeedbackOutside(e) {
-    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
-  }
-
-  // ── Submit ────────────────────────────────────────────────────
-  function submitFeedback() {
-    const improve = document.getElementById("fb-improve").value.trim();
-    const status  = document.getElementById("fb-status");
-    const btn     = document.getElementById("fb-submit");
-
-    if (!improve) {
-      status.style.color = "#a82222";
-      status.textContent = "Please share how we can improve — that field is required.";
-      return;
-    }
-
-    const topics = [...document.querySelectorAll('.fb-chk input:checked')].map(i => i.value).join(', ');
-    const payload = {
-      page:          PAGE_NAME,
-      rating:        selectedRating ? selectedRating + " ★" : "Not rated",
-      topics,
-      q_easy:        document.querySelector('input[name="q1"]:checked')?.value || '',
-      q_found:       document.querySelector('input[name="q2"]:checked')?.value || '',
-      q_calculators: document.querySelector('input[name="q3"]:checked')?.value || '',
-      q_recommend:   document.querySelector('input[name="q4"]:checked')?.value || '',
-      useful:        document.getElementById("fb-useful").value.trim(),
-      area:          document.getElementById("fb-area").value,
-      improve,
-      add:           document.getElementById("fb-add").value.trim(),
-      name:          document.getElementById("fb-name").value.trim(),
-      email:         document.getElementById("fb-email").value.trim(),
-    };
-
-    btn.disabled    = true;
-    btn.textContent = "Sending…";
-    status.textContent = "";
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode:   "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body:   JSON.stringify(payload)
-    })
-    .then(() => {
-      status.style.color = "#2a7a2a";
-      status.textContent = "✅ Thank you! Your feedback has been received.";
-      btn.textContent    = "Send Feedback";
-      btn.disabled       = false;
-      // Reset
-      document.querySelectorAll('.fb-chk input').forEach(i => { i.checked = false; i.closest('.fb-chk').classList.remove('checked'); });
-      ['q1','q2','q3','q4'].forEach(n => { const r = document.querySelector(`input[name="${n}"]:checked`); if(r) r.checked=false; });
-      ['fb-useful','fb-area','fb-improve','fb-add','fb-name','fb-email'].forEach(id => {
-        const el = document.getElementById(id); if(el) el.value='';
-      });
-      setRating(0);
-      setTimeout(closeFeedback, 2500);
-    })
-    .catch(() => {
-      status.style.color = "#a82222";
-      status.textContent = "Something went wrong — please try again.";
-      btn.textContent    = "Send Feedback";
-      btn.disabled       = false;
-    });
-  }
-
-  // ── Escape to close ───────────────────────────────────────────
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeFeedback(); });
-</script>
 
 </body>
 </html>
