@@ -3,42 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicare & Healthcare Hub | Retire Wise and Live Happy</title>
-
-    <!-- Primary SEO -->
+    <title>Medicare &amp; Healthcare Hub | Retire Wise and Live Happy</title>
     <meta name="description" content="Your complete retirement healthcare hub — navigate Medicare Parts A, B, C, D, ACA marketplace, COBRA, Medicare flowchart, Medigap, and long-term care insurance from one place." />
     <meta name="keywords" content="Medicare hub, retirement healthcare, Medicare ACA, Medicare vs ACA, retirement health insurance, Medicare parts explained, ACA marketplace retirement, COBRA retirement, Medigap, long term care insurance" />
     <meta name="author" content="Sriram Gopalaratnam" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://wise-retiree.com/medicare_aca.html" />
-
-    <!-- Open Graph -->
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://wise-retiree.com/medicare_aca.html" />
-    <meta property="og:title" content="Medicare & Healthcare Hub | Retire Wise and Live Happy" />
+    <meta property="og:title" content="Medicare &amp; Healthcare Hub | Retire Wise and Live Happy" />
     <meta property="og:description" content="Navigate retirement healthcare — Medicare, ACA, COBRA, Medigap and long-term care insurance all from one hub." />
     <meta property="og:site_name" content="Retire Wise and Live Happy" />
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Medicare & Healthcare Hub | Retire Wise and Live Happy" />
+    <meta name="twitter:title" content="Medicare &amp; Healthcare Hub | Retire Wise and Live Happy" />
     <meta name="twitter:description" content="Complete retirement healthcare hub — Medicare, ACA, COBRA, Medigap and long-term care insurance." />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-page:     #f2f4f7;
-            --bg-card:     #ffffff;
-            --accent-gold: #c9933a;
-            --gold-dark:   #8b6914;
-            --text-dark:   #1a2a3a;
-            --text-mid:    #000;
-            --red-accent:  #a82222;
+            --gold:        #d4af37;
+            --gold-dark:   #693909;
+            --gold-light:  #fdf6e3;
+            --ink:         #0f0f0f;
+            --body:        #374151;
+            --muted:       #6b7280;
+            --rule:        #e5e7eb;
+            --bg:          #ffffff;
+            --bg-off:      #f9fafb;
+            --navy:        #0d1b2a;
+            --teal:        #0d4a3a;
+            --red:         #a82222;
+            --accent-gold: #d4af37;
+            --bar-dark:    #1a1a1a;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif; 
-            background-color: var(--bg-page);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: var(--bg-off);
+            color: var(--body);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -46,6 +50,7 @@
             padding-top: 72px;
         }
 
+        /* ── TOP NAV (preserved exactly) ── */
         .top-nav{width:100%;background:#000;border-bottom:4px solid #a82222;display:flex;align-items:stretch;justify-content:space-between;padding:0 28px;position:fixed;top:0;left:0;z-index:10000;gap:40px;box-shadow:0 2px 10px rgba(0,0,0,0.35);box-sizing:border-box;}
         .nav-brand{color:#fff;font-size:clamp(15px,2.2vw,22px);font-weight:700;letter-spacing:0.5px;display:flex;align-items:center;padding:14px 0;white-space:nowrap;flex-shrink:0;}
         .nav-links{display:flex;align-items:stretch;list-style:none;gap:0;margin-left:auto;padding:0;}
@@ -68,66 +73,383 @@
         .nav-mobile-select{display:none;background:#333;color:white;padding:8px;border-radius:6px;font-weight:bold;border:1px solid #d4af37;cursor:pointer;align-self:center;margin-left:auto;}
         @media(max-width:768px){.nav-links{display:none;}.nav-mobile-select{display:block;}}
 
-        .page-wrapper {
+        /* ── PAGE LAYOUT ── */
+        .page-body {
             width: 100%;
+            max-width: 1100px;
+            padding: 0 32px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            width: 100%;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 56px 32px 52px;
+            margin-bottom: 0;
+        }
+        .page-hero-inner {
+            max-width: 1100px;
+            width: 100%;
+            text-align: center;
+        }
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 4vw, 50px);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.12;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+        .hero-title em { font-style: italic; color: var(--gold); }
+        .hero-sub {
+            font-size: clamp(14px, 1.8vw, 16px);
+            font-weight: 300;
+            color: rgba(255,255,255,0.75);
             max-width: 600px;
-            background: var(--bg-card);
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            border-left: 1px solid rgba(0,0,0,0.07);
-            border-right: 1px solid rgba(0,0,0,0.07);
-            box-shadow: 0 0 30px rgba(0,0,0,0.10);
-            position: relative;
+            margin: 0 auto 28px;
+            line-height: 1.7;
         }
-
-        header { padding: 40px 30px 16px; text-align: center; position: relative; }
-        header h1 { font-size: 34px; font-weight: 900; text-transform: uppercase; color: var(--text-dark); text-shadow: none; }
-        .red-corner { position: absolute; top: 0; right: 0; width: 22px; height: 80px; background-color: var(--red-accent); }
-
-        .content { padding: 10px 30px; flex: 1; }
-        .section-title { color: #328019; font-weight: bold; font-size: 20px; margin: 25px 0 10px; text-decoration: underline; }
-
-        /* Card Grid System */
-        .card-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .topic-card {
-            background: #f8f9fa;
-            border: 1.5px solid #000;
-            border-radius: 8px;
-            padding: 15px;
-            text-decoration: none;
-            transition: 0.2s;
+        .hero-badges {
             display: flex;
-            flex-direction: column;
+            gap: 12px;
             justify-content: center;
+            flex-wrap: wrap;
         }
-        .topic-card:hover { background: rgba(139,105,20,0.08); transform: translateY(-2px); }
-        .topic-card h3 { color: var(--gold-dark); font-size: 20px; margin-bottom: 5px; }
-        .topic-card p { color: var(--text-mid); font-size: 16px; line-height: 1.3; }
+        .hero-badge {
+            background: rgba(212,175,55,0.15);
+            border: 1px solid rgba(212,175,55,0.4);
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 100px;
+            letter-spacing: 0.3px;
+        }
 
-        .nav-area { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px 40px; gap: 10px; }
-        .gold-btn { background: var(--accent-gold); color: black; padding: 10px 18px; border-radius: 8px; font-weight: bold; text-decoration: none; border: 2px solid #000; font-size: 14px; }
-        .home-btn { background: white; border: 2px solid black; border-radius: 4px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        
-        footer { height: 20px; width: 100%; background: var(--red-accent); border-top: 2px solid #000; }
-		
-		
-		/* ... existing styles on your page ... */
-        
-        /* ── Tooltip Style for Wise Thoughts ── */
-        .tooltip-container {
+        /* ── SECTION LABELS ── */
+        .section-label {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 52px 0 24px;
+        }
+        .section-label-text {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+        .section-label-rule {
+            flex: 1;
+            height: 1px;
+            background: var(--rule);
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 2.5vw, 26px);
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.3px;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        .section-sub {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.65;
+            width: 100%;
+            margin-bottom: 28px;
+        }
+
+        /* ── MEDICARE PARTS — 4 cards ── */
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            width: 100%;
+            border: 2.5px solid #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .part-card {
+            padding: 28px 22px;
+            border-right: 2.5px solid #000;
+            background: var(--bg);
+            transition: background 0.2s;
+        }
+        .part-card:last-child { border-right: none; }
+        .part-card:hover { background: var(--gold-light); }
+        .part-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            border: 2.5px solid #000;
+        }
+        .part-a { background: #dbeafe; color: #1e40af; }
+        .part-b { background: #dcfce7; color: #166534; }
+        .part-c { background: #fef3c7; color: #92400e; }
+        .part-d { background: #fce7f3; color: #9d174d; }
+        .part-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        .part-card p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ── HUB CARDS — 5 topic links ── */
+        .hub-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            width: 100%;
+        }
+        .hub-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 22px 20px;
+            background: var(--bg);
+            border: 2.5px solid #000;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--ink);
+            transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+        }
+        .hub-card:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+        }
+        .hub-card:last-child:nth-child(3n+2) {
+            grid-column: span 1;
+        }
+        .hub-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            background: var(--gold);
+            color: #000;
+            font-size: 13px;
+            font-weight: 800;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 2px solid #000;
+        }
+        .hub-text strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+        .hub-text span {
+            font-size: 12.5px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        .hub-card:hover .hub-text strong { color: var(--gold-dark); }
+
+        /* ── KEY FACTS BAND ── */
+        .facts-band {
+            width: 100%;
+            background: var(--navy);
+            border: 2.5px solid #000;
+            border-radius: 12px;
+            padding: 36px 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .fact-item { text-align: center; }
+        .fact-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .fact-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+        .fact-divider {
+            width: 1px;
+            background: rgba(255,255,255,0.15);
+            align-self: stretch;
+        }
+
+        /* ── TIMELINE (enrollment) ── */
+        .timeline-box {
+            width: 100%;
+            background: var(--bg);
+            border: 2.5px solid #000;
+            border-radius: 12px;
+            padding: 32px 36px;
+        }
+        .timeline-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 24px;
+        }
+        .timeline-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .t-step {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding-bottom: 24px;
             position: relative;
         }
+        .t-step:last-child { padding-bottom: 0; }
+        .t-step-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            width: 36px;
+        }
+        .t-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 2.5px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+            color: #000;
+            flex-shrink: 0;
+        }
+        .t-line {
+            width: 2px;
+            flex: 1;
+            background: var(--rule);
+            margin-top: 6px;
+            min-height: 20px;
+        }
+        .t-step:last-child .t-line { display: none; }
+        .t-content { padding-top: 6px; }
+        .t-content strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+        .t-content p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ── BOTTOM NAV BUTTONS ── */
+        .bottom-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 48px;
+            padding-top: 28px;
+            border-top: 1px solid var(--rule);
+        }
+        .gold-btn {
+            background: var(--gold);
+            color: #000;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            border: 2.5px solid #000;
+            transition: background 0.2s, color 0.2s;
+        }
+        .gold-btn:hover { background: var(--gold-dark); color: #fff; }
+        .home-btn {
+            background: var(--bg);
+            border: 2.5px solid #000;
+            border-radius: 8px;
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: background 0.2s;
+        }
+        .home-btn:hover { background: var(--gold-light); }
+
+        /* ── FOOTER ── */
+        footer {
+            width: 100%;
+            background: var(--navy);
+            color: rgba(255,255,255,0.7);
+            padding: 32px 0;
+            margin-top: auto;
+        }
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 32px;
+            font-size: 13px;
+            line-height: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 6px 40px;
+        }
+        .footer-inner p { color: rgba(255,255,255,0.6); }
+        .footer-inner strong { color: rgba(255,255,255,0.9); }
+
+        /* ── TOOLTIP (Wise Thoughts) ── */
+        .tooltip-container { position: relative; }
         .tooltip-container .tooltip-text {
             visibility: hidden;
             width: 160px;
-            background-color: #000000;
+            background-color: #000;
             color: #fff;
             text-align: center;
             border-radius: 6px;
@@ -151,15 +473,30 @@
             margin-left: -5px;
             border-width: 5px;
             border-style: solid;
-            border-color: #000000 transparent transparent transparent;
+            border-color: #000 transparent transparent transparent;
         }
-        .tooltip-container:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
+        .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .parts-grid { grid-template-columns: 1fr 1fr; }
+            .part-card:nth-child(2) { border-right: none; }
+            .part-card:nth-child(1),
+            .part-card:nth-child(2) { border-bottom: 2.5px solid #000; }
+            .hub-grid { grid-template-columns: 1fr 1fr; }
+            .facts-band { grid-template-columns: 1fr; gap: 20px; }
+            .fact-divider { display: none; }
         }
-		
-		
-		
+        @media (max-width: 600px) {
+            .page-body { padding: 0 16px 60px; }
+            .parts-grid { grid-template-columns: 1fr; }
+            .part-card { border-right: none; border-bottom: 2.5px solid #000; }
+            .part-card:last-child { border-bottom: none; }
+            .hub-grid { grid-template-columns: 1fr; }
+            .timeline-box { padding: 24px 20px; }
+            .facts-band { padding: 28px 24px; }
+            .bottom-nav { justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -234,72 +571,337 @@
   </select>
 </nav>
 
-<div class="page-wrapper">
-    <header>
-        <div class="red-corner"></div>
-        <h1>Medicare</h1>
-    </header>
-
-    <div class="content">
-        <p style="font-size: 20px; font-style: italic;color: #000;">Medicare is the federal health insurance program for people 65 or older, 
-		and certain younger people with disabilities.</p><br>
-        
-		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>4 parts of Medicare.</u></p><br>
-		
-		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>💡 Part A (Hospital Insurance)</u>: Covers inpatient hospital stays, care in a 
-		skilled nursing facility, hospice care, and some home health care.</p><br>
-		
-		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>💡 Part B (Medical Insurance)</u>: Covers certain doctors' services, outpatient care, 
-		medical supplies, and preventive services.</p><br>
-		
-		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>💡 Part C (Medicare Advantage)</u>: An all-in-one alternative to Original Medicare, 
-		offered by private companies approved by Medicare. These "bundled" plans include Part A, Part B, and usually Part D.</p><br>
-		
-		<p style="font-size: 20px;font-style: italic; color: var(--text-mid);"><u>💡 Part D (Prescription Drug Coverage)</u>: Helps cover the cost of prescription drugs 
-		(including many recommended shots or vaccines).</p><br>
-		
-		
-      
-		
-		<div class="section-title">MEDICARE HUB: DIVE INTO INDIVIDUAL TOPICS</div>
-        
-        <div class="card-grid">
-            <a href="healthcare_medicare.html" class="topic-card">
-                <h3>01. Health Care Coverage - Medicare</h3>
-                <p>Understanding Medicare and its parts,.</p>
-            </a>
-            <a href="healthcare_aca.html" class="topic-card">
-                <h3>02. Health Care Coverage - ACA</h3>
-                <p>What is ACA Marketplace? How do you cover gap years?</p>
-            </a>
-            <a href="aca_vs_cobra.html" class="topic-card">
-                <h3>03. ACA vs COBRA</h3>
-                <p>When do you pick either or both?.</p>
-            </a>
-            <a href="medicare_flowchart.html" class="topic-card">
-                <h3>04. Medicare Flowchart</h3>
-                <p>How do various parts of Medicare Work?</p>
-            </a>
-            <a href="long_term_care.html" class="topic-card">
-                <h3>05. Long Term Care</h3>
-                <p>Types, Costs and Who pays?</p>
-            </a>
-            
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+    <div class="page-hero-inner">
+        <p class="hero-eyebrow">Retirement Healthcare</p>
+        <h1 class="hero-title">Medicare &amp; <em>Healthcare</em> Hub</h1>
+        <p class="hero-sub">The federal health insurance program for people 65 or older — and your complete guide to coverage before and after Medicare eligibility.</p>
+        <div class="hero-badges">
+            <span class="hero-badge">🏥 Medicare Parts A · B · C · D</span>
+            <span class="hero-badge">🛡️ ACA Marketplace</span>
+            <span class="hero-badge">⚖️ COBRA vs ACA</span>
+            <span class="hero-badge">🏠 Long Term Care</span>
         </div>
     </div>
-	
-	
+</section>
 
-    <div class="nav-area">
-        <a href="healthcare_aca.html" class="gold-btn">🩺 ACA Marketplace</a>
-        <a href="retirement_plan.html" class="gold-btn">🏌️ Retirement Plan</a>
-        <a href="index.html" class="home-btn">🏠</a>
+<!-- ── PAGE BODY ── -->
+<div class="page-body">
+
+    <!-- 4 Parts of Medicare -->
+    <div class="section-label">
+        <span class="section-label-text">The 4 Parts of Medicare</span>
+        <div class="section-label-rule"></div>
     </div>
-    <footer></footer>
-	
-	<!-- Floating Feedback Button with Text -->
-	
-	<a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
+    <p class="section-sub">Medicare has four distinct parts — each covering a different aspect of your healthcare. Understanding how they fit together is the foundation of your retirement healthcare plan.</p>
+
+    <div class="parts-grid">
+        <div class="part-card">
+            <div class="part-letter part-a">A</div>
+            <h3>Part A — Hospital Insurance</h3>
+            <p>Covers inpatient hospital stays, care in a skilled nursing facility, hospice care, and some home health care. Most people pay <strong>$0 premium</strong> if they've worked 40+ quarters.</p>
+        </div>
+        <div class="part-card">
+            <div class="part-letter part-b">B</div>
+            <h3>Part B — Medical Insurance</h3>
+            <p>Covers doctors' services, outpatient care, medical supplies, and preventive services. Standard 2024 premium is <strong>$174.70/month</strong>, subject to IRMAA for higher incomes.</p>
+        </div>
+        <div class="part-card">
+            <div class="part-letter part-c">C</div>
+            <h3>Part C — Medicare Advantage</h3>
+            <p>An all-in-one alternative to Original Medicare offered by private insurers. Bundles Part A, Part B, and usually Part D — often with added benefits like dental and vision.</p>
+        </div>
+        <div class="part-card">
+            <div class="part-letter part-d">D</div>
+            <h3>Part D — Prescription Drugs</h3>
+            <p>Helps cover the cost of prescription drugs, including many recommended shots and vaccines. Offered through private insurers; costs vary by plan and formulary.</p>
+        </div>
+    </div>
+
+    <!-- Key Facts -->
+    <div class="section-label">
+        <span class="section-label-text">Key Numbers to Know</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <div class="facts-band">
+        <div class="fact-item">
+            <div class="fact-num">65</div>
+            <div class="fact-label">Age of Medicare eligibility for most Americans</div>
+        </div>
+        <div class="fact-divider"></div>
+        <div class="fact-item">
+            <div class="fact-num">7 mo</div>
+            <div class="fact-label">Initial Enrollment Window — 3 months before and after your 65th birthday month</div>
+        </div>
+        <div class="fact-divider"></div>
+        <div class="fact-item">
+            <div class="fact-num">10%</div>
+            <div class="fact-label">Part B late enrollment penalty per year missed, applied for life</div>
+        </div>
+    </div>
+
+    <!-- Enrollment Timeline -->
+    <div class="section-label">
+        <span class="section-label-text">Enrollment Timeline</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <div class="timeline-box">
+        <h3>When to Enroll — and What Happens if You Miss It</h3>
+        <div class="timeline-steps">
+            <div class="t-step">
+                <div class="t-step-left">
+                    <div class="t-dot">1</div>
+                    <div class="t-line"></div>
+                </div>
+                <div class="t-content">
+                    <strong>Initial Enrollment Period (IEP)</strong>
+                    <p>7-month window: 3 months before your 65th birthday month, the month of, and 3 months after. This is your primary enrollment opportunity — don't miss it.</p>
+                </div>
+            </div>
+            <div class="t-step">
+                <div class="t-step-left">
+                    <div class="t-dot">2</div>
+                    <div class="t-line"></div>
+                </div>
+                <div class="t-content">
+                    <strong>Special Enrollment Period (SEP)</strong>
+                    <p>If you or your spouse are still working and covered by employer insurance at 65, you can delay enrollment penalty-free. You get an 8-month SEP after that coverage ends.</p>
+                </div>
+            </div>
+            <div class="t-step">
+                <div class="t-step-left">
+                    <div class="t-dot">3</div>
+                    <div class="t-line"></div>
+                </div>
+                <div class="t-content">
+                    <strong>General Enrollment Period (GEP)</strong>
+                    <p>January 1 – March 31 each year if you missed your IEP. Coverage begins July 1. A late enrollment penalty applies to Part B and Part D.</p>
+                </div>
+            </div>
+            <div class="t-step">
+                <div class="t-step-left">
+                    <div class="t-dot">!</div>
+                    <div class="t-line"></div>
+                </div>
+                <div class="t-content">
+                    <strong>IRMAA — Income-Related Monthly Adjustment</strong>
+                    <p>If your MAGI is above $103,000 (single) or $206,000 (joint), you'll pay higher Part B and Part D premiums. Based on your tax return from 2 years prior.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hub: Dive Deeper -->
+    <div class="section-label">
+        <span class="section-label-text">Medicare Hub — Dive Into Individual Topics</span>
+        <div class="section-label-rule"></div>
+    </div>
+    <p class="section-sub">Each topic below covers a distinct piece of your retirement healthcare picture. Start with whichever is most relevant to where you are today.</p>
+
+    <div class="hub-grid">
+        <a href="healthcare_medicare.html" class="hub-card">
+            <div class="hub-num">01</div>
+            <div class="hub-text">
+                <strong>Healthcare Coverage — Medicare</strong>
+                <span>Understanding Medicare and all its parts in depth, including Medigap supplemental plans.</span>
+            </div>
+        </a>
+        <a href="healthcare_aca.html" class="hub-card">
+            <div class="hub-num">02</div>
+            <div class="hub-text">
+                <strong>Healthcare Coverage — ACA</strong>
+                <span>What is the ACA Marketplace? How do you bridge the gap years before age 65?</span>
+            </div>
+        </a>
+        <a href="aca_vs_cobra.html" class="hub-card">
+            <div class="hub-num">03</div>
+            <div class="hub-text">
+                <strong>ACA vs COBRA</strong>
+                <span>When do you choose ACA, COBRA, or both? Side-by-side cost and coverage comparison.</span>
+            </div>
+        </a>
+        <a href="medicare_flowchart.html" class="hub-card">
+            <div class="hub-num">04</div>
+            <div class="hub-text">
+                <strong>Medicare Flowchart</strong>
+                <span>How do the various parts of Medicare work together? Visual guide to Medigap and coverage decisions.</span>
+            </div>
+        </a>
+        <a href="long_term_care.html" class="hub-card">
+            <div class="hub-num">05</div>
+            <div class="hub-text">
+                <strong>Long Term Care</strong>
+                <span>Types of care, typical costs, who pays — and how to plan for it before you need it.</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+        <a href="healthcare_aca.html" class="gold-btn">🛡️ ACA Marketplace</a>
+        <a href="healthcare_medicare.html" class="gold-btn">💊 Medicare Detail</a>
+        <a href="Calculators_Dashboard.html" class="gold-btn">🧮 Calculators</a>
+        <a href="index.html" class="home-btn" title="Home">🏠</a>
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <p><strong>Copyright</strong> © 2026 Sriram Gopalaratnam. All Rights Reserved.</p>
+        <p><strong>Last Updated</strong> May 2026</p>
+        <p><strong>Disclaimer</strong> For educational purposes only — not financial or legal advice.</p>
+        <p><strong>Privacy</strong> No personal information required to use this site.</p>
+    </div>
+</footer>
+
+<script>
+  // ── Checkbox style ────────────────────────────────────────────
+  (function() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .fb-chk { display:flex;align-items:center;gap:7px;font-size:13px;color:#333;
+                 cursor:pointer;padding:6px 8px;border-radius:6px;
+                 border:1.5px solid #e0e0e0;transition:border-color .15s,background .15s; }
+      .fb-chk:hover { border-color:#d4af37;background:#fffbf0; }
+      .fb-chk input[type=checkbox] { accent-color:#d4af37;width:15px;height:15px;cursor:pointer; }
+      .fb-chk.checked { border-color:#d4af37;background:#fffbf0; }
+    `;
+    document.head.appendChild(style);
+    document.querySelectorAll('.fb-chk').forEach(lbl => {
+      lbl.querySelector('input').addEventListener('change', function() {
+        lbl.classList.toggle('checked', this.checked);
+      });
+    });
+  })();
+
+  // ── Page-aware auto-check ─────────────────────────────────────
+  (function() {
+    const pageMap = {
+      'medicare_aca':        ['Medicare / ACA'],
+      'healthcare_medicare': ['Medicare / ACA'],
+      'healthcare_aca':      ['Medicare / ACA'],
+      'aca_vs_cobra':        ['Medicare / ACA'],
+      'medicare_flowchart':  ['Medicare / ACA'],
+      'long_term_care':      ['Long term care'],
+      'tax_calculator':      ['Tax planning'],
+      'retirement_calculator':['Withdrawal strategy','Investment / Portfolio'],
+      'montecarlo':          ['Withdrawal strategy','Investment / Portfolio'],
+      '401k':                ['401k / Savings'],
+      'portfolio':           ['Investment / Portfolio'],
+      'transition_plan':     ['Withdrawal strategy'],
+      'financial_plan':      ['Investment / Portfolio'],
+    };
+    const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
+    Object.keys(pageMap).forEach(key => {
+      if (page.includes(key)) {
+        pageMap[key].forEach(topic => {
+          document.querySelectorAll('.fb-chk input').forEach(inp => {
+            if (inp.value === topic) { inp.checked = true; inp.closest('.fb-chk').classList.add('checked'); }
+          });
+        });
+      }
+    });
+  })();
+
+  // ── Config ────────────────────────────────────────────────────
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
+  const PAGE_NAME  = document.title || window.location.pathname;
+
+  // ── Star rating ───────────────────────────────────────────────
+  let selectedRating = 0;
+  const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
+  function setRating(val) {
+    selectedRating = val;
+    document.querySelectorAll(".star").forEach(s => {
+      const v = parseInt(s.dataset.val);
+      s.textContent = v <= val ? "★" : "☆";
+      s.style.color = v <= val ? "#d4af37" : "#aaa";
+    });
+    const lbl = document.getElementById("star-label");
+    if (lbl) lbl.textContent = starLabels[val] || "";
+  }
+
+  // ── Open / Close ──────────────────────────────────────────────
+  function openFeedback() {
+    const overlay = document.getElementById("feedback-overlay");
+    overlay.style.display = "flex";
+    document.getElementById("fb-status").textContent = "";
+  }
+  function closeFeedback() {
+    document.getElementById("feedback-overlay").style.display = "none";
+  }
+  function closeFeedbackOutside(e) {
+    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
+  }
+
+  // ── Submit ────────────────────────────────────────────────────
+  function submitFeedback() {
+    const improve = document.getElementById("fb-improve").value.trim();
+    const status  = document.getElementById("fb-status");
+    const btn     = document.getElementById("fb-submit");
+
+    if (!improve) {
+      status.style.color = "#a82222";
+      status.textContent = "Please share how we can improve — that field is required.";
+      return;
+    }
+
+    const topics = [...document.querySelectorAll('.fb-chk input:checked')].map(i => i.value).join(', ');
+    const payload = {
+      page:          PAGE_NAME,
+      rating:        selectedRating ? selectedRating + " ★" : "Not rated",
+      topics,
+      q_easy:        document.querySelector('input[name="q1"]:checked')?.value || '',
+      q_found:       document.querySelector('input[name="q2"]:checked')?.value || '',
+      q_calculators: document.querySelector('input[name="q3"]:checked')?.value || '',
+      q_recommend:   document.querySelector('input[name="q4"]:checked')?.value || '',
+      useful:        document.getElementById("fb-useful").value.trim(),
+      area:          document.getElementById("fb-area").value,
+      improve,
+      add:           document.getElementById("fb-add").value.trim(),
+      name:          document.getElementById("fb-name").value.trim(),
+      email:         document.getElementById("fb-email").value.trim(),
+    };
+
+    btn.disabled    = true;
+    btn.textContent = "Sending…";
+    status.textContent = "";
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode:   "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body:   JSON.stringify(payload)
+    })
+    .then(() => {
+      status.style.color = "#2a7a2a";
+      status.textContent = "✅ Thank you! Your feedback has been received.";
+      btn.textContent    = "Send Feedback";
+      btn.disabled       = false;
+      // Reset
+      document.querySelectorAll('.fb-chk input').forEach(i => { i.checked = false; i.closest('.fb-chk').classList.remove('checked'); });
+      ['q1','q2','q3','q4'].forEach(n => { const r = document.querySelector(`input[name="${n}"]:checked`); if(r) r.checked=false; });
+      ['fb-useful','fb-area','fb-improve','fb-add','fb-name','fb-email'].forEach(id => {
+        const el = document.getElementById(id); if(el) el.value='';
+      });
+      setRating(0);
+      setTimeout(closeFeedback, 2500);
+    })
+    .catch(() => {
+      status.style.color = "#a82222";
+      status.textContent = "Something went wrong — please try again.";
+      btn.textContent    = "Send Feedback";
+      btn.disabled       = false;
+    });
+  }
+
+  // ── Escape to close ───────────────────────────────────────────
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeFeedback(); });
+</script>
+
+<a href="https://wiseretiree.substack.com" target="_blank" id="substack-btn" class="tooltip-container" title="Subscribe on Substack"
   style="
     position: fixed;
     bottom: 96px; /* Stacks perfectly above feedback button */
@@ -328,8 +930,7 @@
   <span>Wise Thoughts</span>
   <span class="tooltip-text">Subscribe on Substack</span>
 </a>
-	
-	
+
 <button id="feedback-btn" onclick="openFeedback()" title="Send Feedback"
   style="
     position: fixed;
@@ -539,156 +1140,6 @@
 
   </div>
 </div>
-
-<script>
-  // ── Checkbox style ────────────────────────────────────────────
-  (function() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .fb-chk { display:flex;align-items:center;gap:7px;font-size:13px;color:#333;
-                 cursor:pointer;padding:6px 8px;border-radius:6px;
-                 border:1.5px solid #e0e0e0;transition:border-color .15s,background .15s; }
-      .fb-chk:hover { border-color:#d4af37;background:#fffbf0; }
-      .fb-chk input[type=checkbox] { accent-color:#d4af37;width:15px;height:15px;cursor:pointer; }
-      .fb-chk.checked { border-color:#d4af37;background:#fffbf0; }
-    `;
-    document.head.appendChild(style);
-    document.querySelectorAll('.fb-chk').forEach(lbl => {
-      lbl.querySelector('input').addEventListener('change', function() {
-        lbl.classList.toggle('checked', this.checked);
-      });
-    });
-  })();
-
-  // ── Page-aware auto-check ─────────────────────────────────────
-  (function() {
-    const pageMap = {
-      'medicare_aca':        ['Medicare / ACA'],
-      'healthcare_medicare': ['Medicare / ACA'],
-      'healthcare_aca':      ['Medicare / ACA'],
-      'aca_vs_cobra':        ['Medicare / ACA'],
-      'medicare_flowchart':  ['Medicare / ACA'],
-      'long_term_care':      ['Long term care'],
-      'tax_calculator':      ['Tax planning'],
-      'retirement_calculator':['Withdrawal strategy','Investment / Portfolio'],
-      'montecarlo':          ['Withdrawal strategy','Investment / Portfolio'],
-      '401k':                ['401k / Savings'],
-      'portfolio':           ['Investment / Portfolio'],
-      'transition_plan':     ['Withdrawal strategy'],
-      'financial_plan':      ['Investment / Portfolio'],
-    };
-    const page = window.location.pathname.split('/').pop().replace('.html','').toLowerCase();
-    Object.keys(pageMap).forEach(key => {
-      if (page.includes(key)) {
-        pageMap[key].forEach(topic => {
-          document.querySelectorAll('.fb-chk input').forEach(inp => {
-            if (inp.value === topic) { inp.checked = true; inp.closest('.fb-chk').classList.add('checked'); }
-          });
-        });
-      }
-    });
-  })();
-
-  // ── Config ────────────────────────────────────────────────────
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4AB7Zz1SlxGPbCa2BXPJ9XxGFqbPyvE_uXi7v4Pk-ul_4PyoA2i-J5F92gtEata4_/exec";
-  const PAGE_NAME  = document.title || window.location.pathname;
-
-  // ── Star rating ───────────────────────────────────────────────
-  let selectedRating = 0;
-  const starLabels = ['','Not helpful','Somewhat helpful','Helpful','Very helpful','Extremely helpful'];
-  function setRating(val) {
-    selectedRating = val;
-    document.querySelectorAll(".star").forEach(s => {
-      const v = parseInt(s.dataset.val);
-      s.textContent = v <= val ? "★" : "☆";
-      s.style.color = v <= val ? "#d4af37" : "#aaa";
-    });
-    const lbl = document.getElementById("star-label");
-    if (lbl) lbl.textContent = starLabels[val] || "";
-  }
-
-  // ── Open / Close ──────────────────────────────────────────────
-  function openFeedback() {
-    const overlay = document.getElementById("feedback-overlay");
-    overlay.style.display = "flex";
-    document.getElementById("fb-status").textContent = "";
-  }
-  function closeFeedback() {
-    document.getElementById("feedback-overlay").style.display = "none";
-  }
-  function closeFeedbackOutside(e) {
-    if (e.target === document.getElementById("feedback-overlay")) closeFeedback();
-  }
-
-  // ── Submit ────────────────────────────────────────────────────
-  function submitFeedback() {
-    const improve = document.getElementById("fb-improve").value.trim();
-    const status  = document.getElementById("fb-status");
-    const btn     = document.getElementById("fb-submit");
-
-    if (!improve) {
-      status.style.color = "#a82222";
-      status.textContent = "Please share how we can improve — that field is required.";
-      return;
-    }
-
-    const topics = [...document.querySelectorAll('.fb-chk input:checked')].map(i => i.value).join(', ');
-    const payload = {
-      page:          PAGE_NAME,
-      rating:        selectedRating ? selectedRating + " ★" : "Not rated",
-      topics,
-      q_easy:        document.querySelector('input[name="q1"]:checked')?.value || '',
-      q_found:       document.querySelector('input[name="q2"]:checked')?.value || '',
-      q_calculators: document.querySelector('input[name="q3"]:checked')?.value || '',
-      q_recommend:   document.querySelector('input[name="q4"]:checked')?.value || '',
-      useful:        document.getElementById("fb-useful").value.trim(),
-      area:          document.getElementById("fb-area").value,
-      improve,
-      add:           document.getElementById("fb-add").value.trim(),
-      name:          document.getElementById("fb-name").value.trim(),
-      email:         document.getElementById("fb-email").value.trim(),
-    };
-
-    btn.disabled    = true;
-    btn.textContent = "Sending…";
-    status.textContent = "";
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode:   "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body:   JSON.stringify(payload)
-    })
-    .then(() => {
-      status.style.color = "#2a7a2a";
-      status.textContent = "✅ Thank you! Your feedback has been received.";
-      btn.textContent    = "Send Feedback";
-      btn.disabled       = false;
-      // Reset
-      document.querySelectorAll('.fb-chk input').forEach(i => { i.checked = false; i.closest('.fb-chk').classList.remove('checked'); });
-      ['q1','q2','q3','q4'].forEach(n => { const r = document.querySelector(`input[name="${n}"]:checked`); if(r) r.checked=false; });
-      ['fb-useful','fb-area','fb-improve','fb-add','fb-name','fb-email'].forEach(id => {
-        const el = document.getElementById(id); if(el) el.value='';
-      });
-      setRating(0);
-      setTimeout(closeFeedback, 2500);
-    })
-    .catch(() => {
-      status.style.color = "#a82222";
-      status.textContent = "Something went wrong — please try again.";
-      btn.textContent    = "Send Feedback";
-      btn.disabled       = false;
-    });
-  }
-
-  // ── Escape to close ───────────────────────────────────────────
-  document.addEventListener("keydown", e => { if (e.key === "Escape") closeFeedback(); });
-</script>
-
-
-
-
-
 
 </body>
 </html>
