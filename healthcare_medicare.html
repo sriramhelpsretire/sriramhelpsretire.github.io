@@ -484,12 +484,171 @@
     }
     .tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
 
+    /* ── PARTS GRID ── */
+    .parts-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        width: 100%;
+    }
+    .part-card {
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--bg);
+        transition: transform 0.18s;
+    }
+    .part-card:hover { transform: translateY(-3px); }
+    .part-card-header {
+        padding: 14px 16px 12px;
+        display: flex; flex-direction: column; gap: 4px;
+    }
+    .part-letter {
+        font-family: 'Playfair Display', serif;
+        font-size: 26px; font-weight: 700; line-height: 1;
+    }
+    .part-name { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+    .part-card-body { padding: 14px 16px; border-top: 2px solid #000; }
+    .part-card-body p { font-size: 13px; color: var(--body); line-height: 1.6; margin-bottom: 8px; }
+    .part-card-body p:last-child { margin-bottom: 0; }
+    .part-cost { font-size: 12.5px; font-weight: 700; color: var(--ink); background: var(--bg-off); border-radius: 6px; padding: 7px 10px; margin-top: 8px; }
+    .part-a  .part-card-header { background: #1e3a5f; color: #fff; }
+    .part-a  .part-letter { color: var(--gold); }
+    .part-b  .part-card-header { background: #0d4a3a; color: #fff; }
+    .part-b  .part-letter { color: #6ee7b7; }
+    .part-c  .part-card-header { background: #3b1f5c; color: #fff; }
+    .part-c  .part-letter { color: #c4b5fd; }
+    .part-d  .part-card-header { background: #7a2323; color: #fff; }
+    .part-d  .part-letter { color: #fca5a5; }
+
+    /* ── PENALTY BOX ── */
+    .penalty-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        width: 100%;
+    }
+    .penalty-card {
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .penalty-header {
+        background: #7a2323;
+        color: #fff;
+        padding: 12px 18px;
+        font-size: 13px;
+        font-weight: 700;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .penalty-body { background: var(--bg); padding: 16px 18px; }
+    .penalty-body p { font-size: 13.5px; color: var(--body); line-height: 1.6; margin-bottom: 10px; }
+    .penalty-body p:last-child { margin-bottom: 0; }
+    .penalty-body strong { color: var(--ink); }
+    .penalty-example {
+        background: #fff8f0;
+        border: 1px solid #f0d090;
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #7a5000;
+        line-height: 1.55;
+        margin-top: 10px;
+    }
+
+    /* ── MEDIGAP / MA TABLE ── */
+    .coverage-compare {
+        width: 100%;
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    table.cov-tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--bg); }
+    table.cov-tbl thead th {
+        background: var(--navy); color: #fff; padding: 12px 16px;
+        text-align: left; font-size: 12px; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    table.cov-tbl thead th:not(:first-child) { text-align: center; }
+    table.cov-tbl td { padding: 11px 16px; border-bottom: 1px solid var(--rule); color: var(--body); font-size: 13.5px; }
+    table.cov-tbl td:not(:first-child) { text-align: center; }
+    table.cov-tbl td:first-child { font-weight: 600; color: var(--ink); }
+    table.cov-tbl tr:last-child td { border-bottom: none; }
+    table.cov-tbl tr:nth-child(even) td { background: var(--bg-off); }
+    table.cov-tbl tr:hover td { background: var(--gold-light); }
+    .chk-yes  { color: #166534; font-weight: 700; font-size: 16px; }
+    .chk-part { color: #92400e; font-weight: 700; font-size: 14px; }
+    .chk-no   { color: #991b1b; font-weight: 700; font-size: 16px; }
+
+    /* ── APPEAL / LCE BOX ── */
+    .lce-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        width: 100%;
+    }
+    .lce-card {
+        background: var(--bg);
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        padding: 18px 18px 16px;
+    }
+    .lce-icon { font-size: 22px; margin-bottom: 8px; }
+    .lce-card h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .lce-card p  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+    /* ── SEP CARDS ── */
+    .sep-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        width: 100%;
+    }
+    .sep-card {
+        background: var(--bg);
+        border: 2.5px solid #000;
+        border-radius: 12px;
+        padding: 20px 18px;
+    }
+    .sep-card .sep-tag {
+        display: inline-block;
+        background: #dbeafe; color: #1e40af;
+        border: 1px solid #93c5fd;
+        font-size: 10px; font-weight: 700;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        padding: 3px 10px; border-radius: 100px;
+        margin-bottom: 10px;
+    }
+    .sep-card h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .sep-card p  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+    /* ── INFO CALLOUT ── */
+    .info-callout {
+        width: 100%;
+        border-radius: 12px;
+        padding: 22px 26px;
+        margin-bottom: 0;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        box-sizing: border-box;
+    }
+    .info-callout.gold { background: #fffbeb; border: 2px solid var(--gold); }
+    .info-callout.blue { background: #eff6ff; border: 2px solid #93c5fd; }
+    .info-callout .ic-icon { font-size: 24px; flex-shrink: 0; }
+    .info-callout .ic-body strong { display: block; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .info-callout .ic-body p { font-size: 13.5px; color: var(--body); line-height: 1.65; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
         .intro-box { grid-template-columns: 1fr; }
         .counts-grid { grid-template-columns: 1fr; }
         .windows-grid { grid-template-columns: 1fr 1fr; }
         .lookback-divider { display: none; }
+        .parts-grid { grid-template-columns: 1fr 1fr; }
+        .penalty-grid { grid-template-columns: 1fr; }
+        .lce-grid { grid-template-columns: 1fr 1fr; }
+        .sep-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 600px) {
         .page-body { padding: 0 16px 60px; }
@@ -497,6 +656,10 @@
         .lookback-box { flex-direction: column; }
         .intro-box { padding: 24px 20px; }
         .bottom-nav { justify-content: center; }
+        .parts-grid { grid-template-columns: 1fr 1fr; }
+        .lce-grid { grid-template-columns: 1fr; }
+        .sep-grid { grid-template-columns: 1fr; }
+        .info-callout { flex-direction: column; gap: 10px; }
     }
 </style>
 </head>
@@ -686,6 +849,24 @@
                     <td>$5,739.60</td>
                     <td>$11,479.20</td>
                 </tr>
+                <tr>
+                    <td>$342k – $750k</td>
+                    <td>$527.50</td>
+                    <td>$35</td>
+                    <td>$74.20</td>
+                    <td>$636.70</td>
+                    <td>$7,640.40</td>
+                    <td>$15,280.80</td>
+                </tr>
+                <tr>
+                    <td>Above $750k</td>
+                    <td>$594.00</td>
+                    <td>$35</td>
+                    <td>$81.00</td>
+                    <td>$710.00</td>
+                    <td>$8,520.00</td>
+                    <td>$17,040.00</td>
+                </tr>
             </tbody>
         </table>
         <div class="irmaa-note">
@@ -779,6 +960,298 @@
             <p>If you or your spouse are still covered by employer-sponsored insurance at 65, you may be able to delay Part B without penalty — but rules vary. Always verify your specific situation with your HR department and Social Security before deciding to delay.</p>
             <p>Please visit <a href="https://www.medicare.gov" target="_blank">medicare.gov</a> to understand all penalties, including the <strong>10% per year Part B penalty</strong> and the <strong>1% per month Part D penalty</strong> that apply for missed enrollment windows and are levied for life.</p>
             <p>This is a simplified introduction. More detail is available and should be reviewed before making any decisions. The <a href="medicare_flowchart.html">Medicare Flowchart</a> gives a clear picture of what each part covers and what requires supplemental Medigap coverage.</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION: THE FOUR PARTS OF MEDICARE
+    ══════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="sl-text">The Four Parts of Medicare</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">Medicare is not a single plan — it is a system of four interlocking parts, each covering a distinct category of healthcare. Understanding what each part does (and doesn't) cover is essential before you enroll.</p>
+    <div class="parts-grid">
+        <!-- Part A -->
+        <div class="part-card part-a">
+            <div class="part-card-header">
+                <div class="part-letter">A</div>
+                <div class="part-name">Hospital Insurance</div>
+            </div>
+            <div class="part-card-body">
+                <p>Covers inpatient hospital stays, skilled nursing facility care (following a 3-day hospital stay), hospice care, and some home health services.</p>
+                <p>Does <strong>not</strong> cover custodial care, long-term nursing home stays, or most outpatient services.</p>
+                <div class="part-cost">💰 Most people pay $0 premium — if you or your spouse paid Medicare taxes for 40+ quarters (10 years). Otherwise up to $518/mo in 2026.</div>
+            </div>
+        </div>
+        <!-- Part B -->
+        <div class="part-card part-b">
+            <div class="part-card-header">
+                <div class="part-letter">B</div>
+                <div class="part-name">Medical Insurance</div>
+            </div>
+            <div class="part-card-body">
+                <p>Covers outpatient care, doctor visits, preventive services, lab tests, durable medical equipment, and some home health services.</p>
+                <p>You pay 20% coinsurance after your annual deductible ($257 in 2026) with no out-of-pocket maximum unless you have a supplement.</p>
+                <div class="part-cost">💰 $202.90/mo base premium in 2026. Higher earners pay more via IRMAA. Enrollment is mandatory for most retirees — late penalty is permanent.</div>
+            </div>
+        </div>
+        <!-- Part C -->
+        <div class="part-card part-c">
+            <div class="part-card-header">
+                <div class="part-letter">C</div>
+                <div class="part-name">Medicare Advantage</div>
+            </div>
+            <div class="part-card-body">
+                <p>Private insurance alternative to Original Medicare (Parts A + B). Often bundles Part D drug coverage. May include dental, vision, and hearing — not covered by Original Medicare.</p>
+                <p>Typically uses HMO or PPO networks, which may restrict choice of doctors and hospitals. Prior authorizations are common.</p>
+                <div class="part-cost">💰 Many plans have $0 additional premium beyond Part B, but may have higher copays and narrower networks. Out-of-pocket maximums apply.</div>
+            </div>
+        </div>
+        <!-- Part D -->
+        <div class="part-card part-d">
+            <div class="part-card-header">
+                <div class="part-letter">D</div>
+                <div class="part-name">Prescription Drug</div>
+            </div>
+            <div class="part-card-body">
+                <p>Standalone drug coverage added to Original Medicare (Parts A + B), or bundled inside a Medicare Advantage plan. Each plan has its own formulary (list of covered drugs) and tiers.</p>
+                <p>The Inflation Reduction Act capped out-of-pocket drug costs at <strong>$2,000/year</strong> starting in 2025 — a major change for people on expensive medications.</p>
+                <div class="part-cost">💰 Premiums vary by plan (~$35–$100/mo). Higher earners pay an IRMAA surcharge. Delaying enrollment triggers a permanent 1%/month penalty.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION: SPECIAL ENROLLMENT PERIODS
+    ══════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="sl-text">Special Enrollment Periods (SEP)</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">If you miss your Initial Enrollment Period because you had qualifying employer coverage, a Special Enrollment Period lets you sign up without penalty — but you must act promptly when your coverage ends.</p>
+    <div class="sep-grid">
+        <div class="sep-card">
+            <span class="sep-tag">SEP Trigger</span>
+            <h4>Still Working at 65 with Employer Coverage</h4>
+            <p>If you (or your spouse) are actively employed and covered by a group health plan, you can delay Part B enrollment without penalty. Your SEP begins when employment or group coverage ends — whichever comes first.</p>
+        </div>
+        <div class="sep-card">
+            <span class="sep-tag">SEP Trigger</span>
+            <h4>Leaving Employer Coverage</h4>
+            <p>You have an <strong>8-month SEP</strong> from the date your employer coverage ends to enroll in Part B. Do not rely on COBRA — COBRA is not considered employer-sponsored coverage for SEP purposes and does not extend this window.</p>
+        </div>
+        <div class="sep-card">
+            <span class="sep-tag">SEP Trigger</span>
+            <h4>Moving Out of a Plan's Service Area</h4>
+            <p>If you move to a new geographic area not covered by your current Medicare Advantage or Part D plan, you qualify for a 2-month SEP to choose a new plan. This also applies when new plans become available in your area.</p>
+        </div>
+        <div class="sep-card">
+            <span class="sep-tag">SEP Trigger</span>
+            <h4>Losing Other Coverage (Medicaid, VA, etc.)</h4>
+            <p>Losing eligibility for Medicaid, Extra Help, or other qualifying coverage can trigger a SEP. The window is typically 2–3 months from the date of coverage loss depending on the circumstance.</p>
+        </div>
+        <div class="sep-card">
+            <span class="sep-tag">SEP Trigger</span>
+            <h4>Exceptional Circumstances</h4>
+            <p>CMS may grant SEPs for natural disasters, incarceration release, errors made by government entities, or being misled by an insurance agent. These are evaluated case-by-case and require documentation.</p>
+        </div>
+        <div class="sep-card">
+            <span class="sep-tag">Important</span>
+            <h4>COBRA Does Not Create an SEP</h4>
+            <p>A common mistake: people assume electing COBRA after leaving a job extends their Medicare SEP. It does not. The 8-month SEP clock starts when your employer group coverage ends — not when COBRA ends. Enroll in Medicare B promptly.</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION: LATE ENROLLMENT PENALTIES
+    ══════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="sl-text">Late Enrollment Penalties</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">Unlike most insurance programs, Medicare's late enrollment penalties are <strong>permanent and compound for life</strong>. Avoiding them is one of the highest-value actions you can take at retirement.</p>
+    <div class="penalty-grid">
+        <div class="penalty-card">
+            <div class="penalty-header">⚠️ Part B Late Penalty</div>
+            <div class="penalty-body">
+                <p>For every <strong>12-month period</strong> you were eligible for Part B but didn't enroll (and didn't have qualifying employer coverage), your Part B premium increases by <strong>10% permanently</strong>.</p>
+                <p>This penalty is added for as long as you have Part B — which is the rest of your life.</p>
+                <div class="penalty-example">
+                    Example: Delay 2 years without qualifying coverage → 20% penalty forever.<br>
+                    $202.90 base × 1.20 = <strong>$243.48/mo</strong> instead of $202.90.<br>
+                    Over 20 years: ~$9,700 in extra premiums paid.
+                </div>
+            </div>
+        </div>
+        <div class="penalty-card">
+            <div class="penalty-header">⚠️ Part D Late Penalty</div>
+            <div class="penalty-body">
+                <p>For every <strong>month</strong> you go without creditable prescription drug coverage after your IEP ends, your Part D premium increases by <strong>1% per month</strong>, permanently.</p>
+                <p>"Creditable coverage" means coverage at least as good as standard Part D — most employer plans qualify, but you must get a notice confirming this each year.</p>
+                <div class="penalty-example">
+                    Example: 24 months without creditable drug coverage → 24% penalty forever.<br>
+                    Added to your plan's monthly premium for life.<br>
+                    After the $2,000 out-of-pocket cap, premiums still compound.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION: ORIGINAL MEDICARE vs MEDICARE ADVANTAGE vs MEDIGAP
+    ══════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="sl-text">Original Medicare vs Medicare Advantage vs Medigap</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">After enrolling in Parts A and B, you face a fundamental choice: stay in Original Medicare (and optionally add Medigap), or switch to Medicare Advantage. This decision affects your doctors, costs, and flexibility for years to come.</p>
+    <div class="coverage-compare">
+        <div class="table-caption">
+            <span>📋</span> Coverage Comparison — Original Medicare · Medicare Advantage · Medigap Supplement
+        </div>
+        <table class="cov-tbl">
+            <thead>
+                <tr>
+                    <th style="width:28%">Feature</th>
+                    <th>Original Medicare<br><span style="font-size:10px;font-weight:400;opacity:0.7;">Parts A + B only</span></th>
+                    <th>Original + Medigap<br><span style="font-size:10px;font-weight:400;opacity:0.7;">Parts A + B + Supplement</span></th>
+                    <th>Medicare Advantage<br><span style="font-size:10px;font-weight:400;opacity:0.7;">Part C (private plan)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Provider choice</td>
+                    <td><span class="chk-yes">✔</span> Any Medicare-accepting provider nationwide</td>
+                    <td><span class="chk-yes">✔</span> Any Medicare-accepting provider nationwide</td>
+                    <td><span class="chk-part">~</span> Usually HMO/PPO network; out-of-network costs are high</td>
+                </tr>
+                <tr>
+                    <td>Monthly premium</td>
+                    <td>Part B only (~$203/mo base)</td>
+                    <td>Part B + Medigap (~$150–$350/mo added)</td>
+                    <td>Often $0 beyond Part B, but cost-sharing varies widely</td>
+                </tr>
+                <tr>
+                    <td>Out-of-pocket maximum</td>
+                    <td><span class="chk-no">✗</span> No cap — 20% coinsurance is unlimited</td>
+                    <td><span class="chk-yes">✔</span> Medigap covers most or all out-of-pocket</td>
+                    <td><span class="chk-yes">✔</span> Annual OOP cap (up to $8,850 in-network in 2026)</td>
+                </tr>
+                <tr>
+                    <td>Prescription drugs</td>
+                    <td><span class="chk-no">✗</span> Must add standalone Part D plan</td>
+                    <td><span class="chk-no">✗</span> Must add standalone Part D plan</td>
+                    <td><span class="chk-yes">✔</span> Usually bundled in most MA plans</td>
+                </tr>
+                <tr>
+                    <td>Dental, vision, hearing</td>
+                    <td><span class="chk-no">✗</span> Not covered</td>
+                    <td><span class="chk-no">✗</span> Not covered by Medigap (buy separately)</td>
+                    <td><span class="chk-part">~</span> Often included, but benefits vary by plan and region</td>
+                </tr>
+                <tr>
+                    <td>Prior authorizations</td>
+                    <td><span class="chk-yes">✔</span> Generally none required</td>
+                    <td><span class="chk-yes">✔</span> Generally none required</td>
+                    <td><span class="chk-no">✗</span> Common — especially for specialist referrals and procedures</td>
+                </tr>
+                <tr>
+                    <td>Travel / nationwide use</td>
+                    <td><span class="chk-yes">✔</span> Accepted anywhere in the U.S.</td>
+                    <td><span class="chk-yes">✔</span> Accepted anywhere in the U.S.</td>
+                    <td><span class="chk-part">~</span> Emergency only out-of-network; limited when traveling</td>
+                </tr>
+                <tr>
+                    <td>Switching flexibility</td>
+                    <td>Can switch to MA during OEP (Oct 15–Dec 7)</td>
+                    <td>Can drop Medigap, but re-enrollment may require underwriting</td>
+                    <td>Can switch plans annually during OEP; returning to Original Medicare may lose Medigap access</td>
+                </tr>
+                <tr>
+                    <td>Best for</td>
+                    <td>Those who value nationwide flexibility but can handle unpredictable costs</td>
+                    <td><strong>Predictable costs, chronic conditions, frequent travelers</strong> — most comprehensive</td>
+                    <td><strong>Healthy retirees in stable locations</strong> who want low premiums and bundled extras</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="irmaa-note">
+            💡 <strong>Key insight:</strong> Medigap plans are sold by private insurers but standardized by the government (Plans A, B, C, D, F, G, K, L, M, N). Plan G is the most popular for new enrollees since 2020. Once you switch from Original Medicare to Medicare Advantage, returning to Medigap is not guaranteed — insurers can reject you based on health status in most states.
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION: IRMAA APPEAL — LIFE-CHANGING EVENTS
+    ══════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="sl-text">IRMAA Appeals — Life-Changing Events (LCE)</span>
+        <div class="sl-rule"></div>
+    </div>
+    <p class="section-sub">If your income has dropped significantly since the tax return used to calculate your IRMAA, you can appeal using Form SSA-44. CMS recognizes specific life-changing events that justify using more recent income data.</p>
+
+    <div class="info-callout gold" style="margin-bottom:20px;">
+        <span class="ic-icon">📝</span>
+        <div class="ic-body">
+            <strong>How to Appeal: Form SSA-44</strong>
+            <p>Visit your local Social Security office or call 1-800-772-1213. Submit Form SSA-44 with evidence of the life-changing event and your estimated current-year income. If approved, Medicare will use your more recent income to recalculate your IRMAA — potentially reducing your premium immediately. Appeals can be filed at any time during the year.</p>
+        </div>
+    </div>
+
+    <div class="lce-grid">
+        <div class="lce-card">
+            <div class="lce-icon">💼</div>
+            <h4>Retirement or Reduction in Work Hours</h4>
+            <p>You or your spouse stopped working or significantly reduced work hours. This is the most common LCE filed by new retirees whose income has fallen sharply from a high-earning year.</p>
+        </div>
+        <div class="lce-card">
+            <div class="lce-icon">💔</div>
+            <h4>Death of a Spouse</h4>
+            <p>Your filing status changed from Married Filing Jointly to Single — which affects the IRMAA income thresholds significantly (single thresholds are roughly half of married thresholds).</p>
+        </div>
+        <div class="lce-card">
+            <div class="lce-icon">⚖️</div>
+            <h4>Divorce or Annulment</h4>
+            <p>A qualifying life event that changed your household income and filing status. Document with court records or finalized divorce decree.</p>
+        </div>
+        <div class="lce-card">
+            <div class="lce-icon">🏢</div>
+            <h4>Loss of Income from Employer</h4>
+            <p>Involuntary job loss, layoff, or employer bankruptcy. Must show evidence that income was lost and is not expected to continue at prior levels.</p>
+        </div>
+        <div class="lce-card">
+            <div class="lce-icon">🏠</div>
+            <h4>Loss of Income-Producing Property</h4>
+            <p>Property destroyed by disaster, theft, or other casualty resulting in reduced income. Also applies to involuntary closure of a business.</p>
+        </div>
+        <div class="lce-card">
+            <div class="lce-icon">💊</div>
+            <h4>Employer Settlement Payment</h4>
+            <p>A one-time employer settlement caused income to spike in the lookback year. You can appeal to exclude that non-recurring amount and use a more typical income figure.</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════
+         SECTION: INCOME PLANNING CALLOUT
+    ══════════════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="sl-text">Strategic Income Planning for Medicare</span>
+        <div class="sl-rule"></div>
+    </div>
+
+    <div class="info-callout gold" style="margin-bottom:16px;">
+        <span class="ic-icon">📅</span>
+        <div class="ic-body">
+            <strong>The Critical Planning Window: Ages 63–64</strong>
+            <p>Your Medicare premiums at age 65 are set by your income at age 63 (the 2-year lookback). This is your last window to actively manage MAGI before it locks in your first year of Medicare costs. Consider deferring large Roth conversions, being thoughtful about capital gains realizations, and avoiding one-time income spikes in these two years. A single year of high income can cost thousands in higher premiums — permanently until your income drops again.</p>
+        </div>
+    </div>
+
+    <div class="info-callout blue">
+        <span class="ic-icon">🔄</span>
+        <div class="ic-body">
+            <strong>Roth Ladder Strategy: Build Tax-Free Income Before 65</strong>
+            <p>One of the most powerful Medicare planning strategies is executing Roth conversions during your early retirement years (ages 59–63), before Medicare begins. These conversions count as MAGI in the year of conversion, but once the money is in Roth, future qualified withdrawals are tax-free and do not count toward IRMAA. A well-timed Roth ladder can dramatically lower your lifetime Medicare premiums by reducing future IRA withdrawals that would otherwise push you into higher IRMAA brackets every year.</p>
         </div>
     </div>
 
