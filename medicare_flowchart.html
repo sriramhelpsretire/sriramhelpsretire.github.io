@@ -87,19 +87,42 @@ body {
 /* Header */
 header {
     text-align: center;
-    padding: 30px 20px 10px;
+    padding: 30px 20px 0;
+    background: var(--text-dark);
 }
 
 header h1 {
     font-size: 28px;
     font-weight: bold;
     line-height: 1.3;
+    color: #ffffff;
 }
 
 header p.subtitle {
-    color: var(--gold-dark);
+    color: var(--accent-gold);
     font-size: 14px;
     margin-top: 6px;
+}
+
+/* Hero badge bar */
+.hero-bar {
+    background: var(--text-dark);
+    padding: 16px 20px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 4px solid var(--accent-gold);
+}
+.hero-badge {
+    background: rgba(201,147,58,0.15);
+    border: 1px solid rgba(201,147,58,0.45);
+    color: var(--accent-gold);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
 }
 
 /* Content */
@@ -475,6 +498,16 @@ header p.subtitle {
     <h1>Medicare, Hospitalization &amp; Medigap</h1>
     <p class="subtitle">How Coverage Works From Admission to Recovery</p>
 </header>
+
+<!-- Hero Badge Bar -->
+<div class="hero-bar">
+    <span class="hero-badge">🏥 Parts A · B · C · D Explained</span>
+    <span class="hero-badge">🚨 Inpatient vs Observation Status</span>
+    <span class="hero-badge">🛡️ What Medigap Covers</span>
+    <span class="hero-badge">💸 Who Pays the Gaps</span>
+    <span class="hero-badge">🏠 Skilled Nursing &amp; Post-Hospital Care</span>
+    <span class="hero-badge">⚠️ No Out-of-Pocket Cap Without Medigap</span>
+</div>
 
 <div class="content">
 
