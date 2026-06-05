@@ -87,20 +87,123 @@ body {
 /* Header */
 header {
     text-align: center;
-    padding: 30px 20px 10px;
+    padding: 30px 20px 0;
+    background: var(--text-dark);
 }
 
 header h1 {
     font-size: 26px;
     font-weight: bold;
     line-height: 1.3;
+    color: #ffffff;
 }
 
 header p.subtitle {
-    color: var(--gold-dark);
+    color: var(--accent-gold);
     font-size: 14px;
     margin-top: 6px;
 }
+
+/* Hero Badge Bar */
+.hero-bar {
+    background: var(--text-dark);
+    padding: 16px 20px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 4px solid var(--accent-gold);
+}
+.hero-badge {
+    background: rgba(201,147,58,0.15);
+    border: 1px solid rgba(201,147,58,0.45);
+    color: var(--accent-gold);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+/* ADL Grid */
+.adl-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+}
+.adl-card {
+    background: #f0f4f8;
+    border: 1.5px solid #000;
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 13px;
+}
+.adl-card .adl-icon { font-size: 20px; margin-bottom: 4px; }
+.adl-card .adl-name { font-weight: 700; color: var(--text-dark); font-size: 13px; }
+.adl-card .adl-desc { font-size: 11.5px; color: var(--text-mid); margin-top: 3px; line-height: 1.4; }
+
+/* Policy mechanics grid */
+.policy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.policy-card {
+    background: #f8f9fa;
+    border: 1.5px solid #000;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.policy-card h4 { color: var(--gold-dark); font-size: 13px; font-weight: bold; margin-bottom: 6px; border-bottom: 1px solid rgba(0,0,0,0.12); padding-bottom: 4px; }
+.policy-card p { color: var(--text-mid); margin-bottom: 5px; }
+.policy-card p:last-child { margin-bottom: 0; }
+.policy-card .tip { font-size: 11.5px; color: #2e7d32; font-style: italic; margin-top: 5px; }
+.policy-card .warn { font-size: 11.5px; color: #c2410c; margin-top: 5px; }
+
+/* Comparison table for LTC insurance types */
+.ltc-compare { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-bottom: 16px; }
+.ltc-compare thead tr { background: var(--text-dark); }
+.ltc-compare thead th { color: #fff; padding: 9px 10px; text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.ltc-compare tbody tr { border-bottom: 1px solid rgba(0,0,0,0.08); }
+.ltc-compare tbody tr:nth-child(even) { background: rgba(139,105,20,0.06); }
+.ltc-compare tbody td { padding: 9px 10px; color: var(--text-mid); vertical-align: top; line-height: 1.45; }
+.ltc-compare tbody td:first-child { color: var(--text-dark); font-weight: 600; white-space: nowrap; }
+.chk-y { color: #166534; font-weight: 700; }
+.chk-n { color: #991b1b; font-weight: 700; }
+.chk-p { color: #92400e; font-weight: 700; }
+
+/* Medicaid planning box */
+.medicaid-box {
+    background: #fff8f0;
+    border: 1.5px solid #000;
+    border-left: 4px solid var(--red-accent);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    color: var(--text-mid);
+}
+.medicaid-box strong { color: var(--text-dark); }
+.medicaid-box .lookback-badge { display: inline-block; background: var(--red-accent); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
+
+/* Decision framework */
+.decision-row { display: flex; gap: 8px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.08); font-size: 13px; }
+.decision-row:last-child { border-bottom: none; }
+.decision-icon { font-size: 18px; flex-shrink: 0; width: 28px; text-align: center; }
+.decision-label { color: var(--text-dark); font-weight: 600; min-width: 120px; }
+.decision-rec { color: var(--text-mid); flex: 1; line-height: 1.5; }
+.decision-rec .gold { color: var(--gold-dark); font-weight: 700; }
+
+/* Callout strip */
+.callout-strip { background: #fffbeb; border: 1.5px solid var(--accent-gold); border-radius: 8px; padding: 13px 16px; font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; }
+.callout-strip .cs-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.callout-strip strong { color: var(--text-dark); }
 
 /* Content */
 .content {
@@ -561,6 +664,18 @@ header p.subtitle {
     <p class="subtitle">A Comprehensive Overview — Settings, Costs &amp; Who Pays</p>
 </header>
 
+<!-- Hero Badge Bar -->
+<div class="hero-bar">
+    <span class="hero-badge">🛁 The 6 ADLs Explained</span>
+    <span class="hero-badge">💰 2025 Care Costs by Setting</span>
+    <span class="hero-badge">📋 LTC Insurance Policy Mechanics</span>
+    <span class="hero-badge">🔄 Hybrid Life/LTC Policies</span>
+    <span class="hero-badge">⚖️ Medicaid 5-Year Lookback</span>
+    <span class="hero-badge">🏡 California PACE &amp; Medi-Cal</span>
+    <span class="hero-badge">🧮 Self-Insurance Math</span>
+    <span class="hero-badge">✅ When to Buy LTC Insurance</span>
+</div>
+
 <div class="content">
 
     <!-- ── SLIDE 1: What is LTC ── -->
@@ -569,6 +684,43 @@ header p.subtitle {
     <p>Long-term care (LTC) refers to a range of services that help people with chronic illnesses, disabilities, or age-related conditions perform <span class="bold">Activities of Daily Living (ADLs)</span> over an extended period. It is typically triggered when a person cannot independently perform <span class="highlight">2 or more of the 6 ADLs</span>.</p>
 
     <p>A <span class="bold">cognitive impairment</span> (e.g., Alzheimer's, dementia) is also a qualifying trigger, even without ADL limitations.</p>
+
+    <div class="adl-grid">
+        <div class="adl-card">
+            <div class="adl-icon">🛁</div>
+            <div class="adl-name">Bathing</div>
+            <div class="adl-desc">Washing the body or body parts — showering, bathing, sponge baths</div>
+        </div>
+        <div class="adl-card">
+            <div class="adl-icon">👗</div>
+            <div class="adl-name">Dressing</div>
+            <div class="adl-desc">Putting on and taking off all items of clothing and braces or artificial limbs</div>
+        </div>
+        <div class="adl-card">
+            <div class="adl-icon">🚽</div>
+            <div class="adl-name">Toileting</div>
+            <div class="adl-desc">Getting to and from the toilet, getting on/off, and associated hygiene</div>
+        </div>
+        <div class="adl-card">
+            <div class="adl-icon">🔄</div>
+            <div class="adl-name">Transferring</div>
+            <div class="adl-desc">Moving in/out of a bed, chair, or wheelchair without help</div>
+        </div>
+        <div class="adl-card">
+            <div class="adl-icon">🍽️</div>
+            <div class="adl-name">Eating</div>
+            <div class="adl-desc">Feeding oneself once food is prepared and placed within reach</div>
+        </div>
+        <div class="adl-card">
+            <div class="adl-icon">🚶</div>
+            <div class="adl-name">Continence</div>
+            <div class="adl-desc">Controlling bladder and bowel functions, or managing ostomy/catheter</div>
+        </div>
+    </div>
+
+    <div class="note-box" style="margin-bottom:14px;">
+        <strong>LTC Trigger Rule:</strong> Most private LTC insurance policies and Medicaid require inability to perform <span class="highlight">2 of the 6 ADLs</span>, or a diagnosed cognitive impairment requiring substantial supervision, to activate benefits. The specific ADLs required and the definitions vary by policy — always read the fine print.
+    </div>
 
     <!-- ── SLIDE 1 + 2: Types of LTC Settings ── -->
     <div class="section-label">Types of Long-Term Care Settings</div>
@@ -768,7 +920,280 @@ header p.subtitle {
         <strong>Key Takeaway:</strong> Medicare does <span class="highlight">not</span> cover long-term custodial care. Planning ahead — through LTC insurance, hybrid policies, or Medicaid planning — is essential to protect your retirement assets from being fully depleted by care costs.
     </div>
 
-</div>
+    <!-- ── NEW: LTC Insurance Policy Mechanics ── -->
+    <div class="section-label">LTC Insurance — Policy Mechanics</div>
+
+    <p style="font-size:13px; color:var(--text-mid); margin-bottom:12px;">Understanding the levers inside a traditional LTC policy is critical before purchasing. Each of these variables directly affects both your premium and your eventual benefit payout.</p>
+
+    <div class="policy-grid">
+        <div class="policy-card">
+            <h4>📅 Elimination Period</h4>
+            <p>The deductible period — the number of days you must pay for care out-of-pocket before the insurance policy begins paying benefits.</p>
+            <p>Common options: <strong>30, 60, or 90 days</strong>. The 90-day elimination period is the most common and lowers premiums significantly.</p>
+            <p class="tip">✔ Strategy: A 90-day period works well if you have $30K–$40K in liquid savings to self-cover the gap.</p>
+        </div>
+        <div class="policy-card">
+            <h4>💵 Daily / Monthly Benefit Amount</h4>
+            <p>The maximum dollar amount the policy pays per day or per month for covered care services. Typical ranges: <strong>$150–$400/day</strong> for individuals.</p>
+            <p>Match this to local care costs — California facility care can easily exceed $350–$450/day in metro areas.</p>
+            <p class="warn">⚠ Don't under-insure. Buying too low a benefit forces large out-of-pocket top-ups at claim time.</p>
+        </div>
+        <div class="policy-card">
+            <h4>⏳ Benefit Period</h4>
+            <p>How long the policy will pay benefits once triggered. Options range from <strong>2 years to unlimited (lifetime)</strong>. Most common: 2–5 years.</p>
+            <p>The average LTC claim lasts about <strong>2.5 years</strong>, but Alzheimer's and Parkinson's cases can extend 8–10 years.</p>
+            <p class="tip">✔ For couples: consider 3–4 year benefit periods with a shared care rider rather than lifetime coverage.</p>
+        </div>
+        <div class="policy-card">
+            <h4>📈 Inflation Protection Rider</h4>
+            <p>Automatically increases your benefit amount over time to keep pace with rising care costs. Types:</p>
+            <p><strong>3% Compound:</strong> Most common, balances cost vs protection. <strong>5% Compound:</strong> Best protection but expensive. <strong>CPI-linked:</strong> Tied to actual inflation.</p>
+            <p class="warn">⚠ Without this rider, a $200/day benefit purchased at 55 could be badly inadequate at 80.</p>
+        </div>
+        <div class="policy-card">
+            <h4>🏠 Home Care Coverage</h4>
+            <p>Older policies often paid only for facility care. Modern policies include <strong>home care, adult day care, and assisted living</strong> alongside nursing home benefits.</p>
+            <p>Verify the policy pays for informal caregivers (family members) or only licensed agency aides — this matters enormously for most families.</p>
+            <p class="tip">✔ Prefer "any setting" policies that pay equally for home, assisted living, or facility care.</p>
+        </div>
+        <div class="policy-card">
+            <h4>👫 Shared Care Rider (Couples)</h4>
+            <p>Allows spouses to share a combined pool of benefits. If one spouse exhausts their benefit period, they can draw from the other's policy pool.</p>
+            <p>Example: Two 3-year policies + shared care = up to <strong>6 years of combined benefits per person</strong> if needed.</p>
+            <p class="tip">✔ One of the highest-value riders for married couples — especially given gender longevity differences.</p>
+        </div>
+    </div>
+
+    <div class="callout-strip">
+        <span class="cs-icon">⚠️</span>
+        <div><strong>Premium Increases Are Real:</strong> Traditional LTC insurance carriers have raised premiums substantially — sometimes 50–100% over a policy's life — because early pricing was based on overly optimistic actuarial assumptions. Several large carriers (Prudential, MetLife, Unum) have exited the standalone LTC market entirely. This is a key reason many advisors now prefer hybrid policies, which lock in premiums at purchase.</div>
+    </div>
+
+    <!-- ── NEW: LTC Insurance Types Comparison ── -->
+    <div class="section-label">Comparing LTC Insurance Options</div>
+
+    <table class="ltc-compare">
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Traditional LTC Insurance</th>
+                <th>Hybrid Life/LTC Policy</th>
+                <th>Annuity with LTC Rider</th>
+                <th>Self-Insurance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Premium stability</td>
+                <td><span class="chk-n">✗</span> Can increase over time</td>
+                <td><span class="chk-y">✔</span> Fixed at purchase</td>
+                <td><span class="chk-y">✔</span> Single premium / fixed</td>
+                <td><span class="chk-y">✔</span> No premiums</td>
+            </tr>
+            <tr>
+                <td>"Use it or lose it" risk</td>
+                <td><span class="chk-n">✗</span> Premiums lost if no claim</td>
+                <td><span class="chk-y">✔</span> Death benefit if unused</td>
+                <td><span class="chk-y">✔</span> Account value returned</td>
+                <td><span class="chk-y">✔</span> Assets remain yours</td>
+            </tr>
+            <tr>
+                <td>LTC benefit leverage</td>
+                <td><span class="chk-y">✔</span> Highest — pay small, get large pool</td>
+                <td><span class="chk-p">~</span> Moderate (2–4× premium)</td>
+                <td><span class="chk-p">~</span> Moderate acceleration</td>
+                <td><span class="chk-n">✗</span> Dollar for dollar</td>
+            </tr>
+            <tr>
+                <td>Underwriting required</td>
+                <td><span class="chk-n">✗</span> Yes — can be denied</td>
+                <td><span class="chk-n">✗</span> Yes — simplified underwriting</td>
+                <td><span class="chk-p">~</span> Often limited</td>
+                <td><span class="chk-y">✔</span> None</td>
+            </tr>
+            <tr>
+                <td>Tax treatment of benefits</td>
+                <td><span class="chk-y">✔</span> Generally tax-free (qualified)</td>
+                <td><span class="chk-y">✔</span> LTC portion tax-free (IRC 7702B)</td>
+                <td><span class="chk-p">~</span> Partially tax-free (PENRA)</td>
+                <td><span class="chk-n">✗</span> Withdrawals may be taxable</td>
+            </tr>
+            <tr>
+                <td>Best for</td>
+                <td>Younger buyers (50s), good health, want maximum leverage</td>
+                <td>Retirees with lump sum, want certainty &amp; legacy</td>
+                <td>Those with existing annuity assets seeking LTC protection</td>
+                <td>Assets &gt;$2–3M, strong investment returns expected</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ── NEW: Medicaid Planning & 5-Year Lookback ── -->
+    <div class="section-label">Medicaid Planning &amp; the 5-Year Lookback Rule</div>
+
+    <p style="font-size:13px; color:var(--text-mid); margin-bottom:10px;">Medicaid is the primary payer for long-term custodial nursing home care for Americans who have exhausted most of their assets. Planning ahead — ideally 5+ years before needing care — can protect some assets for a spouse or heirs.</p>
+
+    <div class="medicaid-box">
+        <div class="lookback-badge">⚠️ 5-Year Lookback Window</div>
+        <p>Medicaid reviews all asset transfers made in the <strong>60 months (5 years) prior</strong> to application. Any gifts, transfers to family members, or asset movements made during this window can trigger a <strong>penalty period</strong> — months during which Medicaid will not pay for care, even if you qualify financially.</p>
+        <p>The penalty period is calculated as: <em>Value of transferred assets ÷ average monthly nursing home cost in your state</em>. In California, that denominator is currently around <strong>$9,000–$10,000/month</strong>, so gifting $180,000 could result in roughly a 20-month penalty period.</p>
+    </div>
+
+    <div class="policy-grid">
+        <div class="policy-card">
+            <h4>💰 Medicaid Asset Limits (California / Medi-Cal)</h4>
+            <p>California eliminated its asset limit for Medi-Cal (California's Medicaid) in <strong>January 2024</strong> — one of the most significant changes in recent years. There is now no asset cap for most Medi-Cal applicants.</p>
+            <p>However, income limits still apply, and <strong>estate recovery</strong> remains in effect: Medi-Cal can seek reimbursement from a deceased recipient's estate for care costs paid.</p>
+            <p class="tip">✔ California's 2024 change makes Medi-Cal accessible to more middle-class retirees — but estate recovery planning is now even more important.</p>
+        </div>
+        <div class="policy-card">
+            <h4>🏠 Community Spouse Protections</h4>
+            <p>When one spouse needs nursing home care, the other (community spouse) is protected from complete impoverishment. Federal rules allow the community spouse to keep:</p>
+            <p><strong>Minimum Monthly Maintenance Needs Allowance (MMMNA):</strong> A portion of the institutionalized spouse's income.</p>
+            <p><strong>Community Spouse Resource Allowance (CSRA):</strong> Up to ~$148,620 in assets (2025, varies by state).</p>
+            <p class="warn">⚠ The primary home is generally exempt while the community spouse lives in it.</p>
+        </div>
+        <div class="policy-card">
+            <h4>📋 Exempt vs. Countable Assets</h4>
+            <p><strong>Exempt (not counted):</strong> Primary residence (if spouse or dependent lives there), one vehicle, personal belongings, irrevocable prepaid burial plans, term life insurance.</p>
+            <p><strong>Countable (must be spent down):</strong> Bank accounts, investment accounts, second homes, most retirement accounts (state rules vary), cash value life insurance above limits.</p>
+            <p class="tip">✔ Roth IRAs and Traditional IRAs are treated differently by state — California counts them as assets once the owner is past required beginning date.</p>
+        </div>
+        <div class="policy-card">
+            <h4>🔄 Medicaid-Compliant Planning Strategies</h4>
+            <p><strong>Irrevocable Medicaid Asset Protection Trust (MAPT):</strong> Transfer assets into a trust 5+ years before needing care — assets are protected from spend-down and estate recovery.</p>
+            <p><strong>Medicaid-Compliant Annuity:</strong> Convert countable assets into an income stream for the community spouse, removing them from the countable pool.</p>
+            <p><strong>Spousal transfer:</strong> All assets can be transferred to the community spouse without penalty at the time of application.</p>
+            <p class="warn">⚠ These strategies require a qualified elder law attorney — errors can result in lengthy penalty periods.</p>
+        </div>
+    </div>
+
+    <!-- ── NEW: California PACE Program ── -->
+    <div class="section-label">California Programs — PACE &amp; Medi-Cal LTC</div>
+
+    <div class="setting-card-full">
+        <h4>🏡 PACE — Program of All-Inclusive Care for the Elderly</h4>
+        <ul>
+            <li><strong>What it is:</strong> A federal/state program that provides comprehensive medical and social services to frail elderly individuals (55+) who need nursing home–level care but want to live at home or in the community.</li>
+            <li><strong>How it works:</strong> PACE organizations provide all Medicare and Medi-Cal covered services — primary care, specialist visits, hospital, prescriptions, home care, adult day health, physical therapy, transportation — through a single coordinated provider.</li>
+            <li><strong>Who qualifies:</strong> Must be 55+, live in a PACE service area, need nursing facility–level care (certified by the state), and be able to live safely in the community with PACE support.</li>
+            <li><strong>Cost:</strong> For dual Medicare/Medi-Cal enrollees, PACE is typically <strong>at no cost</strong>. Medicare-only enrollees pay a monthly premium for the Medi-Cal portion.</li>
+            <li><strong>California PACE sites:</strong> Available in major metro areas including Los Angeles, San Francisco Bay Area, San Diego, and Sacramento. Coverage is expanding.</li>
+        </ul>
+        <p class="note">⚠ PACE is an underutilized program — many families who would benefit are simply unaware of it. Contact your local Area Agency on Aging (AAA) to find PACE organizations near you.</p>
+    </div>
+
+    <div class="setting-card-full" style="margin-top:10px;">
+        <h4>🏥 Medi-Cal Home and Community Based Services (HCBS)</h4>
+        <ul>
+            <li><strong>In-Home Supportive Services (IHSS):</strong> California's largest home care program. Pays for a provider (including family members) to assist Medi-Cal recipients with ADLs, domestic services, and paramedical services at home. Hours are determined by individual assessment.</li>
+            <li><strong>Community-Based Adult Services (CBAS):</strong> Formerly Adult Day Health Care — provides medical and therapeutic day services for Medi-Cal members at risk of nursing home placement.</li>
+            <li><strong>Multipurpose Senior Services Program (MSSP):</strong> Case management and services to help low-income seniors remain in the community rather than entering nursing homes.</li>
+        </ul>
+        <p class="note">⚠ IHSS is particularly valuable — a family caregiver can be paid to provide care for a Medi-Cal–eligible parent or spouse, keeping money within the family while ensuring quality care.</p>
+    </div>
+
+    <!-- ── NEW: Self-Insurance Math ── -->
+    <div class="section-label">Self-Insurance — The Math</div>
+
+    <p style="font-size:13px; color:var(--text-mid); margin-bottom:10px;">Self-insuring means setting aside a dedicated pool of assets to cover LTC costs without buying insurance. This is viable for high-net-worth retirees, but the numbers need to be run honestly.</p>
+
+    <div class="risk-box">
+        <p><strong>Scenario: Couple in California, planning for 3 years of assisted living each</strong></p>
+        <div class="risk-row">
+            <span class="risk-condition">Assisted Living (each)</span>
+            <span class="risk-arrow">→</span>
+            <span class="risk-action">$6,200/mo × 36 months = <strong>$223,200 per person</strong></span>
+        </div>
+        <div class="risk-row">
+            <span class="risk-condition">Both spouses, 3 yrs each</span>
+            <span class="risk-arrow">→</span>
+            <span class="risk-action"><strong>~$446,000</strong> at today's costs</span>
+        </div>
+        <div class="risk-row">
+            <span class="risk-condition">Inflation at 4%/yr, need in 15 yrs</span>
+            <span class="risk-arrow">→</span>
+            <span class="risk-action">Costs roughly <strong>double</strong> → ~$892,000 needed</span>
+        </div>
+        <div class="risk-row">
+            <span class="risk-condition">One spouse needs memory care (7 yrs)</span>
+            <span class="risk-arrow">→</span>
+            <span class="risk-action">Add $8,000/mo × 84 months → additional <strong>$672,000</strong></span>
+        </div>
+        <div class="risk-row">
+            <span class="risk-condition">Total tail-risk exposure</span>
+            <span class="risk-arrow">→</span>
+            <span class="risk-action"><strong>$1.2M–$1.5M</strong> for an unlucky scenario</span>
+        </div>
+    </div>
+
+    <div class="callout-strip">
+        <span class="cs-icon">💡</span>
+        <div><strong>Self-Insurance Rule of Thumb:</strong> A liquid, investable portfolio of <strong>$2.5M–$3M+</strong> (beyond your home) gives a reasonable cushion for self-insuring LTC without severely impairing retirement income. Below that threshold, the risk of portfolio depletion from an extended care event is substantial — especially for couples where sequential care needs can compound costs.</div>
+    </div>
+
+    <!-- ── NEW: When to Buy Decision Framework ── -->
+    <div class="section-label">When to Buy — Decision Framework</div>
+
+    <p style="font-size:13px; color:var(--text-mid); margin-bottom:10px;">Timing matters enormously with LTC insurance. Buying too early wastes money on years of premiums before the risk is material; buying too late means higher premiums, potential denial due to health conditions, or no options at all.</p>
+
+    <div class="risk-box">
+        <div class="decision-row">
+            <span class="decision-icon">✅</span>
+            <span class="decision-label">Ages 50–57</span>
+            <span class="decision-rec"><span class="gold">Sweet spot for traditional LTC insurance.</span> Premiums are significantly lower, health is more likely to qualify, and you have more policy years to benefit from inflation riders. Most financial planners recommend purchasing in this window.</span>
+        </div>
+        <div class="decision-row">
+            <span class="decision-icon">🔄</span>
+            <span class="decision-label">Ages 58–65</span>
+            <span class="decision-rec"><span class="gold">Hybrid policies become more attractive.</span> Traditional LTC premiums are higher and premium increase risk is real. A hybrid life/LTC policy with a lump-sum premium offers a fixed, known cost and eliminates the "use it or lose it" concern. Evaluate both options carefully.</span>
+        </div>
+        <div class="decision-row">
+            <span class="decision-icon">⚠️</span>
+            <span class="decision-label">Ages 65–70</span>
+            <span class="decision-rec">Options are narrowing. Health underwriting becomes a significant barrier — conditions like diabetes, heart disease, obesity, or prior cancer history can result in denial. An <span class="gold">annuity with LTC rider</span> (less stringent underwriting) may be the most accessible option. Act promptly if you are in good health.</span>
+        </div>
+        <div class="decision-row">
+            <span class="decision-icon">❌</span>
+            <span class="decision-label">Age 70+</span>
+            <span class="decision-rec">Traditional LTC insurance is largely unavailable or prohibitively expensive. Focus shifts to <span class="gold">Medicaid planning</span>, asset protection trusts, PACE program eligibility, and self-insurance strategies. Begin Medicaid lookback planning immediately if assets are modest.</span>
+        </div>
+        <div class="decision-row">
+            <span class="decision-icon">🏠</span>
+            <span class="decision-label">Any age, &gt;$3M assets</span>
+            <span class="decision-rec"><span class="gold">Self-insurance is viable</span> — but run the tail-risk math (see above). Consider a hybrid policy as a "financial backstop" for extended care scenarios rather than a primary coverage strategy. Protects heirs and maintains portfolio integrity.</span>
+        </div>
+        <div class="decision-row">
+            <span class="decision-icon">👫</span>
+            <span class="decision-label">Married couples</span>
+            <span class="decision-rec">The spouse who is healthier should prioritize getting a policy in force — even if one spouse is denied. <span class="gold">Shared care riders</span> add significant value. The community spouse protection rules under Medicaid also interact with how you plan — consider both insurance and Medicaid scenarios simultaneously.</span>
+        </div>
+    </div>
+
+    <!-- ── NEW: Tax Advantages ── -->
+    <div class="section-label">Tax Advantages of LTC Insurance</div>
+
+    <div class="setting-card-full">
+        <h4>🧾 Federal Tax Deductibility (Traditional LTC Insurance)</h4>
+        <ul>
+            <li>Premiums on <strong>tax-qualified LTC policies</strong> are deductible as medical expenses, subject to age-based limits and the 7.5% AGI floor for itemizers.</li>
+            <li>2025 deductible premium limits: Age 51–60: <strong>$1,790</strong> | Age 61–70: <strong>$4,770</strong> | Age 71+: <strong>$5,960</strong> per person.</li>
+            <li>Self-employed individuals can deduct 100% of eligible premiums (up to the age-based limit) without itemizing.</li>
+            <li>Benefits received from a tax-qualified policy are generally <strong>tax-free</strong> up to $420/day (2025) or actual costs, whichever is greater.</li>
+        </ul>
+    </div>
+
+    <div class="setting-card-full" style="margin-top:10px;">
+        <h4>🔄 Hybrid Policy Tax Treatment (IRC Section 7702B &amp; PENRA)</h4>
+        <ul>
+            <li>Hybrid life/LTC policies qualify under IRC 7702B — LTC benefits paid from the policy are received <strong>income-tax free</strong>.</li>
+            <li>You can do a <strong>1035 exchange</strong> — move funds from an existing life insurance policy or annuity into a hybrid LTC policy with <strong>no immediate tax consequence</strong>. This is a powerful strategy for repositioning underperforming whole life or annuity assets.</li>
+            <li>Under PENRA (Pension Protection Act), annuities with LTC riders allow LTC benefit payments to be received tax-free, and the cost basis inside the annuity is used first, reducing the taxable portion of LTC withdrawals.</li>
+        </ul>
+        <p class="note">⚠ Tax laws change. Consult a tax advisor or CFP to verify current rules and how they apply to your specific policy type and state of residence.</p>
+    </div>
+
+</div><!-- end content -->
 
 <p class="disclaimer">Costs are recent national averages from Genworth and AARP. Actual costs vary by location and provider. Consult a licensed financial advisor or elder care specialist for personal guidance.</p>
 
