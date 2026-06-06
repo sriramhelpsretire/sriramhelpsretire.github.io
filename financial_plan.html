@@ -166,19 +166,29 @@
 
         /* ── HEADER ── */
         header {
-            padding: 40px 30px 16px; /* Increased top padding to clear red corner */
+            padding: 28px 30px 0;
             text-align: center;
             position: relative;
+            background: var(--text-dark);
         }
 
         header h1 {
-            font-size: 34px;
+            font-size: 28px;
             font-weight: 900;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: var(--text-dark);
+            color: #ffffff;
             text-shadow: none;
             font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+            margin-bottom: 6px;
+        }
+
+        header .header-sub {
+            color: var(--accent-gold);
+            font-size: 13px;
+            font-style: italic;
+            margin: 0;
+            padding-bottom: 16px;
         }
 
         .red-corner {
@@ -187,6 +197,27 @@
             width: 22px;
             height: 80px;
             background-color: var(--red-accent);
+        }
+
+        /* ── HERO BADGE BAR ── */
+        .hero-bar {
+            background: var(--text-dark);
+            padding: 10px 20px 18px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 7px;
+            border-bottom: 4px solid var(--accent-gold);
+        }
+        .hero-badge {
+            background: rgba(201,147,58,0.15);
+            border: 1px solid rgba(201,147,58,0.45);
+            color: var(--accent-gold);
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 5px 13px;
+            border-radius: 100px;
+            white-space: nowrap;
         }
 
         /* ── CONTENT ── */
@@ -442,7 +473,18 @@
     <header>
         <div class="red-corner"></div>
         <h1>6 Areas of Comprehensive Financial Planning</h1>
+        <p class="header-sub">The complete framework — from cash flow to estate — that underpins every retirement decision</p>
     </header>
+
+    <!-- Hero Badge Bar -->
+    <div class="hero-bar">
+        <span class="hero-badge">💵 1 · Financial Position &amp; Cash Flow</span>
+        <span class="hero-badge">🛡️ 2 · Protection Planning</span>
+        <span class="hero-badge">📈 3 · Investment Planning</span>
+        <span class="hero-badge">🧾 4 · Tax Planning</span>
+        <span class="hero-badge">🏖️ 5 · Retirement Planning</span>
+        <span class="hero-badge">🏛️ 6 · Estate Planning</span>
+    </div>
 
     <div class="content">
         <img src="six_areas_financial_plan.jpg" alt="6 Areas of Financial Planning Wheel" style="width:100%;height:auto;border-radius:8px;margin-bottom:18px;border:1px solid rgba(0,0,0,0.10);">
