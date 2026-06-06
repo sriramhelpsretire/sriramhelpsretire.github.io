@@ -224,17 +224,56 @@
   }
 
   /* ── Page Title ── */
+  .page-title-wrap {
+    background: var(--text-dark);
+    text-align: center;
+    padding: 28px 20px 0;
+    margin: 0 -14px 0 0; /* bleed to edges */
+  }
+
   .page-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(22px, 6vw, 36px);
     font-weight: 900;
     letter-spacing: clamp(2px, 1.5vw, 6px);
     text-transform: uppercase;
-    color: var(--text-dark);
+    color: #ffffff;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 6px;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .page-subtitle {
+    color: var(--gold);
+    font-size: 13.5px;
+    font-style: italic;
+    margin-bottom: 0;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(201,147,58,0.3);
+  }
+
+  /* ── Hero Badge Bar ── */
+  .hero-bar {
+    background: var(--text-dark);
+    padding: 14px 20px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 4px solid var(--gold);
+    margin: 0 -14px 0 0;
+  }
+  .hero-badge {
+    background: rgba(201,147,58,0.15);
+    border: 1px solid rgba(201,147,58,0.45);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+    font-style: normal;
+    font-family: 'Lora', Georgia, serif;
   }
 
   .intro {
@@ -717,11 +756,33 @@
 
 
 <div class="container">
-  <h1 class="page-title">Transition Plan</h1>
+  <div class="page-title-wrap">
+    <h1 class="page-title">Transition Plan</h1>
+    <p class="page-subtitle">How every pillar of your financial &amp; personal life evolves — Working Years → Retirement</p>
+  </div>
+
+  <!-- Hero Badge Bar -->
+  <div class="hero-bar">
+    <span class="hero-badge">💰 Income &amp; Income Streams</span>
+    <span class="hero-badge">🏢 Employer Benefits</span>
+    <span class="hero-badge">🏥 Healthcare Coverage</span>
+    <span class="hero-badge">📈 Saving &amp; Investing</span>
+    <span class="hero-badge">🏦 Withdrawal Strategy</span>
+    <span class="hero-badge">💳 Debt Management</span>
+    <span class="hero-badge">🧾 Spending &amp; Budgeting</span>
+    <span class="hero-badge">📊 Tax Planning</span>
+    <span class="hero-badge">🛡️ Insurance &amp; Protection</span>
+    <span class="hero-badge">🏛️ Estate &amp; Legacy</span>
+    <span class="hero-badge">🧠 Career &amp; Identity</span>
+    <span class="hero-badge">🌟 Purpose &amp; Fulfillment</span>
+    <span class="hero-badge">🤝 Social &amp; Community</span>
+    <span class="hero-badge">❤️ Health &amp; Wellness</span>
+    <span class="hero-badge">🏡 Housing &amp; Lifestyle</span>
+    <span class="hero-badge">👨‍👩‍👧 Family &amp; Relationships</span>
+  </div>
 
   <p class="intro">
-    A comprehensive view of how each pillar of your financial and personal life evolves from your working years into retirement.
-    <br><br>Tap any card to expand details. We will get into details of components in each pillar as we move along the retirement phases.
+    Tap any card to expand details. We will get into details of components in each pillar as we move along the retirement phases.
     To figure out "What is Retirement?" click on the button at the bottom.
   </p>
 
