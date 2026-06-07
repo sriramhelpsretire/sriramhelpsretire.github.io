@@ -21,7 +21,85 @@
       font-family: 'DM Sans', sans-serif;
       background-color: #DAE2EB;
       color: #161b22;
-      padding-top: 72px;
+      padding-top: 92px;
+    }
+
+    /* ── Hero Badge Bar ── */
+    .hero-bar {
+      position: fixed; top: 52px; left: 0; width: 100%; z-index: 9999;
+      background: #0d1117; padding: 8px 24px 10px;
+      display: flex; flex-wrap: nowrap; gap: 7px;
+      border-bottom: 3px solid #d4af37; box-sizing: border-box; overflow-x: auto;
+    }
+    .hero-badge {
+      background: rgba(212,175,55,0.13); border: 1px solid rgba(212,175,55,0.4);
+      color: #d4af37; font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── SS Explainer Write-up ── */
+    .ss-explainer {
+      background: #ffffff; border: 1.5px solid #000;
+      border-left: 5px solid #d4af37; border-radius: 10px;
+      padding: 22px 24px; margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+    .ss-explainer h2 {
+      font-family: 'DM Serif Display', serif; font-size: 18px;
+      color: #1a2a3a; margin: 0 0 6px 0;
+    }
+    .ss-explainer .ss-sub {
+      font-size: 13px; color: #3d5166; margin: 0 0 16px 0; line-height: 1.55;
+    }
+    .ss-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;
+    }
+    .ss-card {
+      background: #f8f9fa; border: 1.5px solid #000; border-radius: 8px; padding: 13px 14px;
+    }
+    .ss-card .sc-icon { font-size: 20px; margin-bottom: 6px; }
+    .ss-card h4 { font-size: 12.5px; font-weight: 700; color: #1a2a3a; margin: 0 0 5px 0; }
+    .ss-card p  { font-size: 12px; color: #3d5166; line-height: 1.55; margin: 0; }
+    .ss-card strong { color: #1a2a3a; }
+
+    /* Age comparison strip */
+    .age-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px;
+    }
+    .age-tile {
+      border: 1.5px solid #000; border-radius: 8px; padding: 12px 14px; text-align: center;
+    }
+    .age-tile .at-age {
+      font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .age-tile .at-label { font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 6px; }
+    .age-tile .at-pct {
+      font-size: 18px; font-weight: 800; margin-bottom: 4px;
+    }
+    .age-tile .at-desc { font-size: 11px; color: #3d5166; line-height: 1.4; }
+    .age-tile.early  { background: #fff1f2; border-color: #f87171; }
+    .age-tile.early  .at-age  { color: #b91c1c; }
+    .age-tile.early  .at-pct  { color: #b91c1c; }
+    .age-tile.fra    { background: #f0fdf4; border-color: #4ade80; }
+    .age-tile.fra    .at-age  { color: #166534; }
+    .age-tile.fra    .at-pct  { color: #166534; }
+    .age-tile.late   { background: #fffbeb; border-color: #d4af37; }
+    .age-tile.late   .at-age  { color: #92400e; }
+    .age-tile.late   .at-pct  { color: #92400e; }
+    .age-tile.max    { background: #eff6ff; border-color: #60a5fa; }
+    .age-tile.max    .at-age  { color: #1e40af; }
+    .age-tile.max    .at-pct  { color: #1e40af; }
+
+    /* Callout strip */
+    .ss-callout {
+      background: #fffbeb; border: 1px solid #d4af37; border-radius: 6px;
+      padding: 11px 14px; font-size: 12.5px; color: #5a3e00; line-height: 1.6;
+      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;
+    }
+    .ss-callout strong { color: #1a2a3a; }
+    .ss-callout.red { background: #fff1f2; border-color: #f87171; color: #7f1d1d; }
     }
     body::after {
       content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #a82222; z-index: 10005;
@@ -128,6 +206,17 @@
     </div>
   </nav>
 
+  <!-- Hero Badge Bar -->
+  <div class="hero-bar">
+    <span class="hero-badge">📅 Claiming Age Comparison (62–70)</span>
+    <span class="hero-badge">💰 Cumulative Lifetime Payout Matrix</span>
+    <span class="hero-badge">⚖️ Break-Even Age Calculator</span>
+    <span class="hero-badge">👫 Spousal Benefit Integration</span>
+    <span class="hero-badge">📈 8% Delayed Retirement Credit</span>
+    <span class="hero-badge">🔄 COLA Projection Modelling</span>
+    <span class="hero-badge">💀 Mortality-Adjusted Strategy</span>
+  </div>
+
   <div class="max-w-7xl mx-auto px-4 py-8">
     <header class="mb-6 border-b border-gray-300 pb-4">
       <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">Social Security Claiming Strategy Matrix</h1>
@@ -136,7 +225,83 @@
       </p>
     </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- SS Explainer Write-up -->
+    <div class="ss-explainer">
+      <h2>🏛️ Social Security Claiming — What Every Retiree Needs to Know</h2>
+      <p class="ss-sub">The single biggest Social Security decision you'll make is <em>when</em> to claim. File too early and you lock in a permanent reduction. Wait too long and you leave years of income on the table. The right answer depends on your health, your spouse's situation, your other income, and your tax picture.</p>
+
+      <!-- Age tile strip -->
+      <div class="age-strip">
+        <div class="age-tile early">
+          <div class="at-age">62</div>
+          <div class="at-label">Earliest Possible</div>
+          <div class="at-pct">70%</div>
+          <div class="at-desc">of your FRA benefit — a <strong>permanent 30% reduction</strong> that applies every month for the rest of your life.</div>
+        </div>
+        <div class="age-tile fra">
+          <div class="at-age">67</div>
+          <div class="at-label">Full Retirement Age*</div>
+          <div class="at-pct">100%</div>
+          <div class="at-desc">of your PIA — the SSA baseline. No reduction, no credit. *FRA is 67 for those born 1960 or later.</div>
+        </div>
+        <div class="age-tile late">
+          <div class="at-age">69</div>
+          <div class="at-label">Two-Year Delay</div>
+          <div class="at-pct">116%</div>
+          <div class="at-desc">of FRA benefit. Each year past FRA earns a <strong>guaranteed 8% Delayed Retirement Credit</strong>, permanently.</div>
+        </div>
+        <div class="age-tile max">
+          <div class="at-age">70</div>
+          <div class="at-label">Maximum Benefit</div>
+          <div class="at-pct">124%</div>
+          <div class="at-desc">of FRA benefit. No additional credits accrue past 70 — this is the <strong>absolute ceiling</strong> for delayed claiming.</div>
+        </div>
+      </div>
+
+      <!-- Six concept cards -->
+      <div class="ss-grid">
+        <div class="ss-card">
+          <div class="sc-icon">📊</div>
+          <h4>Primary Insurance Amount (PIA)</h4>
+          <p>Your PIA is the monthly benefit you'd receive at your Full Retirement Age, calculated from your highest <strong>35 years of indexed earnings</strong>. Zero-earning years count as zeros — working longer replaces low-earning years and increases your PIA. Check yours at <strong>ssa.gov/myaccount</strong>.</p>
+        </div>
+        <div class="ss-card">
+          <div class="sc-icon">⏳</div>
+          <h4>The 8% Annual Delayed Credit</h4>
+          <p>Every year you delay past FRA (up to 70) grows your benefit by <strong>8% permanently</strong> — a guaranteed, inflation-adjusted return unavailable anywhere else. Delaying from 67 to 70 on a $3,000/mo PIA adds <strong>$720/mo for life</strong>, compounded further by annual COLA adjustments.</p>
+        </div>
+        <div class="ss-card">
+          <div class="sc-icon">⚖️</div>
+          <h4>The Break-Even Age</h4>
+          <p>The break-even age is where cumulative delayed benefits overtake what you'd have received by claiming early. It typically falls between <strong>ages 78–82</strong>. Live past your break-even and delay wins — mathematically and substantially. This tool shows your exact break-even for any strategy pair.</p>
+        </div>
+        <div class="ss-card">
+          <div class="sc-icon">👫</div>
+          <h4>Spousal &amp; Survivor Benefits</h4>
+          <p>A spouse can claim up to <strong>50% of your PIA</strong> as a spousal benefit. More importantly, when the higher earner dies, the survivor inherits the <strong>larger of the two benefits</strong> permanently. Delaying the higher earner's claim is therefore long-term financial insurance — protecting the surviving spouse for potentially 20+ years.</p>
+        </div>
+        <div class="ss-card">
+          <div class="sc-icon">🧾</div>
+          <h4>Taxation of Social Security</h4>
+          <p>Up to <strong>85% of your SS benefit</strong> is taxable if combined income (MAGI + ½ SS) exceeds $44,000 for MFJ filers. Roth withdrawals, HSA distributions, and return-of-basis from after-tax accounts don't count toward this threshold — making them ideal bridge income sources to keep SS taxation low in early retirement.</p>
+        </div>
+        <div class="ss-card">
+          <div class="sc-icon">📈</div>
+          <h4>COLA — Built-In Inflation Hedge</h4>
+          <p>SS benefits receive an annual <strong>Cost-of-Living Adjustment</strong> tied to CPI-W, applied to your full benefit base. A higher starting benefit from delaying compounds powerfully over time. At 2.5% COLA, a $3,500/mo benefit at age 70 grows to over <strong>$5,800/mo by age 85</strong> — entirely automatically.</p>
+        </div>
+      </div>
+
+      <!-- Callout boxes -->
+      <div class="ss-callout">
+        <span style="font-size:18px;flex-shrink:0;">💡</span>
+        <div><strong>The Bridge Strategy for Early Retirees:</strong> If you retire at 60–65 but want to delay SS to 70, you need income to bridge the gap. Draw from taxable brokerage accounts, take modest IRA withdrawals (ideally paired with Roth conversions to fill low brackets), or use cash reserves. This window is also your best opportunity to keep MAGI low for ACA subsidies before Medicare begins at 65.</div>
+      </div>
+      <div class="ss-callout red">
+        <span style="font-size:18px;flex-shrink:0;">⚠️</span>
+        <div><strong>Earnings Test Before FRA:</strong> If you claim before your Full Retirement Age and continue working, the SSA withholds $1 of benefit for every $2 earned above <strong>$22,320 (2025)</strong>. The withheld amounts are restored later as a benefit credit — but they disrupt cash flow. In the year you reach FRA the limit rises to $59,520 ($1 withheld per $3 over). After FRA, you can earn unlimited income with no SS reduction whatsoever.</div>
+      </div>
+    </div>
       
       <!-- LEFT COLUMN: EARNINGS & FILING VARIABLES -->
       <div class="lg:col-span-4 space-y-4">
