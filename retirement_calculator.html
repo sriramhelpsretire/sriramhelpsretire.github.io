@@ -36,7 +36,11 @@
   --danger:#f87171;--text:#e6edf3;--muted:#7d8590;--label:#000000;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;padding-top:72px}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;padding-top:120px}
+
+/* ── Hero Badge Bar ── */
+.hero-bar{position:fixed;top:72px;left:0;width:100%;z-index:9999;background:#0d1117;padding:8px 24px 10px;display:flex;flex-wrap:nowrap;gap:7px;border-bottom:3px solid var(--accent);box-sizing:border-box;overflow-x:auto;}
+.hero-badge{background:rgba(232,200,74,0.12);border:1px solid rgba(232,200,74,0.4);color:var(--accent);font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;white-space:nowrap;flex-shrink:0;}
 
 header{display:none}
 
@@ -68,10 +72,10 @@ header span{color:#09349E;font-size:16px;font-family:'DM Mono',monospace}
 .home-btn:hover{background: #693909;opacity:.88}
 .home-btn svg{width:14px;height:14px}
 
-.layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 72px)}
+.layout{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 120px)}
 
 /* SIDEBAR */
-.sidebar{background:#cef2e5;border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 72px);position:sticky;top:72px}
+.sidebar{background:#cef2e5;border-right:1px solid var(--border);padding:16px 14px;overflow-y:auto;max-height:calc(100vh - 120px);position:sticky;top:120px}
 .sxn{margin-bottom:18px}
 .sxn h3{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#000000;margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--border)}
 .field{margin-bottom:7px}
@@ -325,12 +329,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   </select>
 </nav>
 
-<header>
-  <div class="header-left">
-    <h1>Retirement Portfolio Calculator</h1>
-    <span><p><u>Couples Financial Projection (CA)</u> | <u>Enter Data, Calculate Projection,</u><br><u>Save summary to CSV</u></p></span>
-  </div>
-</header>
+<!-- Hero Badge Bar -->
+<div class="hero-bar">
+  <span class="hero-badge">👫 Couples Portfolio Projection</span>
+  <span class="hero-badge">📅 Year-by-Year Growth Table</span>
+  <span class="hero-badge">🏦 401k · Roth IRA · Brokerage</span>
+  <span class="hero-badge">🏛️ Social Security with COLA</span>
+  <span class="hero-badge">📋 RMD Planning</span>
+  <span class="hero-badge">🧾 Tax &amp; IRMAA Projection</span>
+  <span class="hero-badge">🔄 Roth Conversion Optimizer</span>
+  <span class="hero-badge">✅ Retirement Readiness Score</span>
+  <span class="hero-badge">💾 CSV Export</span>
+</div>
 
 <div class="layout">
 <aside class="sidebar">
