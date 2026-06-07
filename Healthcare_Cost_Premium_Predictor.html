@@ -21,7 +21,84 @@
       font-family: 'DM Sans', sans-serif;
       background-color: #DAE2EB;
       color: #161b22;
-      padding-top: 72px;
+      padding-top: 92px;
+    }
+
+    /* ── Hero Badge Bar ── */
+    .hero-bar {
+      position: fixed; top: 52px; left: 0; width: 100%; z-index: 9999;
+      background: #0d1117; padding: 8px 24px 10px;
+      display: flex; flex-wrap: nowrap; gap: 7px;
+      border-bottom: 3px solid #d4af37; box-sizing: border-box; overflow-x: auto;
+    }
+    .hero-badge {
+      background: rgba(212,175,55,0.13); border: 1px solid rgba(212,175,55,0.4);
+      color: #d4af37; font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── Healthcare Explainer ── */
+    .hc-explainer {
+      background: #ffffff; border: 1.5px solid #000;
+      border-left: 5px solid #d4af37; border-radius: 10px;
+      padding: 22px 24px; margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+    .hc-explainer h2 {
+      font-family: 'DM Serif Display', serif; font-size: 18px;
+      color: #1a2a3a; margin: 0 0 6px 0;
+    }
+    .hc-explainer .hc-sub {
+      font-size: 13px; color: #3d5166; margin: 0 0 16px 0; line-height: 1.55;
+    }
+
+    /* Phase timeline strip */
+    .phase-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-bottom: 16px;
+    }
+    .phase-tile {
+      border: 1.5px solid #000; border-radius: 8px;
+      padding: 13px 14px; position: relative; overflow: hidden;
+    }
+    .phase-tile .pt-tag {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 6px; display: inline-block;
+      padding: 2px 8px; border-radius: 20px;
+    }
+    .phase-tile h4 { font-size: 13px; font-weight: 700; color: #1a2a3a; margin: 0 0 6px 0; }
+    .phase-tile p  { font-size: 12px; color: #3d5166; line-height: 1.55; margin: 0; }
+    .phase-tile strong { color: #1a2a3a; }
+    .phase-tile.pre65  { background: #eff6ff; }
+    .phase-tile.pre65  .pt-tag { background: #dbeafe; color: #1e40af; }
+    .phase-tile.trans  { background: #fefce8; }
+    .phase-tile.trans  .pt-tag { background: #fef9c3; color: #854d0e; }
+    .phase-tile.post65 { background: #f0fdf4; }
+    .phase-tile.post65 .pt-tag { background: #dcfce7; color: #166534; }
+
+    /* Concept cards grid */
+    .hc-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 16px;
+    }
+    .hc-card {
+      background: #f8f9fa; border: 1.5px solid #000;
+      border-radius: 8px; padding: 13px 14px;
+    }
+    .hc-card .hc-icon { font-size: 20px; margin-bottom: 6px; }
+    .hc-card h4 { font-size: 12.5px; font-weight: 700; color: #1a2a3a; margin: 0 0 5px 0; }
+    .hc-card p  { font-size: 12px; color: #3d5166; line-height: 1.55; margin: 0; }
+    .hc-card strong { color: #1a2a3a; }
+
+    /* Callout strips */
+    .hc-callout {
+      background: #fffbeb; border: 1px solid #d4af37; border-radius: 6px;
+      padding: 11px 14px; font-size: 12.5px; color: #5a3e00; line-height: 1.6;
+      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;
+    }
+    .hc-callout.blue { background: #eff6ff; border-color: #93c5fd; color: #1e3a5f; }
+    .hc-callout.red  { background: #fff1f2; border-color: #f87171; color: #7f1d1d; }
+    .hc-callout strong { color: #1a2a3a; }
     }
     body::after {
       content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #a82222; z-index: 10005;
@@ -128,6 +205,17 @@
     </div>
   </nav>
 
+  <!-- Hero Badge Bar -->
+  <div class="hero-bar">
+    <span class="hero-badge">🛡️ ACA Subsidy Optimiser (Pre-65)</span>
+    <span class="hero-badge">📊 FPL % &amp; PTC Calculator</span>
+    <span class="hero-badge">💊 IRMAA Tier Tracker (Post-65)</span>
+    <span class="hero-badge">🔄 MAGI Composition Breakdown</span>
+    <span class="hero-badge">👫 MFJ &amp; Single Filer Modes</span>
+    <span class="hero-badge">🏥 ACA vs Medicare Phase Switch</span>
+    <span class="hero-badge">💰 Net Monthly Cost Output</span>
+  </div>
+
   <div class="max-w-7xl mx-auto px-4 py-8">
     <header class="mb-6 border-b border-gray-300 pb-4">
       <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">Healthcare Cost &amp; Premium Predictor</h1>
@@ -136,7 +224,78 @@
       </p>
     </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- Healthcare Explainer Write-up -->
+    <div class="hc-explainer">
+      <h2>🏥 Healthcare in Retirement — The Two-Phase Cost Picture</h2>
+      <p class="hc-sub">Healthcare is typically the largest unplanned expense in early retirement. The strategy is fundamentally different before and after age 65 — and your income decisions in both phases directly determine how much you pay. Getting this right can save tens of thousands of dollars over your retirement.</p>
+
+      <!-- Phase timeline -->
+      <div class="phase-strip">
+        <div class="phase-tile pre65">
+          <span class="pt-tag">Phase 1 · Pre-65</span>
+          <h4>ACA Marketplace Coverage</h4>
+          <p>From retirement until Medicare begins at 65, most retirees rely on the ACA marketplace. Your net premium is determined by your <strong>MAGI relative to the Federal Poverty Level (FPL)</strong>. With careful income management, subsidies can reduce premiums dramatically — sometimes to near zero.</p>
+        </div>
+        <div class="phase-tile trans">
+          <span class="pt-tag">Transition · Age 63–64</span>
+          <h4>The IRMAA Lookback Window</h4>
+          <p>Medicare premiums at 65 are set by your income <strong>two years prior</strong>. Whatever MAGI you report at 63–64 directly determines your Part B and Part D costs at 65–66. This is your last window to actively manage income before Medicare locks in your first-year premiums.</p>
+        </div>
+        <div class="phase-tile post65">
+          <span class="pt-tag">Phase 2 · Post-65</span>
+          <h4>Medicare + IRMAA Surcharges</h4>
+          <p>After 65, Medicare becomes primary. The base Part B premium is ~$185/mo, but higher earners pay <strong>IRMAA surcharges</strong> — up to $594/mo for Part B alone. These are income-tested annually based on your tax return from two years prior, making tax planning a permanent Medicare cost-control tool.</p>
+        </div>
+      </div>
+
+      <!-- Six concept cards -->
+      <div class="hc-grid">
+        <div class="hc-card">
+          <div class="hc-icon">📊</div>
+          <h4>MAGI &amp; How It's Calculated</h4>
+          <p>Modified Adjusted Gross Income (MAGI) is the key number driving both ACA subsidies and IRMAA tiers. It includes: wages, IRA withdrawals, Roth conversions, capital gains, dividends, Social Security (85% max), and rental income. <strong>Roth withdrawals, HSA distributions, and return-of-basis are excluded</strong> — making these the most tax-efficient income sources in retirement.</p>
+        </div>
+        <div class="hc-card">
+          <div class="hc-icon">🛡️</div>
+          <h4>ACA Premium Tax Credits (PTCs)</h4>
+          <p>PTCs reduce your monthly ACA premium based on your household MAGI as a percentage of FPL. The subsidy is calculated so your Silver plan premium doesn't exceed a set share of income — from <strong>0% at 100–150% FPL</strong> up to <strong>~8.5% above 400% FPL</strong>. In early retirement with controlled MAGI, premiums can be very low or even zero.</p>
+        </div>
+        <div class="hc-card">
+          <div class="hc-icon">⚠️</div>
+          <h4>The Subsidy Clawback Risk</h4>
+          <p>If your actual MAGI ends the year higher than estimated (e.g., unexpected capital gains, large Roth conversion), the IRS claws back excess PTCs on your tax return via Form 8962. <strong>Model conservatively</strong> — it's better to under-estimate subsidies than face a large year-end repayment bill. This tool helps you see the impact in real time.</p>
+        </div>
+        <div class="hc-card">
+          <div class="hc-icon">💊</div>
+          <h4>IRMAA — Medicare's Income Surcharge</h4>
+          <p>Income-Related Monthly Adjustment Amounts (IRMAA) add surcharges to Part B and Part D premiums for higher earners. In 2026 there are <strong>5 IRMAA tiers</strong> above the base rate. A single large income event — selling a business, big Roth conversion, or property sale — can push you into a higher tier for an entire year. The tier resets annually based on the 2-year lookback.</p>
+        </div>
+        <div class="hc-card">
+          <div class="hc-icon">💡</div>
+          <h4>Income Engineering in Early Retirement</h4>
+          <p>Between retirement and age 65, you often control exactly what counts as MAGI. Living off <strong>Roth withdrawals, after-tax brokerage principal, or HSA funds</strong> can keep MAGI artificially low — maximising ACA subsidies while simultaneously creating space for Roth conversions. This is one of the most powerful wealth-building windows available to early retirees.</p>
+        </div>
+        <div class="hc-card">
+          <div class="hc-icon">🏥</div>
+          <h4>Cost-Sharing Reductions (CSRs)</h4>
+          <p>Available only on Silver-tier ACA plans for households below 250% FPL, CSRs reduce your <strong>deductible, copays, and out-of-pocket maximum</strong> — not just your premium. At 150–200% FPL, a Silver plan with CSR can have deductibles as low as $300–$500 with very low OOP caps. Choosing Gold over Silver at these income levels is often a mistake.</p>
+        </div>
+      </div>
+
+      <!-- Callout boxes -->
+      <div class="hc-callout blue">
+        <span style="font-size:18px;flex-shrink:0;">💡</span>
+        <div><strong>The ACA-to-Medicare Transition Playbook:</strong> In the year you turn 65, you're on ACA for part of the year and Medicare for the rest. Cancel your ACA plan effective the month Medicare starts — do not let them overlap. Notify your marketplace promptly to stop PTCs. Medicare Part A is retroactive up to 6 months, which can complicate HSA contributions — stop contributing to your HSA at least 6 months before enrolling in Medicare to avoid excess contribution penalties.</div>
+      </div>
+      <div class="hc-callout">
+        <span style="font-size:18px;flex-shrink:0;">🎯</span>
+        <div><strong>The Sweet Spot — 200–300% FPL:</strong> For a single person in 2025, 200% FPL is ~$29,160 and 300% FPL is ~$43,740. Keeping MAGI in this range typically delivers ACA premiums of <strong>$0–$150/mo net</strong> after PTCs on a Silver plan, plus meaningful CSR benefits. For couples the thresholds are roughly double. This is the primary reason many early retirees carefully stage IRA withdrawals and Roth conversions to stay within this band.</div>
+      </div>
+      <div class="hc-callout red">
+        <span style="font-size:18px;flex-shrink:0;">⚠️</span>
+        <div><strong>IRMAA Appeals — Life-Changing Events:</strong> If a one-time income spike (job loss, retirement, divorce, death of spouse) pushed you into a high IRMAA tier, you can appeal using <strong>Form SSA-44</strong>. SSA will use a more recent tax year's income instead of the 2-year lookback if a qualifying life-changing event occurred. File promptly — IRMAA adjustments are not retroactive beyond the appeal date.</div>
+      </div>
+    </div>
       
       <!-- LEFT COLUMN: INPUT METRICS -->
       <div class="lg:col-span-4 space-y-4">
