@@ -21,7 +21,89 @@
       font-family: 'DM Sans', sans-serif;
       background-color: #DAE2EB;
       color: #161b22;
-      padding-top: 72px;
+      padding-top: 92px;
+    }
+
+    /* ── Hero Badge Bar ── */
+    .hero-bar {
+      position: fixed; top: 52px; left: 0; width: 100%; z-index: 9999;
+      background: #0d1117; padding: 8px 24px 10px;
+      display: flex; flex-wrap: nowrap; gap: 7px;
+      border-bottom: 3px solid #d4af37; box-sizing: border-box; overflow-x: auto;
+    }
+    .hero-badge {
+      background: rgba(212,175,55,0.13); border: 1px solid rgba(212,175,55,0.4);
+      color: #d4af37; font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── RMD Explainer ── */
+    .rmd-explainer {
+      background: #ffffff; border: 1.5px solid #000;
+      border-left: 5px solid #d4af37; border-radius: 10px;
+      padding: 22px 24px; margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+    .rmd-explainer h2 {
+      font-family: 'DM Serif Display', serif; font-size: 18px;
+      color: #1a2a3a; margin: 0 0 6px 0;
+    }
+    .rmd-explainer .rmd-sub {
+      font-size: 13px; color: #3d5166; margin: 0 0 16px 0; line-height: 1.55;
+    }
+
+    /* Age milestone strip */
+    .rmd-age-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-bottom: 16px;
+    }
+    .rmd-age-tile {
+      border: 1.5px solid #000; border-radius: 8px;
+      padding: 12px 13px; text-align: center;
+    }
+    .rmd-age-tile .rat-age {
+      font-family: 'DM Serif Display', serif; font-size: 24px;
+      font-weight: 700; margin-bottom: 3px;
+    }
+    .rmd-age-tile .rat-label {
+      font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .rmd-age-tile .rat-desc {
+      font-size: 11px; color: #3d5166; line-height: 1.45;
+    }
+    .rmd-age-tile.window  { background: #eff6ff; border-color: #60a5fa; }
+    .rmd-age-tile.window  .rat-age, .rmd-age-tile.window .rat-label { color: #1e40af; }
+    .rmd-age-tile.medicare { background: #f0fdf4; border-color: #4ade80; }
+    .rmd-age-tile.medicare .rat-age, .rmd-age-tile.medicare .rat-label { color: #166534; }
+    .rmd-age-tile.rmdstart { background: #fefce8; border-color: #d4af37; }
+    .rmd-age-tile.rmdstart .rat-age, .rmd-age-tile.rmdstart .rat-label { color: #854d0e; }
+    .rmd-age-tile.danger  { background: #fff1f2; border-color: #f87171; }
+    .rmd-age-tile.danger  .rat-age, .rmd-age-tile.danger .rat-label { color: #b91c1c; }
+
+    /* Concept cards */
+    .rmd-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 16px;
+    }
+    .rmd-card {
+      background: #f8f9fa; border: 1.5px solid #000;
+      border-radius: 8px; padding: 13px 14px;
+    }
+    .rmd-card .rc-icon { font-size: 20px; margin-bottom: 6px; }
+    .rmd-card h4 { font-size: 12.5px; font-weight: 700; color: #1a2a3a; margin: 0 0 5px 0; }
+    .rmd-card p  { font-size: 12px; color: #3d5166; line-height: 1.55; margin: 0; }
+    .rmd-card strong { color: #1a2a3a; }
+
+    /* Callout strips */
+    .rmd-callout {
+      background: #fffbeb; border: 1px solid #d4af37; border-radius: 6px;
+      padding: 11px 14px; font-size: 12.5px; color: #5a3e00; line-height: 1.6;
+      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;
+    }
+    .rmd-callout.blue { background: #eff6ff; border-color: #93c5fd; color: #1e3a5f; }
+    .rmd-callout.red  { background: #fff1f2; border-color: #f87171; color: #7f1d1d; }
+    .rmd-callout strong { color: #1a2a3a; }
     }
     body::after {
       content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #a82222; z-index: 10005;
@@ -128,6 +210,17 @@
     </div>
   </nav>
 
+  <!-- Hero Badge Bar -->
+  <div class="hero-bar">
+    <span class="hero-badge">📋 SECURE 2.0 RMD Age Rules</span>
+    <span class="hero-badge">📉 Voluntary Drawdown Strategy</span>
+    <span class="hero-badge">🔄 Roth Conversion Integration</span>
+    <span class="hero-badge">📊 Year-by-Year Balance Projection</span>
+    <span class="hero-badge">🧾 Lifetime Tax Spike Neutralisation</span>
+    <span class="hero-badge">💊 IRMAA Impact Modelling</span>
+    <span class="hero-badge">🏛️ IRS Uniform Lifetime Table</span>
+  </div>
+
   <div class="max-w-7xl mx-auto px-4 py-8">
     <header class="mb-6 border-b border-gray-300 pb-4">
       <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">RMD &amp; Account Drawdown Planner</h1>
@@ -136,7 +229,83 @@
       </p>
     </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <!-- RMD Explainer Write-up -->
+    <div class="rmd-explainer">
+      <h2>📋 Required Minimum Distributions — Why They Matter and How to Get Ahead of Them</h2>
+      <p class="rmd-sub">RMDs are the IRS's way of reclaiming the tax deferral it granted on your Traditional IRA and 401(k). Once triggered, they are mandatory, taxable, and — if your account has grown large — potentially disruptive to your entire retirement income plan. The key insight: the time to act is <em>before</em> RMDs begin, not after.</p>
+
+      <!-- Age milestone strip -->
+      <div class="rmd-age-strip">
+        <div class="rmd-age-tile window">
+          <div class="rat-age">60–65</div>
+          <div class="rat-label">🪟 Conversion Window</div>
+          <div class="rat-desc">Low-income years before SS and Medicare. <strong>Best window</strong> for Roth conversions and voluntary drawdowns at minimal tax cost.</div>
+        </div>
+        <div class="rmd-age-tile medicare">
+          <div class="rat-age">65</div>
+          <div class="rat-label">🏥 Medicare Begins</div>
+          <div class="rat-desc">Income from ages 63–64 sets your IRMAA tier. Large IRA balances at 65 signal rising future RMDs — plan proactively.</div>
+        </div>
+        <div class="rmd-age-tile rmdstart">
+          <div class="rat-age">73–75</div>
+          <div class="rat-label">⚠️ RMD Trigger Age</div>
+          <div class="rat-desc">SECURE 2.0 sets RMD start at <strong>73</strong> (born 1951–1959) or <strong>75</strong> (born 1960+). Distributions are mandatory from all Traditional IRAs and most 401(k)s.</div>
+        </div>
+        <div class="rmd-age-tile danger">
+          <div class="rat-age">80+</div>
+          <div class="rat-label">🚨 Peak RMD Exposure</div>
+          <div class="rat-desc">RMD percentages increase with age. A $2M IRA at 85 mandates ~$130K/year — regardless of whether you need it or what bracket it pushes you into.</div>
+        </div>
+      </div>
+
+      <!-- Six concept cards -->
+      <div class="rmd-grid">
+        <div class="rmd-card">
+          <div class="rc-icon">📐</div>
+          <h4>How RMDs Are Calculated</h4>
+          <p>Each year's RMD = your IRA balance on <strong>December 31 of the prior year</strong> ÷ your IRS Life Expectancy Factor from the Uniform Lifetime Table. The factor shrinks with age, so the percentage you must withdraw grows every year — from about <strong>3.6% at age 73</strong> rising to over <strong>6.5% by age 85</strong>.</p>
+        </div>
+        <div class="rmd-card">
+          <div class="rc-icon">💣</div>
+          <h4>The RMD Spike Problem</h4>
+          <p>If a $1M IRA grows at 6%/yr untouched from age 60 to 73, it becomes ~$2.1M. RMDs on $2.1M can easily exceed <strong>$75,000–$100,000/year</strong> — stacked on top of Social Security, pensions, and investment income. This can push retirees into the 22–32% bracket, increase SS taxability, and trigger IRMAA surcharges for years.</p>
+        </div>
+        <div class="rmd-card">
+          <div class="rc-icon">🔄</div>
+          <h4>Voluntary Drawdown Before RMD Age</h4>
+          <p>The strategy is to <strong>voluntarily harvest IRA dollars early</strong> — via withdrawals or Roth conversions — while you are in a lower bracket. Every dollar converted between ages 60–72 at the 12% or 22% rate is a dollar that won't be forced out at 24–32% later. The smaller your IRA at RMD age, the lower your mandatory distributions for life.</p>
+        </div>
+        <div class="rmd-card">
+          <div class="rc-icon">🏛️</div>
+          <h4>SECURE 2.0 — What Changed</h4>
+          <p>The SECURE 2.0 Act (2022) raised the RMD starting age from <strong>72 → 73</strong> (effective 2023) and to <strong>75</strong> for those born in 1960 or later (effective 2033). Roth accounts inside 401(k)s are now also <strong>exempt from RMDs</strong> starting in 2024 — a major change that makes in-plan Roth conversions even more attractive.</p>
+        </div>
+        <div class="rmd-card">
+          <div class="rc-icon">👨‍👩‍👧</div>
+          <h4>Inherited IRA Rules (SECURE 2.0)</h4>
+          <p>Non-spouse beneficiaries must drain an inherited Traditional IRA within <strong>10 years</strong>. If the original owner had already started RMDs, heirs must also take annual distributions during those 10 years — often at their peak earning years and highest tax rates. Roth IRAs inherited are still tax-free and have no lifetime RMDs for the original owner.</p>
+        </div>
+        <div class="rmd-card">
+          <div class="rc-icon">💊</div>
+          <h4>RMDs &amp; IRMAA Interaction</h4>
+          <p>RMDs count as ordinary income and flow directly into your MAGI — the same number that determines your Medicare IRMAA tier two years later. A $120,000 RMD in a year where you also have Social Security and dividends can easily trigger <strong>IRMAA Tier 2 or 3</strong>, adding $2,000–$5,000/year in Medicare surcharges on top of your income tax bill.</p>
+        </div>
+      </div>
+
+      <!-- Callout boxes -->
+      <div class="rmd-callout blue">
+        <span style="font-size:18px;flex-shrink:0;">💡</span>
+        <div><strong>The Bracket-Fill Drawdown Strategy:</strong> Each year between retirement and your RMD start age, calculate how much room you have left in your current tax bracket. Fill it with IRA withdrawals or Roth conversions. For example, if your standard deduction and other income leave $40,000 of room in the 22% bracket, convert exactly $40,000. Repeat annually. Over 10–13 years, this systematically deflates your pre-tax account — reducing lifetime taxes, IRMAA exposure, and the eventual RMD burden.</div>
+      </div>
+      <div class="rmd-callout">
+        <span style="font-size:18px;flex-shrink:0;">🎯</span>
+        <div><strong>QCDs — A Tax-Free RMD Alternative at 70½+:</strong> Qualified Charitable Distributions (QCDs) allow you to send up to <strong>$105,000/year (2025)</strong> directly from your IRA to a qualified charity — and it counts toward your RMD without being included in your taxable income. For charitably inclined retirees, QCDs are the most tax-efficient way to satisfy RMDs: they reduce MAGI, lower SS taxability, and keep you out of higher IRMAA tiers.</div>
+      </div>
+      <div class="rmd-callout red">
+        <span style="font-size:18px;flex-shrink:0;">⚠️</span>
+        <div><strong>Missing an RMD Is Costly:</strong> Failure to take your full RMD results in a penalty of <strong>25% of the shortfall</strong> (reduced to 10% if corrected within 2 years under SECURE 2.0). If you have multiple IRAs, you can aggregate the total RMD across accounts — but you must take at least the correct total. 401(k) RMDs must be taken separately from each plan. Set up automatic distributions before age 73 to avoid accidental misses.</div>
+      </div>
+    </div>
       
       <!-- LEFT COLUMN: SYSTEM CONTROLS & BALANCES -->
       <div class="lg:col-span-4 space-y-4">
