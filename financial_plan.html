@@ -243,30 +243,90 @@
             line-height: 1.6;
         }
 
-        .area { margin-bottom: 18px; }
+        /* ── EXPANDED AREA CARDS ── */
+        .area {
+            margin-bottom: 22px;
+            background: #f8f9fa;
+            border: 1.5px solid #000;
+            border-left: 5px solid var(--accent-gold);
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
         .area-header {
+            font-style: normal;
+            font-weight: 800;
+            color: #ffffff;
+            font-size: 14px;
+            margin: 0;
+            padding: 11px 16px;
+            background: var(--text-dark);
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .area-sub {
+            font-size: 12.5px;
+            color: var(--text-mid);
             font-style: italic;
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 14.5px;
-            margin-bottom: 6px;
-            line-height: 1.5;
+            padding: 10px 16px 6px;
+            line-height: 1.55;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
         }
 
         .area-bullets {
             list-style: none;
-            padding-left: 32px;
+            padding: 10px 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
         }
 
         .area-bullets li {
-            color: var(--gold-dark);
-            font-style: italic;
-            font-size: 14px;
-            line-height: 1.7;
+            color: var(--text-dark);
+            font-style: normal;
+            font-size: 13px;
+            line-height: 1.55;
+            padding-left: 18px;
+            position: relative;
         }
 
-        .area-bullets li::before { content: "- "; }
+        .area-bullets li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-size: 11px;
+            top: 2px;
+        }
+
+        .area-bullets li strong {
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .area-bullets li span.note {
+            display: block;
+            font-size: 11.5px;
+            color: var(--text-mid);
+            margin-top: 2px;
+            font-style: italic;
+        }
+
+        .area-callout {
+            margin: 0 16px 12px;
+            background: #fffbeb;
+            border: 1px solid var(--accent-gold);
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-size: 12px;
+            color: #5a3e00;
+            line-height: 1.6;
+        }
+
+        .area-callout strong { color: var(--text-dark); }
 
         .closing-note {
             font-style: italic;
@@ -498,51 +558,148 @@
         </p>
 
         <div class="area">
-            <p class="area-header">1. Financial Position/Cash Flow Management</p>
+            <p class="area-header">💵 1 · Financial Position &amp; Cash Flow Management</p>
+            <p class="area-sub">The foundation of all financial planning. Before anything else, you need a clear picture of where money comes from, where it goes, and what you own vs. owe.</p>
             <ul class="area-bullets">
-                <li><strong>Cash flow / budgeting</strong></li>
-                <li><strong>Debt management and emergency reserves planning</strong></li>
+                <li><strong>Net Worth Statement</strong> — assets (investments, home, savings) minus liabilities (mortgage, loans, credit) gives your true financial starting point.
+                    <span class="note">Update annually and track the trend — the direction matters as much as the number.</span>
+                </li>
+                <li><strong>Cash Flow / Budgeting</strong> — in retirement, income shifts from a paycheck to a portfolio. Map every income source (SS, pension, withdrawals, part-time work) against fixed and variable expenses.
+                    <span class="note">Rule of thumb: essential expenses should be covered by guaranteed income (SS + pension); discretionary funded by portfolio.</span>
+                </li>
+                <li><strong>Emergency Reserves</strong> — keep 6–12 months of living expenses in cash or short-term bonds, separate from investment accounts. This is your buffer against sequence-of-returns risk in early retirement.
+                    <span class="note">In retirement, a cash bucket prevents forced selling of equities in a downturn.</span>
+                </li>
+                <li><strong>Debt Management</strong> — entering retirement debt-free is strongly preferred. Mortgage payoff timing, HELOC strategy, and eliminating high-interest debt all affect monthly cash flow directly.
+                    <span class="note">A paid-off home reduces your fixed expense floor and adds housing security for life.</span>
+                </li>
+                <li><strong>Spending Plan by Phase</strong> — early retirement (Go-Go years) typically has higher discretionary spend; mid-retirement (Slow-Go) lower; late retirement (No-Go) may spike again with healthcare costs.
+                    <span class="note">Plan for a non-linear spending curve, not a flat inflation-adjusted line.</span>
+                </li>
             </ul>
+            <div class="area-callout">💡 <strong>Key metric:</strong> Your "savings rate" during accumulation and your "withdrawal rate" in retirement are the two most powerful levers in your financial life. Target &lt;4% withdrawal to give your portfolio the best chance of lasting 30+ years.</div>
         </div>
 
         <div class="area">
-            <p class="area-header">2. Protection Planning (Risk Management)</p>
+            <p class="area-header">🛡️ 2 · Protection Planning (Risk Management)</p>
+            <p class="area-sub">Insurance and risk management protect everything you've built from low-probability, high-impact events. The goal is to insure what you cannot afford to lose.</p>
             <ul class="area-bullets">
-                <li><strong>Life, Disability, and Long-term care insurance</strong></li>
-                <li><strong>Employee benefits</strong></li>
+                <li><strong>Life Insurance</strong> — term life covers income replacement during working years. In retirement, the need shifts: does your spouse need income protection? Is there a legacy goal? Permanent policies (whole/universal life) may fund estate planning or LTC hybrids.
+                    <span class="note">Reassess coverage annually — most term policies can be dropped once the mortgage is paid and kids are financially independent.</span>
+                </li>
+                <li><strong>Disability Insurance</strong> — your most valuable pre-retirement asset is your ability to earn income. Group DI from an employer typically covers 60% of salary; supplement with individual coverage to close the gap.
+                    <span class="note">Social Security disability is a safety net but has a strict definition and a multi-month wait. Don't rely on it alone.</span>
+                </li>
+                <li><strong>Long-Term Care Insurance</strong> — 70% of retirees will need some form of LTC. The average stay is 2.5 years; Alzheimer's can last 8–10 years. Facility costs in California exceed $8,000–$12,000/month.
+                    <span class="note">Buy between ages 50–57 for best rates and underwriting access. Consider hybrid life/LTC policies to eliminate "use it or lose it" risk.</span>
+                </li>
+                <li><strong>Healthcare Coverage</strong> — bridging coverage from retirement to Medicare at 65 is critical. ACA marketplace, COBRA, or spouse's employer plan are the main options. Premiums and subsidy eligibility depend on MAGI.
+                    <span class="note">Keep MAGI below key FPL thresholds to maximise ACA Premium Tax Credits in early retirement.</span>
+                </li>
+                <li><strong>Property &amp; Liability Insurance</strong> — homeowner's, auto, and an umbrella policy ($1–2M) protect hard-earned assets from lawsuits and casualty events. Review coverage limits annually.
+                    <span class="note">An umbrella policy costs ~$200–$400/yr and provides significant liability protection — one of the best value insurance products available.</span>
+                </li>
+                <li><strong>Employee Benefits Review</strong> — at retirement, evaluate what group benefits you lose (life, disability, dental, vision, FSA) and what you need to replace. Don't leave without understanding your COBRA rights and retiree benefit options.
+                </li>
             </ul>
+            <div class="area-callout">💡 <strong>Key principle:</strong> Insurance is not an investment — it's risk transfer. Buy only what you need, at the right time, from financially strong carriers. Review every policy when your life circumstances change.</div>
         </div>
 
         <div class="area">
-            <p class="area-header">3. Investment Planning</p>
+            <p class="area-header">📈 3 · Investment Planning</p>
+            <p class="area-sub">A sound investment plan aligns your portfolio with your time horizon, risk tolerance, and income needs — not market forecasts or neighbour's tips.</p>
             <ul class="area-bullets">
-                <li><strong>Portfolio management and institutional level management</strong></li>
-                <li><strong>Evaluating risk tolerance and time horizon</strong></li>
+                <li><strong>Asset Allocation</strong> — the mix of stocks, bonds, and alternatives is the single biggest driver of long-term returns and volatility. It should shift as you age — from growth-focused in accumulation to income-and-stability in retirement.
+                    <span class="note">A bond tent (temporarily overweighting bonds at retirement, then gradually adding equities) helps manage sequence-of-returns risk.</span>
+                </li>
+                <li><strong>Risk Tolerance vs. Risk Capacity</strong> — your emotional comfort with volatility (tolerance) may differ from how much risk your financial plan can actually absorb (capacity). Plan to the lower of the two.
+                    <span class="note">Many retirees are overconfident about their tolerance until they experience a 30% drawdown. Test your reaction before it happens.</span>
+                </li>
+                <li><strong>Portfolio Diversification</strong> — spread across asset classes (US equity, international, fixed income, real assets), geographies, sectors, and account types. Concentration in employer stock (RSUs, options) is a common hidden risk.
+                    <span class="note">Single-stock concentration above 5–10% of portfolio warrants a staged diversification plan, ideally tax-aware.</span>
+                </li>
+                <li><strong>Expense Ratios &amp; Fund Selection</strong> — every 0.5% in extra fees compounds dramatically over 20+ years. Low-cost index funds (Vanguard, Fidelity, Schwab) outperform the majority of actively managed funds net of fees over long periods.
+                    <span class="note">A 1% expense ratio difference on $500K over 20 years at 7% growth costs roughly $190,000 in foregone wealth.</span>
+                </li>
+                <li><strong>Rebalancing Strategy</strong> — set target allocations and rebalance annually or when drift exceeds 5%. Rebalance using new contributions during accumulation; use withdrawals strategically in retirement to avoid taxable events.
+                </li>
+                <li><strong>The Bucket Strategy</strong> — in retirement, segment your portfolio into buckets: Bucket 1 (cash, 1–2 yrs expenses), Bucket 2 (bonds/conservative, 3–7 yrs), Bucket 3 (equities, 8+ yrs). Replenish from Bucket 3 → 2 → 1 systematically.
+                    <span class="note">This provides psychological clarity — you always know where next year's income is coming from, even in a bear market.</span>
+                </li>
             </ul>
+            <div class="area-callout">💡 <strong>Key principle:</strong> Time in the market beats timing the market. Your investment plan should be boring enough that you never feel urgency to change it. Complexity is the enemy of execution.</div>
         </div>
 
         <div class="area">
-            <p class="area-header">4. Tax Planning</p>
+            <p class="area-header">🧾 4 · Tax Planning</p>
+            <p class="area-sub">Tax planning in retirement is year-round work — not just April preparation. The goal is to minimise lifetime taxes across all accounts and income sources, not just this year's bill.</p>
             <ul class="area-bullets">
-                <li><strong>Company retirement plans and personalization</strong></li>
-                <li><strong>Traditional, Roth, and Rollover IRAs</strong></li>
+                <li><strong>Tax-Diversified Accounts</strong> — maintain assets in all three buckets: Tax-Deferred (Traditional IRA/401k), Tax-Free (Roth IRA/401k), and Taxable (brokerage). This gives you flexibility to control your MAGI in any given year.
+                    <span class="note">Withdrawing from the right bucket in the right year can save thousands in taxes annually.</span>
+                </li>
+                <li><strong>Roth Conversion Strategy</strong> — the window between retirement and age 73 (RMD start) is prime time for Roth conversions. Convert just enough each year to fill your current bracket without crossing into the next — a strategy called bracket topping.
+                    <span class="note">Every dollar converted at 22% today is a dollar that won't be forced out at 24–32% later, plus reduces future IRMAA exposure.</span>
+                </li>
+                <li><strong>RMD Planning</strong> — Required Minimum Distributions start at age 73 (75 if born 1960+). Large pre-tax balances create large future RMDs — potentially pushing you into higher brackets and triggering IRMAA surcharges. Begin planning a decade early.
+                </li>
+                <li><strong>Capital Gains Management</strong> — long-term capital gains are taxed at 0% for MFJ filers up to ~$94,050 (2025). Harvest gains intentionally in low-income years. Tax-loss harvesting offsets gains in taxable accounts.
+                    <span class="note">0% LTCG rate is one of the most underutilised planning tools in early retirement.</span>
+                </li>
+                <li><strong>Social Security Taxability</strong> — up to 85% of SS benefits are taxable based on combined income. Roth withdrawals, HSA distributions, and basis recovery from after-tax accounts don't count — plan your income mix accordingly.
+                </li>
+                <li><strong>IRMAA Management</strong> — Medicare premiums are income-tested on your return from 2 years prior. Roth conversions, capital gains, and IRA withdrawals all affect MAGI. A single high-income year can cost thousands in surcharges.
+                    <span class="note">Plan every income decision with an eye on next year's IRMAA tier — not just this year's tax bracket.</span>
+                </li>
             </ul>
+            <div class="area-callout">💡 <strong>Key principle:</strong> The best tax planning is proactive, not reactive. Work with a CPA or CFP to model multi-year tax scenarios — bracket management, Roth conversion ladders, and withdrawal sequencing can save significantly more than any single deduction.</div>
         </div>
 
         <div class="area">
-            <p class="area-header">5. Retirement Planning</p>
+            <p class="area-header">🏖️ 5 · Retirement Planning</p>
+            <p class="area-sub">Retirement planning is not a single event — it's a 20–30 year phase of life that requires active management of income, withdrawals, and risk as circumstances evolve.</p>
             <ul class="area-bullets">
-                <li><strong>Distribution planning and income identification</strong></li>
-                <li><strong>Plan for "sequence-of-returns risk"</strong></li>
+                <li><strong>Retirement Income Identification</strong> — map every income source: Social Security (and optimal claiming age), pension, annuity income, rental, part-time work, and portfolio withdrawals. Guaranteed income (SS + pension) should cover baseline expenses.
+                    <span class="note">The gap between guaranteed income and total expenses is what your portfolio must cover — this is your "portfolio dependency number."</span>
+                </li>
+                <li><strong>Social Security Optimisation</strong> — every year of delay past FRA earns an 8% permanent benefit increase. For married couples, the higher earner delaying to 70 maximises survivor benefits. Break-even is typically around age 78–82.
+                </li>
+                <li><strong>Withdrawal Rate &amp; Sequence-of-Returns Risk</strong> — a poor market in the first 5 years of retirement can permanently impair a portfolio even if subsequent returns recover. Manage this with a cash buffer, flexible spending, or annuity income for baseline needs.
+                    <span class="note">The 4% rule is a starting point, not a guarantee. Adjust for your specific horizon, spending flexibility, and portfolio composition.</span>
+                </li>
+                <li><strong>Distribution Sequencing</strong> — the order of withdrawals matters: generally draw from taxable accounts first (managing capital gains), then tax-deferred (controlling bracket), then Roth last (let it grow tax-free). But rules vary by situation — optimise annually.
+                </li>
+                <li><strong>Monte Carlo &amp; Stress Testing</strong> — model your plan across hundreds of market scenarios to understand your probability of portfolio survival. Account for variable spending, healthcare cost spikes, and longevity beyond age 90.
+                    <span class="note">Target a 90%+ success rate in Monte Carlo simulation for a robust plan — not 50%.</span>
+                </li>
+                <li><strong>Longevity Planning</strong> — a 65-year-old couple has a 50% chance one spouse lives to 90 and a 25% chance one reaches 95. Plan for 30 years of retirement, not 20. Longevity risk is underestimated far more often than it's overestimated.
+                </li>
             </ul>
+            <div class="area-callout">💡 <strong>Key principle:</strong> Retirement is not the finish line — it's the starting gun for a new phase of financial management. Build a plan, review it annually, and be willing to adjust spending and withdrawals as conditions change.</div>
         </div>
 
         <div class="area">
-            <p class="area-header">6. Estate Planning</p>
+            <p class="area-header">🏛️ 6 · Estate Planning</p>
+            <p class="area-sub">Estate planning ensures your assets go where you intend, in the most tax-efficient way, with the least legal friction — and that your wishes are followed if you are incapacitated.</p>
             <ul class="area-bullets">
-                <li><strong>Wealth transfer and business succession</strong></li>
-                <li><strong>Co-ordination of insurance and estate documents</strong></li>
+                <li><strong>Will &amp; Revocable Living Trust</strong> — a Will directs asset distribution and names guardians for minor children. A Revocable Living Trust avoids probate (a public, often lengthy court process), provides for incapacity management, and can include spendthrift protections for heirs.
+                    <span class="note">Without a trust, many assets must go through probate — potentially costly and taking 12–24 months in California.</span>
+                </li>
+                <li><strong>Beneficiary Designations</strong> — IRAs, 401(k)s, life insurance, and annuities pass by beneficiary designation — not by Will. Review these annually and after every major life event. A named beneficiary always overrides the Will.
+                    <span class="note">Common mistake: leaving an ex-spouse as beneficiary after divorce, or failing to name a contingent beneficiary. Review every account.</span>
+                </li>
+                <li><strong>Powers of Attorney</strong> — a Durable Financial POA designates someone to manage your finances if incapacitated. A Healthcare POA (or Proxy) designates a healthcare decision-maker. An Advance Directive/Living Will states your end-of-life care preferences.
+                    <span class="note">Without these documents, courts may need to appoint a conservator — an expensive, time-consuming process your family can avoid.</span>
+                </li>
+                <li><strong>Wealth Transfer &amp; Gifting Strategy</strong> — the annual gift tax exclusion is $18,000/person (2025). 529 plans allow superfunding (5-year front-loading). Irrevocable trusts (ILIT, SLAT, GRAT) can remove assets from the taxable estate while providing family benefits.
+                    <span class="note">The federal estate tax exemption is $13.61M per person (2025) but may reset significantly lower in 2026 when TCJA provisions sunset.</span>
+                </li>
+                <li><strong>Inherited IRA &amp; SECURE 2.0 Planning</strong> — non-spouse heirs must drain inherited Traditional IRAs within 10 years (SECURE 2.0). This can create significant tax bills for heirs in peak earning years. Roth IRAs passed to heirs are tax-free — a powerful legacy tool.
+                    <span class="note">Converting Traditional IRA to Roth during your lifetime is one of the most impactful gifts you can leave to children.</span>
+                </li>
+                <li><strong>Business Succession Planning</strong> — if you own a business, a formal succession plan (buy-sell agreement, valuation methodology, funding via life insurance) is essential. Most business owners have 70–90% of net worth tied up in their business — diversification and liquidity planning are critical.
+                </li>
             </ul>
+            <div class="area-callout">💡 <strong>Key principle:</strong> Estate documents are not "set and forget." Review your Will, trust, POAs, and beneficiary designations every 3–5 years and after any major life change — marriage, divorce, birth, death, relocation, or significant asset change.</div>
         </div>
 
         <p class="closing-note">Each area is critical and should be planned alongside others, not in silos.</p>
