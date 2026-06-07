@@ -21,8 +21,50 @@
       font-family: 'DM Sans', sans-serif;
       background-color: #DAE2EB;
       color: #161b22;
-      padding-top: 72px;
+      padding-top: 92px;
     }
+
+    /* ── Hero Badge Bar ── */
+    .hero-bar {
+      position: fixed; top: 52px; left: 0; width: 100%; z-index: 9999;
+      background: #0d1117; padding: 8px 24px 10px;
+      display: flex; flex-wrap: nowrap; gap: 7px;
+      border-bottom: 3px solid #d4af37; box-sizing: border-box; overflow-x: auto;
+    }
+    .hero-badge {
+      background: rgba(212,175,55,0.13); border: 1px solid rgba(212,175,55,0.4);
+      color: #d4af37; font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 100px; white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── Why Roth Write-up ── */
+    .why-roth {
+      background: #ffffff; border: 1.5px solid #000;
+      border-left: 5px solid #d4af37; border-radius: 10px;
+      padding: 22px 24px; margin-bottom: 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+    .why-roth h2 {
+      font-family: 'DM Serif Display', serif; font-size: 18px;
+      color: #1a2a3a; margin: 0 0 14px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 8px;
+    }
+    .why-roth-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;
+    }
+    .why-card {
+      background: #f8f9fa; border: 1.5px solid #000; border-radius: 8px; padding: 13px 14px;
+    }
+    .why-card .wc-icon { font-size: 20px; margin-bottom: 6px; }
+    .why-card h4 { font-size: 12.5px; font-weight: 700; color: #1a2a3a; margin: 0 0 5px 0; }
+    .why-card p  { font-size: 12px; color: #3d5166; line-height: 1.55; margin: 0; }
+    .why-card strong { color: #1a2a3a; }
+    .why-roth-note {
+      background: #fffbeb; border: 1px solid #d4af37; border-radius: 6px;
+      padding: 10px 14px; font-size: 12.5px; color: #5a3e00; line-height: 1.6;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .why-roth-note strong { color: #1a2a3a; }
     body::after {
       content: ''; position: fixed; top: 0; right: 0; width: 8px; height: 100%; background: #c0392b; z-index: 10005;
     }
@@ -140,6 +182,17 @@
       </div>
     </nav>
 
+  <!-- Hero Badge Bar -->
+  <div class="hero-bar">
+    <span class="hero-badge">🔄 Bracket Topping Strategy</span>
+    <span class="hero-badge">📊 Marginal Bracket Visualiser</span>
+    <span class="hero-badge">🧾 Tax Bracket Fill Calculator</span>
+    <span class="hero-badge">💊 IRMAA Threshold Tracker</span>
+    <span class="hero-badge">🎚️ Conversion Amount Sandbox</span>
+    <span class="hero-badge">👫 MFJ &amp; Single Filer Modes</span>
+    <span class="hero-badge">📈 Lifetime Tax Minimisation</span>
+  </div>
+
   <div class="max-w-7xl mx-auto px-4 py-8">
     <header class="mb-6 border-b border-gray-300 pb-4">
       <h1 class="text-3xl font-black text-gray-900 tracking-tight font-serif-custom">Roth Conversion Optimizer &amp; Bracket Topping Tool</h1>
@@ -147,6 +200,54 @@
         Identify exactly how much room remains in your current marginal tax bracket and optimize single-year "bracket topping" execution values.
       </p>
     </header>
+
+    <!-- Why Roth Conversions Write-up -->
+    <div class="why-roth">
+      <h2>💡 Why Roth Conversions Are One of the Best Moves in Early Retirement</h2>
+      <div class="why-roth-grid">
+
+        <div class="why-card">
+          <div class="wc-icon">📉</div>
+          <h4>Your Tax Rate Is Temporarily Low</h4>
+          <p>The gap between your last paycheck and your first Social Security or RMD payment is a <strong>golden window</strong>. Income often falls to its lowest point in decades — making now the cheapest time to convert Traditional IRA dollars to Roth at a low marginal rate.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="wc-icon">🚫</div>
+          <h4>Roth Withdrawals Are Tax-Free Forever</h4>
+          <p>Once converted and seasoned (5-year rule), Roth dollars are withdrawn <strong>completely tax-free</strong> — no federal tax, no state tax, no impact on Medicare IRMAA, and no effect on Social Security taxability. Dollar for dollar, Roth dollars are worth more than pre-tax dollars in retirement.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="wc-icon">📋</div>
+          <h4>RMDs Will Force Taxable Withdrawals Later</h4>
+          <p>Starting at age 73, the IRS <strong>requires</strong> you to draw down your Traditional IRA — whether you need the money or not. Large RMDs can push you into higher brackets, increase Social Security taxation, and trigger IRMAA surcharges. Converting now reduces your future RMD burden permanently.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="wc-icon">💊</div>
+          <h4>Protect Your Medicare Premiums (IRMAA)</h4>
+          <p>Medicare Part B and D premiums are based on income from <strong>two years prior</strong>. A large Traditional IRA withdrawal at 72 can spike your IRMAA surcharge at 74. Roth withdrawals don't count toward IRMAA MAGI — converting now keeps your future Medicare costs predictable and lower.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="wc-icon">🏛️</div>
+          <h4>Social Security Taxability Threshold</h4>
+          <p>Up to <strong>85% of Social Security</strong> can be taxable if your combined income (MAGI + half of SS) exceeds $44,000 for MFJ. Roth withdrawals don't count toward this formula — whereas every Traditional IRA dollar does. Shifting to Roth now means less of your SS benefit gets taxed later.</p>
+        </div>
+
+        <div class="why-card">
+          <div class="wc-icon">🎁</div>
+          <h4>A Better Inheritance for Heirs</h4>
+          <p>Under the SECURE 2.0 Act, non-spouse heirs must drain inherited IRAs within <strong>10 years</strong> — often at their peak earning years and highest tax rates. Leaving a Roth IRA instead means your heirs receive those dollars <strong>income-tax free</strong>, dramatically increasing the after-tax legacy you leave behind.</p>
+        </div>
+
+      </div>
+      <div class="why-roth-note">
+        <span style="font-size:18px;flex-shrink:0;">🎯</span>
+        <div><strong>The Bracket-Topping Strategy:</strong> The goal is not to convert everything at once — it's to convert just enough each year to <em>fill up</em> your current tax bracket without crossing into the next one. This tool calculates exactly how much room you have in your bracket after accounting for all income sources, so you can execute the optimal conversion amount year by year and minimise your lifetime tax bill.</div>
+      </div>
+    </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       
