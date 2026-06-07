@@ -63,8 +63,9 @@ body {
 
 /* Header */
 header {
-    padding: 25px 20px 10px 20px;
+    padding: 26px 20px 0 20px;
     position: relative;
+    background: var(--text-dark);
 }
 
 header::after {
@@ -80,8 +81,36 @@ header::after {
 header h1 {
     font-size: clamp(22px, 4vw, 34px);
     font-weight: 400;
+    margin: 0 0 5px 0;
+    color: #ffffff;
+}
+
+header .header-sub {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--accent-gold);
     margin: 0;
-    color: var(--text-dark);
+    padding-bottom: 14px;
+}
+
+/* Hero Badge Bar */
+.hero-bar {
+    background: var(--text-dark);
+    padding: 10px 20px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    border-bottom: 4px solid var(--accent-gold);
+}
+.hero-badge {
+    background: rgba(201,147,58,0.15);
+    border: 1px solid rgba(201,147,58,0.45);
+    color: var(--accent-gold);
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 5px 13px;
+    border-radius: 100px;
+    white-space: nowrap;
 }
 
 /* Content */
@@ -345,7 +374,22 @@ footer {
     <div class="page-wrapper">
         <header>
             <h1>Some important websites</h1>
+            <p class="header-sub">15 curated resources — government portals, HSA guides, financial media &amp; tax tools</p>
         </header>
+
+        <!-- Hero Badge Bar -->
+        <div class="hero-bar">
+            <span class="hero-badge">🏛️ Social Security</span>
+            <span class="hero-badge">🏥 Medicare</span>
+            <span class="hero-badge">📋 RMD Calculator</span>
+            <span class="hero-badge">🇺🇸 Treasury Direct</span>
+            <span class="hero-badge">💊 HSA Resources</span>
+            <span class="hero-badge">📺 Investment &amp; Media</span>
+            <span class="hero-badge">🏠 Property Tax</span>
+            <span class="hero-badge">🔄 Backdoor Roth IRA</span>
+            <span class="hero-badge">📚 Fidelity Learning</span>
+            <span class="hero-badge">15 Links · 4 Categories</span>
+        </div>
 		
 		
 		
